@@ -2,6 +2,10 @@
 title: javascript设计模式之工厂模式
 date: 2018-10-24 18:14:34
 tags:
+	- 导航
+    - ES6
+    - 设计模式
+categories: 设计模式
 ---
 
 注意:javascript设计模式跟其他强语音类型稍微有点区别.
