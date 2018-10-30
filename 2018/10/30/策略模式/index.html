@@ -108,25 +108,25 @@
 
 
 
-  <meta name="description" content="注意:javascript设计模式跟其他强语音类型稍微有点区别. 介绍 将new操作单独封装 我们通常在遇到new的时候,就可以考虑是否需要使用工厂模式了  举例 去买汉堡,直接点餐,取餐,不用自己亲手做 商店要封装做汉堡的工作,做好直接给买者  UML类图  代码示例` class Product {  constructor(name){     this.name = name } init">
+  <meta name="description" content="策略模式定义的一组算法封装起来,使其相互之间可以替换,不会随客服端的变化而变化 场景 jquery的动画 表单验证 不同类别的奖金额度等等  代码实现let inputStrategy = function(){ let strategy = { notNull: function(value) { return /\s+/.test(value) ? &amp;apos;请输入内容&amp;apos; : &amp;a">
 <meta name="keywords" content="导航 - ES6 - 设计模式">
 <meta property="og:type" content="article">
-<meta property="og:title" content="javascript设计模式之工厂模式">
-<meta property="og:url" content="http://yoursite.com/2018/10/24/javascript设计模式之工厂模式/index.html">
+<meta property="og:title" content="策略模式">
+<meta property="og:url" content="http://yoursite.com/2018/10/30/策略模式/index.html">
 <meta property="og:site_name" content="厚朴酚">
-<meta property="og:description" content="注意:javascript设计模式跟其他强语音类型稍微有点区别. 介绍 将new操作单独封装 我们通常在遇到new的时候,就可以考虑是否需要使用工厂模式了  举例 去买汉堡,直接点餐,取餐,不用自己亲手做 商店要封装做汉堡的工作,做好直接给买者  UML类图  代码示例` class Product {  constructor(name){     this.name = name } init">
+<meta property="og:description" content="策略模式定义的一组算法封装起来,使其相互之间可以替换,不会随客服端的变化而变化 场景 jquery的动画 表单验证 不同类别的奖金额度等等  代码实现let inputStrategy = function(){ let strategy = { notNull: function(value) { return /\s+/.test(value) ? &amp;apos;请输入内容&amp;apos; : &amp;a">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-10-30T06:57:49.244Z">
+<meta property="og:updated_time" content="2018-10-30T07:02:50.515Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="javascript设计模式之工厂模式">
-<meta name="twitter:description" content="注意:javascript设计模式跟其他强语音类型稍微有点区别. 介绍 将new操作单独封装 我们通常在遇到new的时候,就可以考虑是否需要使用工厂模式了  举例 去买汉堡,直接点餐,取餐,不用自己亲手做 商店要封装做汉堡的工作,做好直接给买者  UML类图  代码示例` class Product {  constructor(name){     this.name = name } init">
+<meta name="twitter:title" content="策略模式">
+<meta name="twitter:description" content="策略模式定义的一组算法封装起来,使其相互之间可以替换,不会随客服端的变化而变化 场景 jquery的动画 表单验证 不同类别的奖金额度等等  代码实现let inputStrategy = function(){ let strategy = { notNull: function(value) { return /\s+/.test(value) ? &amp;apos;请输入内容&amp;apos; : &amp;a">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/10/24/javascript设计模式之工厂模式/">
+  <link rel="canonical" href="http://yoursite.com/2018/10/30/策略模式/">
 
 
 
@@ -136,7 +136,7 @@
   };
 </script>
 
-  <title>javascript设计模式之工厂模式 | 厚朴酚</title>
+  <title>策略模式 | 厚朴酚</title>
   
 
 
@@ -301,7 +301,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/24/javascript设计模式之工厂模式/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/30/策略模式/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="厚朴酚">
@@ -318,7 +318,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">javascript设计模式之工厂模式
+          <h1 class="post-title" itemprop="name headline">策略模式
               
             
           </h1>
@@ -343,24 +343,12 @@
                 
               
 
-              <time title="创建时间：2018-10-24 18:14:34" itemprop="dateCreated datePublished" datetime="2018-10-24T18:14:34+08:00">2018-10-24</time>
+              <time title="创建时间：2018-10-30 14:56:47 / 修改时间：15:02:50" itemprop="dateCreated datePublished" datetime="2018-10-30T14:56:47+08:00">2018-10-30</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-10-30 14:57:49" itemprop="dateModified" datetime="2018-10-30T14:57:49+08:00">2018-10-30</time>
               
             
           </span>
@@ -411,51 +399,46 @@
       
 
       
-        <p>注意:javascript设计模式跟其他强语音类型稍微有点区别.</p>
-<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><ol>
-<li>将new操作单独封装</li>
-<li>我们通常在遇到new的时候,就可以考虑是否需要使用工厂模式了</li>
+        <h2 id="策略模式"><a href="#策略模式" class="headerlink" title="策略模式"></a>策略模式</h2><p>定义的一组算法封装起来,使其相互之间可以替换,不会随客服端的变化而变化</p>
+<h3 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h3><ol>
+<li>jquery的动画</li>
+<li>表单验证</li>
+<li>不同类别的奖金额度等等</li>
 </ol>
-<h2 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h2><ol>
-<li>去买汉堡,直接点餐,取餐,不用自己亲手做</li>
-<li>商店要封装做汉堡的工作,做好直接给买者</li>
-</ol>
-<h2 id="UML类图"><a href="#UML类图" class="headerlink" title="UML类图"></a>UML类图</h2><p> <a href="/img/factory.png"></a></p>
-<h2 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h2><p>`</p>
-<pre><code>class Product {
-
-constructor(name){
-    this.name = name
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><pre><code>let inputStrategy = function(){
+let strategy = {
+notNull: function(value) {
+return /\s+/.test(value) ? &apos;请输入内容&apos; : &apos;&apos;
+},
+number : function(value){
+return /^[0-9]+(\.[0-9]+)?$/.test(value) ? &apos;&apos; : &apos;请输入数字&apos;
+},
+phone:function(value){
+return /^\d{3}\-d{8}$|^\d{4}\-d{7}$/.test(value) ? &apos; &apos; : 请输入正确的电话号码格式,如010-12345678
 }
-init(){
-    console.log(&apos;init方法&apos;)
 }
-fun1(){
-    console.log(&apos;fun1方法&apos;)
+return {
+//验证接口type算法value表单值
+check:function(type,value) {
+value = value.replace(/^\s+|\s+$/g,&apos;&apos;)
+return strategy[type] ? strategy[type](value): &apos;没有该类型的检测方法&apos;
+},
+//添加策略
+addStrategy:function(type,fn){
+strategy[type] = fn
 }
-</code></pre><p>}</p>
-<pre><code>class Creator(){
-
-create(name){
-    return new Product(name)
 }
+}() //加括号
 
+//算法扩展
+inputStrategy.addStrategy(&apos;nickname&apos;,function(value){
+return /^[a-zA-Z]\w{3,7}$/.test(value) ? &apos;&apos; : &apos;请输入4-8位昵称&apos;
+})
 
-
-
-let creator = new Creator()
-
-let p = create.create(&apos;p1&apos;)
-
-p.init()
-
-p.fun1()
-</code></pre><h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><ol>
-<li>jquery实际上就是应用了工厂模式</li>
-<li>React.createElement</li>
-<li>vue异步组件</li>
-</ol>
-
+//验证
+const  value = &apos;123给456&apos;
+console.log(inputStrategy.check(&apos;number&apos;,value))
+</code></pre>
       
     </div>
 
@@ -529,8 +512,8 @@ p.fun1()
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/10/23/hello-world/" rel="next" title="开篇:ES6环境搭建">
-                <i class="fa fa-chevron-left"></i> 开篇:ES6环境搭建
+              <a href="/2018/10/24/javascript设计模式之工厂模式/" rel="next" title="javascript设计模式之工厂模式">
+                <i class="fa fa-chevron-left"></i> javascript设计模式之工厂模式
               </a>
             
           </div>
@@ -538,10 +521,6 @@ p.fun1()
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/10/30/策略模式/" rel="prev" title="策略模式">
-                策略模式 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -685,7 +664,7 @@ p.fun1()
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#介绍"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#举例"><span class="nav-number">2.</span> <span class="nav-text">举例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UML类图"><span class="nav-number">3.</span> <span class="nav-text">UML类图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码示例"><span class="nav-number">4.</span> <span class="nav-text">代码示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#场景"><span class="nav-number">5.</span> <span class="nav-text">场景</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#策略模式"><span class="nav-number">1.</span> <span class="nav-text">策略模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#场景"><span class="nav-number">1.1.</span> <span class="nav-text">场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码实现"><span class="nav-number">1.2.</span> <span class="nav-text">代码实现</span></a></li></ol></li></ol></div>
             
 
           </div>
