@@ -108,25 +108,25 @@
 
 
 
-  <meta name="description" content="策略模式定义的一组算法封装起来,使其相互之间可以替换,不会随客服端的变化而变化 场景 jquery的动画 表单验证 不同类别的奖金额度等等  代码实现let inputStrategy = function(){ let strategy = { notNull: function(value) { return /\s+/.test(value) ? &amp;apos;请输入内容&amp;apos; : &amp;a">
-<meta name="keywords" content="导航 - ES6 - 设计模式">
+  <meta name="description" content="路由显示控制路由列表` export const routerMap = [     {         path: &amp;apos;/&amp;apos;,         name: &amp;apos;Main&amp;apos;,         component: ()=&amp;gt;import(&amp;apos;@/view/main/main&amp;apos;),         meta: {           titl">
+<meta name="keywords" content="导航 - ES6 - vue路由">
 <meta property="og:type" content="article">
-<meta property="og:title" content="策略模式">
-<meta property="og:url" content="http://yoursite.com/2018/10/30/策略模式/index.html">
+<meta property="og:title" content="vuejs路由在菜单是否显示控制方法">
+<meta property="og:url" content="http://yoursite.com/2018/11/02/vuejs路由显示控制/index.html">
 <meta property="og:site_name" content="厚朴酚">
-<meta property="og:description" content="策略模式定义的一组算法封装起来,使其相互之间可以替换,不会随客服端的变化而变化 场景 jquery的动画 表单验证 不同类别的奖金额度等等  代码实现let inputStrategy = function(){ let strategy = { notNull: function(value) { return /\s+/.test(value) ? &amp;apos;请输入内容&amp;apos; : &amp;a">
+<meta property="og:description" content="路由显示控制路由列表` export const routerMap = [     {         path: &amp;apos;/&amp;apos;,         name: &amp;apos;Main&amp;apos;,         component: ()=&amp;gt;import(&amp;apos;@/view/main/main&amp;apos;),         meta: {           titl">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-10-30T07:02:50.515Z">
+<meta property="og:updated_time" content="2018-11-02T07:15:07.850Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="策略模式">
-<meta name="twitter:description" content="策略模式定义的一组算法封装起来,使其相互之间可以替换,不会随客服端的变化而变化 场景 jquery的动画 表单验证 不同类别的奖金额度等等  代码实现let inputStrategy = function(){ let strategy = { notNull: function(value) { return /\s+/.test(value) ? &amp;apos;请输入内容&amp;apos; : &amp;a">
+<meta name="twitter:title" content="vuejs路由在菜单是否显示控制方法">
+<meta name="twitter:description" content="路由显示控制路由列表` export const routerMap = [     {         path: &amp;apos;/&amp;apos;,         name: &amp;apos;Main&amp;apos;,         component: ()=&amp;gt;import(&amp;apos;@/view/main/main&amp;apos;),         meta: {           titl">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/10/30/策略模式/">
+  <link rel="canonical" href="http://yoursite.com/2018/11/02/vuejs路由显示控制/">
 
 
 
@@ -136,7 +136,7 @@
   };
 </script>
 
-  <title>策略模式 | 厚朴酚</title>
+  <title>vuejs路由在菜单是否显示控制方法 | 厚朴酚</title>
   
 
 
@@ -301,7 +301,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/30/策略模式/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/02/vuejs路由显示控制/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="厚朴酚">
@@ -318,7 +318,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">策略模式
+          <h1 class="post-title" itemprop="name headline">vuejs路由在菜单是否显示控制方法
               
             
           </h1>
@@ -343,7 +343,7 @@
                 
               
 
-              <time title="创建时间：2018-10-30 14:56:47 / 修改时间：15:02:50" itemprop="dateCreated datePublished" datetime="2018-10-30T14:56:47+08:00">2018-10-30</time>
+              <time title="创建时间：2018-11-02 15:09:45 / 修改时间：15:15:07" itemprop="dateCreated datePublished" datetime="2018-11-02T15:09:45+08:00">2018-11-02</time>
             
 
             
@@ -365,7 +365,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/设计模式/" itemprop="url" rel="index"><span itemprop="name">设计模式</span></a></span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/vue/" itemprop="url" rel="index"><span itemprop="name">vue</span></a></span>
 
                 
                 
@@ -399,45 +399,99 @@
       
 
       
-        <h2 id="策略模式"><a href="#策略模式" class="headerlink" title="策略模式"></a>策略模式</h2><p>定义的一组算法封装起来,使其相互之间可以替换,不会随客服端的变化而变化</p>
-<h3 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h3><ol>
-<li>jquery的动画</li>
-<li>表单验证</li>
-<li>不同类别的奖金额度等等</li>
-</ol>
-<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><pre><code>let inputStrategy = function(){
-let strategy = {
-notNull: function(value) {
-return /\s+/.test(value) ? &apos;请输入内容&apos; : &apos;&apos;
-},
-number : function(value){
-return /^[0-9]+(\.[0-9]+)?$/.test(value) ? &apos;&apos; : &apos;请输入数字&apos;
-},
-phone:function(value){
-return /^\d{3}\-d{8}$|^\d{4}\-d{7}$/.test(value) ? &apos; &apos; : 请输入正确的电话号码格式,如010-12345678
+        <h3 id="路由显示控制"><a href="#路由显示控制" class="headerlink" title="路由显示控制"></a>路由显示控制</h3><h4 id="路由列表"><a href="#路由列表" class="headerlink" title="路由列表"></a>路由列表</h4><p>`</p>
+<pre><code>export const routerMap = [
+    {
+        path: &apos;/&apos;,
+        name: &apos;Main&apos;,
+        component: ()=&gt;import(&apos;@/view/main/main&apos;),
+        meta: {
+          title: &apos;客户管理系统&apos;,
+          icon:&apos;md-apps&apos;
+        },
+        children: [
+          {
+            path: &apos;/sys/enum/list&apos;,
+            name: &apos;sysEnumList&apos;,
+            component: ()=&gt;import(&apos;@/view/sys/enum/list&apos;),
+            meta: {
+              title: &apos;添加客户&apos;,
+              icon:&apos;md-apps&apos;,
+              show:true
+            }
+          },
+          {
+            path: &apos;/sys/enum/edit&apos;,
+            name: &apos;sysEnumEdit&apos;,
+            component: ()=&gt;import(&apos;@/view/sys/enum/edit&apos;),
+            meta: {
+              title: &apos;枚举数据编辑&apos;,
+              icon:&apos;md-apps&apos;,
+              show:true
+            }
+          },
+          {
+            path: &apos;/sys/func/list&apos;,
+            name: &apos;sysFuncList&apos;,
+            component: ()=&gt;import(&apos;@/view/sys/func/list&apos;),
+            meta: {
+              title: &apos;功能管理&apos;,
+              icon:&apos;md-apps&apos;,
+              show:true
+            }
+          }
+        ]
+      },
+      {
+        path:&apos;/menu&apos;,
+        name:&apos;menu&apos;,
+        component:()=&gt;import(&apos;@/view/main/main&apos;),
+        meta:{
+          title:&quot;菜单管理&quot;,
+          icon:&quot;md-apps&quot;,
+        },
+        children:[
+           {
+              path: &apos;list&apos;,
+              name: &apos;list&apos;,
+              component: ()=&gt;import(&apos;@/view/pages/list&apos;),
+              meta: {
+                title: &apos;列表管理&apos;,
+                icon:&apos;md-apps&apos;,
+                show:true
+              }
+           },
+           {
+            path: &apos;add&apos;,
+            name: &apos;add&apos;,
+            component: ()=&gt;import(&apos;@/view/pages/add&apos;),
+            meta: {
+              title: &apos;添加管理&apos;,
+              icon:&apos;md-apps&apos;,
+              show:false
+            }
+         }
+        ]
+      },
+]
+`
+</code></pre><h4 id="配置页面显示控制列表"><a href="#配置页面显示控制列表" class="headerlink" title="配置页面显示控制列表"></a>配置页面显示控制列表</h4><pre><code>const rules = {  
+        Main:true,
+        sysEnumList:true,
+        sysEnumEdit:true,
+        sysFuncList:true,
+        menu:true,
+        list:true,
+        add:false,
 }
+</code></pre><h4 id="路由过滤方法"><a href="#路由过滤方法" class="headerlink" title="路由过滤方法"></a>路由过滤方法</h4><pre><code>export const getAccessRouterList = (route,rule) =&gt; {
+    return route.filter(item =&gt; {
+        if (rule[item.name]) {
+            if (item.children) item.children = getAccessRouterList(item.children, rule)
+            return true
+        } else return false
+    })
 }
-return {
-//验证接口type算法value表单值
-check:function(type,value) {
-value = value.replace(/^\s+|\s+$/g,&apos;&apos;)
-return strategy[type] ? strategy[type](value): &apos;没有该类型的检测方法&apos;
-},
-//添加策略
-addStrategy:function(type,fn){
-strategy[type] = fn
-}
-}
-}() //加括号
-
-//算法扩展
-inputStrategy.addStrategy(&apos;nickname&apos;,function(value){
-return /^[a-zA-Z]\w{3,7}$/.test(value) ? &apos;&apos; : &apos;请输入4-8位昵称&apos;
-})
-
-//验证
-const  value = &apos;123给456&apos;
-console.log(inputStrategy.check(&apos;number&apos;,value))
 </code></pre>
       
     </div>
@@ -499,7 +553,7 @@ console.log(inputStrategy.check(&apos;number&apos;,value))
       
         <div class="post-tags">
           
-            <a href="/tags/导航-ES6-设计模式/" rel="tag"># 导航 - ES6 - 设计模式</a>
+            <a href="/tags/导航-ES6-vue路由/" rel="tag"># 导航 - ES6 - vue路由</a>
           
         </div>
       
@@ -512,8 +566,8 @@ console.log(inputStrategy.check(&apos;number&apos;,value))
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/10/24/javascript设计模式之工厂模式/" rel="next" title="javascript设计模式之工厂模式">
-                <i class="fa fa-chevron-left"></i> javascript设计模式之工厂模式
+              <a href="/2018/10/31/迭代器模式/" rel="next" title="迭代器模式">
+                <i class="fa fa-chevron-left"></i> 迭代器模式
               </a>
             
           </div>
@@ -521,10 +575,6 @@ console.log(inputStrategy.check(&apos;number&apos;,value))
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/10/30/适配器模式/" rel="prev" title="适配器模式">
-                适配器模式 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -670,7 +720,7 @@ console.log(inputStrategy.check(&apos;number&apos;,value))
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#策略模式"><span class="nav-number">1.</span> <span class="nav-text">策略模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#场景"><span class="nav-number">1.1.</span> <span class="nav-text">场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码实现"><span class="nav-number">1.2.</span> <span class="nav-text">代码实现</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#路由显示控制"><span class="nav-number">1.</span> <span class="nav-text">路由显示控制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#路由列表"><span class="nav-number">1.1.</span> <span class="nav-text">路由列表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置页面显示控制列表"><span class="nav-number">1.2.</span> <span class="nav-text">配置页面显示控制列表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#路由过滤方法"><span class="nav-number">1.3.</span> <span class="nav-text">路由过滤方法</span></a></li></ol></li></ol></div>
             
 
           </div>
