@@ -108,25 +108,25 @@
 
 
 
-  <meta name="description" content="为了更好的利用ES6语法来学习Javascript设计模式,我们通过webpack来搭建一个合适ES6运行的环境. 搭建开发环境1. 目录结构– dist    //生成的bundle.js文件  node_modules //依赖模块  src //业务代码  index.html //前端页面展示  //...其余配置 2. package.json  ` {    &amp;quot;name&amp;">
-<meta name="keywords" content="导航 - ES6 - 设计模式">
+  <meta name="description" content="ES6常用数据方法总结参数  index, array可以忽略 概述map():返回一个新的Array，每个元素为调用func的结果  filter():返回一个符合func条件的元素数组  some():返回一个boolean，判断是否有元素是否符合func条件  every():返回一个boolean，判断每个元素是否符合func条件  forEach():没有返回值，只是针对每个元素调用fu">
+<meta name="keywords" content="导航 - javascript - ES6">
 <meta property="og:type" content="article">
-<meta property="og:title" content="开篇:ES6环境搭建">
-<meta property="og:url" content="http://yoursite.com/2018/10/23/hello-world/index.html">
+<meta property="og:title" content="ES6数据方法">
+<meta property="og:url" content="http://yoursite.com/2018/11/05/ES6数据方法/index.html">
 <meta property="og:site_name" content="厚朴酚">
-<meta property="og:description" content="为了更好的利用ES6语法来学习Javascript设计模式,我们通过webpack来搭建一个合适ES6运行的环境. 搭建开发环境1. 目录结构– dist    //生成的bundle.js文件  node_modules //依赖模块  src //业务代码  index.html //前端页面展示  //...其余配置 2. package.json  ` {    &amp;quot;name&amp;">
+<meta property="og:description" content="ES6常用数据方法总结参数  index, array可以忽略 概述map():返回一个新的Array，每个元素为调用func的结果  filter():返回一个符合func条件的元素数组  some():返回一个boolean，判断是否有元素是否符合func条件  every():返回一个boolean，判断每个元素是否符合func条件  forEach():没有返回值，只是针对每个元素调用fu">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-10-23T09:08:13.195Z">
+<meta property="og:updated_time" content="2018-11-05T02:55:46.033Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="开篇:ES6环境搭建">
-<meta name="twitter:description" content="为了更好的利用ES6语法来学习Javascript设计模式,我们通过webpack来搭建一个合适ES6运行的环境. 搭建开发环境1. 目录结构– dist    //生成的bundle.js文件  node_modules //依赖模块  src //业务代码  index.html //前端页面展示  //...其余配置 2. package.json  ` {    &amp;quot;name&amp;">
+<meta name="twitter:title" content="ES6数据方法">
+<meta name="twitter:description" content="ES6常用数据方法总结参数  index, array可以忽略 概述map():返回一个新的Array，每个元素为调用func的结果  filter():返回一个符合func条件的元素数组  some():返回一个boolean，判断是否有元素是否符合func条件  every():返回一个boolean，判断每个元素是否符合func条件  forEach():没有返回值，只是针对每个元素调用fu">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/10/23/hello-world/">
+  <link rel="canonical" href="http://yoursite.com/2018/11/05/ES6数据方法/">
 
 
 
@@ -136,7 +136,7 @@
   };
 </script>
 
-  <title>开篇:ES6环境搭建 | 厚朴酚</title>
+  <title>ES6数据方法 | 厚朴酚</title>
   
 
 
@@ -301,7 +301,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/23/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/05/ES6数据方法/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="厚朴酚">
@@ -318,7 +318,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">开篇:ES6环境搭建
+          <h1 class="post-title" itemprop="name headline">ES6数据方法
               
             
           </h1>
@@ -343,7 +343,7 @@
                 
               
 
-              <time title="创建时间：2018-10-23 15:44:54 / 修改时间：17:08:13" itemprop="dateCreated datePublished" datetime="2018-10-23T15:44:54+08:00">2018-10-23</time>
+              <time title="创建时间：2018-11-05 10:42:07 / 修改时间：10:55:46" itemprop="dateCreated datePublished" datetime="2018-11-05T10:42:07+08:00">2018-11-05</time>
             
 
             
@@ -365,7 +365,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/设计模式/" itemprop="url" rel="index"><span itemprop="name">设计模式</span></a></span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a></span>
 
                 
                 
@@ -399,69 +399,69 @@
       
 
       
-        <p>  为了更好的利用ES6语法来学习Javascript设计模式,我们通过webpack来搭建一个合适ES6运行的环境.</p>
-<h2 id="搭建开发环境"><a href="#搭建开发环境" class="headerlink" title="搭建开发环境"></a>搭建开发环境</h2><h3 id="1-目录结构"><a href="#1-目录结构" class="headerlink" title="1. 目录结构"></a>1. 目录结构</h3><p>–</p>
-<pre><code>dist    //生成的bundle.js文件
+        <h3 id="ES6常用数据方法总结"><a href="#ES6常用数据方法总结" class="headerlink" title="ES6常用数据方法总结"></a>ES6常用数据方法总结</h3><p>参数  index, array可以忽略</p>
+<h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><pre><code>map():返回一个新的Array，每个元素为调用func的结果 
+filter():返回一个符合func条件的元素数组 
+some():返回一个boolean，判断是否有元素是否符合func条件 
+every():返回一个boolean，判断每个元素是否符合func条件 
+forEach():没有返回值，只是针对每个元素调用func 
+reduce():有返回值，重点是计算数组，返回一个值
 
-node_modules //依赖模块
+1、map速度比forEach快 
+2、map会返回一个新数组，不对原数组产生影响,foreach不会产生新数组， 
+3、map因为返回数组所以可以链式操作，forEach不能
+</code></pre><h4 id="forEach"><a href="#forEach" class="headerlink" title="forEach()"></a>forEach()</h4><pre><code>let array = [1,2,3,4];
+array.forEach((item, index, array) =&gt; {
+　　console.log(item);
+}); //1,2,3,4
+</code></pre><p>备注:forEach会遍历数组, 没有返回值, 不允许在循环体内写return, 不会改变原来数组的内容.</p>
+<p>备注:map 遍历数组, 会返回一个新数组, 不会改变原来数组里的内容</p>
+<h4 id="map"><a href="#map" class="headerlink" title="map()"></a>map()</h4><pre><code>let array = [1, 2, 3, 4];
+let temp = array.map((item, index, array) =&gt; {
+    return item * 10;
+});
+console.log(temp);　　//  [10, 20, 30, 40];
+console.log(array);　　// [1, 2, 3, 4]
+</code></pre><h4 id="filter"><a href="#filter" class="headerlink" title="filter()"></a>filter()</h4><pre><code>let array = [1, 2, 3, 4];
+let temp = array.filter((item, index, array) =&gt; {
+　　return item &gt;  3;
+});
+console.log(temp);　　// [4]
+console.log(array);　　// [1, 2, 3, 4]
+</code></pre><p>备注: filter 会过滤掉数组中不满足条件的元素, 把满足条件的元素放到一个新数组中, 不改变原数组</p>
+<h4 id="reduce"><a href="#reduce" class="headerlink" title="reduce()"></a>reduce()</h4><pre><code>let array = [1, 2, 3, 4];
+let temp = array.reduce((x, y) =&gt; {
+　　console.log(&quot;x&quot;: x);
+　　console.log(&quot;y&quot;: y);
+　　return x + y;
+});
+console.log(temp);　　// 10
+console.log(array);　　// [1, 2, 3, 4]
+</code></pre><p>备注:x 是上一次计算过的值, 第一次循环的时候是数组中的第1个元素<br>y 是数组中的每个元素, 第一次循环的时候是数组的第2个元素</p>
+<h4 id="every"><a href="#every" class="headerlink" title="every()"></a>every()</h4><pre><code>let array = [1, 2, 3, 4];
+let bo = array.every((item, index, array) =&gt; {
+　　return item &gt; 2;
+});
+console.log(bo);　　　　// false;
+</code></pre><p>备注: every遍历数组, 每一项都是true, 则返回true,只要有一个是false,就返回false</p>
+<h4 id="some"><a href="#some" class="headerlink" title="some()"></a>some()</h4><p>let array = [1, 2, 3, 4];<br>let tmep = array.some((item, index, array) =&gt; {<br>　　return item &gt; 1;<br>});<br>console.log(temp);　　// true</p>
+<p>备注:遍历数组的每一项, 有一个返回true, 就停止循环</p>
+<h4 id="values"><a href="#values" class="headerlink" title="values()"></a>values()</h4><pre><code>let arr=[1,2,234,&apos;sdf&apos;,-2];
+for(let a of arr.values()){
+    console.log(a) //结果：1,2,234,sdf,-2 遍历了数组arr的值
+}
+</code></pre><p>备注:values，对数组项的遍历</p>
+<h4 id="keys"><a href="#keys" class="headerlink" title="keys()"></a>keys()</h4><p>let arr=[1,2,234,’sdf’,-2];<br>for(let a of arr.keys()){<br>    console.log(a) //结果：0,1,2,3,4  遍历了数组arr的索引<br>}</p>
+<p>备注: keys，对数组索引的遍历</p>
+<h4 id="entries"><a href="#entries" class="headerlink" title="entries()"></a>entries()</h4><pre><code>let arr=[&apos;w&apos;,&apos;b&apos;];
+for(let a of arr.entries()){
+    console.log(a) //结果：[0,w],[1,b]
+}
+for(let [i,v] of arr.entries()){
+    console.log(i,v) //结果：0 w,1 b
+}
+</code></pre><p>备注:entries，对数组键值对的遍历。</p>
 
-src //业务代码
-
-index.html //前端页面展示
-
-//...其余配置
-</code></pre><h3 id="2-package-json"><a href="#2-package-json" class="headerlink" title="2. package.json"></a>2. package.json</h3><p>  `</p>
-<pre><code>{    &quot;name&quot;: &quot;design-pattern-test&quot;,
-
-  &quot;version&quot;: &quot;1.0.0&quot;,
-  &quot;description&quot;: &quot;&quot;,
-  &quot;main&quot;: &quot;index.js&quot;,
-  &quot;scripts&quot;: {
-&quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;,
-&quot;dev&quot;: &quot;webpack-dev-server --config ./webpack.config.js --mode development&quot;
-  },
-  &quot;keywords&quot;: [],
-  &quot;author&quot;: &quot;&quot;,
-  &quot;license&quot;: &quot;ISC&quot;,
-  &quot;devDependencies&quot;: {
-&quot;babel-core&quot;: &quot;^6.26.0&quot;,
-&quot;babel-loader&quot;: &quot;^7.1.2&quot;,
-&quot;babel-polyfill&quot;: &quot;^6.26.0&quot;,
-&quot;babel-preset-es2015&quot;: &quot;^6.24.1&quot;,
-&quot;babel-preset-latest&quot;: &quot;^6.24.1&quot;,
-&quot;html-webpack-plugin&quot;: &quot;^3.2.0&quot;,
-&quot;webpack&quot;: &quot;^4.20.2&quot;,
-&quot;webpack-cli&quot;: &quot;^3.1.2&quot;,
-&quot;webpack-dev-server&quot;: &quot;^3.1.9&quot;
-</code></pre><p>  }<br>}</p>
-<p>`</p>
-<h3 id="3-webpack-config-js"><a href="#3-webpack-config-js" class="headerlink" title="3 webpack.config.js"></a>3 webpack.config.js</h3><pre><code>const path = require(&apos;path&apos;);
-const HtmlWebpackPlugin = require(&apos;html-webpack-plugin&apos;)
-module.exports = {
-  entry: &apos;./src/index.js&apos;,
-  output: {
-  path: path.resolve(__dirname, &apos;dist&apos;),
-filename: &apos;bundle.js&apos;
-  },
-  module:{
-rules:[{
-test:/\.js?$/,
-exclude:/(node_modules)/,
-loader:&quot;babel-loader&quot;
-}]
-  },
-  plugins:[
-  new HtmlWebpackPlugin({
-  template:&apos;./index.html&apos;
-  })
-  ],
-  devServer:{
-  contentBase:path.join(__dirname,&apos;./dist&apos;),
-  open:true,
-  port:9000
-  }
-};
-</code></pre>
       
     </div>
 
@@ -522,7 +522,7 @@ loader:&quot;babel-loader&quot;
       
         <div class="post-tags">
           
-            <a href="/tags/导航-ES6-设计模式/" rel="tag"># 导航 - ES6 - 设计模式</a>
+            <a href="/tags/导航-javascript-ES6/" rel="tag"># 导航 - javascript - ES6</a>
           
         </div>
       
@@ -535,14 +535,18 @@ loader:&quot;babel-loader&quot;
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2018/11/05/ES6在条件语句的优雅应用/" rel="next" title="ES6在条件语句的优雅应用">
+                <i class="fa fa-chevron-left"></i> ES6在条件语句的优雅应用
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/10/23/vue/" rel="prev" title="vue">
-                vue <i class="fa fa-chevron-right"></i>
+              <a href="/2018/11/05/javasript数组常用方法/" rel="prev" title="javasript数组常用方法">
+                javasript数组常用方法 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -695,7 +699,7 @@ loader:&quot;babel-loader&quot;
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#搭建开发环境"><span class="nav-number">1.</span> <span class="nav-text">搭建开发环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-目录结构"><span class="nav-number">1.1.</span> <span class="nav-text">1. 目录结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-package-json"><span class="nav-number">1.2.</span> <span class="nav-text">2. package.json</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-webpack-config-js"><span class="nav-number">1.3.</span> <span class="nav-text">3 webpack.config.js</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#ES6常用数据方法总结"><span class="nav-number">1.</span> <span class="nav-text">ES6常用数据方法总结</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#概述"><span class="nav-number">1.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#forEach"><span class="nav-number">1.2.</span> <span class="nav-text">forEach()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#map"><span class="nav-number">1.3.</span> <span class="nav-text">map()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#filter"><span class="nav-number">1.4.</span> <span class="nav-text">filter()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#reduce"><span class="nav-number">1.5.</span> <span class="nav-text">reduce()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#every"><span class="nav-number">1.6.</span> <span class="nav-text">every()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#some"><span class="nav-number">1.7.</span> <span class="nav-text">some()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#values"><span class="nav-number">1.8.</span> <span class="nav-text">values()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#keys"><span class="nav-number">1.9.</span> <span class="nav-text">keys()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#entries"><span class="nav-number">1.10.</span> <span class="nav-text">entries()</span></a></li></ol></li></ol></div>
             
 
           </div>
