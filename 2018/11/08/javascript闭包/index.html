@@ -108,25 +108,25 @@
 
 
 
-  <meta name="description" content="为了更好的利用ES6语法来学习Javascript设计模式,我们通过webpack来搭建一个合适ES6运行的环境. 搭建开发环境1. 目录结构– dist    //生成的bundle.js文件  node_modules //依赖模块  src //业务代码  index.html //前端页面展示  //...其余配置 2. package.json  ` {    &amp;quot;name&amp;">
-<meta name="keywords" content="导航 - ES6 - 设计模式">
+  <meta name="description" content="学习javascript闭包变量的作用域变量的作用域无非就两种:全局变量和局部变量  函数内部可以直接读取全局变量 var n =1; function f1(){     alert(n) } f1();//1  函数外部无法读取函数内的局部变量 function f1(){ var n =1 } alert(n) //n is not defined   外部如何读取局部变量 那就是在函数的内">
+<meta name="keywords" content="导航 - javascript">
 <meta property="og:type" content="article">
-<meta property="og:title" content="开篇:ES6环境搭建">
-<meta property="og:url" content="http://yoursite.com/2018/10/23/hello-world/index.html">
+<meta property="og:title" content="javascript闭包">
+<meta property="og:url" content="http://yoursite.com/2018/11/08/javascript闭包/index.html">
 <meta property="og:site_name" content="厚朴酚">
-<meta property="og:description" content="为了更好的利用ES6语法来学习Javascript设计模式,我们通过webpack来搭建一个合适ES6运行的环境. 搭建开发环境1. 目录结构– dist    //生成的bundle.js文件  node_modules //依赖模块  src //业务代码  index.html //前端页面展示  //...其余配置 2. package.json  ` {    &amp;quot;name&amp;">
+<meta property="og:description" content="学习javascript闭包变量的作用域变量的作用域无非就两种:全局变量和局部变量  函数内部可以直接读取全局变量 var n =1; function f1(){     alert(n) } f1();//1  函数外部无法读取函数内的局部变量 function f1(){ var n =1 } alert(n) //n is not defined   外部如何读取局部变量 那就是在函数的内">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-10-23T09:08:13.195Z">
+<meta property="og:updated_time" content="2018-11-08T07:17:06.972Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="开篇:ES6环境搭建">
-<meta name="twitter:description" content="为了更好的利用ES6语法来学习Javascript设计模式,我们通过webpack来搭建一个合适ES6运行的环境. 搭建开发环境1. 目录结构– dist    //生成的bundle.js文件  node_modules //依赖模块  src //业务代码  index.html //前端页面展示  //...其余配置 2. package.json  ` {    &amp;quot;name&amp;">
+<meta name="twitter:title" content="javascript闭包">
+<meta name="twitter:description" content="学习javascript闭包变量的作用域变量的作用域无非就两种:全局变量和局部变量  函数内部可以直接读取全局变量 var n =1; function f1(){     alert(n) } f1();//1  函数外部无法读取函数内的局部变量 function f1(){ var n =1 } alert(n) //n is not defined   外部如何读取局部变量 那就是在函数的内">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/10/23/hello-world/">
+  <link rel="canonical" href="http://yoursite.com/2018/11/08/javascript闭包/">
 
 
 
@@ -136,7 +136,7 @@
   };
 </script>
 
-  <title>开篇:ES6环境搭建 | 厚朴酚</title>
+  <title>javascript闭包 | 厚朴酚</title>
   
 
 
@@ -301,7 +301,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/23/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/08/javascript闭包/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="厚朴酚">
@@ -318,7 +318,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">开篇:ES6环境搭建
+          <h1 class="post-title" itemprop="name headline">javascript闭包
               
             
           </h1>
@@ -343,7 +343,7 @@
                 
               
 
-              <time title="创建时间：2018-10-23 15:44:54 / 修改时间：17:08:13" itemprop="dateCreated datePublished" datetime="2018-10-23T15:44:54+08:00">2018-10-23</time>
+              <time title="创建时间：2018-11-08 14:48:42 / 修改时间：15:17:06" itemprop="dateCreated datePublished" datetime="2018-11-08T14:48:42+08:00">2018-11-08</time>
             
 
             
@@ -365,7 +365,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/设计模式/" itemprop="url" rel="index"><span itemprop="name">设计模式</span></a></span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a></span>
 
                 
                 
@@ -399,69 +399,69 @@
       
 
       
-        <p>  为了更好的利用ES6语法来学习Javascript设计模式,我们通过webpack来搭建一个合适ES6运行的环境.</p>
-<h2 id="搭建开发环境"><a href="#搭建开发环境" class="headerlink" title="搭建开发环境"></a>搭建开发环境</h2><h3 id="1-目录结构"><a href="#1-目录结构" class="headerlink" title="1. 目录结构"></a>1. 目录结构</h3><p>–</p>
-<pre><code>dist    //生成的bundle.js文件
+        <h3 id="学习javascript闭包"><a href="#学习javascript闭包" class="headerlink" title="学习javascript闭包"></a>学习javascript闭包</h3><h4 id="变量的作用域"><a href="#变量的作用域" class="headerlink" title="变量的作用域"></a>变量的作用域</h4><p>变量的作用域无非就两种:全局变量和局部变量</p>
+<ul>
+<li><p>函数内部可以直接读取全局变量</p>
+<pre><code>var n =1;
+function f1(){
+    alert(n)
+}
+f1();//1
+</code></pre></li>
+<li><p>函数外部无法读取函数内的局部变量</p>
+<pre><code>function f1(){
+var n =1
+}
+alert(n) //n is not defined
+</code></pre></li>
+</ul>
+<h4 id="外部如何读取局部变量"><a href="#外部如何读取局部变量" class="headerlink" title="外部如何读取局部变量"></a>外部如何读取局部变量</h4><ul>
+<li><p>那就是在函数的内部，再定义一个函数。</p>
+<pre><code>function f1(){
+　　var n=999;
+　　function f2(){
+　　alert(n); 
+　　}
+　　return f2;
+　　}
+var result=f1();
+result();//999
+</code></pre></li>
+</ul>
+<p>在上面的代码中，函数f2就被包括在函数f1内部，这时f1内部的所有局部变量，对f2都是可见的。但是反过来就不行，f2内部的局部变量，对f1就是不可见的。这就是Javascript语言特有的”链式作用域”结构（chain scope），子对象会一级一级地向上寻找所有父对象的变量。所以，父对象的所有变量，对子对象都是可见的，反之则不成立。</p>
+<p>既然f2可以读取f1中的局部变量，那么只要把f2作为返回值，就可以在f1外部读取它的内部变量了吗！</p>
+<h3 id="闭包的概念"><a href="#闭包的概念" class="headerlink" title="闭包的概念"></a>闭包的概念</h3><p>闭包就是能够读取其他函数内部变量的函数。<br>由于在Javascript语言中，只有函数内部的子函数才能读取局部变量，因此可以把闭包简单理解成”定义在一个函数内部的函数”。<br>所以，在本质上，闭包就是将函数内部和函数外部连接起来的一座桥梁。</p>
+<h3 id="闭包的用途"><a href="#闭包的用途" class="headerlink" title="闭包的用途"></a>闭包的用途</h3><ul>
+<li>一个是前面提到的可以读取函数内部的变量</li>
+<li><p>另一个就是让这些变量的值始终保持在内存中。</p>
+<pre><code>function f1(){
 
-node_modules //依赖模块
+　　　　var n=999;
 
-src //业务代码
+　　　　nAdd=function(){n+=1}
 
-index.html //前端页面展示
+　　　　function f2(){
+　　　　　　alert(n);
+　　　　}
 
-//...其余配置
-</code></pre><h3 id="2-package-json"><a href="#2-package-json" class="headerlink" title="2. package.json"></a>2. package.json</h3><p>  `</p>
-<pre><code>{    &quot;name&quot;: &quot;design-pattern-test&quot;,
+　　　　return f2;
 
-  &quot;version&quot;: &quot;1.0.0&quot;,
-  &quot;description&quot;: &quot;&quot;,
-  &quot;main&quot;: &quot;index.js&quot;,
-  &quot;scripts&quot;: {
-&quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;,
-&quot;dev&quot;: &quot;webpack-dev-server --config ./webpack.config.js --mode development&quot;
-  },
-  &quot;keywords&quot;: [],
-  &quot;author&quot;: &quot;&quot;,
-  &quot;license&quot;: &quot;ISC&quot;,
-  &quot;devDependencies&quot;: {
-&quot;babel-core&quot;: &quot;^6.26.0&quot;,
-&quot;babel-loader&quot;: &quot;^7.1.2&quot;,
-&quot;babel-polyfill&quot;: &quot;^6.26.0&quot;,
-&quot;babel-preset-es2015&quot;: &quot;^6.24.1&quot;,
-&quot;babel-preset-latest&quot;: &quot;^6.24.1&quot;,
-&quot;html-webpack-plugin&quot;: &quot;^3.2.0&quot;,
-&quot;webpack&quot;: &quot;^4.20.2&quot;,
-&quot;webpack-cli&quot;: &quot;^3.1.2&quot;,
-&quot;webpack-dev-server&quot;: &quot;^3.1.9&quot;
-</code></pre><p>  }<br>}</p>
-<p>`</p>
-<h3 id="3-webpack-config-js"><a href="#3-webpack-config-js" class="headerlink" title="3 webpack.config.js"></a>3 webpack.config.js</h3><pre><code>const path = require(&apos;path&apos;);
-const HtmlWebpackPlugin = require(&apos;html-webpack-plugin&apos;)
-module.exports = {
-  entry: &apos;./src/index.js&apos;,
-  output: {
-  path: path.resolve(__dirname, &apos;dist&apos;),
-filename: &apos;bundle.js&apos;
-  },
-  module:{
-rules:[{
-test:/\.js?$/,
-exclude:/(node_modules)/,
-loader:&quot;babel-loader&quot;
-}]
-  },
-  plugins:[
-  new HtmlWebpackPlugin({
-  template:&apos;./index.html&apos;
-  })
-  ],
-  devServer:{
-  contentBase:path.join(__dirname,&apos;./dist&apos;),
-  open:true,
-  port:9000
-  }
-};
-</code></pre>
+　　}
+
+　　var result=f1();
+
+　　result(); // 999
+
+　　nAdd();
+
+　　result(); // 1000
+</code></pre></li>
+</ul>
+<p>result实际上就是闭包f2函数。它一共运行了两次，第一次的值是999，第二次的值是1000。这证明了，函数f1中的局部变量n一直保存在内存中，并没有在f1调用后被自动清除。</p>
+<p>原因就在于f1是f2的父函数，而f2被赋给了一个全局变量，这导致f2始终在内存中，而f2的存在依赖于f1，因此f1也始终在内存中，不会在调用结束后，被垃圾回收机制（garbage collection）回收。</p>
+<h3 id="使用闭包的注意点"><a href="#使用闭包的注意点" class="headerlink" title="使用闭包的注意点"></a>使用闭包的注意点</h3><p>1）由于闭包会使得函数中的变量都被保存在内存中，内存消耗很大，所以不能滥用闭包，否则会造成网页的性能问题，在IE中可能导致内存泄露。解决方法是，在退出函数之前，将不使用的局部变量全部删除。</p>
+<p>2）闭包会在父函数外部，改变父函数内部变量的值。所以，如果你把父函数当作对象（object）使用，把闭包当作它的公用方法（Public Method），把内部变量当作它的私有属性（private value），这时一定要小心，不要随便改变父函数内部变量的值。</p>
+
       
     </div>
 
@@ -522,7 +522,7 @@ loader:&quot;babel-loader&quot;
       
         <div class="post-tags">
           
-            <a href="/tags/导航-ES6-设计模式/" rel="tag"># 导航 - ES6 - 设计模式</a>
+            <a href="/tags/导航-javascript/" rel="tag"># 导航 - javascript</a>
           
         </div>
       
@@ -535,8 +535,8 @@ loader:&quot;babel-loader&quot;
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/10/23/vue/" rel="next" title="vue">
-                <i class="fa fa-chevron-left"></i> vue
+              <a href="/2018/11/08/javaScript的异步编程解决方案-Promise/" rel="next" title="javaScript的异步编程解决方案-Promise">
+                <i class="fa fa-chevron-left"></i> javaScript的异步编程解决方案-Promise
               </a>
             
           </div>
@@ -544,10 +544,6 @@ loader:&quot;babel-loader&quot;
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/10/24/javascript设计模式之工厂模式/" rel="prev" title="javascript设计模式之工厂模式">
-                javascript设计模式之工厂模式 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -701,7 +697,7 @@ loader:&quot;babel-loader&quot;
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#搭建开发环境"><span class="nav-number">1.</span> <span class="nav-text">搭建开发环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-目录结构"><span class="nav-number">1.1.</span> <span class="nav-text">1. 目录结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-package-json"><span class="nav-number">1.2.</span> <span class="nav-text">2. package.json</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-webpack-config-js"><span class="nav-number">1.3.</span> <span class="nav-text">3 webpack.config.js</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#学习javascript闭包"><span class="nav-number">1.</span> <span class="nav-text">学习javascript闭包</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#变量的作用域"><span class="nav-number">1.1.</span> <span class="nav-text">变量的作用域</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#外部如何读取局部变量"><span class="nav-number">1.2.</span> <span class="nav-text">外部如何读取局部变量</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#闭包的概念"><span class="nav-number">2.</span> <span class="nav-text">闭包的概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#闭包的用途"><span class="nav-number">3.</span> <span class="nav-text">闭包的用途</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用闭包的注意点"><span class="nav-number">4.</span> <span class="nav-text">使用闭包的注意点</span></a></li></ol></div>
             
 
           </div>
