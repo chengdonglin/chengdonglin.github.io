@@ -108,25 +108,25 @@
 
 
 
-  <meta name="description" content="常常应用的到的一些方法  /**  * 判断两个对象是否相等  * @param {*} obj1   * @param {*} obj2   */ export const objEqual = (obj1, obj2) =&amp;gt; {     const keysArr1 = Object.keys(obj1) //获取属性名     const keysArr2 = Object.keys(">
-<meta name="keywords" content="导航,javascript">
+  <meta name="description" content="js-xlsx的一些常用封装 从excel文件中获取头，返回数组 // get head from excel file,return array // 从excel文件中获取头，返回数组 function get_header_row(sheet) {     const headers = []         /*          sheet1[&amp;apos;!ref&amp;apos;]　获取工作">
+<meta name="keywords" content="导航,javascript,xlsx">
 <meta property="og:type" content="article">
-<meta property="og:title" content="vue的一些工具方法">
-<meta property="og:url" content="http://yoursite.com/2018/11/09/vue的一些工具方法/index.html">
+<meta property="og:title" content="js-xlsx的一些操作封装">
+<meta property="og:url" content="http://yoursite.com/2018/11/09/js-xlsx的一些操作封装/index.html">
 <meta property="og:site_name" content="厚朴酚">
-<meta property="og:description" content="常常应用的到的一些方法  /**  * 判断两个对象是否相等  * @param {*} obj1   * @param {*} obj2   */ export const objEqual = (obj1, obj2) =&amp;gt; {     const keysArr1 = Object.keys(obj1) //获取属性名     const keysArr2 = Object.keys(">
+<meta property="og:description" content="js-xlsx的一些常用封装 从excel文件中获取头，返回数组 // get head from excel file,return array // 从excel文件中获取头，返回数组 function get_header_row(sheet) {     const headers = []         /*          sheet1[&amp;apos;!ref&amp;apos;]　获取工作">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-11-09T09:02:47.014Z">
+<meta property="og:updated_time" content="2018-11-09T08:51:22.968Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="vue的一些工具方法">
-<meta name="twitter:description" content="常常应用的到的一些方法  /**  * 判断两个对象是否相等  * @param {*} obj1   * @param {*} obj2   */ export const objEqual = (obj1, obj2) =&amp;gt; {     const keysArr1 = Object.keys(obj1) //获取属性名     const keysArr2 = Object.keys(">
+<meta name="twitter:title" content="js-xlsx的一些操作封装">
+<meta name="twitter:description" content="js-xlsx的一些常用封装 从excel文件中获取头，返回数组 // get head from excel file,return array // 从excel文件中获取头，返回数组 function get_header_row(sheet) {     const headers = []         /*          sheet1[&amp;apos;!ref&amp;apos;]　获取工作">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/11/09/vue的一些工具方法/">
+  <link rel="canonical" href="http://yoursite.com/2018/11/09/js-xlsx的一些操作封装/">
 
 
 
@@ -136,7 +136,7 @@
   };
 </script>
 
-  <title>vue的一些工具方法 | 厚朴酚</title>
+  <title>js-xlsx的一些操作封装 | 厚朴酚</title>
   
 
 
@@ -301,7 +301,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/09/vue的一些工具方法/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/09/js-xlsx的一些操作封装/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="厚朴酚">
@@ -318,7 +318,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">vue的一些工具方法
+          <h1 class="post-title" itemprop="name headline">js-xlsx的一些操作封装
               
             
           </h1>
@@ -343,7 +343,7 @@
                 
               
 
-              <time title="创建时间：2018-11-09 10:17:33 / 修改时间：17:02:47" itemprop="dateCreated datePublished" datetime="2018-11-09T10:17:33+08:00">2018-11-09</time>
+              <time title="创建时间：2018-11-09 15:55:13 / 修改时间：16:51:22" itemprop="dateCreated datePublished" datetime="2018-11-09T15:55:13+08:00">2018-11-09</time>
             
 
             
@@ -365,7 +365,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/vue/" itemprop="url" rel="index"><span itemprop="name">vue</span></a></span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/node-js/" itemprop="url" rel="index"><span itemprop="name">node.js</span></a></span>
 
                 
                 
@@ -399,189 +399,76 @@
       
 
       
-        <h3 id="常常应用的到的一些方法"><a href="#常常应用的到的一些方法" class="headerlink" title="常常应用的到的一些方法"></a>常常应用的到的一些方法</h3><pre><code>  /**
- * 判断两个对象是否相等
- * @param {*} obj1 
- * @param {*} obj2 
- */
-export const objEqual = (obj1, obj2) =&gt; {
-    const keysArr1 = Object.keys(obj1) //获取属性名
-    const keysArr2 = Object.keys(obj2)
-    if (keysArr1.length !== keysArr2.length) return false
-    else if (keysArr1.length === 0 &amp;&amp; keysArr2.length === 0) return true
-    else return !keysArr1.some(key =&gt; obj1[key] !== obj2[key])// some有一条相同返回true,取反为false
-  }
-
-
-/**
- * 根据路由的params生成对象
- * * */
-  export const getRouteById = id =&gt; {
-    let res = {}
-    if (id.includes(&apos;&amp;&apos;)) {
-      res.query = getObjBySplitStr(id, &apos;&amp;&apos;)
-      id = id.split(&apos;&amp;&apos;)[0]
+        <h3 id="js-xlsx的一些常用封装"><a href="#js-xlsx的一些常用封装" class="headerlink" title="js-xlsx的一些常用封装"></a>js-xlsx的一些常用封装</h3><ul>
+<li><p>从excel文件中获取头，返回数组</p>
+<pre><code>// get head from excel file,return array
+// 从excel文件中获取头，返回数组
+function get_header_row(sheet) {
+    const headers = []
+        /*
+         sheet1[&apos;!ref&apos;]　获取工作薄的有效范围　&apos;A1:C20&apos;
+         XLSX.utils.decode_range 将有效范围转为　range对象
+         range: {s: {r:0, c:0}, e: {r:10, 3}}
+         */
+    const range = XLSX.utils.decode_range(sheet[&apos;!ref&apos;]) 
+    // worksheet[&apos;!ref&apos;] 是工作表的有效范围
+    let C
+    /* 获取单元格值 start in the first row */
+    const R = range.s.r //行 //C 列
+    for (C = range.s.c; C &lt;= range.e.c; ++C) { /* walk every column in the range */
+        //{c:C,r:R} 单元格地址
+        var cell = sheet[XLSX.utils.encode_cell({ c: C, r: R })] /* 根据地址得到单元格的值find the cell in the first row */
+        var hdr = &apos;UNKNOWN &apos; + C // &lt;-- 替换为您想要的默认值replace with your desired default
+        //XLSX.utils.format_cell 生成单元格文本值
+        if (cell &amp;&amp; cell.t) hdr = XLSX.utils.format_cell(cell)
+        headers.push(hdr)
     }
-    if (id.includes(&apos;:&apos;)) {
-      res.params = getObjBySplitStr(id, &apos;:&apos;)
-      id = id.split(&apos;:&apos;)[0]
-    }
-    res.name = id
-    return res
-  }
-
-
- export const routeEqual = (route1, route2) =&gt; {
-    const params1 = route1.params || {} //逻辑或,route1.params不为空的话就返回他,或者返回{}空对象
-    const params2 = route2.params || {}
-    const query1 = route1.query || {} //因为路由传参有两种方式,所以要使用两种方式获取参数
-    const query2 = route2.query || {}
-    return route1.name === route2.name &amp;&amp; objEqual(params1, params2) &amp;&amp; objEqual(query1, query2)
-  }
-</code></pre><ul>
-<li>点击上传Csv文件</li>
-</ul>
-<pre><code>/**
- * @param {Object} file 从上传组件得到的文件对象
- * @returns {Promise} resolve参数是解析后的二维数组
- * @description 从Csv文件中解析出表格，解析成二维数组
- */
-export const getArrayFromFile = (file) =&gt; {
-    let nameSplit = file.name.split(&apos;.&apos;) //按照指定符号.切割文件
-    let format = nameSplit[nameSplit.length - 1] //[-1]得到文件名
-    return new Promise((resolve, reject) =&gt; {//返回promise可以用then来获取
-      let reader = new FileReader() //h5创建读取文件
-      reader.readAsText(file) // 以文本格式读取
-      let arr = []
-      reader.onload = function (evt) {//event事件里面有各种属性
-        let data = evt.target.result // 读到的数据
-        let pasteData = data.trim() 
-        //正则:[]指匹配里面任何一个都可以 \n 匹配一个换行符, \u0085匹配下一行 \u2028行分割 \u2029分段符号
-        // \r 回车符 \n?匹配换行0此或者一次 /g代表全局匹配  \t匹配水平制表符
-        arr = pasteData.split((/[\n\u0085\u2028\u2029]|\r\n?/g)).map(row =&gt; {
-          return row.split(&apos;\t&apos;)
-        }).map(item =&gt; {
-          return item[0].split(&apos;,&apos;)
-        })
-        if (format === &apos;csv&apos;) resolve(arr)
-        else reject(new Error(&apos;[Format Error]:你上传的不是Csv文件&apos;))
-      }
-    })
-  }
-
-/**
- * @param {Array} array 表格数据二维数组
- * @returns {Object} { columns, tableData }
- * @description 从二维数组中获取表头和表格数据，将第一行作为表头，用于在iView的表格中展示数据
- */
-export const getTableDataFromArray = (array) =&gt; {
-  let columns = []
-  let tableData = []
-  if (array.length &gt; 1) {
-    let titles = array.shift() //删除数组中的第一个元素（red），并返回被删除元素的值
-    columns = titles.map(item =&gt; {
-      return {
-        title: item,
-        key: item
-      }
-    })
-    tableData = array.map(item =&gt; {
-      let res = {}
-      item.forEach((col, i) =&gt; {
-        res[titles[i]] = col
-      })
-      return res
-    })
-  }
-  return {
-    columns,
-    tableData
-  }
-}
-
-iview Upload组件的beforeUpload应用
-
-beforeUpload (file) {//beforeUpload得到文件对象
-      getArrayFromFile(file).then(data =&gt; {
-        let {columns, tableData} = getTableDataFromArray(data)
-        this.columns = columns
-        this.tableData = tableData
-      }).catch(() =&gt; {
-        this.$Notice.warning({
-          title: &apos;只能上传Csv文件&apos;,
-          desc: &apos;只能上传Csv文件，请重新上传&apos;
-        })
-      })
-      return false
-    }
-</code></pre><ul>
-<li><p>数组的交集</p>
-<pre><code>/**
- * @param {Array} arr1
- * @param {Array} arr2
- * @description 得到两个数组的交集, 两个数组的元素为数值或字符串
- */
-export const getIntersection = (arr1, arr2) =&gt; {
-  let len = Math.min(arr1.length, arr2.length)
-  let i = -1
-  let res = []
-  while (++i &lt; len) {
-    const item = arr2[i]
-    if (arr1.indexOf(item) &gt; -1) res.push(item)
-  }
-  return res
+    return headers
 }
 </code></pre></li>
-<li><p>数组的并集</p>
-<pre><code>/**
- * @param {Array} arr1
- * @param {Array} arr2
- * @description 得到两个数组的并集, 两个数组的元素为数值或字符串
+<li><p>读取excel的表头和表数据</p>
+<pre><code>/*
+* 读取excel的表头和表数据
  */
-export const getUnion = (arr1, arr2) =&gt; {
-  return Array.from(new Set([...arr1, ...arr2]))
+export const read = (data, type) =&gt; {
+    /* if type == &apos;base64&apos; must fix data first */
+    // const fixedData = fixdata(data)
+    // const workbook = XLSX.read(btoa(fixedData), { type: &apos;base64&apos; })
+    const workbook = XLSX.read(data, { type: type });//解析数据
+    const firstSheetName = workbook.SheetNames[0];//获取Sheets中第一个Sheet的名字
+    const worksheet = workbook.Sheets[firstSheetName];//获取第一个Sheet的数据
+    const header = get_header_row(worksheet);//获取表的第一行为表头
+    const results = XLSX.utils.sheet_to_json(worksheet); //表格对象变为json数据
+    return {header, results};
 }
 </code></pre></li>
-</ul>
-<ul>
-<li>判断数组</li>
-</ul>
-<pre><code>/**
- * @param {Array} target 目标数组
- * @param {Array} arr 需要查询的数组
- * @description 判断要查询的数组是否至少有一个元素包含在目标数组中
- */
-export const hasOneOf = (target, arr) =&gt; {
-  return target.some(_ =&gt; arr.indexOf(_) &gt; -1)
-}
-</code></pre><ul>
-<li><p>验证</p>
-<pre><code>/**
- * @param {String|Number} value 要验证的字符串或数值
- * @param {*} validList 用来验证的列表
- */
-export function oneOf (value, validList) {
-  for (let i = 0; i &lt; validList.length; i++) {
-    if (value === validList[i]) {
-      return true
-    }
-  }
-  return false
+<li><p>针对base64的数据提前处理</p>
+<pre><code>// fix data,return string
+function fixdata(data) {
+    let o = &apos;&apos;
+    let l = 0
+    const w = 10240
+    for (; l &lt; data.byteLength / w; ++l) o += String.fromCharCode.apply(null, new Uint8Array(data.slice(l * w, l * w + w)))
+    o += String.fromCharCode.apply(null, new Uint8Array(data.slice(l * w)))
+    return o
 }
 </code></pre></li>
+<li><p>表格转excle</p>
+<p>  export const export_table_to_excel= (id, filename) =&gt; {</p>
+<pre><code>const table = document.getElementById(id);
+const wb = XLSX.utils.table_to_book(table);
+XLSX.writeFile(wb, filename);
+
+/* the second way */
+// const table = document.getElementById(id);
+// const wb = XLSX.utils.book_new();
+// const ws = XLSX.utils.table_to_sheet(table);
+// XLSX.utils.book_append_sheet(wb, ws, filename);
+// XLSX.writeFile(wb, filename);
+</code></pre><p>  }</p>
+</li>
 </ul>
-<pre><code>/**
- * 判断一个对象是否存在key，如果传入第二个参数key，则是判断这个obj对象是否存在key这个属性
- * 如果没有传入key这个参数，则判断obj对象是否有键值对
- */
-export const hasKey = (obj, key) =&gt; {
-  if (key) return key in obj
-  else {
-    let keysArr = Object.keys(obj)
-    return keysArr.length
-  }
-}
-</code></pre>
+
       
     </div>
 
@@ -646,6 +533,8 @@ export const hasKey = (obj, key) =&gt; {
           
             <a href="/tags/javascript/" rel="tag"># javascript</a>
           
+            <a href="/tags/xlsx/" rel="tag"># xlsx</a>
+          
         </div>
       
 
@@ -657,8 +546,8 @@ export const hasKey = (obj, key) =&gt; {
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/11/09/node-js模块定义模式/" rel="next" title="node.js模块定义模式">
-                <i class="fa fa-chevron-left"></i> node.js模块定义模式
+              <a href="/2018/11/09/HTML5的Blob对象/" rel="next" title="HTML5的Blob对象">
+                <i class="fa fa-chevron-left"></i> HTML5的Blob对象
               </a>
             
           </div>
@@ -666,10 +555,6 @@ export const hasKey = (obj, key) =&gt; {
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/11/09/html5的FileReader对象/" rel="prev" title="html5的FileReader对象">
-                html5的FileReader对象 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -833,7 +718,7 @@ export const hasKey = (obj, key) =&gt; {
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#常常应用的到的一些方法"><span class="nav-number">1.</span> <span class="nav-text">常常应用的到的一些方法</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#js-xlsx的一些常用封装"><span class="nav-number">1.</span> <span class="nav-text">js-xlsx的一些常用封装</span></a></li></ol></div>
             
 
           </div>
