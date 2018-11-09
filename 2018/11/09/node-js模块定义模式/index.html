@@ -108,25 +108,25 @@
 
 
 
-  <meta name="description" content="javascript逻辑运算符1:逻辑或(||)示例代码1console.log(0 || &amp;apos;我是string，boolean值为true&amp;apos;);          // 返回字符串 console.log(NaN || &amp;apos;我是string，boolean值为true&amp;apos;);        // 返回字符串 console.log(&amp;apos;&amp;apos; ||">
-<meta name="keywords" content="导航 - javascript">
+  <meta name="description" content="模块定义模式模块除了用于加载依赖关系的机制之外,还用于定义API工具,最大限度地隐藏信息和API可用性,可扩展性和代码复用. 命名导出最基本的方法,把要公开的值赋给由exports(或者module.exports)引用对象的属性.生成导出对象为一组相关功能的容器或命名空间. 案例 定义模块  //file  logger.js exports.info = (message) =&amp;gt; {">
+<meta name="keywords" content="导航 - node.js">
 <meta property="og:type" content="article">
-<meta property="og:title" content="javascript逻辑运算符">
-<meta property="og:url" content="http://yoursite.com/2018/11/04/javascript逻辑运算符/index.html">
+<meta property="og:title" content="node.js模块定义模式">
+<meta property="og:url" content="http://yoursite.com/2018/11/09/node-js模块定义模式/index.html">
 <meta property="og:site_name" content="厚朴酚">
-<meta property="og:description" content="javascript逻辑运算符1:逻辑或(||)示例代码1console.log(0 || &amp;apos;我是string，boolean值为true&amp;apos;);          // 返回字符串 console.log(NaN || &amp;apos;我是string，boolean值为true&amp;apos;);        // 返回字符串 console.log(&amp;apos;&amp;apos; ||">
+<meta property="og:description" content="模块定义模式模块除了用于加载依赖关系的机制之外,还用于定义API工具,最大限度地隐藏信息和API可用性,可扩展性和代码复用. 命名导出最基本的方法,把要公开的值赋给由exports(或者module.exports)引用对象的属性.生成导出对象为一组相关功能的容器或命名空间. 案例 定义模块  //file  logger.js exports.info = (message) =&amp;gt; {">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-11-04T07:49:56.007Z">
+<meta property="og:updated_time" content="2018-11-09T01:42:02.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="javascript逻辑运算符">
-<meta name="twitter:description" content="javascript逻辑运算符1:逻辑或(||)示例代码1console.log(0 || &amp;apos;我是string，boolean值为true&amp;apos;);          // 返回字符串 console.log(NaN || &amp;apos;我是string，boolean值为true&amp;apos;);        // 返回字符串 console.log(&amp;apos;&amp;apos; ||">
+<meta name="twitter:title" content="node.js模块定义模式">
+<meta name="twitter:description" content="模块定义模式模块除了用于加载依赖关系的机制之外,还用于定义API工具,最大限度地隐藏信息和API可用性,可扩展性和代码复用. 命名导出最基本的方法,把要公开的值赋给由exports(或者module.exports)引用对象的属性.生成导出对象为一组相关功能的容器或命名空间. 案例 定义模块  //file  logger.js exports.info = (message) =&amp;gt; {">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/11/04/javascript逻辑运算符/">
+  <link rel="canonical" href="http://yoursite.com/2018/11/09/node-js模块定义模式/">
 
 
 
@@ -136,7 +136,7 @@
   };
 </script>
 
-  <title>javascript逻辑运算符 | 厚朴酚</title>
+  <title>node.js模块定义模式 | 厚朴酚</title>
   
 
 
@@ -301,7 +301,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/04/javascript逻辑运算符/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/09/node-js模块定义模式/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="厚朴酚">
@@ -318,7 +318,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">javascript逻辑运算符
+          <h1 class="post-title" itemprop="name headline">node.js模块定义模式
               
             
           </h1>
@@ -343,7 +343,7 @@
                 
               
 
-              <time title="创建时间：2018-11-04 15:41:17 / 修改时间：15:49:56" itemprop="dateCreated datePublished" datetime="2018-11-04T15:41:17+08:00">2018-11-04</time>
+              <time title="创建时间：2018-11-09 08:52:42 / 修改时间：09:42:02" itemprop="dateCreated datePublished" datetime="2018-11-09T08:52:42+08:00">2018-11-09</time>
             
 
             
@@ -365,7 +365,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a></span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/node-js/" itemprop="url" rel="index"><span itemprop="name">node.js</span></a></span>
 
                 
                 
@@ -399,49 +399,102 @@
       
 
       
-        <h3 id="javascript逻辑运算符"><a href="#javascript逻辑运算符" class="headerlink" title="javascript逻辑运算符"></a>javascript逻辑运算符</h3><h4 id="1-逻辑或"><a href="#1-逻辑或" class="headerlink" title="1:逻辑或(||)"></a>1:逻辑或(||)</h4><h5 id="示例代码1"><a href="#示例代码1" class="headerlink" title="示例代码1"></a>示例代码1</h5><pre><code>console.log(0 || &apos;我是string，boolean值为true&apos;);          // 返回字符串
-console.log(NaN || &apos;我是string，boolean值为true&apos;);        // 返回字符串
-console.log(&apos;&apos; || &apos;我是string，boolean值为true&apos;);         // 返回字符串
-console.log(null || &apos;我是string，boolean值为true&apos;);       // 返回字符串
-console.log(undefined || &apos;我是string，boolean值为true&apos;);  // 返回字符串
-</code></pre><p>我们知道 0、NaN、’ ‘、null、undefined转换为boolean值都为flase，若第一个值为false，第二个值为true，则返回第二个值。</p>
-<h5 id="示例代码2"><a href="#示例代码2" class="headerlink" title="示例代码2"></a>示例代码2</h5><pre><code>console.log(0 || &apos;NaN&apos;);           // 返回 NaN
-console.log(NaN || &apos;&apos;);            // 返回 &apos;&apos; 空字符串
-console.log(&apos;&apos; || null);           // 返回 null
-console.log(null || &apos;undefined&apos;);  // 返回 undefined
-console.log(undefined || 0);       // 返回 0
-</code></pre><p>结合上面两个例子我们可以发现，<strong> 只要第一个值的布尔值为false，那么永远返回第二个值，</strong>不管第二个值的布尔值是true还是false。</p>
-<h5 id="示例代码3"><a href="#示例代码3" class="headerlink" title="示例代码3"></a>示例代码3</h5><pre><code>var obj = {};
-console.log(obj || NaN);      // 返回 obj
-console.log(obj || number);   // 返回 obj
-console.log( 0 || number);    // 报错，number未定义
-</code></pre><p>通过这个例子可以发现逻辑或属于短路操作，只要第一个值的布尔值为true，不再操作第二个值，直接返回第一个值，number变量未定义也不会报错。</p>
-<h4 id="2逻辑与-amp-amp"><a href="#2逻辑与-amp-amp" class="headerlink" title="2逻辑与(&amp;&amp;)"></a>2逻辑与(&amp;&amp;)</h4><p>逻辑与 操作符在JavaScript中主要用在条件判断语句中，极少情况下出现在赋值语句中，特性和 逻辑或 很相似。</p>
-<h5 id="示例1"><a href="#示例1" class="headerlink" title="示例1"></a>示例1</h5><pre><code>var obj = {};
-console.log(0 &amp;&amp; obj);               // 返回 0
-console.log(NaN &amp;&amp; obj);             // 返回 NaN
-console.log(&apos;&apos; &amp;&amp; obj);              // 返回 &apos;&apos; 空字符串
-console.log(null &amp;&amp; obj);            // 返回 null
-console.log(undefined &amp;&amp; obj);       // 返回 undefined
-// number 未定义
-console.log(undefined &amp;&amp; number);    // 返回 undefined 不会报错
-</code></pre><p>通过上面的代码发现 逻辑与 与 逻辑或 很近似，逻辑与 也属于短路操作；当第一个值的布尔值为false，它不再操作第二个值，同时直接返回第一个值。</p>
-<h5 id="示例2"><a href="#示例2" class="headerlink" title="示例2"></a>示例2</h5><pre><code>var obj = {};
-var str = &apos;Riny&apos;;
+        <h3 id="模块定义模式"><a href="#模块定义模式" class="headerlink" title="模块定义模式"></a>模块定义模式</h3><p>模块除了用于加载依赖关系的机制之外,还用于定义API工具,最大限度地隐藏信息和API可用性,可扩展性和代码复用.</p>
+<h4 id="命名导出"><a href="#命名导出" class="headerlink" title="命名导出"></a>命名导出</h4><p>最基本的方法,把要公开的值赋给由exports(或者module.exports)引用对象的属性.生成导出对象为一组相关功能的容器或命名空间.</p>
+<h5 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h5><ul>
+<li>定义模块</li>
+</ul>
+<pre><code>//file  logger.js
+exports.info = (message) =&gt; {
+    console.log(&apos;info:&apos;+message)
+}
 
-/* 当第一个值的布尔值为true 返回第二个值 */
-console.log(obj &amp;&amp; 0);          // 返回 0
-console.log(obj &amp;&amp; NaN);        // 返回 NaN
-console.log(obj &amp;&amp; &apos;&apos;);         // 返回 &apos;&apos; 空字符串
-console.log(obj &amp;&amp; undefined);  // 返回 undefined
-console.log(obj &amp;&amp; null);       // 返回 null
+exports.verbose = (message) =&gt; {
+    console.log(&apos;verbose&apos; + message)
+}
+</code></pre><ul>
+<li>引用模块</li>
+</ul>
+<pre><code>const logger = require(&apos;./logger&apos;)
 
-/* 当第一个值的布尔值为true 返回第二个值 */
-console.log(obj &amp;&amp; str);        // 返回 字符串
-</code></pre><p>通过上面比较可以发现，逻辑与 只要第一个值的布尔值为true，永远返回第二个值。</p>
-<h4 id="3总结"><a href="#3总结" class="headerlink" title="3总结"></a>3总结</h4><h5 id="逻辑或（-）总结："><a href="#逻辑或（-）总结：" class="headerlink" title="逻辑或（||）总结："></a>逻辑或（||）总结：</h5><p>只要第一个值的布尔值为false，那么永远返回第二个值。<br>逻辑或属于短路操作，第一个值为true时，不再操作第二个值，且返回第一个值。</p>
-<h5 id="逻辑与（-amp-amp-）总结："><a href="#逻辑与（-amp-amp-）总结：" class="headerlink" title="逻辑与（&amp;&amp;）总结："></a>逻辑与（&amp;&amp;）总结：</h5><p>只要第一个值的布尔值为true，那么永远返回第二个值。<br>逻辑与属于短路操作，第一个值为false时，不再操作第二个值，且返回第一个值。</p>
-<p>链接：<a href="https://www.jianshu.com/p/07a1cabe6484" target="_blank" rel="noopener">https://www.jianshu.com/p/07a1cabe6484</a></p>
+logger.info(&apos;this is info&apos;)
+
+logger.verbose(&apos;this is a verbose&apos;)
+</code></pre><h4 id="导出函数-–substack模式"><a href="#导出函数-–substack模式" class="headerlink" title="导出函数 –substack模式"></a>导出函数 –substack模式</h4><p>最流行的一种模块定义模式是将整个module.exports变量重新分配给一个函数,主要优点只暴露一个单一的功能,提供明确的入口点,遵守小接触面的原则,也称为substack模式</p>
+<h5 id="案例-1"><a href="#案例-1" class="headerlink" title="案例"></a>案例</h5><ul>
+<li><p>定义导出函数模块</p>
+<pre><code>//logger.js
+module.exports = (message) =&gt; {//默认导出的
+    console.log(`info:${message}`)
+}
+
+module.exports.verbose = (message) =&gt; {
+    console.log(`verbose:${message}`)
+}
+</code></pre></li>
+<li><p>引用模块</p>
+<pre><code>//file main.js
+
+const logger = require(&apos;./module&apos;)
+
+logger(&apos;this is info default function&apos;)
+
+logger.verbose(&apos;this is verbose function&apos;)
+</code></pre></li>
+</ul>
+<p>虽然只输出一个函数看上去是一种限制,实际上它是一种完美的方式,把重心放在一个模块最重要的单一功能,减低内部的可见性同时,导出函数本身的属性,node.js的模块快极大鼓励采用单一责任原则,每个模块应该对单个功能负责,该责任完全由模块封装.</p>
+<h4 id="导出构造函数"><a href="#导出构造函数" class="headerlink" title="导出构造函数"></a>导出构造函数</h4><p>导出构造函数的模块是导出函数模块的特别化, 区别在于:使用该模式,允许用户使用构造函数创建新实例,还可以扩展其原型并创建新类</p>
+<ul>
+<li><p>定义构造函数模块</p>
+<pre><code>//logger.js
+function Logger(name) {
+    this.name = name
+}
+
+Logger.prototype.log = function(message){
+    console.log(`[${this.name}] ${message}`)
+}
+
+Logger.prototype.verbose = function(message) {
+    this.log(`info:${message}`)
+}
+
+Logger.prototype.info = function(message) {
+    this.log(`info:${message}`)
+}
+
+module.exports = Logger
+</code></pre></li>
+<li><p>引用构造函数</p>
+</li>
+</ul>
+<pre><code>const Logger = require(&apos;./module&apos;)
+const dblog = new Logger(&apos;db&apos;)
+
+dblog.info(&apos;this info fun&apos;)
+
+const accessLogger = new Logger(&apos;adcb&apos;)
+accessLogger.verbose(&apos;this is verbose fun&apos;)
+</code></pre><ul>
+<li><p>ES6方式</p>
+<pre><code>class Logger {
+    constructor(name) {
+        this.name = name
+    }
+    log(message) {
+        console.log(`[${this.name}] [${message}]`)
+    }
+    info(message) {
+        this.log(`info:${message}`)
+    }
+    verbose(message) {
+        this.log(`verbose:${message}`)
+    }
+}
+
+module.exports = Logger;
+</code></pre></li>
+</ul>
 
       
     </div>
@@ -503,7 +556,7 @@ console.log(obj &amp;&amp; str);        // 返回 字符串
       
         <div class="post-tags">
           
-            <a href="/tags/导航-javascript/" rel="tag"># 导航 - javascript</a>
+            <a href="/tags/导航-node-js/" rel="tag"># 导航 - node.js</a>
           
         </div>
       
@@ -516,8 +569,8 @@ console.log(obj &amp;&amp; str);        // 返回 字符串
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/11/02/vuejs路由显示控制/" rel="next" title="vuejs路由在菜单是否显示控制方法">
-                <i class="fa fa-chevron-left"></i> vuejs路由在菜单是否显示控制方法
+              <a href="/2018/11/08/javascript闭包/" rel="next" title="javascript闭包">
+                <i class="fa fa-chevron-left"></i> javascript闭包
               </a>
             
           </div>
@@ -525,10 +578,6 @@ console.log(obj &amp;&amp; str);        // 返回 字符串
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/11/05/ES6在条件语句的优雅应用/" rel="prev" title="ES6在条件语句的优雅应用">
-                ES6在条件语句的优雅应用 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -686,7 +735,7 @@ console.log(obj &amp;&amp; str);        // 返回 字符串
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#javascript逻辑运算符"><span class="nav-number">1.</span> <span class="nav-text">javascript逻辑运算符</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-逻辑或"><span class="nav-number">1.1.</span> <span class="nav-text">1:逻辑或(||)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#示例代码1"><span class="nav-number">1.1.1.</span> <span class="nav-text">示例代码1</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#示例代码2"><span class="nav-number">1.1.2.</span> <span class="nav-text">示例代码2</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#示例代码3"><span class="nav-number">1.1.3.</span> <span class="nav-text">示例代码3</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2逻辑与-amp-amp"><span class="nav-number">1.2.</span> <span class="nav-text">2逻辑与(&amp;&amp;)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#示例1"><span class="nav-number">1.2.1.</span> <span class="nav-text">示例1</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#示例2"><span class="nav-number">1.2.2.</span> <span class="nav-text">示例2</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3总结"><span class="nav-number">1.3.</span> <span class="nav-text">3总结</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#逻辑或（-）总结："><span class="nav-number">1.3.1.</span> <span class="nav-text">逻辑或（||）总结：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#逻辑与（-amp-amp-）总结："><span class="nav-number">1.3.2.</span> <span class="nav-text">逻辑与（&amp;&amp;）总结：</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#模块定义模式"><span class="nav-number">1.</span> <span class="nav-text">模块定义模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#命名导出"><span class="nav-number">1.1.</span> <span class="nav-text">命名导出</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#案例"><span class="nav-number">1.1.1.</span> <span class="nav-text">案例</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#导出函数-–substack模式"><span class="nav-number">1.2.</span> <span class="nav-text">导出函数 –substack模式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#案例-1"><span class="nav-number">1.2.1.</span> <span class="nav-text">案例</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#导出构造函数"><span class="nav-number">1.3.</span> <span class="nav-text">导出构造函数</span></a></li></ol></li></ol></div>
             
 
           </div>
