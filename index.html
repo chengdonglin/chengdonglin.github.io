@@ -300,6 +300,206 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/09/vue的一些工具方法/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="厚朴酚">
+      <meta itemprop="description" content="学习笔记">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="厚朴酚">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/09/vue的一些工具方法/" itemprop="url">
+                  vue的一些工具方法
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-11-09 10:17:33 / 修改时间：10:22:53" itemprop="dateCreated datePublished" datetime="2018-11-09T10:17:33+08:00">2018-11-09</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/vue/" itemprop="url" rel="index"><span itemprop="name">vue</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="常常应用的到的一些方法"><a href="#常常应用的到的一些方法" class="headerlink" title="常常应用的到的一些方法"></a>常常应用的到的一些方法</h3><pre><code>  /**
+ * 判断两个对象是否相等
+ * @param {*} obj1 
+ * @param {*} obj2 
+ */
+export const objEqual = (obj1, obj2) =&gt; {
+    const keysArr1 = Object.keys(obj1) //获取属性名
+    const keysArr2 = Object.keys(obj2)
+    if (keysArr1.length !== keysArr2.length) return false
+    else if (keysArr1.length === 0 &amp;&amp; keysArr2.length === 0) return true
+    else return !keysArr1.some(key =&gt; obj1[key] !== obj2[key])// some有一条相同返回true,取反为false
+  }
+
+
+/**
+ * 根据路由的params生成对象
+ * * */
+  export const getRouteById = id =&gt; {
+    let res = {}
+    if (id.includes(&apos;&amp;&apos;)) {
+      res.query = getObjBySplitStr(id, &apos;&amp;&apos;)
+      id = id.split(&apos;&amp;&apos;)[0]
+    }
+    if (id.includes(&apos;:&apos;)) {
+      res.params = getObjBySplitStr(id, &apos;:&apos;)
+      id = id.split(&apos;:&apos;)[0]
+    }
+    res.name = id
+    return res
+  }
+
+
+ export const routeEqual = (route1, route2) =&gt; {
+    const params1 = route1.params || {} //逻辑或,route1.params不为空的话就返回他,或者返回{}空对象
+    const params2 = route2.params || {}
+    const query1 = route1.query || {} //因为路由传参有两种方式,所以要使用两种方式获取参数
+    const query2 = route2.query || {}
+    return route1.name === route2.name &amp;&amp; objEqual(params1, params2) &amp;&amp; objEqual(query1, query2)
+  }
+</code></pre>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+    
+
+    
+    <div>
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/09/node-js模块定义模式/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -3104,260 +3304,6 @@ console.log(obj &amp;&amp; str);        // 返回 字符串
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/02/vuejs路由显示控制/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="厚朴酚">
-      <meta itemprop="description" content="学习笔记">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="厚朴酚">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/02/vuejs路由显示控制/" itemprop="url">
-                  vuejs路由在菜单是否显示控制方法
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-11-02 15:09:45 / 修改时间：15:15:07" itemprop="dateCreated datePublished" datetime="2018-11-02T15:09:45+08:00">2018-11-02</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/vue/" itemprop="url" rel="index"><span itemprop="name">vue</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="路由显示控制"><a href="#路由显示控制" class="headerlink" title="路由显示控制"></a>路由显示控制</h3><h4 id="路由列表"><a href="#路由列表" class="headerlink" title="路由列表"></a>路由列表</h4><p>`</p>
-<pre><code>export const routerMap = [
-    {
-        path: &apos;/&apos;,
-        name: &apos;Main&apos;,
-        component: ()=&gt;import(&apos;@/view/main/main&apos;),
-        meta: {
-          title: &apos;客户管理系统&apos;,
-          icon:&apos;md-apps&apos;
-        },
-        children: [
-          {
-            path: &apos;/sys/enum/list&apos;,
-            name: &apos;sysEnumList&apos;,
-            component: ()=&gt;import(&apos;@/view/sys/enum/list&apos;),
-            meta: {
-              title: &apos;添加客户&apos;,
-              icon:&apos;md-apps&apos;,
-              show:true
-            }
-          },
-          {
-            path: &apos;/sys/enum/edit&apos;,
-            name: &apos;sysEnumEdit&apos;,
-            component: ()=&gt;import(&apos;@/view/sys/enum/edit&apos;),
-            meta: {
-              title: &apos;枚举数据编辑&apos;,
-              icon:&apos;md-apps&apos;,
-              show:true
-            }
-          },
-          {
-            path: &apos;/sys/func/list&apos;,
-            name: &apos;sysFuncList&apos;,
-            component: ()=&gt;import(&apos;@/view/sys/func/list&apos;),
-            meta: {
-              title: &apos;功能管理&apos;,
-              icon:&apos;md-apps&apos;,
-              show:true
-            }
-          }
-        ]
-      },
-      {
-        path:&apos;/menu&apos;,
-        name:&apos;menu&apos;,
-        component:()=&gt;import(&apos;@/view/main/main&apos;),
-        meta:{
-          title:&quot;菜单管理&quot;,
-          icon:&quot;md-apps&quot;,
-        },
-        children:[
-           {
-              path: &apos;list&apos;,
-              name: &apos;list&apos;,
-              component: ()=&gt;import(&apos;@/view/pages/list&apos;),
-              meta: {
-                title: &apos;列表管理&apos;,
-                icon:&apos;md-apps&apos;,
-                show:true
-              }
-           },
-           {
-            path: &apos;add&apos;,
-            name: &apos;add&apos;,
-            component: ()=&gt;import(&apos;@/view/pages/add&apos;),
-            meta: {
-              title: &apos;添加管理&apos;,
-              icon:&apos;md-apps&apos;,
-              show:false
-            }
-         }
-        ]
-      },
-]
-`
-</code></pre><h4 id="配置页面显示控制列表"><a href="#配置页面显示控制列表" class="headerlink" title="配置页面显示控制列表"></a>配置页面显示控制列表</h4><pre><code>const rules = {  
-        Main:true,
-        sysEnumList:true,
-        sysEnumEdit:true,
-        sysFuncList:true,
-        menu:true,
-        list:true,
-        add:false,
-}
-</code></pre><h4 id="路由过滤方法"><a href="#路由过滤方法" class="headerlink" title="路由过滤方法"></a>路由过滤方法</h4><pre><code>export const getAccessRouterList = (route,rule) =&gt; {
-    return route.filter(item =&gt; {
-        if (rule[item.name]) {
-            if (item.children) item.children = getAccessRouterList(item.children, rule)
-            return true
-        } else return false
-    })
-}
-</code></pre>
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-    
-
-    
-    <div>
-      
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -3407,7 +3353,7 @@ console.log(obj &amp;&amp; str);        // 返回 字符串
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">16</span>
+                    <span class="site-state-item-count">17</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
