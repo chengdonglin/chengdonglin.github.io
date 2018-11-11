@@ -7,7 +7,7 @@ tags:
 categories: node.js mongodb
 ---
 
-### mongoose操作mongondb数据库入门
+### mongoose操作mongodb数据库入门
 
 #### 介绍
 
