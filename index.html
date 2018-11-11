@@ -300,6 +300,361 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/11/async-await的应用/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="厚朴酚">
+      <meta itemprop="description" content="学习笔记">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="厚朴酚">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/11/async-await的应用/" itemprop="url">
+                  async/await的应用
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-11-11 14:01:55 / 修改时间：15:22:41" itemprop="dateCreated datePublished" datetime="2018-11-11T14:01:55+08:00">2018-11-11</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="异步策略解决方式-async-await"><a href="#异步策略解决方式-async-await" class="headerlink" title="异步策略解决方式-async/await"></a>异步策略解决方式-async/await</h3><p> ES2017 中的 async/await 特性编写出相比于 promise chain 和 callback hell 更容易阅读理解的代码。await 关键字接收一个 promise，终止代码的执行，直到 promise 状态变为 resolved 或者 rejected，这种特性能让我们的异步代码阅读起来更像是同步代码。</p>
+<ul>
+<li><p>初始代码</p>
+<pre><code>const fetch = require(&apos;node-fetch&apos;)
+
+function getZhihuColumn(id) {
+    const url = `https://zhuanlan.zhihu.com/api/columns/${id}`
+    fetch(url)
+        .then(response =&gt; response.json())
+        .then(column =&gt; {
+            console.log(`NAME:${column.name}`)
+            console.log(`INTRO:${column.info}`)
+        })
+}
+
+getZhihuColumn(&apos;feweekly&apos;)
+</code></pre></li>
+</ul>
+<p>如何把这个代码改的更加扁平呢?</p>
+<h4 id="async-await-函数"><a href="#async-await-函数" class="headerlink" title="async/await 函数"></a>async/await 函数</h4><pre><code>const fetch = require(&apos;node-fetch&apos;)
+
+async function getZhihuColumn(id) {
+    const url = `https://zhuanlan.zhihu.com/api/columns/${id}`
+    const response = await fetch(url)
+    const column = await response.json()
+    console.log(`NAME:${column.name}`)
+    console.log(`INTRO:${column.info}`)
+}
+
+getZhihuColumn(&apos;feweekly&apos;)
+</code></pre><p>定义函数的时候前缀改为async,在函数体内使用await等待数据完成</p>
+<h4 id="将async函数用在promise-Chain"><a href="#将async函数用在promise-Chain" class="headerlink" title="将async函数用在promise Chain***"></a>将async函数用在promise Chain***</h4><pre><code>const fetch = require(&apos;node-fetch&apos;)
+
+async function getZhihuColumn(id) {
+    const url = `https://zhuanlan.zhihu.com/api/columns/${id}`
+    const response = await fetch(url)
+    const column = await response.json()
+    return column
+    //上面两行可以直接写成
+    //return await response.json()
+}
+
+getZhihuColumn(&apos;feweekly&apos;)
+    .then(column =&gt; {
+        console.log(`NAME:${column.name}`)
+    console.log(`INTRO:${column.info}`)
+    })
+</code></pre><h4 id="将任意类型的函数转为async风格"><a href="#将任意类型的函数转为async风格" class="headerlink" title="将任意类型的函数转为async风格"></a>将任意类型的函数转为async风格</h4><pre><code>const fetch = require(&apos;node-fetch&apos;)
+
+const getZhihuColumn= async (id) =&gt; {
+    const url = `https://zhuanlan.zhihu.com/api/columns/${id}`
+    const response = await fetch(url)
+    const column = await response.json()
+    return column
+}
+
+//立即执行
+(async()=&gt;{
+    const column = await getZhihuColumn(&apos;feweekly&apos;)
+    console.log(`NAME:${column.name}`)
+    console.log(`INTRO:${column.info}`)
+})()
+</code></pre><h4 id="在class类中使用async风格"><a href="#在class类中使用async风格" class="headerlink" title="在class类中使用async风格"></a>在class类中使用async风格</h4><pre><code>class APIClient {
+    async getColumn(id) {
+        const url = `https://zhuanlan.zhihu.com/api/columns/${id}`
+        const response = await fetch(url)
+        const column = await response.json()
+        return column
+    }
+}
+
+//立即执行
+(async()=&gt;{
+    const client = new APIClient()
+    const column = await client.getColumn(&apos;feweekly&apos;)
+    console.log(`NAME:${column.name}`)
+    console.log(`INTRO:${column.info}`)
+})()
+</code></pre><h4 id="处理-async-函数中的错误"><a href="#处理-async-函数中的错误" class="headerlink" title="处理 async 函数中的错误"></a>处理 async 函数中的错误</h4><pre><code>const fetch = require(&apos;node-fetch&apos;)
+
+async function getZhihuColumn(id) {
+    const url = `https://zhuanlan.zhihu.com/api/columns/${id}`
+    const response = await fetch(url)
+    if (response.status !== 200) {
+        throw new Error(response.status)
+    }
+    return await response.json()
+}
+
+//方式一
+getZhihuColumn(&apos;feweekly&apos;)
+    .then(column =&gt; {
+       console.log(`NAME:${column.name}`)
+       console.log(`INTRO:${column.info}`)
+   }).catch(err=&gt;{
+       console.log(err)
+   })
+
+   //方式二
+
+   const showColumnsInfo = async(id) =&gt; {
+      try {
+        const column = await getZhihuColumn(id)
+        console.log(`NAME:${column.name}`)
+        console.log(`INTRO:${column.info}`)
+      } catch (error) {
+          console.log(error)
+      }
+   }
+   showColumnsInfo(&apos;feweek123&apos;)
+</code></pre><h4 id="正确处理多个await操作的并行串行"><a href="#正确处理多个await操作的并行串行" class="headerlink" title="正确处理多个await操作的并行串行"></a>正确处理多个await操作的并行串行</h4><pre><code>const fetch = require(&apos;node-fetch&apos;)
+
+    async function getZhihuColumn(id) {
+        const url = `https://zhuanlan.zhihu.com/api/columns/${id}`
+        const response = await fetch(url)
+        return await response.json()
+    }
+
+//串行
+   const showColumnsInfo = async() =&gt; {
+        const column = await getZhihuColumn(&apos;feweely&apos;)
+        const toolingtips = await getZhihuColumn(&apos;toolingtips&apos;)
+        console.log(`NAME:${column.name}`)
+        console.log(`INTRO:${column.info}`)
+        console.log(`NAME:${toolingtips.name}`)
+        console.log(`INTRO:${toolingtips.info}`)
+   }
+showColumnsInfo()
+
+//并行
+const showColumnsInfo = async() =&gt; {
+    const columnPromise = getZhihuColumn(&apos;feweely&apos;)
+    const toolingtipsPromise = getZhihuColumn(&apos;toolingtips&apos;)
+    const feweekly = await columnPromise
+    const toolingtips = await toolingtipsPromise
+    console.log(`NAME:${feweekly.name}`)
+    console.log(`INTRO:${feweekly.info}`)
+    console.log(`NAME:${toolingtips.name}`)
+    console.log(`INTRO:${toolingtips.info}`)
+}
+</code></pre><h4 id="使用Promise-all-让多个await-操作并行"><a href="#使用Promise-all-让多个await-操作并行" class="headerlink" title="使用Promise.all()让多个await 操作并行"></a>使用Promise.all()让多个await 操作并行</h4><pre><code>const fetch = require(&apos;node-fetch&apos;)
+
+    async function getZhihuColumn(id) {
+        const url = `https://zhuanlan.zhihu.com/api/columns/${id}`
+        const response = await fetch(url)
+        return await response.json()
+    }
+
+
+const showColumnsInfo = async() =&gt; {
+        const [feweekly,toolingtips] = await Promise.all([//展开操作符
+            getZhihuColumn(&apos;feweekly&apos;),
+            getZhihuColumn(&apos;toolingtips&apos;)
+        ])
+        console.log(`$name:${feweekly.name}`)
+        console.log(`$name:${feweekly.info}`)
+        console.log(`$name:${toolingtips.name}`)
+        console.log(`$name:${toolingtips.info}`)
+   }
+showColumnsInfo()
+</code></pre><h4 id="在for循环中正确的使用await"><a href="#在for循环中正确的使用await" class="headerlink" title="在for循环中正确的使用await"></a>在for循环中正确的使用await</h4><pre><code>const fetch = require(&apos;node-fetch&apos;)    
+    async function getZhihuColumn(id) {
+        const url = `https://zhuanlan.zhihu.com/api/columns/${id}`
+        const response = await fetch(url)
+        return await response.json()
+    }
+    /**
+     * 串行
+     */
+const showColumnsInfo = async() =&gt; {
+    const names = [&apos;feweekly&apos;,&apos;toolingtips&apos;]
+    for (const name of names) {
+        const column = await getZhihuColumn(name)
+        console.log(`NAME:${column.name}`)
+        console.log(`NAME:${column.intro}`)
+    }
+   }
+   /*
+   * 并行
+   **/
+  const showColumnsInfo = async() =&gt; {
+    const names = [&apos;feweekly&apos;,&apos;toolingtips&apos;]
+    const promise = names.map(x =&gt; getZhihuColumn(x))
+    for (const name of promise) {
+        const column = await getZhihuColumn(name)
+        console.log(`NAME:${column.name}`)
+        console.log(`NAME:${column.intro}`)
+    }
+   }  
+
+
+showColumnsInfo()
+</code></pre><h4 id="来源"><a href="#来源" class="headerlink" title="来源"></a>来源</h4><p>微信公众号: 前端周刊</p>
+<p>作者:王仕军</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+    
+
+    
+    <div>
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/10/mongoose操作mongondb数据库入门/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -2908,226 +3263,6 @@ run(g);
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/06/vue修饰符/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="厚朴酚">
-      <meta itemprop="description" content="学习笔记">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="厚朴酚">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/06/vue修饰符/" itemprop="url">
-                  vue修饰符
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-11-06 18:14:46 / 修改时间：19:07:55" itemprop="dateCreated datePublished" datetime="2018-11-06T18:14:46+08:00">2018-11-06</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/vue/" itemprop="url" rel="index"><span itemprop="name">vue</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="vue修饰符"><a href="#vue修饰符" class="headerlink" title="vue修饰符"></a>vue修饰符</h2><h3 id="表单修饰符"><a href="#表单修饰符" class="headerlink" title="表单修饰符"></a>表单修饰符</h3><ul>
-<li>.lazy</li>
-</ul>
-<p>这样只有当我们光标离开输入框的时候，它才会更新视图，相当于在onchange事件触发更新</p>
-<ul>
-<li>.trim</li>
-</ul>
-<p>能过滤首尾的空格！首尾，中间的是不会过滤的</p>
-<ul>
-<li>.number</li>
-</ul>
-<p>如果你先输入数字，那它就会限制你输入的只能是数字。</p>
-<p>如果你先输入字符串，那它就相当于没有加.number</p>
-<h3 id="事件修饰符"><a href="#事件修饰符" class="headerlink" title="事件修饰符"></a>事件修饰符</h3><ul>
-<li>.stop</li>
-</ul>
-<p>由于事件冒泡的机制,我们给元素绑定点击事件的时候，也会触发父级的点击事件.</p>
-<p>一键阻止事件冒泡，简直方便得不行。相当于调用了event.stopPropagation()方法。</p>
-<ul>
-<li>.prevent</li>
-</ul>
-<p>用于阻止事件的默认行为，例如，当点击提交按钮时阻止对表单的提交。相当于调用了event.preventDefault()方法。</p>
-<p>注意：修饰符可以同时使用多个,但是可能会因为顺序而有所不同。<br>用 v-on:click.prevent.self 会阻止所有的点击，而 v-on:click.self.prevent 只会阻止对元素自身的点击。<br>也就是从左往右判断.</p>
-<ul>
-<li>.self</li>
-</ul>
-<p>只当事件是从事件绑定的元素本身触发时才触发回调。像下面所示，刚刚我们从.stop时候知道子元素会冒泡到父元素导致触发父元素的点击事件，当我们加了这个.self以后，我们点击button不会触发父元素的点击事件shout，只有当点击到父元素的时候（蓝色背景）才会shout~从这个self的英文翻译过来就是‘自己，本身’可以看出这个修饰符的用法</p>
-<ul>
-<li>.once</li>
-</ul>
-<p>这个修饰符的用法也是和名字一样简单粗暴，只能用一次，绑定了事件以后只能触发一次，第二次就不会触发。</p>
-<ul>
-<li>.capture</li>
-</ul>
-<p>从上面我们知道了事件的冒泡，其实完整的事件机制是：捕获阶段–目标阶段–冒泡阶段。<br>默认的呢，是事件触发是从目标开始往上冒泡。<br>当我们加了这个.capture以后呢，我们就反过来了，事件触发从包含这个元素的顶层开始往下触发。</p>
-<p>从上面这个例子我们点击obj4的时候，就可以清楚地看出区别，obj1，obj2在捕获阶段就触发了事件，因此是先1后2，后面的obj3，obj4是默认的冒泡阶段触发，因此是先4然后冒泡到3~</p>
-<ul>
-<li>.passive</li>
-</ul>
-<p>当我们在监听元素滚动事件的时候，会一直触发onscroll事件，在pc端是没啥问题的，但是在移动端，会让我们的网页变卡，因此我们使用这个修饰符的时候，相当于给onscroll事件整了一个.lazy修饰符</p>
-<ul>
-<li>.native</li>
-</ul>
-<p>必须使用.native来修饰这个click事件（即<my-component @click.native="shout(3)"></my-component>），可以理解为该修饰符的作用就是把一个vue组件转化为一个普通的HTML标签，<br>注意：使用.native修饰符来操作普通HTML标签是会令事件失效的</p>
-<h3 id="键值修饰符"><a href="#键值修饰符" class="headerlink" title="键值修饰符"></a>键值修饰符</h3><pre><code>//普通键
-.enter 
-.tab
-.delete //(捕获“删除”和“退格”键)
-.space
-.esc
-.up
-.down
-.left
-.right
-//系统修饰键
-.ctrl
-.alt
-.meta
-.shift
-</code></pre>
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-    
-
-    
-    <div>
-      
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -3177,7 +3312,7 @@ run(g);
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-count">23</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
