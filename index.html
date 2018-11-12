@@ -300,6 +300,1144 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/12/express-mongoose模块化/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="厚朴酚">
+      <meta itemprop="description" content="学习笔记">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="厚朴酚">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/12/express-mongoose模块化/" itemprop="url">
+                  express-mongoose模块化
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-11-12 18:24:59 / 修改时间：18:26:25" itemprop="dateCreated datePublished" datetime="2018-11-12T18:24:59+08:00">2018-11-12</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/node-js/" itemprop="url" rel="index"><span itemprop="name">node.js</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Express与MongoDB"><a href="#Express与MongoDB" class="headerlink" title="Express与MongoDB"></a>Express与MongoDB</h1><h2 id="前奏"><a href="#前奏" class="headerlink" title="前奏"></a>前奏</h2><h3 id="Express-是什么？"><a href="#Express-是什么？" class="headerlink" title="Express 是什么？"></a>Express 是什么？</h3><p>Express 是一个基于 Node.js 平台的极简、灵活的 web 应用开发框架，它提供一系列强大的特性，帮助你创建各种 Web 和移动设备应用。</p>
+<h2 id="一-连接MongoDB-抽象出模型"><a href="#一-连接MongoDB-抽象出模型" class="headerlink" title="一  连接MongoDB 抽象出模型"></a>一  连接MongoDB 抽象出模型</h2><h3 id="在项目根目录下新建-lib-mongo-js"><a href="#在项目根目录下新建-lib-mongo-js" class="headerlink" title="在项目根目录下新建/lib/mongo.js"></a>在项目根目录下新建/lib/mongo.js</h3><pre><code>var mongoose = require(&quot;mongoose&quot;);
+var db = mongoose.connect(&apos;mongodb://localhost:27017/myblog&apos;,function(){});
+module.exports = db
+</code></pre><p><strong>要连接的数据库为myblog</strong></p>
+<h3 id="二-Schema"><a href="#二-Schema" class="headerlink" title="二 Schema"></a>二 Schema</h3><p>一种以文件形式存储的数据库模型骨架，无法直接通往数据库端，不具备对数据库的操作能力，仅仅只是数据库模型在程序片段中的一种表现，可以说是数据属性模型(传统意义的表结构)，又或着是“集合”的模型骨架.</p>
+<h4 id="在项目根目录下新建-model-user-js"><a href="#在项目根目录下新建-model-user-js" class="headerlink" title="在项目根目录下新建/model/user.js"></a>在项目根目录下新建/model/user.js</h4><pre><code>var mongoose = require(&quot;mongoose&quot;);
+var db = require(&apos;../lib/mongo&apos;);
+//一个用户模型
+var UserSchema = new mongoose.Schema({
+    username: { type:String },
+    password: {type: String},
+    avatar  : {type: String},
+    age : { type:Number, default:0 },
+    description : { type: String},
+    email   : { type: String },
+    github  : { type: String },
+    time: { type:Date, default:Date.now }
+});
+//创建Model
+var UserModel = db.model(&quot;user&quot;, UserSchema );
+module.exports = UserModel
+</code></pre><p><strong>user：数据库中的集合名称,当我们对其添加数据时如果user已经存在，则会保存到其目录下，如果不存在，则会创建user集合，然后在保存数据。<br>拥有了Model，我们也就拥有了操作数据库的金钥匙，就可以使用Model来进行增删改查的具体操作。</strong></p>
+<h2 id="Entity"><a href="#Entity" class="headerlink" title="Entity"></a>Entity</h2><p>Entity–由Model创建的实体，使用save方法保存数据，Model和Entity都有能影响数据库的操作，但Model比Entity更具操作性。所以此项目主要用的Model。</p>
+<pre><code>var UserEntity = new UserModel({
+    name : &quot;hzzly&quot;,
+    age  : 21,
+    email: &quot;hjingren@aliyun.com&quot;,
+    github: &apos;https://github.com/hzzly&apos;
+});
+UserEntity.save(function(error,doc){
+    if(error){
+        console.log(&quot;error :&quot; + error);
+    }else{
+        console.log(doc);
+    }
+});
+</code></pre><h2 id="三、封装数据库的CURD"><a href="#三、封装数据库的CURD" class="headerlink" title="三、封装数据库的CURD"></a>三、封装数据库的CURD</h2><p><strong>在lib文件下新建api.js<br>采用Promise封装对数据库的操作，避免回调地狱，使得代码能够更好的被读懂和维护</strong></p>
+<pre><code>var UserModel = require(&apos;../models/users&apos;);
+module.exports = {
+    /**
+     * 添加数据
+     * @param  {[type]} data 需要保存的数据对象
+     */
+    save(data) {
+        return new Promise((resolve, reject) =&gt; {
+            //model.create(保存的对象,callback)
+            UserModel.create(data, (error, doc) =&gt; {
+                if(error){
+                    reject(error)
+                }else{
+                    resolve(doc)
+                }
+            })
+        })
+    },
+    find(data={}, fields=null, options={}) {
+        return new Promise((resolve, reject) =&gt; {
+            //model.find(需要查找的对象(如果为空，则查找到所有数据), 属性过滤对象[可选参数], options[可选参数], callback)
+            UserModel.find(data, fields, options, (error, doc) =&gt; {
+                if(error){
+                    reject(error)
+                }else{
+                    resolve(doc)
+                }
+            })
+        })
+    },
+    findOne(data) {
+        return new Promise((resolve, reject) =&gt; {
+            //model.findOne(需要查找的对象,callback)
+            UserModel.findOne(data, (error, doc) =&gt; {
+                if(error){
+                    reject(error)
+                }else{
+                    resolve(doc)
+                }
+            })
+        })
+    },
+    findById(data) {
+        return new Promise((resolve, reject) =&gt; {
+            //model.findById(需要查找的id对象 ,callback)
+            UserModel.findById(data, (error, doc) =&gt; {
+                if(error){
+                    reject(error)
+                }else{
+                    resolve(doc)
+                }
+            })
+        })
+    },
+    update(conditions, update) {
+        return new Promise((resolve, reject) =&gt; {
+            //model.update(查询条件,更新对象,callback)
+            UserModel.update(conditions, update, (error, doc) =&gt; {
+                if(error){
+                    reject(error)
+                }else{
+                    resolve(doc)
+                }
+            })
+        })
+    },
+    remove(conditions) {
+        return new Promise((resolve, reject) =&gt; {
+            //model.update(查询条件,callback)
+            UserModel.remove(conditions, (error, doc) =&gt; {
+                if(error){
+                    reject(error)
+                }else{
+                    resolve(doc)
+                }
+            })
+        })
+    }
+}
+</code></pre><h2 id="四、使用"><a href="#四、使用" class="headerlink" title="四、使用"></a>四、使用</h2><p><strong>在/routers/index.js中使用</strong></p>
+<pre><code>var api = require(&apos;../lib/api&apos;);
+router.post(&apos;/login&apos;, function(req, res, next) {
+    var user = {
+        username : req.body.username,
+        password: req.body.password
+    };
+    api.findOne(user)
+        .then(result =&gt; {
+            console.log(result)
+        })
+})
+router.post(&apos;/sign_up&apos;, function(req, res, next) {
+    var user = {
+        username : req.body.username,
+        password: req.body.password,
+        email: req.body.email
+    };
+    api.save(user)
+        .then(result =&gt; {
+            console.log(result)            
+        })
+})
+router.get(&apos;/user_list&apos;, function(req, res, next) {
+    //返回所有用户
+    api.find({})
+        .then(result =&gt; {
+            console.log(result)            
+        })
+    //返回只包含一个键值name、age的所有记录
+    api.find({},{name:1, age:1, _id:0})
+        .then(result =&gt; {
+            console.log(result)            
+        })
+    //返回所有age大于18的数据
+    api.find({&quot;age&quot;:{&quot;$gt&quot;:18}})
+        .then(result =&gt; {
+            console.log(result)            
+        })
+    //返回20条数据
+    api.find({},null,{limit:20})
+        .then(result =&gt; {
+            console.log(result)            
+        })
+    //查询所有数据，并按照age降序顺序返回数据
+    api.find({},null,{sort:{age:-1}}) //1是升序，-1是降序
+        .then(result =&gt; {
+            console.log(result)            
+        })
+})
+</code></pre>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+    
+
+    
+    <div>
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/12/koa基于mongoose模块化实现/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="厚朴酚">
+      <meta itemprop="description" content="学习笔记">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="厚朴酚">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/12/koa基于mongoose模块化实现/" itemprop="url">
+                  在koa中应用mongoose模块化实现
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-11-12 17:25:32 / 修改时间：18:14:23" itemprop="dateCreated datePublished" datetime="2018-11-12T17:25:32+08:00">2018-11-12</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/koa/" itemprop="url" rel="index"><span itemprop="name">koa</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="在koa中应用mongoose模块化实现"><a href="#在koa中应用mongoose模块化实现" class="headerlink" title="在koa中应用mongoose模块化实现"></a>在koa中应用mongoose模块化实现</h3><pre><code>为了让项目拥有更好的可读性以及可管理性,那么
+</code></pre><ul>
+<li>数据库连接</li>
+</ul>
+<pre><code>//init.js
+
+const mongoose = require(&apos;mongoose&apos;)
+const db = &quot;mongodb://localhost/smile-vue&quot;
+const glob = require(&apos;glob&apos;)
+const {resolve} = require(&apos;path&apos;)
+
+//一次性全部导入模型
+exports.initSchemas = ()=&gt;{
+    glob.sync(resolve(__dirname,&apos;./schema&apos;,&apos;**/*.js&apos;)).forEach(require)
+}
+exports.connect = ()=&gt;{
+    //连接数据库
+    mongoose.connect(db)
+    let  maxConnectTimes = 0
+    return new Promise((resolve,reject)=&gt;{
+         //增加数据库监听事件
+        mongoose.connection.on(&apos;disconnected&apos;,()=&gt;{
+            console.log(&apos;***********数据库断开***********&apos;)
+            if(maxConnectTimes&lt;=3){
+                maxConnectTimes++
+                mongoose.connect(db)
+            }else{
+                reject()
+                throw new Error(&apos;数据库出现问题&apos;)
+            }      
+        })
+        mongoose.connection.on(&apos;error&apos;,(err)=&gt;{
+            console.log(&apos;***********数据库错误&apos;)
+            if(maxConnectTimes&lt;=3){
+                maxConnectTimes++
+                mongoose.connect(db)
+            }else{
+                reject(err)
+                throw new Error(&apos;数据库出现问题&apos;)
+            }
+        })
+        //链接打开的时
+        mongoose.connection.once(&apos;open&apos;,()=&gt;{
+            console.log(&apos;MongoDB connected successfully&apos;)           
+            resolve()
+        })
+    })
+}
+</code></pre><ul>
+<li><p>shema文件夹创建模型</p>
+<pre><code>//User.js
+const mongoose = require(&apos;mongoose&apos;)
+const Schema = mongoose.Schema
+let ObjectId = Schema.Types.ObjectId
+const bcrypt = require(&apos;bcrypt&apos;)
+const SALT_WORK_FACTOR = 10
+
+//创建UserShema
+const userSchema = new Schema({
+    UserId :{type:ObjectId},
+    userName : {unique:true,type:String},
+    password : String,
+    createAt:{type:Date, default:Date.now()},
+    lastLoginAt:{type:Date, default:Date.now()}
+},{
+  collection:&apos;user&apos;  
+}) 
+userSchema.pre(&apos;save&apos;, function(next){
+    bcrypt.genSalt(SALT_WORK_FACTOR,(err,salt)=&gt;{
+        if(err) return next(err)
+        bcrypt.hash(this.password,salt,(err,hash)=&gt;{
+            if(err) return next(err)
+            this.password = hash
+            next()
+        })
+    })
+})
+
+userSchema.methods={
+    comparePassword:(_password,password)=&gt;{
+        return new Promise((resolve,reject)=&gt;{
+            bcrypt.compare(_password,password,(err,isMatch)=&gt;{
+                if(!err) resolve(isMatch)
+                else reject(err)
+            })
+        })
+    }
+}
+</code></pre></li>
+</ul>
+<pre><code>//发布模型
+mongoose.model(&apos;User&apos;,userSchema)
+</code></pre><ul>
+<li>服务器连接开启数据库并导入模型</li>
+</ul>
+<pre><code>const Koa = require(&apos;koa&apos;)
+const app = new Koa()
+const { connect , initSchemas } = require(&apos;./database/init.js&apos;)
+const mongoose = require(&apos;mongoose&apos;)
+const bodyParser = require(&apos;koa-bodyparser&apos;)
+const cors = require(&apos;koa2-cors&apos;)
+const Router = require(&apos;koa-router&apos;)
+app.use(bodyParser())
+app.use(cors())
+let user = require(&apos;./appApi/user.js&apos;)
+let home = require(&apos;./appApi/home.js&apos;)
+let goods = require(&apos;./appApi/goods.js&apos;)
+
+//装载所有子路由
+let router = new Router()
+router.use(&apos;/user&apos;,user.routes())
+router.use(&apos;/home&apos;,home.routes())
+router.use(&apos;/goods&apos;,goods.routes())
+//egg.js
+
+//加载路由中间件
+app.use(router.routes())
+app.use(router.allowedMethods())
+//这个函数说明立即执行,创建数据库连接导入模型
+;(async ()=&gt;{
+    await connect()
+    initSchemas()
+})()
+app.use(async(ctx)=&gt;{
+    ctx.body=&apos;&lt;h1&gt;Hello Koa2&lt;/h1&gt;&apos;
+})
+app.listen(3000,()=&gt;{
+    console.log(&apos;[Server] starting at port 3000&apos;)
+})
+</code></pre><ul>
+<li><p>在路由中使用</p>
+<pre><code>const Router = require(&apos;koa-router&apos;)
+const mongoose = require(&apos;mongoose&apos;)
+
+let router = new Router()
+router.get(&apos;/&apos;,async(ctx)=&gt;{
+    ctx.body=&quot;这是用户操作首页&quot;
+})
+
+router.post(&apos;/register&apos;,async(ctx)=&gt;{
+    const User = mongoose.model(&apos;User&apos;)
+    let newUser = new User(ctx.request.body)
+    await newUser.save().then(()=&gt;{
+        ctx.body={
+            code:200,
+            message:&apos;注册成功&apos;
+        }
+    }).catch(error=&gt;{
+        ctx.body={
+            code:500,
+            message:error
+        }
+    })
+})
+router.post(&apos;/login&apos;,async(ctx)=&gt;{
+    let loginUser = ctx.request.body
+    console.log(loginUser)
+    let userName = loginUser.userName
+    let password = loginUser.password
+    //引入User的model
+    const User = mongoose.model(&apos;User&apos;)
+    await User.findOne({userName:userName}).exec().then(async(result)=&gt;{
+        console.log(result)
+        if(result){
+            let newUser = new User()
+            await newUser.comparePassword(password,result.password)
+            .then(isMatch=&gt;{
+                ctx.body={code:200,message:isMatch}
+            })
+            .catch(error=&gt;{
+                console.log(error)
+                ctx.body={code:500,message:error}
+            })
+        }else{
+            ctx.body={code:200,message:&apos;用户名不存在&apos;}
+        }
+    }).catch(error=&gt;{
+        console.log(error)
+        ctx.body={code:500,message:error}
+    })
+})
+
+module.exports =router
+</code></pre></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+    
+
+    
+    <div>
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/12/js-xlsx前置知识点/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="厚朴酚">
+      <meta itemprop="description" content="学习笔记">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="厚朴酚">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/12/js-xlsx前置知识点/" itemprop="url">
+                  js-xlsx前置知识点
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-11-12 10:12:35 / 修改时间：10:46:52" itemprop="dateCreated datePublished" datetime="2018-11-12T10:12:35+08:00">2018-11-12</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/node-js/" itemprop="url" rel="index"><span itemprop="name">node.js</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="js-xlsx"><a href="#js-xlsx" class="headerlink" title="js-xlsx"></a>js-xlsx</h3><ul>
+<li><p>安装</p>
+<pre><code>npm install xlsx
+</code></pre></li>
+</ul>
+<h4 id="一些概念"><a href="#一些概念" class="headerlink" title="一些概念"></a>一些概念</h4><ul>
+<li>workbook</li>
+</ul>
+<p>指的是整份Excel文档</p>
+<ul>
+<li>worksheet</li>
+</ul>
+<p>指Excel文档的表,一份Excel文档包含多张表,每一章表对应的就是worksheet对象</p>
+<ul>
+<li>cell对象</li>
+</ul>
+<p>指worksheet的单元格</p>
+<ul>
+<li><p>具体如下</p>
+<pre><code>// workbook
+{
+    SheetNames: [&apos;sheet1&apos;, &apos;sheet2&apos;],
+    Sheets: {
+        // worksheet
+        &apos;sheet1&apos;: {
+            // cell
+            &apos;A1&apos;: { ... },
+            // cell
+            &apos;A2&apos;: { ... },
+            ...
+        },
+        // worksheet
+        &apos;sheet2&apos;: {
+            // cell
+            &apos;A1&apos;: { ... },
+            // cell
+            &apos;A2&apos;: { ... },
+            ...
+        }
+    }
+}
+</code></pre></li>
+</ul>
+<h4 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h4><ol>
+<li>用 XLSX.read 读取获取到的 Excel 数据，返回 workbook</li>
+<li>用 XLSX.readFile 打开 Excel 文件，返回 workbook</li>
+<li>用 workbook.SheetNames 获取表名</li>
+<li>用 workbook.Sheets[xxx] 通过表名获取表格</li>
+<li>用 worksheet[address]操作单元格</li>
+<li>用XLSX.utils.sheet_to_json针对单个表获取表格数据转换为json格式</li>
+<li>用XLSX.writeFile(wb, ‘output.xlsx’)生成新的 Excel 文件</li>
+</ol>
+<h4 id="具体用法"><a href="#具体用法" class="headerlink" title="具体用法"></a>具体用法</h4><ul>
+<li><p>读取Excel文件</p>
+<pre><code>workbook ＝ XLSX.read(excelData, {type: &apos;base64&apos;});
+workbook ＝ XLSX.writeFile(&apos;someExcel.xlsx&apos;, opts);
+</code></pre></li>
+<li><p>获取Excel文件的表</p>
+<pre><code>// 获取 Excel 中所有表名
+var sheetNames = workbook.SheetNames; // 返回 [&apos;sheet1&apos;, &apos;sheet2&apos;,……]
+// 根据表名获取对应某张表
+var worksheet = workbook.Sheets[sheetNames[0]];
+</code></pre></li>
+<li><p>worksheet[address]操作表格,以!开头的key是特殊的字段</p>
+<pre><code>// 获取 A1 单元格对象
+let a1 = worksheet[&apos;A1&apos;]; // 返回 { v: &apos;hello&apos;, t: &apos;s&apos;, ... }
+// 获取 A1 中的值
+a1.v // 返回 &apos;hello&apos;
+// 获取表的有效范围
+worksheet[&apos;!ref&apos;] // 返回 &apos;A1:B20&apos;
+worksheet[&apos;!range&apos;] // 返回 range 对象，{ s: { r: 0, c: 0}, e: { r: 100, c: 2 } }
+// 获取合并过的单元格
+worksheet[&apos;!merges&apos;] // 返回一个包含 range 对象的列表，[ {s: { r: 0, c: 0 }, c: { r: 2, c: 1 } } ]
+</code></pre></li>
+<li><p>获取Excel 文件的表转换为json数据</p>
+</li>
+</ul>
+<pre><code>XLSX.utils.sheet_to_json(worksheet)  //针对单个表，返回序列化json数据
+</code></pre><ul>
+<li><p>生成新的Excel文件</p>
+<pre><code>//服务端通过XLSX.writeFile
+XLSX = require(&quot;xlsx&quot;);
+XLSX.writeFile(wb, &apos;output.xlsx&apos;)   
+//客服端，只能通过XLSX.write(wb, write_opts) 写入 表格数据，借助FileSaver生成，且只支持在高版本浏览器。
+var wopts = { bookType:&apos;xlsx&apos;, bookSST:false, type:&apos;binary&apos; };
+var wbout = XLSX.write(wb,wopts);
+function s2ab(s) {
+  var buf = new ArrayBuffer(s.length);
+  var view = new Uint8Array(buf);
+  for (var i=0; i!=s.length; ++i) view[i] = s.charCodeAt(i) &amp; 0xFF;
+  return buf;
+}
+/* the saveAs call downloads a file on the local machine */
+saveAs(new Blob([s2ab(wbout)],{type:&quot;&quot;}), &quot;test.xlsx&quot;)
+</code></pre></li>
+</ul>
+<h4 id="js-xlsx实战"><a href="#js-xlsx实战" class="headerlink" title="js-xlsx实战"></a>js-xlsx实战</h4><ul>
+<li><p>解析Excel生成JSON</p>
+<pre><code>function to_json(workbook) {
+    var result = {};
+    // 获取 Excel 中所有表名
+    var sheetNames = workbook.SheetNames; // 返回 [&apos;sheet1&apos;, &apos;sheet2&apos;]
+    workbook.SheetNames.forEach(function(sheetName) {
+        var worksheet = workbook.Sheets[sheetName];
+        result[sheetName] = XLSX.utils.sheet_to_json(worksheet);
+    });    
+    console.log(&quot;打印表信息&quot;,JSON.stringify(result, 2, 2));  //显示格式{&quot;表1&quot;:[],&quot;表2&quot;:[]}
+    return result;
+}
+</code></pre></li>
+<li><p>导出表格</p>
+</li>
+<li></li>
+</ul>
+<ol>
+<li><p>构建特定的数据结构,通过new Blob</p>
+<pre><code>// workbook
+{
+    SheetNames: [&apos;mySheet&apos;],
+    Sheets: {
+        &apos;mySheet&apos;: {
+            &apos;!ref&apos;: &apos;A1:E4&apos;, // 必须要有这个范围才能输出，否则导出的 excel 会是一个空表
+            A1: { v: &apos;id&apos; },
+            ...
+        }
+    }
+}
+</code></pre></li>
+<li><p>调用XLSX.write,借助FIleSaver中的new Blob生成</p>
+<pre><code>var _headers = [&apos;id&apos;, &apos;name&apos;, &apos;age&apos;, &apos;country&apos;, &apos;remark&apos;]
+var _data = [ { id: &apos;1&apos;,
+                name: &apos;test1&apos;,
+                age: &apos;30&apos;,
+                country: &apos;China&apos;,
+                remark: &apos;hello&apos; },
+              { id: &apos;2&apos;,
+                name: &apos;test2&apos;,
+                age: &apos;20&apos;,
+                country: &apos;America&apos;,
+                remark: &apos;world&apos; },
+              { id: &apos;3&apos;,
+                name: &apos;test3&apos;,
+                age: &apos;18&apos;,
+                country: &apos;Unkonw&apos;,
+                remark: &apos;???&apos; } ];
+var headers = _headers
+                // 为 _headers 添加对应的单元格位置
+                // [ { v: &apos;id&apos;, position: &apos;A1&apos; },
+                //   { v: &apos;name&apos;, position: &apos;B1&apos; },
+                //   { v: &apos;age&apos;, position: &apos;C1&apos; },
+                //   { v: &apos;country&apos;, position: &apos;D1&apos; },
+                //   { v: &apos;remark&apos;, position: &apos;E1&apos; } ]
+                .map((v, i) =&gt; Object.assign({}, {v: v, position: String.fromCharCode(65+i) + 1 }))
+                // 转换成 worksheet 需要的结构
+                // { A1: { v: &apos;id&apos; },
+                //   B1: { v: &apos;name&apos; },
+                //   C1: { v: &apos;age&apos; },
+                //   D1: { v: &apos;country&apos; },
+                //   E1: { v: &apos;remark&apos; } }
+                .reduce((prev, next) =&gt; Object.assign({}, prev, {[next.position]: {v: next.v}}), {});
+var data = _data
+              // 匹配 headers 的位置，生成对应的单元格数据
+              // [ [ { v: &apos;1&apos;, position: &apos;A2&apos; },
+              //     { v: &apos;test1&apos;, position: &apos;B2&apos; },
+              //     { v: &apos;30&apos;, position: &apos;C2&apos; },
+              //     { v: &apos;China&apos;, position: &apos;D2&apos; },
+              //     { v: &apos;hello&apos;, position: &apos;E2&apos; } ],
+              //   [ { v: &apos;2&apos;, position: &apos;A3&apos; },
+              //     { v: &apos;test2&apos;, position: &apos;B3&apos; },
+              //     { v: &apos;20&apos;, position: &apos;C3&apos; },
+              //     { v: &apos;America&apos;, position: &apos;D3&apos; },
+              //     { v: &apos;world&apos;, position: &apos;E3&apos; } ],
+              //   [ { v: &apos;3&apos;, position: &apos;A4&apos; },
+              //     { v: &apos;test3&apos;, position: &apos;B4&apos; },
+              //     { v: &apos;18&apos;, position: &apos;C4&apos; },
+              //     { v: &apos;Unkonw&apos;, position: &apos;D4&apos; },
+              //     { v: &apos;???&apos;, position: &apos;E4&apos; } ] ]
+              .map((v, i) =&gt; _headers.map((k, j) =&gt; Object.assign({}, { v: v[k], position: String.fromCharCode(65+j) + (i+2) })))
+              // 对刚才的结果进行降维处理（二维数组变成一维数组）
+              // [ { v: &apos;1&apos;, position: &apos;A2&apos; },
+              //   { v: &apos;test1&apos;, position: &apos;B2&apos; },
+              //   { v: &apos;30&apos;, position: &apos;C2&apos; },
+              //   { v: &apos;China&apos;, position: &apos;D2&apos; },
+              //   { v: &apos;hello&apos;, position: &apos;E2&apos; },
+              //   { v: &apos;2&apos;, position: &apos;A3&apos; },
+              //   { v: &apos;test2&apos;, position: &apos;B3&apos; },
+              //   { v: &apos;20&apos;, position: &apos;C3&apos; },
+              //   { v: &apos;America&apos;, position: &apos;D3&apos; },
+              //   { v: &apos;world&apos;, position: &apos;E3&apos; },
+              //   { v: &apos;3&apos;, position: &apos;A4&apos; },
+              //   { v: &apos;test3&apos;, position: &apos;B4&apos; },
+              //   { v: &apos;18&apos;, position: &apos;C4&apos; },
+              //   { v: &apos;Unkonw&apos;, position: &apos;D4&apos; },
+              //   { v: &apos;???&apos;, position: &apos;E4&apos; } ]
+              .reduce((prev, next) =&gt; prev.concat(next))
+              // 转换成 worksheet 需要的结构
+              //   { A2: { v: &apos;1&apos; },
+              //     B2: { v: &apos;test1&apos; },
+              //     C2: { v: &apos;30&apos; },
+              //     D2: { v: &apos;China&apos; },
+              //     E2: { v: &apos;hello&apos; },
+              //     A3: { v: &apos;2&apos; },
+              //     B3: { v: &apos;test2&apos; },
+              //     C3: { v: &apos;20&apos; },
+              //     D3: { v: &apos;America&apos; },
+              //     E3: { v: &apos;world&apos; },
+              //     A4: { v: &apos;3&apos; },
+              //     B4: { v: &apos;test3&apos; },
+              //     C4: { v: &apos;18&apos; },
+              //     D4: { v: &apos;Unkonw&apos; },
+              //     E4: { v: &apos;???&apos; } }
+              .reduce((prev, next) =&gt; Object.assign({}, prev, {[next.position]: {v: next.v}}), {});
+// 合并 headers 和 data
+var output = Object.assign({}, headers, data);
+// 获取所有单元格的位置
+var outputPos = Object.keys(output);
+// 计算出范围
+var ref = outputPos[0] + &apos;:&apos; + outputPos[outputPos.length - 1];
+// 构建 workbook 对象
+var wb = {
+    SheetNames: [&apos;mySheet&apos;],
+    Sheets: {
+        &apos;mySheet&apos;: Object.assign({}, output, { &apos;!ref&apos;: ref })
+    }
+};
+// 导出 Excel
+//XLSX.writeFile(wb, &apos;output.xlsx&apos;);
+var wopts = { bookType:&apos;xlsx&apos;, bookSST:false, type:&apos;binary&apos; };
+var wbout = XLSX.write(wb,wopts);
+function s2ab(s) {
+  var buf = new ArrayBuffer(s.length);
+  var view = new Uint8Array(buf);
+  for (var i=0; i!=s.length; ++i) view[i] = s.charCodeAt(i) &amp; 0xFF;
+  return buf;
+}
+/* the saveAs call downloads a file on the local machine */
+saveAs(new Blob([s2ab(wbout)],{type:&quot;&quot;}), &quot;test.xlsx&quot;)
+</code></pre></li>
+</ol>
+<ul>
+<li>利用Excel-export生成Excel文件</li>
+<li><pre><code>var express = require(&apos;express&apos;);
+var nodeExcel = require(&apos;excel-export&apos;);
+var app = express();
+app.get(&apos;/Excel&apos;, function(req, res){
+    var conf ={};
+    conf.stylesXmlFile = &quot;styles.xml&quot;;
+    conf.name = &quot;mysheet&quot;;
+    conf.cols = [{
+        caption:&apos;string&apos;,
+        type:&apos;string&apos;,
+        beforeCellWrite:function(row, cellData){
+             return cellData.toUpperCase();
+        },
+        width:28.7109375
+    },{
+        caption:&apos;date&apos;,
+        type:&apos;date&apos;,
+        beforeCellWrite:function(){
+            var originDate = new Date(Date.UTC(1899,11,30));
+            return function(row, cellData, eOpt){
+                if (eOpt.rowNum%2){
+                    eOpt.styleIndex = 1;
+                }  
+                else{
+                    eOpt.styleIndex = 2;
+                }
+                if (cellData === null){
+                  eOpt.cellType = &apos;string&apos;;
+                  return &apos;N/A&apos;;
+                } else
+                  return (cellData - originDate) / (24 * 60 * 60 * 1000);
+            } 
+        }()
+    },{
+        caption:&apos;bool&apos;,
+        type:&apos;bool&apos;
+    },{
+        caption:&apos;number&apos;,
+         type:&apos;number&apos;              
+    }];
+    conf.rows = [
+        [&apos;pi&apos;, new Date(Date.UTC(2013, 4, 1)), true, 3.14],
+        [&quot;e&quot;, new Date(2012, 4, 1), false, 2.7182],
+        [&quot;M&amp;M&lt;&gt;&apos;&quot;, new Date(Date.UTC(2013, 6, 9)), false, 1.61803],
+        [&quot;null date&quot;, null, true, 1.414]  
+    ];
+    var result = nodeExcel.execute(conf);
+    res.setHeader(&apos;Content-Type&apos;, &apos;application/vnd.openxmlformats&apos;);
+    res.setHeader(&quot;Content-Disposition&quot;, &quot;attachment; filename=&quot; + &quot;Report.xlsx&quot;);
+    res.end(result, &apos;binary&apos;);
+});
+app.listen(3000);
+console.log(&apos;Listening on port 3000&apos;);
+</code></pre></li>
+</ul>
+<p>分析生成excel流程：</p>
+<ol>
+<li>配置excel文件名conf.name</li>
+<li>设置表caption，每列单元格数据类型，宽度</li>
+<li>填充表中每行数据conf.rows，nodeExcel.execute生成数据结构，设置头部，拼接生成表</li>
+</ol>
+<p>来源: 凹凸实验室（<a href="https://aotu.io/notes/2016/04/07/node-excel/）" target="_blank" rel="noopener">https://aotu.io/notes/2016/04/07/node-excel/）</a></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+    
+
+    
+    <div>
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/11/mongoose模块化/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -2149,829 +3287,6 @@ function upload(binary){
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/09/vue的一些工具方法/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="厚朴酚">
-      <meta itemprop="description" content="学习笔记">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="厚朴酚">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/09/vue的一些工具方法/" itemprop="url">
-                  vue的一些工具方法
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-11-09 10:17:33 / 修改时间：17:02:47" itemprop="dateCreated datePublished" datetime="2018-11-09T10:17:33+08:00">2018-11-09</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/vue/" itemprop="url" rel="index"><span itemprop="name">vue</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="常常应用的到的一些方法"><a href="#常常应用的到的一些方法" class="headerlink" title="常常应用的到的一些方法"></a>常常应用的到的一些方法</h3><pre><code>  /**
- * 判断两个对象是否相等
- * @param {*} obj1 
- * @param {*} obj2 
- */
-export const objEqual = (obj1, obj2) =&gt; {
-    const keysArr1 = Object.keys(obj1) //获取属性名
-    const keysArr2 = Object.keys(obj2)
-    if (keysArr1.length !== keysArr2.length) return false
-    else if (keysArr1.length === 0 &amp;&amp; keysArr2.length === 0) return true
-    else return !keysArr1.some(key =&gt; obj1[key] !== obj2[key])// some有一条相同返回true,取反为false
-  }
-
-
-/**
- * 根据路由的params生成对象
- * * */
-  export const getRouteById = id =&gt; {
-    let res = {}
-    if (id.includes(&apos;&amp;&apos;)) {
-      res.query = getObjBySplitStr(id, &apos;&amp;&apos;)
-      id = id.split(&apos;&amp;&apos;)[0]
-    }
-    if (id.includes(&apos;:&apos;)) {
-      res.params = getObjBySplitStr(id, &apos;:&apos;)
-      id = id.split(&apos;:&apos;)[0]
-    }
-    res.name = id
-    return res
-  }
-
-
- export const routeEqual = (route1, route2) =&gt; {
-    const params1 = route1.params || {} //逻辑或,route1.params不为空的话就返回他,或者返回{}空对象
-    const params2 = route2.params || {}
-    const query1 = route1.query || {} //因为路由传参有两种方式,所以要使用两种方式获取参数
-    const query2 = route2.query || {}
-    return route1.name === route2.name &amp;&amp; objEqual(params1, params2) &amp;&amp; objEqual(query1, query2)
-  }
-</code></pre><ul>
-<li>点击上传Csv文件</li>
-</ul>
-<pre><code>/**
- * @param {Object} file 从上传组件得到的文件对象
- * @returns {Promise} resolve参数是解析后的二维数组
- * @description 从Csv文件中解析出表格，解析成二维数组
- */
-export const getArrayFromFile = (file) =&gt; {
-    let nameSplit = file.name.split(&apos;.&apos;) //按照指定符号.切割文件
-    let format = nameSplit[nameSplit.length - 1] //[-1]得到文件名
-    return new Promise((resolve, reject) =&gt; {//返回promise可以用then来获取
-      let reader = new FileReader() //h5创建读取文件
-      reader.readAsText(file) // 以文本格式读取
-      let arr = []
-      reader.onload = function (evt) {//event事件里面有各种属性
-        let data = evt.target.result // 读到的数据
-        let pasteData = data.trim() 
-        //正则:[]指匹配里面任何一个都可以 \n 匹配一个换行符, \u0085匹配下一行 \u2028行分割 \u2029分段符号
-        // \r 回车符 \n?匹配换行0此或者一次 /g代表全局匹配  \t匹配水平制表符
-        arr = pasteData.split((/[\n\u0085\u2028\u2029]|\r\n?/g)).map(row =&gt; {
-          return row.split(&apos;\t&apos;)
-        }).map(item =&gt; {
-          return item[0].split(&apos;,&apos;)
-        })
-        if (format === &apos;csv&apos;) resolve(arr)
-        else reject(new Error(&apos;[Format Error]:你上传的不是Csv文件&apos;))
-      }
-    })
-  }
-
-/**
- * @param {Array} array 表格数据二维数组
- * @returns {Object} { columns, tableData }
- * @description 从二维数组中获取表头和表格数据，将第一行作为表头，用于在iView的表格中展示数据
- */
-export const getTableDataFromArray = (array) =&gt; {
-  let columns = []
-  let tableData = []
-  if (array.length &gt; 1) {
-    let titles = array.shift() //删除数组中的第一个元素（red），并返回被删除元素的值
-    columns = titles.map(item =&gt; {
-      return {
-        title: item,
-        key: item
-      }
-    })
-    tableData = array.map(item =&gt; {
-      let res = {}
-      item.forEach((col, i) =&gt; {
-        res[titles[i]] = col
-      })
-      return res
-    })
-  }
-  return {
-    columns,
-    tableData
-  }
-}
-
-iview Upload组件的beforeUpload应用
-
-beforeUpload (file) {//beforeUpload得到文件对象
-      getArrayFromFile(file).then(data =&gt; {
-        let {columns, tableData} = getTableDataFromArray(data)
-        this.columns = columns
-        this.tableData = tableData
-      }).catch(() =&gt; {
-        this.$Notice.warning({
-          title: &apos;只能上传Csv文件&apos;,
-          desc: &apos;只能上传Csv文件，请重新上传&apos;
-        })
-      })
-      return false
-    }
-</code></pre><ul>
-<li><p>数组的交集</p>
-<pre><code>/**
- * @param {Array} arr1
- * @param {Array} arr2
- * @description 得到两个数组的交集, 两个数组的元素为数值或字符串
- */
-export const getIntersection = (arr1, arr2) =&gt; {
-  let len = Math.min(arr1.length, arr2.length)
-  let i = -1
-  let res = []
-  while (++i &lt; len) {
-    const item = arr2[i]
-    if (arr1.indexOf(item) &gt; -1) res.push(item)
-  }
-  return res
-}
-</code></pre></li>
-<li><p>数组的并集</p>
-<pre><code>/**
- * @param {Array} arr1
- * @param {Array} arr2
- * @description 得到两个数组的并集, 两个数组的元素为数值或字符串
- */
-export const getUnion = (arr1, arr2) =&gt; {
-  return Array.from(new Set([...arr1, ...arr2]))
-}
-</code></pre></li>
-</ul>
-<ul>
-<li>判断数组</li>
-</ul>
-<pre><code>/**
- * @param {Array} target 目标数组
- * @param {Array} arr 需要查询的数组
- * @description 判断要查询的数组是否至少有一个元素包含在目标数组中
- */
-export const hasOneOf = (target, arr) =&gt; {
-  return target.some(_ =&gt; arr.indexOf(_) &gt; -1)
-}
-</code></pre><ul>
-<li><p>验证</p>
-<pre><code>/**
- * @param {String|Number} value 要验证的字符串或数值
- * @param {*} validList 用来验证的列表
- */
-export function oneOf (value, validList) {
-  for (let i = 0; i &lt; validList.length; i++) {
-    if (value === validList[i]) {
-      return true
-    }
-  }
-  return false
-}
-</code></pre></li>
-</ul>
-<pre><code>/**
- * 判断一个对象是否存在key，如果传入第二个参数key，则是判断这个obj对象是否存在key这个属性
- * 如果没有传入key这个参数，则判断obj对象是否有键值对
- */
-export const hasKey = (obj, key) =&gt; {
-  if (key) return key in obj
-  else {
-    let keysArr = Object.keys(obj)
-    return keysArr.length
-  }
-}
-</code></pre>
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-    
-
-    
-    <div>
-      
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/09/node-js模块定义模式/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="厚朴酚">
-      <meta itemprop="description" content="学习笔记">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="厚朴酚">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/09/node-js模块定义模式/" itemprop="url">
-                  node.js模块定义模式
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-11-09 08:52:42 / 修改时间：09:42:02" itemprop="dateCreated datePublished" datetime="2018-11-09T08:52:42+08:00">2018-11-09</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/node-js/" itemprop="url" rel="index"><span itemprop="name">node.js</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="模块定义模式"><a href="#模块定义模式" class="headerlink" title="模块定义模式"></a>模块定义模式</h3><p>模块除了用于加载依赖关系的机制之外,还用于定义API工具,最大限度地隐藏信息和API可用性,可扩展性和代码复用.</p>
-<h4 id="命名导出"><a href="#命名导出" class="headerlink" title="命名导出"></a>命名导出</h4><p>最基本的方法,把要公开的值赋给由exports(或者module.exports)引用对象的属性.生成导出对象为一组相关功能的容器或命名空间.</p>
-<h5 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h5><ul>
-<li>定义模块</li>
-</ul>
-<pre><code>//file  logger.js
-exports.info = (message) =&gt; {
-    console.log(&apos;info:&apos;+message)
-}
-
-exports.verbose = (message) =&gt; {
-    console.log(&apos;verbose&apos; + message)
-}
-</code></pre><ul>
-<li>引用模块</li>
-</ul>
-<pre><code>const logger = require(&apos;./logger&apos;)
-
-logger.info(&apos;this is info&apos;)
-
-logger.verbose(&apos;this is a verbose&apos;)
-</code></pre><h4 id="导出函数-–substack模式"><a href="#导出函数-–substack模式" class="headerlink" title="导出函数 –substack模式"></a>导出函数 –substack模式</h4><p>最流行的一种模块定义模式是将整个module.exports变量重新分配给一个函数,主要优点只暴露一个单一的功能,提供明确的入口点,遵守小接触面的原则,也称为substack模式</p>
-<h5 id="案例-1"><a href="#案例-1" class="headerlink" title="案例"></a>案例</h5><ul>
-<li><p>定义导出函数模块</p>
-<pre><code>//logger.js
-module.exports = (message) =&gt; {//默认导出的
-    console.log(`info:${message}`)
-}
-
-module.exports.verbose = (message) =&gt; {
-    console.log(`verbose:${message}`)
-}
-</code></pre></li>
-<li><p>引用模块</p>
-<pre><code>//file main.js
-
-const logger = require(&apos;./module&apos;)
-
-logger(&apos;this is info default function&apos;)
-
-logger.verbose(&apos;this is verbose function&apos;)
-</code></pre></li>
-</ul>
-<p>虽然只输出一个函数看上去是一种限制,实际上它是一种完美的方式,把重心放在一个模块最重要的单一功能,减低内部的可见性同时,导出函数本身的属性,node.js的模块快极大鼓励采用单一责任原则,每个模块应该对单个功能负责,该责任完全由模块封装.</p>
-<h4 id="导出构造函数"><a href="#导出构造函数" class="headerlink" title="导出构造函数"></a>导出构造函数</h4><p>导出构造函数的模块是导出函数模块的特别化, 区别在于:使用该模式,允许用户使用构造函数创建新实例,还可以扩展其原型并创建新类</p>
-<ul>
-<li><p>定义构造函数模块</p>
-<pre><code>//logger.js
-function Logger(name) {
-    this.name = name
-}
-
-Logger.prototype.log = function(message){
-    console.log(`[${this.name}] ${message}`)
-}
-
-Logger.prototype.verbose = function(message) {
-    this.log(`info:${message}`)
-}
-
-Logger.prototype.info = function(message) {
-    this.log(`info:${message}`)
-}
-
-module.exports = Logger
-</code></pre></li>
-<li><p>引用构造函数</p>
-</li>
-</ul>
-<pre><code>const Logger = require(&apos;./module&apos;)
-const dblog = new Logger(&apos;db&apos;)
-
-dblog.info(&apos;this info fun&apos;)
-
-const accessLogger = new Logger(&apos;adcb&apos;)
-accessLogger.verbose(&apos;this is verbose fun&apos;)
-</code></pre><ul>
-<li><p>ES6方式</p>
-<pre><code>class Logger {
-    constructor(name) {
-        this.name = name
-    }
-    log(message) {
-        console.log(`[${this.name}] [${message}]`)
-    }
-    info(message) {
-        this.log(`info:${message}`)
-    }
-    verbose(message) {
-        this.log(`verbose:${message}`)
-    }
-}
-
-module.exports = Logger;
-</code></pre></li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-    
-
-    
-    <div>
-      
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/08/javascript闭包/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="厚朴酚">
-      <meta itemprop="description" content="学习笔记">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="厚朴酚">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/08/javascript闭包/" itemprop="url">
-                  javascript闭包
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-11-08 14:48:42 / 修改时间：15:17:06" itemprop="dateCreated datePublished" datetime="2018-11-08T14:48:42+08:00">2018-11-08</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="学习javascript闭包"><a href="#学习javascript闭包" class="headerlink" title="学习javascript闭包"></a>学习javascript闭包</h3><h4 id="变量的作用域"><a href="#变量的作用域" class="headerlink" title="变量的作用域"></a>变量的作用域</h4><p>变量的作用域无非就两种:全局变量和局部变量</p>
-<ul>
-<li><p>函数内部可以直接读取全局变量</p>
-<pre><code>var n =1;
-function f1(){
-    alert(n)
-}
-f1();//1
-</code></pre></li>
-<li><p>函数外部无法读取函数内的局部变量</p>
-<pre><code>function f1(){
-var n =1
-}
-alert(n) //n is not defined
-</code></pre></li>
-</ul>
-<h4 id="外部如何读取局部变量"><a href="#外部如何读取局部变量" class="headerlink" title="外部如何读取局部变量"></a>外部如何读取局部变量</h4><ul>
-<li><p>那就是在函数的内部，再定义一个函数。</p>
-<pre><code>function f1(){
-　　var n=999;
-　　function f2(){
-　　alert(n); 
-　　}
-　　return f2;
-　　}
-var result=f1();
-result();//999
-</code></pre></li>
-</ul>
-<p>在上面的代码中，函数f2就被包括在函数f1内部，这时f1内部的所有局部变量，对f2都是可见的。但是反过来就不行，f2内部的局部变量，对f1就是不可见的。这就是Javascript语言特有的”链式作用域”结构（chain scope），子对象会一级一级地向上寻找所有父对象的变量。所以，父对象的所有变量，对子对象都是可见的，反之则不成立。</p>
-<p>既然f2可以读取f1中的局部变量，那么只要把f2作为返回值，就可以在f1外部读取它的内部变量了吗！</p>
-<h3 id="闭包的概念"><a href="#闭包的概念" class="headerlink" title="闭包的概念"></a>闭包的概念</h3><p>闭包就是能够读取其他函数内部变量的函数。<br>由于在Javascript语言中，只有函数内部的子函数才能读取局部变量，因此可以把闭包简单理解成”定义在一个函数内部的函数”。<br>所以，在本质上，闭包就是将函数内部和函数外部连接起来的一座桥梁。</p>
-<h3 id="闭包的用途"><a href="#闭包的用途" class="headerlink" title="闭包的用途"></a>闭包的用途</h3><ul>
-<li>一个是前面提到的可以读取函数内部的变量</li>
-<li><p>另一个就是让这些变量的值始终保持在内存中。</p>
-<pre><code>function f1(){
-
-　　　　var n=999;
-
-　　　　nAdd=function(){n+=1}
-
-　　　　function f2(){
-　　　　　　alert(n);
-　　　　}
-
-　　　　return f2;
-
-　　}
-
-　　var result=f1();
-
-　　result(); // 999
-
-　　nAdd();
-
-　　result(); // 1000
-</code></pre></li>
-</ul>
-<p>result实际上就是闭包f2函数。它一共运行了两次，第一次的值是999，第二次的值是1000。这证明了，函数f1中的局部变量n一直保存在内存中，并没有在f1调用后被自动清除。</p>
-<p>原因就在于f1是f2的父函数，而f2被赋给了一个全局变量，这导致f2始终在内存中，而f2的存在依赖于f1，因此f1也始终在内存中，不会在调用结束后，被垃圾回收机制（garbage collection）回收。</p>
-<h3 id="使用闭包的注意点"><a href="#使用闭包的注意点" class="headerlink" title="使用闭包的注意点"></a>使用闭包的注意点</h3><p>1）由于闭包会使得函数中的变量都被保存在内存中，内存消耗很大，所以不能滥用闭包，否则会造成网页的性能问题，在IE中可能导致内存泄露。解决方法是，在退出函数之前，将不使用的局部变量全部删除。</p>
-<p>2）闭包会在父函数外部，改变父函数内部变量的值。所以，如果你把父函数当作对象（object）使用，把闭包当作它的公用方法（Public Method），把内部变量当作它的私有属性（private value），这时一定要小心，不要随便改变父函数内部变量的值。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-    
-
-    
-    <div>
-      
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -3021,7 +3336,7 @@ result();//999
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">24</span>
+                    <span class="site-state-item-count">27</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -3046,7 +3361,9 @@ result();//999
                     
                       
                     
-                    <span class="site-state-item-count">6</span>
+                      
+                    
+                    <span class="site-state-item-count">7</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -3081,7 +3398,11 @@ result();//999
                     
                       
                     
-                    <span class="site-state-item-count">11</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">13</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.4.2" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.2">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.4.2">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.4.2">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.2" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.4.2',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="js-xlsx 安装 npm install xlsx   一些概念 workbook  指的是整份Excel文档  worksheet  指Excel文档的表,一份Excel文档包含多张表,每一章表对应的就是worksheet对象  cell对象  指worksheet的单元格  具体如下 // workbook {     SheetNames: [&amp;apos;sheet1&amp;apos;, &amp;a">
+<meta name="keywords" content="导航,javascript,xlsx">
+<meta property="og:type" content="article">
+<meta property="og:title" content="js-xlsx前置知识点">
+<meta property="og:url" content="http://yoursite.com/2018/11/12/js-xlsx前置知识点/index.html">
+<meta property="og:site_name" content="厚朴酚">
+<meta property="og:description" content="js-xlsx 安装 npm install xlsx   一些概念 workbook  指的是整份Excel文档  worksheet  指Excel文档的表,一份Excel文档包含多张表,每一章表对应的就是worksheet对象  cell对象  指worksheet的单元格  具体如下 // workbook {     SheetNames: [&amp;apos;sheet1&amp;apos;, &amp;a">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-11-12T02:46:52.515Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="js-xlsx前置知识点">
+<meta name="twitter:description" content="js-xlsx 安装 npm install xlsx   一些概念 workbook  指的是整份Excel文档  worksheet  指Excel文档的表,一份Excel文档包含多张表,每一章表对应的就是worksheet对象  cell对象  指worksheet的单元格  具体如下 // workbook {     SheetNames: [&amp;apos;sheet1&amp;apos;, &amp;a">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/11/12/js-xlsx前置知识点/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>js-xlsx前置知识点 | 厚朴酚</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">厚朴酚</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">打磨技术!</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/12/js-xlsx前置知识点/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="厚朴酚">
+      <meta itemprop="description" content="学习笔记">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="厚朴酚">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">js-xlsx前置知识点
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-11-12 10:12:35 / 修改时间：10:46:52" itemprop="dateCreated datePublished" datetime="2018-11-12T10:12:35+08:00">2018-11-12</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/node-js/" itemprop="url" rel="index"><span itemprop="name">node.js</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="js-xlsx"><a href="#js-xlsx" class="headerlink" title="js-xlsx"></a>js-xlsx</h3><ul>
+<li><p>安装</p>
+<pre><code>npm install xlsx
+</code></pre></li>
+</ul>
+<h4 id="一些概念"><a href="#一些概念" class="headerlink" title="一些概念"></a>一些概念</h4><ul>
+<li>workbook</li>
+</ul>
+<p>指的是整份Excel文档</p>
+<ul>
+<li>worksheet</li>
+</ul>
+<p>指Excel文档的表,一份Excel文档包含多张表,每一章表对应的就是worksheet对象</p>
+<ul>
+<li>cell对象</li>
+</ul>
+<p>指worksheet的单元格</p>
+<ul>
+<li><p>具体如下</p>
+<pre><code>// workbook
+{
+    SheetNames: [&apos;sheet1&apos;, &apos;sheet2&apos;],
+    Sheets: {
+        // worksheet
+        &apos;sheet1&apos;: {
+            // cell
+            &apos;A1&apos;: { ... },
+            // cell
+            &apos;A2&apos;: { ... },
+            ...
+        },
+        // worksheet
+        &apos;sheet2&apos;: {
+            // cell
+            &apos;A1&apos;: { ... },
+            // cell
+            &apos;A2&apos;: { ... },
+            ...
+        }
+    }
+}
+</code></pre></li>
+</ul>
+<h4 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h4><ol>
+<li>用 XLSX.read 读取获取到的 Excel 数据，返回 workbook</li>
+<li>用 XLSX.readFile 打开 Excel 文件，返回 workbook</li>
+<li>用 workbook.SheetNames 获取表名</li>
+<li>用 workbook.Sheets[xxx] 通过表名获取表格</li>
+<li>用 worksheet[address]操作单元格</li>
+<li>用XLSX.utils.sheet_to_json针对单个表获取表格数据转换为json格式</li>
+<li>用XLSX.writeFile(wb, ‘output.xlsx’)生成新的 Excel 文件</li>
+</ol>
+<h4 id="具体用法"><a href="#具体用法" class="headerlink" title="具体用法"></a>具体用法</h4><ul>
+<li><p>读取Excel文件</p>
+<pre><code>workbook ＝ XLSX.read(excelData, {type: &apos;base64&apos;});
+workbook ＝ XLSX.writeFile(&apos;someExcel.xlsx&apos;, opts);
+</code></pre></li>
+<li><p>获取Excel文件的表</p>
+<pre><code>// 获取 Excel 中所有表名
+var sheetNames = workbook.SheetNames; // 返回 [&apos;sheet1&apos;, &apos;sheet2&apos;,……]
+// 根据表名获取对应某张表
+var worksheet = workbook.Sheets[sheetNames[0]];
+</code></pre></li>
+<li><p>worksheet[address]操作表格,以!开头的key是特殊的字段</p>
+<pre><code>// 获取 A1 单元格对象
+let a1 = worksheet[&apos;A1&apos;]; // 返回 { v: &apos;hello&apos;, t: &apos;s&apos;, ... }
+// 获取 A1 中的值
+a1.v // 返回 &apos;hello&apos;
+// 获取表的有效范围
+worksheet[&apos;!ref&apos;] // 返回 &apos;A1:B20&apos;
+worksheet[&apos;!range&apos;] // 返回 range 对象，{ s: { r: 0, c: 0}, e: { r: 100, c: 2 } }
+// 获取合并过的单元格
+worksheet[&apos;!merges&apos;] // 返回一个包含 range 对象的列表，[ {s: { r: 0, c: 0 }, c: { r: 2, c: 1 } } ]
+</code></pre></li>
+<li><p>获取Excel 文件的表转换为json数据</p>
+</li>
+</ul>
+<pre><code>XLSX.utils.sheet_to_json(worksheet)  //针对单个表，返回序列化json数据
+</code></pre><ul>
+<li><p>生成新的Excel文件</p>
+<pre><code>//服务端通过XLSX.writeFile
+XLSX = require(&quot;xlsx&quot;);
+XLSX.writeFile(wb, &apos;output.xlsx&apos;)   
+//客服端，只能通过XLSX.write(wb, write_opts) 写入 表格数据，借助FileSaver生成，且只支持在高版本浏览器。
+var wopts = { bookType:&apos;xlsx&apos;, bookSST:false, type:&apos;binary&apos; };
+var wbout = XLSX.write(wb,wopts);
+function s2ab(s) {
+  var buf = new ArrayBuffer(s.length);
+  var view = new Uint8Array(buf);
+  for (var i=0; i!=s.length; ++i) view[i] = s.charCodeAt(i) &amp; 0xFF;
+  return buf;
+}
+/* the saveAs call downloads a file on the local machine */
+saveAs(new Blob([s2ab(wbout)],{type:&quot;&quot;}), &quot;test.xlsx&quot;)
+</code></pre></li>
+</ul>
+<h4 id="js-xlsx实战"><a href="#js-xlsx实战" class="headerlink" title="js-xlsx实战"></a>js-xlsx实战</h4><ul>
+<li><p>解析Excel生成JSON</p>
+<pre><code>function to_json(workbook) {
+    var result = {};
+    // 获取 Excel 中所有表名
+    var sheetNames = workbook.SheetNames; // 返回 [&apos;sheet1&apos;, &apos;sheet2&apos;]
+    workbook.SheetNames.forEach(function(sheetName) {
+        var worksheet = workbook.Sheets[sheetName];
+        result[sheetName] = XLSX.utils.sheet_to_json(worksheet);
+    });    
+    console.log(&quot;打印表信息&quot;,JSON.stringify(result, 2, 2));  //显示格式{&quot;表1&quot;:[],&quot;表2&quot;:[]}
+    return result;
+}
+</code></pre></li>
+<li><p>导出表格</p>
+</li>
+<li></li>
+</ul>
+<ol>
+<li><p>构建特定的数据结构,通过new Blob</p>
+<pre><code>// workbook
+{
+    SheetNames: [&apos;mySheet&apos;],
+    Sheets: {
+        &apos;mySheet&apos;: {
+            &apos;!ref&apos;: &apos;A1:E4&apos;, // 必须要有这个范围才能输出，否则导出的 excel 会是一个空表
+            A1: { v: &apos;id&apos; },
+            ...
+        }
+    }
+}
+</code></pre></li>
+<li><p>调用XLSX.write,借助FIleSaver中的new Blob生成</p>
+<pre><code>var _headers = [&apos;id&apos;, &apos;name&apos;, &apos;age&apos;, &apos;country&apos;, &apos;remark&apos;]
+var _data = [ { id: &apos;1&apos;,
+                name: &apos;test1&apos;,
+                age: &apos;30&apos;,
+                country: &apos;China&apos;,
+                remark: &apos;hello&apos; },
+              { id: &apos;2&apos;,
+                name: &apos;test2&apos;,
+                age: &apos;20&apos;,
+                country: &apos;America&apos;,
+                remark: &apos;world&apos; },
+              { id: &apos;3&apos;,
+                name: &apos;test3&apos;,
+                age: &apos;18&apos;,
+                country: &apos;Unkonw&apos;,
+                remark: &apos;???&apos; } ];
+var headers = _headers
+                // 为 _headers 添加对应的单元格位置
+                // [ { v: &apos;id&apos;, position: &apos;A1&apos; },
+                //   { v: &apos;name&apos;, position: &apos;B1&apos; },
+                //   { v: &apos;age&apos;, position: &apos;C1&apos; },
+                //   { v: &apos;country&apos;, position: &apos;D1&apos; },
+                //   { v: &apos;remark&apos;, position: &apos;E1&apos; } ]
+                .map((v, i) =&gt; Object.assign({}, {v: v, position: String.fromCharCode(65+i) + 1 }))
+                // 转换成 worksheet 需要的结构
+                // { A1: { v: &apos;id&apos; },
+                //   B1: { v: &apos;name&apos; },
+                //   C1: { v: &apos;age&apos; },
+                //   D1: { v: &apos;country&apos; },
+                //   E1: { v: &apos;remark&apos; } }
+                .reduce((prev, next) =&gt; Object.assign({}, prev, {[next.position]: {v: next.v}}), {});
+var data = _data
+              // 匹配 headers 的位置，生成对应的单元格数据
+              // [ [ { v: &apos;1&apos;, position: &apos;A2&apos; },
+              //     { v: &apos;test1&apos;, position: &apos;B2&apos; },
+              //     { v: &apos;30&apos;, position: &apos;C2&apos; },
+              //     { v: &apos;China&apos;, position: &apos;D2&apos; },
+              //     { v: &apos;hello&apos;, position: &apos;E2&apos; } ],
+              //   [ { v: &apos;2&apos;, position: &apos;A3&apos; },
+              //     { v: &apos;test2&apos;, position: &apos;B3&apos; },
+              //     { v: &apos;20&apos;, position: &apos;C3&apos; },
+              //     { v: &apos;America&apos;, position: &apos;D3&apos; },
+              //     { v: &apos;world&apos;, position: &apos;E3&apos; } ],
+              //   [ { v: &apos;3&apos;, position: &apos;A4&apos; },
+              //     { v: &apos;test3&apos;, position: &apos;B4&apos; },
+              //     { v: &apos;18&apos;, position: &apos;C4&apos; },
+              //     { v: &apos;Unkonw&apos;, position: &apos;D4&apos; },
+              //     { v: &apos;???&apos;, position: &apos;E4&apos; } ] ]
+              .map((v, i) =&gt; _headers.map((k, j) =&gt; Object.assign({}, { v: v[k], position: String.fromCharCode(65+j) + (i+2) })))
+              // 对刚才的结果进行降维处理（二维数组变成一维数组）
+              // [ { v: &apos;1&apos;, position: &apos;A2&apos; },
+              //   { v: &apos;test1&apos;, position: &apos;B2&apos; },
+              //   { v: &apos;30&apos;, position: &apos;C2&apos; },
+              //   { v: &apos;China&apos;, position: &apos;D2&apos; },
+              //   { v: &apos;hello&apos;, position: &apos;E2&apos; },
+              //   { v: &apos;2&apos;, position: &apos;A3&apos; },
+              //   { v: &apos;test2&apos;, position: &apos;B3&apos; },
+              //   { v: &apos;20&apos;, position: &apos;C3&apos; },
+              //   { v: &apos;America&apos;, position: &apos;D3&apos; },
+              //   { v: &apos;world&apos;, position: &apos;E3&apos; },
+              //   { v: &apos;3&apos;, position: &apos;A4&apos; },
+              //   { v: &apos;test3&apos;, position: &apos;B4&apos; },
+              //   { v: &apos;18&apos;, position: &apos;C4&apos; },
+              //   { v: &apos;Unkonw&apos;, position: &apos;D4&apos; },
+              //   { v: &apos;???&apos;, position: &apos;E4&apos; } ]
+              .reduce((prev, next) =&gt; prev.concat(next))
+              // 转换成 worksheet 需要的结构
+              //   { A2: { v: &apos;1&apos; },
+              //     B2: { v: &apos;test1&apos; },
+              //     C2: { v: &apos;30&apos; },
+              //     D2: { v: &apos;China&apos; },
+              //     E2: { v: &apos;hello&apos; },
+              //     A3: { v: &apos;2&apos; },
+              //     B3: { v: &apos;test2&apos; },
+              //     C3: { v: &apos;20&apos; },
+              //     D3: { v: &apos;America&apos; },
+              //     E3: { v: &apos;world&apos; },
+              //     A4: { v: &apos;3&apos; },
+              //     B4: { v: &apos;test3&apos; },
+              //     C4: { v: &apos;18&apos; },
+              //     D4: { v: &apos;Unkonw&apos; },
+              //     E4: { v: &apos;???&apos; } }
+              .reduce((prev, next) =&gt; Object.assign({}, prev, {[next.position]: {v: next.v}}), {});
+// 合并 headers 和 data
+var output = Object.assign({}, headers, data);
+// 获取所有单元格的位置
+var outputPos = Object.keys(output);
+// 计算出范围
+var ref = outputPos[0] + &apos;:&apos; + outputPos[outputPos.length - 1];
+// 构建 workbook 对象
+var wb = {
+    SheetNames: [&apos;mySheet&apos;],
+    Sheets: {
+        &apos;mySheet&apos;: Object.assign({}, output, { &apos;!ref&apos;: ref })
+    }
+};
+// 导出 Excel
+//XLSX.writeFile(wb, &apos;output.xlsx&apos;);
+var wopts = { bookType:&apos;xlsx&apos;, bookSST:false, type:&apos;binary&apos; };
+var wbout = XLSX.write(wb,wopts);
+function s2ab(s) {
+  var buf = new ArrayBuffer(s.length);
+  var view = new Uint8Array(buf);
+  for (var i=0; i!=s.length; ++i) view[i] = s.charCodeAt(i) &amp; 0xFF;
+  return buf;
+}
+/* the saveAs call downloads a file on the local machine */
+saveAs(new Blob([s2ab(wbout)],{type:&quot;&quot;}), &quot;test.xlsx&quot;)
+</code></pre></li>
+</ol>
+<ul>
+<li>利用Excel-export生成Excel文件</li>
+<li><pre><code>var express = require(&apos;express&apos;);
+var nodeExcel = require(&apos;excel-export&apos;);
+var app = express();
+app.get(&apos;/Excel&apos;, function(req, res){
+    var conf ={};
+    conf.stylesXmlFile = &quot;styles.xml&quot;;
+    conf.name = &quot;mysheet&quot;;
+    conf.cols = [{
+        caption:&apos;string&apos;,
+        type:&apos;string&apos;,
+        beforeCellWrite:function(row, cellData){
+             return cellData.toUpperCase();
+        },
+        width:28.7109375
+    },{
+        caption:&apos;date&apos;,
+        type:&apos;date&apos;,
+        beforeCellWrite:function(){
+            var originDate = new Date(Date.UTC(1899,11,30));
+            return function(row, cellData, eOpt){
+                if (eOpt.rowNum%2){
+                    eOpt.styleIndex = 1;
+                }  
+                else{
+                    eOpt.styleIndex = 2;
+                }
+                if (cellData === null){
+                  eOpt.cellType = &apos;string&apos;;
+                  return &apos;N/A&apos;;
+                } else
+                  return (cellData - originDate) / (24 * 60 * 60 * 1000);
+            } 
+        }()
+    },{
+        caption:&apos;bool&apos;,
+        type:&apos;bool&apos;
+    },{
+        caption:&apos;number&apos;,
+         type:&apos;number&apos;              
+    }];
+    conf.rows = [
+        [&apos;pi&apos;, new Date(Date.UTC(2013, 4, 1)), true, 3.14],
+        [&quot;e&quot;, new Date(2012, 4, 1), false, 2.7182],
+        [&quot;M&amp;M&lt;&gt;&apos;&quot;, new Date(Date.UTC(2013, 6, 9)), false, 1.61803],
+        [&quot;null date&quot;, null, true, 1.414]  
+    ];
+    var result = nodeExcel.execute(conf);
+    res.setHeader(&apos;Content-Type&apos;, &apos;application/vnd.openxmlformats&apos;);
+    res.setHeader(&quot;Content-Disposition&quot;, &quot;attachment; filename=&quot; + &quot;Report.xlsx&quot;);
+    res.end(result, &apos;binary&apos;);
+});
+app.listen(3000);
+console.log(&apos;Listening on port 3000&apos;);
+</code></pre></li>
+</ul>
+<p>分析生成excel流程：</p>
+<ol>
+<li>配置excel文件名conf.name</li>
+<li>设置表caption，每列单元格数据类型，宽度</li>
+<li>填充表中每行数据conf.rows，nodeExcel.execute生成数据结构，设置头部，拼接生成表</li>
+</ol>
+<p>来源: 凹凸实验室（<a href="https://aotu.io/notes/2016/04/07/node-excel/）" target="_blank" rel="noopener">https://aotu.io/notes/2016/04/07/node-excel/）</a></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+    
+
+    
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-heart"></i>感谢阅读-------------</div>
+    
+</div>
+
+
+      
+    </div>
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>希望您也有收获,我们一起成长!</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="厚朴酚 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="厚朴酚 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/导航/" rel="tag"># 导航</a>
+          
+            <a href="/tags/javascript/" rel="tag"># javascript</a>
+          
+            <a href="/tags/xlsx/" rel="tag"># xlsx</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/11/mongoose模块化/" rel="next" title="mongoose模块化">
+                <i class="fa fa-chevron-left"></i> mongoose模块化
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/12/koa基于mongoose模块化实现/" rel="prev" title="在koa中应用mongoose模块化实现">
+                在koa中应用mongoose模块化实现 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="厚朴酚">
+            
+              <p class="site-author-name" itemprop="name">厚朴酚</p>
+              <p class="site-description motion-element" itemprop="description">学习笔记</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">27</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">13</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#js-xlsx"><span class="nav-number">1.</span> <span class="nav-text">js-xlsx</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一些概念"><span class="nav-number">1.1.</span> <span class="nav-text">一些概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#基本用法"><span class="nav-number">1.2.</span> <span class="nav-text">基本用法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#具体用法"><span class="nav-number">1.3.</span> <span class="nav-text">具体用法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#js-xlsx实战"><span class="nav-number">1.4.</span> <span class="nav-text">js-xlsx实战</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">厚朴酚</span>
+
+  
+
+  
+</div>
+
+
+
+<!--
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Gemini</a> v6.4.2</div>
+ -->
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.4.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.4.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

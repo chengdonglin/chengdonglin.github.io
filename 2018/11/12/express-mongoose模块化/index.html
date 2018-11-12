@@ -108,25 +108,25 @@
 
 
 
-  <meta name="description" content="ES6常用数据方法总结参数  index, array可以忽略 概述map():返回一个新的Array，每个元素为调用func的结果  filter():返回一个符合func条件的元素数组  some():返回一个boolean，判断是否有元素是否符合func条件  every():返回一个boolean，判断每个元素是否符合func条件  forEach():没有返回值，只是针对每个元素调用fu">
-<meta name="keywords" content="导航 - javascript - ES6">
+  <meta name="description" content="Express与MongoDB前奏Express 是什么？Express 是一个基于 Node.js 平台的极简、灵活的 web 应用开发框架，它提供一系列强大的特性，帮助你创建各种 Web 和移动设备应用。 一  连接MongoDB 抽象出模型在项目根目录下新建/lib/mongo.jsvar mongoose = require(&amp;quot;mongoose&amp;quot;); var db =">
+<meta name="keywords" content="导航 - mongoose">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ES6数据方法">
-<meta property="og:url" content="http://yoursite.com/2018/11/05/ES6数据方法/index.html">
+<meta property="og:title" content="express-mongoose模块化">
+<meta property="og:url" content="http://yoursite.com/2018/11/12/express-mongoose模块化/index.html">
 <meta property="og:site_name" content="厚朴酚">
-<meta property="og:description" content="ES6常用数据方法总结参数  index, array可以忽略 概述map():返回一个新的Array，每个元素为调用func的结果  filter():返回一个符合func条件的元素数组  some():返回一个boolean，判断是否有元素是否符合func条件  every():返回一个boolean，判断每个元素是否符合func条件  forEach():没有返回值，只是针对每个元素调用fu">
+<meta property="og:description" content="Express与MongoDB前奏Express 是什么？Express 是一个基于 Node.js 平台的极简、灵活的 web 应用开发框架，它提供一系列强大的特性，帮助你创建各种 Web 和移动设备应用。 一  连接MongoDB 抽象出模型在项目根目录下新建/lib/mongo.jsvar mongoose = require(&amp;quot;mongoose&amp;quot;); var db =">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-11-05T02:55:46.033Z">
+<meta property="og:updated_time" content="2018-11-12T10:26:25.411Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ES6数据方法">
-<meta name="twitter:description" content="ES6常用数据方法总结参数  index, array可以忽略 概述map():返回一个新的Array，每个元素为调用func的结果  filter():返回一个符合func条件的元素数组  some():返回一个boolean，判断是否有元素是否符合func条件  every():返回一个boolean，判断每个元素是否符合func条件  forEach():没有返回值，只是针对每个元素调用fu">
+<meta name="twitter:title" content="express-mongoose模块化">
+<meta name="twitter:description" content="Express与MongoDB前奏Express 是什么？Express 是一个基于 Node.js 平台的极简、灵活的 web 应用开发框架，它提供一系列强大的特性，帮助你创建各种 Web 和移动设备应用。 一  连接MongoDB 抽象出模型在项目根目录下新建/lib/mongo.jsvar mongoose = require(&amp;quot;mongoose&amp;quot;); var db =">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/11/05/ES6数据方法/">
+  <link rel="canonical" href="http://yoursite.com/2018/11/12/express-mongoose模块化/">
 
 
 
@@ -136,7 +136,7 @@
   };
 </script>
 
-  <title>ES6数据方法 | 厚朴酚</title>
+  <title>express-mongoose模块化 | 厚朴酚</title>
   
 
 
@@ -301,7 +301,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/05/ES6数据方法/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/12/express-mongoose模块化/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="厚朴酚">
@@ -318,7 +318,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">ES6数据方法
+          <h1 class="post-title" itemprop="name headline">express-mongoose模块化
               
             
           </h1>
@@ -343,7 +343,7 @@
                 
               
 
-              <time title="创建时间：2018-11-05 10:42:07 / 修改时间：10:55:46" itemprop="dateCreated datePublished" datetime="2018-11-05T10:42:07+08:00">2018-11-05</time>
+              <time title="创建时间：2018-11-12 18:24:59 / 修改时间：18:26:25" itemprop="dateCreated datePublished" datetime="2018-11-12T18:24:59+08:00">2018-11-12</time>
             
 
             
@@ -365,7 +365,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a></span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/node-js/" itemprop="url" rel="index"><span itemprop="name">node.js</span></a></span>
 
                 
                 
@@ -399,69 +399,174 @@
       
 
       
-        <h3 id="ES6常用数据方法总结"><a href="#ES6常用数据方法总结" class="headerlink" title="ES6常用数据方法总结"></a>ES6常用数据方法总结</h3><p>参数  index, array可以忽略</p>
-<h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><pre><code>map():返回一个新的Array，每个元素为调用func的结果 
-filter():返回一个符合func条件的元素数组 
-some():返回一个boolean，判断是否有元素是否符合func条件 
-every():返回一个boolean，判断每个元素是否符合func条件 
-forEach():没有返回值，只是针对每个元素调用func 
-reduce():有返回值，重点是计算数组，返回一个值
-
-1、map速度比forEach快 
-2、map会返回一个新数组，不对原数组产生影响,foreach不会产生新数组， 
-3、map因为返回数组所以可以链式操作，forEach不能
-</code></pre><h4 id="forEach"><a href="#forEach" class="headerlink" title="forEach()"></a>forEach()</h4><pre><code>let array = [1,2,3,4];
-array.forEach((item, index, array) =&gt; {
-　　console.log(item);
-}); //1,2,3,4
-</code></pre><p>备注:forEach会遍历数组, 没有返回值, 不允许在循环体内写return, 不会改变原来数组的内容.</p>
-<p>备注:map 遍历数组, 会返回一个新数组, 不会改变原来数组里的内容</p>
-<h4 id="map"><a href="#map" class="headerlink" title="map()"></a>map()</h4><pre><code>let array = [1, 2, 3, 4];
-let temp = array.map((item, index, array) =&gt; {
-    return item * 10;
+        <h1 id="Express与MongoDB"><a href="#Express与MongoDB" class="headerlink" title="Express与MongoDB"></a>Express与MongoDB</h1><h2 id="前奏"><a href="#前奏" class="headerlink" title="前奏"></a>前奏</h2><h3 id="Express-是什么？"><a href="#Express-是什么？" class="headerlink" title="Express 是什么？"></a>Express 是什么？</h3><p>Express 是一个基于 Node.js 平台的极简、灵活的 web 应用开发框架，它提供一系列强大的特性，帮助你创建各种 Web 和移动设备应用。</p>
+<h2 id="一-连接MongoDB-抽象出模型"><a href="#一-连接MongoDB-抽象出模型" class="headerlink" title="一  连接MongoDB 抽象出模型"></a>一  连接MongoDB 抽象出模型</h2><h3 id="在项目根目录下新建-lib-mongo-js"><a href="#在项目根目录下新建-lib-mongo-js" class="headerlink" title="在项目根目录下新建/lib/mongo.js"></a>在项目根目录下新建/lib/mongo.js</h3><pre><code>var mongoose = require(&quot;mongoose&quot;);
+var db = mongoose.connect(&apos;mongodb://localhost:27017/myblog&apos;,function(){});
+module.exports = db
+</code></pre><p><strong>要连接的数据库为myblog</strong></p>
+<h3 id="二-Schema"><a href="#二-Schema" class="headerlink" title="二 Schema"></a>二 Schema</h3><p>一种以文件形式存储的数据库模型骨架，无法直接通往数据库端，不具备对数据库的操作能力，仅仅只是数据库模型在程序片段中的一种表现，可以说是数据属性模型(传统意义的表结构)，又或着是“集合”的模型骨架.</p>
+<h4 id="在项目根目录下新建-model-user-js"><a href="#在项目根目录下新建-model-user-js" class="headerlink" title="在项目根目录下新建/model/user.js"></a>在项目根目录下新建/model/user.js</h4><pre><code>var mongoose = require(&quot;mongoose&quot;);
+var db = require(&apos;../lib/mongo&apos;);
+//一个用户模型
+var UserSchema = new mongoose.Schema({
+    username: { type:String },
+    password: {type: String},
+    avatar  : {type: String},
+    age : { type:Number, default:0 },
+    description : { type: String},
+    email   : { type: String },
+    github  : { type: String },
+    time: { type:Date, default:Date.now }
 });
-console.log(temp);　　//  [10, 20, 30, 40];
-console.log(array);　　// [1, 2, 3, 4]
-</code></pre><h4 id="filter"><a href="#filter" class="headerlink" title="filter()"></a>filter()</h4><pre><code>let array = [1, 2, 3, 4];
-let temp = array.filter((item, index, array) =&gt; {
-　　return item &gt;  3;
+//创建Model
+var UserModel = db.model(&quot;user&quot;, UserSchema );
+module.exports = UserModel
+</code></pre><p><strong>user：数据库中的集合名称,当我们对其添加数据时如果user已经存在，则会保存到其目录下，如果不存在，则会创建user集合，然后在保存数据。<br>拥有了Model，我们也就拥有了操作数据库的金钥匙，就可以使用Model来进行增删改查的具体操作。</strong></p>
+<h2 id="Entity"><a href="#Entity" class="headerlink" title="Entity"></a>Entity</h2><p>Entity–由Model创建的实体，使用save方法保存数据，Model和Entity都有能影响数据库的操作，但Model比Entity更具操作性。所以此项目主要用的Model。</p>
+<pre><code>var UserEntity = new UserModel({
+    name : &quot;hzzly&quot;,
+    age  : 21,
+    email: &quot;hjingren@aliyun.com&quot;,
+    github: &apos;https://github.com/hzzly&apos;
 });
-console.log(temp);　　// [4]
-console.log(array);　　// [1, 2, 3, 4]
-</code></pre><p>备注: filter 会过滤掉数组中不满足条件的元素, 把满足条件的元素放到一个新数组中, 不改变原数组</p>
-<h4 id="reduce"><a href="#reduce" class="headerlink" title="reduce()"></a>reduce()</h4><pre><code>let array = [1, 2, 3, 4];
-let temp = array.reduce((x, y) =&gt; {
-　　console.log(&quot;x&quot;: x);
-　　console.log(&quot;y&quot;: y);
-　　return x + y;
+UserEntity.save(function(error,doc){
+    if(error){
+        console.log(&quot;error :&quot; + error);
+    }else{
+        console.log(doc);
+    }
 });
-console.log(temp);　　// 10
-console.log(array);　　// [1, 2, 3, 4]
-</code></pre><p>备注:x 是上一次计算过的值, 第一次循环的时候是数组中的第1个元素<br>y 是数组中的每个元素, 第一次循环的时候是数组的第2个元素</p>
-<h4 id="every"><a href="#every" class="headerlink" title="every()"></a>every()</h4><pre><code>let array = [1, 2, 3, 4];
-let bo = array.every((item, index, array) =&gt; {
-　　return item &gt; 2;
-});
-console.log(bo);　　　　// false;
-</code></pre><p>备注: every遍历数组, 每一项都是true, 则返回true,只要有一个是false,就返回false</p>
-<h4 id="some"><a href="#some" class="headerlink" title="some()"></a>some()</h4><p>let array = [1, 2, 3, 4];<br>let tmep = array.some((item, index, array) =&gt; {<br>　　return item &gt; 1;<br>});<br>console.log(temp);　　// true</p>
-<p>备注:遍历数组的每一项, 有一个返回true, 就停止循环</p>
-<h4 id="values"><a href="#values" class="headerlink" title="values()"></a>values()</h4><pre><code>let arr=[1,2,234,&apos;sdf&apos;,-2];
-for(let a of arr.values()){
-    console.log(a) //结果：1,2,234,sdf,-2 遍历了数组arr的值
+</code></pre><h2 id="三、封装数据库的CURD"><a href="#三、封装数据库的CURD" class="headerlink" title="三、封装数据库的CURD"></a>三、封装数据库的CURD</h2><p><strong>在lib文件下新建api.js<br>采用Promise封装对数据库的操作，避免回调地狱，使得代码能够更好的被读懂和维护</strong></p>
+<pre><code>var UserModel = require(&apos;../models/users&apos;);
+module.exports = {
+    /**
+     * 添加数据
+     * @param  {[type]} data 需要保存的数据对象
+     */
+    save(data) {
+        return new Promise((resolve, reject) =&gt; {
+            //model.create(保存的对象,callback)
+            UserModel.create(data, (error, doc) =&gt; {
+                if(error){
+                    reject(error)
+                }else{
+                    resolve(doc)
+                }
+            })
+        })
+    },
+    find(data={}, fields=null, options={}) {
+        return new Promise((resolve, reject) =&gt; {
+            //model.find(需要查找的对象(如果为空，则查找到所有数据), 属性过滤对象[可选参数], options[可选参数], callback)
+            UserModel.find(data, fields, options, (error, doc) =&gt; {
+                if(error){
+                    reject(error)
+                }else{
+                    resolve(doc)
+                }
+            })
+        })
+    },
+    findOne(data) {
+        return new Promise((resolve, reject) =&gt; {
+            //model.findOne(需要查找的对象,callback)
+            UserModel.findOne(data, (error, doc) =&gt; {
+                if(error){
+                    reject(error)
+                }else{
+                    resolve(doc)
+                }
+            })
+        })
+    },
+    findById(data) {
+        return new Promise((resolve, reject) =&gt; {
+            //model.findById(需要查找的id对象 ,callback)
+            UserModel.findById(data, (error, doc) =&gt; {
+                if(error){
+                    reject(error)
+                }else{
+                    resolve(doc)
+                }
+            })
+        })
+    },
+    update(conditions, update) {
+        return new Promise((resolve, reject) =&gt; {
+            //model.update(查询条件,更新对象,callback)
+            UserModel.update(conditions, update, (error, doc) =&gt; {
+                if(error){
+                    reject(error)
+                }else{
+                    resolve(doc)
+                }
+            })
+        })
+    },
+    remove(conditions) {
+        return new Promise((resolve, reject) =&gt; {
+            //model.update(查询条件,callback)
+            UserModel.remove(conditions, (error, doc) =&gt; {
+                if(error){
+                    reject(error)
+                }else{
+                    resolve(doc)
+                }
+            })
+        })
+    }
 }
-</code></pre><p>备注:values，对数组项的遍历</p>
-<h4 id="keys"><a href="#keys" class="headerlink" title="keys()"></a>keys()</h4><p>let arr=[1,2,234,’sdf’,-2];<br>for(let a of arr.keys()){<br>    console.log(a) //结果：0,1,2,3,4  遍历了数组arr的索引<br>}</p>
-<p>备注: keys，对数组索引的遍历</p>
-<h4 id="entries"><a href="#entries" class="headerlink" title="entries()"></a>entries()</h4><pre><code>let arr=[&apos;w&apos;,&apos;b&apos;];
-for(let a of arr.entries()){
-    console.log(a) //结果：[0,w],[1,b]
-}
-for(let [i,v] of arr.entries()){
-    console.log(i,v) //结果：0 w,1 b
-}
-</code></pre><p>备注:entries，对数组键值对的遍历。</p>
-
+</code></pre><h2 id="四、使用"><a href="#四、使用" class="headerlink" title="四、使用"></a>四、使用</h2><p><strong>在/routers/index.js中使用</strong></p>
+<pre><code>var api = require(&apos;../lib/api&apos;);
+router.post(&apos;/login&apos;, function(req, res, next) {
+    var user = {
+        username : req.body.username,
+        password: req.body.password
+    };
+    api.findOne(user)
+        .then(result =&gt; {
+            console.log(result)
+        })
+})
+router.post(&apos;/sign_up&apos;, function(req, res, next) {
+    var user = {
+        username : req.body.username,
+        password: req.body.password,
+        email: req.body.email
+    };
+    api.save(user)
+        .then(result =&gt; {
+            console.log(result)            
+        })
+})
+router.get(&apos;/user_list&apos;, function(req, res, next) {
+    //返回所有用户
+    api.find({})
+        .then(result =&gt; {
+            console.log(result)            
+        })
+    //返回只包含一个键值name、age的所有记录
+    api.find({},{name:1, age:1, _id:0})
+        .then(result =&gt; {
+            console.log(result)            
+        })
+    //返回所有age大于18的数据
+    api.find({&quot;age&quot;:{&quot;$gt&quot;:18}})
+        .then(result =&gt; {
+            console.log(result)            
+        })
+    //返回20条数据
+    api.find({},null,{limit:20})
+        .then(result =&gt; {
+            console.log(result)            
+        })
+    //查询所有数据，并按照age降序顺序返回数据
+    api.find({},null,{sort:{age:-1}}) //1是升序，-1是降序
+        .then(result =&gt; {
+            console.log(result)            
+        })
+})
+</code></pre>
       
     </div>
 
@@ -522,7 +627,7 @@ for(let [i,v] of arr.entries()){
       
         <div class="post-tags">
           
-            <a href="/tags/导航-javascript-ES6/" rel="tag"># 导航 - javascript - ES6</a>
+            <a href="/tags/导航-mongoose/" rel="tag"># 导航 - mongoose</a>
           
         </div>
       
@@ -535,8 +640,8 @@ for(let [i,v] of arr.entries()){
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/11/05/ES6在条件语句的优雅应用/" rel="next" title="ES6在条件语句的优雅应用">
-                <i class="fa fa-chevron-left"></i> ES6在条件语句的优雅应用
+              <a href="/2018/11/12/koa基于mongoose模块化实现/" rel="next" title="在koa中应用mongoose模块化实现">
+                <i class="fa fa-chevron-left"></i> 在koa中应用mongoose模块化实现
               </a>
             
           </div>
@@ -544,10 +649,6 @@ for(let [i,v] of arr.entries()){
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/11/05/javasript数组常用方法/" rel="prev" title="javasript数组常用方法">
-                javasript数组常用方法 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -721,7 +822,7 @@ for(let [i,v] of arr.entries()){
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#ES6常用数据方法总结"><span class="nav-number">1.</span> <span class="nav-text">ES6常用数据方法总结</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#概述"><span class="nav-number">1.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#forEach"><span class="nav-number">1.2.</span> <span class="nav-text">forEach()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#map"><span class="nav-number">1.3.</span> <span class="nav-text">map()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#filter"><span class="nav-number">1.4.</span> <span class="nav-text">filter()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#reduce"><span class="nav-number">1.5.</span> <span class="nav-text">reduce()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#every"><span class="nav-number">1.6.</span> <span class="nav-text">every()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#some"><span class="nav-number">1.7.</span> <span class="nav-text">some()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#values"><span class="nav-number">1.8.</span> <span class="nav-text">values()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#keys"><span class="nav-number">1.9.</span> <span class="nav-text">keys()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#entries"><span class="nav-number">1.10.</span> <span class="nav-text">entries()</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Express与MongoDB"><span class="nav-number">1.</span> <span class="nav-text">Express与MongoDB</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#前奏"><span class="nav-number">1.1.</span> <span class="nav-text">前奏</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Express-是什么？"><span class="nav-number">1.1.1.</span> <span class="nav-text">Express 是什么？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一-连接MongoDB-抽象出模型"><span class="nav-number">1.2.</span> <span class="nav-text">一  连接MongoDB 抽象出模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#在项目根目录下新建-lib-mongo-js"><span class="nav-number">1.2.1.</span> <span class="nav-text">在项目根目录下新建/lib/mongo.js</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二-Schema"><span class="nav-number">1.2.2.</span> <span class="nav-text">二 Schema</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#在项目根目录下新建-model-user-js"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">在项目根目录下新建/model/user.js</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Entity"><span class="nav-number">1.3.</span> <span class="nav-text">Entity</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、封装数据库的CURD"><span class="nav-number">1.4.</span> <span class="nav-text">三、封装数据库的CURD</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、使用"><span class="nav-number">1.5.</span> <span class="nav-text">四、使用</span></a></li></ol></li></ol></div>
             
 
           </div>

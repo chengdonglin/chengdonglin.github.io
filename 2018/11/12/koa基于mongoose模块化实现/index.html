@@ -108,25 +108,25 @@
 
 
 
-  <meta name="description" content="ES6常用数据方法总结参数  index, array可以忽略 概述map():返回一个新的Array，每个元素为调用func的结果  filter():返回一个符合func条件的元素数组  some():返回一个boolean，判断是否有元素是否符合func条件  every():返回一个boolean，判断每个元素是否符合func条件  forEach():没有返回值，只是针对每个元素调用fu">
-<meta name="keywords" content="导航 - javascript - ES6">
+  <meta name="description" content="在koa中应用mongoose模块化实现为了让项目拥有更好的可读性以及可管理性,那么  数据库连接  //init.js  const mongoose = require(&amp;apos;mongoose&amp;apos;) const db = &amp;quot;mongodb://localhost/smile-vue&amp;quot; const glob = require(&amp;apos;glob&amp;apos;)">
+<meta name="keywords" content="导航,koa,mongodb">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ES6数据方法">
-<meta property="og:url" content="http://yoursite.com/2018/11/05/ES6数据方法/index.html">
+<meta property="og:title" content="在koa中应用mongoose模块化实现">
+<meta property="og:url" content="http://yoursite.com/2018/11/12/koa基于mongoose模块化实现/index.html">
 <meta property="og:site_name" content="厚朴酚">
-<meta property="og:description" content="ES6常用数据方法总结参数  index, array可以忽略 概述map():返回一个新的Array，每个元素为调用func的结果  filter():返回一个符合func条件的元素数组  some():返回一个boolean，判断是否有元素是否符合func条件  every():返回一个boolean，判断每个元素是否符合func条件  forEach():没有返回值，只是针对每个元素调用fu">
+<meta property="og:description" content="在koa中应用mongoose模块化实现为了让项目拥有更好的可读性以及可管理性,那么  数据库连接  //init.js  const mongoose = require(&amp;apos;mongoose&amp;apos;) const db = &amp;quot;mongodb://localhost/smile-vue&amp;quot; const glob = require(&amp;apos;glob&amp;apos;)">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-11-05T02:55:46.033Z">
+<meta property="og:updated_time" content="2018-11-12T10:14:23.233Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ES6数据方法">
-<meta name="twitter:description" content="ES6常用数据方法总结参数  index, array可以忽略 概述map():返回一个新的Array，每个元素为调用func的结果  filter():返回一个符合func条件的元素数组  some():返回一个boolean，判断是否有元素是否符合func条件  every():返回一个boolean，判断每个元素是否符合func条件  forEach():没有返回值，只是针对每个元素调用fu">
+<meta name="twitter:title" content="在koa中应用mongoose模块化实现">
+<meta name="twitter:description" content="在koa中应用mongoose模块化实现为了让项目拥有更好的可读性以及可管理性,那么  数据库连接  //init.js  const mongoose = require(&amp;apos;mongoose&amp;apos;) const db = &amp;quot;mongodb://localhost/smile-vue&amp;quot; const glob = require(&amp;apos;glob&amp;apos;)">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/11/05/ES6数据方法/">
+  <link rel="canonical" href="http://yoursite.com/2018/11/12/koa基于mongoose模块化实现/">
 
 
 
@@ -136,7 +136,7 @@
   };
 </script>
 
-  <title>ES6数据方法 | 厚朴酚</title>
+  <title>在koa中应用mongoose模块化实现 | 厚朴酚</title>
   
 
 
@@ -301,7 +301,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/05/ES6数据方法/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/12/koa基于mongoose模块化实现/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="厚朴酚">
@@ -318,7 +318,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">ES6数据方法
+          <h1 class="post-title" itemprop="name headline">在koa中应用mongoose模块化实现
               
             
           </h1>
@@ -343,7 +343,7 @@
                 
               
 
-              <time title="创建时间：2018-11-05 10:42:07 / 修改时间：10:55:46" itemprop="dateCreated datePublished" datetime="2018-11-05T10:42:07+08:00">2018-11-05</time>
+              <time title="创建时间：2018-11-12 17:25:32 / 修改时间：18:14:23" itemprop="dateCreated datePublished" datetime="2018-11-12T17:25:32+08:00">2018-11-12</time>
             
 
             
@@ -365,7 +365,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a></span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/koa/" itemprop="url" rel="index"><span itemprop="name">koa</span></a></span>
 
                 
                 
@@ -399,68 +399,191 @@
       
 
       
-        <h3 id="ES6常用数据方法总结"><a href="#ES6常用数据方法总结" class="headerlink" title="ES6常用数据方法总结"></a>ES6常用数据方法总结</h3><p>参数  index, array可以忽略</p>
-<h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><pre><code>map():返回一个新的Array，每个元素为调用func的结果 
-filter():返回一个符合func条件的元素数组 
-some():返回一个boolean，判断是否有元素是否符合func条件 
-every():返回一个boolean，判断每个元素是否符合func条件 
-forEach():没有返回值，只是针对每个元素调用func 
-reduce():有返回值，重点是计算数组，返回一个值
+        <h3 id="在koa中应用mongoose模块化实现"><a href="#在koa中应用mongoose模块化实现" class="headerlink" title="在koa中应用mongoose模块化实现"></a>在koa中应用mongoose模块化实现</h3><pre><code>为了让项目拥有更好的可读性以及可管理性,那么
+</code></pre><ul>
+<li>数据库连接</li>
+</ul>
+<pre><code>//init.js
 
-1、map速度比forEach快 
-2、map会返回一个新数组，不对原数组产生影响,foreach不会产生新数组， 
-3、map因为返回数组所以可以链式操作，forEach不能
-</code></pre><h4 id="forEach"><a href="#forEach" class="headerlink" title="forEach()"></a>forEach()</h4><pre><code>let array = [1,2,3,4];
-array.forEach((item, index, array) =&gt; {
-　　console.log(item);
-}); //1,2,3,4
-</code></pre><p>备注:forEach会遍历数组, 没有返回值, 不允许在循环体内写return, 不会改变原来数组的内容.</p>
-<p>备注:map 遍历数组, 会返回一个新数组, 不会改变原来数组里的内容</p>
-<h4 id="map"><a href="#map" class="headerlink" title="map()"></a>map()</h4><pre><code>let array = [1, 2, 3, 4];
-let temp = array.map((item, index, array) =&gt; {
-    return item * 10;
-});
-console.log(temp);　　//  [10, 20, 30, 40];
-console.log(array);　　// [1, 2, 3, 4]
-</code></pre><h4 id="filter"><a href="#filter" class="headerlink" title="filter()"></a>filter()</h4><pre><code>let array = [1, 2, 3, 4];
-let temp = array.filter((item, index, array) =&gt; {
-　　return item &gt;  3;
-});
-console.log(temp);　　// [4]
-console.log(array);　　// [1, 2, 3, 4]
-</code></pre><p>备注: filter 会过滤掉数组中不满足条件的元素, 把满足条件的元素放到一个新数组中, 不改变原数组</p>
-<h4 id="reduce"><a href="#reduce" class="headerlink" title="reduce()"></a>reduce()</h4><pre><code>let array = [1, 2, 3, 4];
-let temp = array.reduce((x, y) =&gt; {
-　　console.log(&quot;x&quot;: x);
-　　console.log(&quot;y&quot;: y);
-　　return x + y;
-});
-console.log(temp);　　// 10
-console.log(array);　　// [1, 2, 3, 4]
-</code></pre><p>备注:x 是上一次计算过的值, 第一次循环的时候是数组中的第1个元素<br>y 是数组中的每个元素, 第一次循环的时候是数组的第2个元素</p>
-<h4 id="every"><a href="#every" class="headerlink" title="every()"></a>every()</h4><pre><code>let array = [1, 2, 3, 4];
-let bo = array.every((item, index, array) =&gt; {
-　　return item &gt; 2;
-});
-console.log(bo);　　　　// false;
-</code></pre><p>备注: every遍历数组, 每一项都是true, 则返回true,只要有一个是false,就返回false</p>
-<h4 id="some"><a href="#some" class="headerlink" title="some()"></a>some()</h4><p>let array = [1, 2, 3, 4];<br>let tmep = array.some((item, index, array) =&gt; {<br>　　return item &gt; 1;<br>});<br>console.log(temp);　　// true</p>
-<p>备注:遍历数组的每一项, 有一个返回true, 就停止循环</p>
-<h4 id="values"><a href="#values" class="headerlink" title="values()"></a>values()</h4><pre><code>let arr=[1,2,234,&apos;sdf&apos;,-2];
-for(let a of arr.values()){
-    console.log(a) //结果：1,2,234,sdf,-2 遍历了数组arr的值
+const mongoose = require(&apos;mongoose&apos;)
+const db = &quot;mongodb://localhost/smile-vue&quot;
+const glob = require(&apos;glob&apos;)
+const {resolve} = require(&apos;path&apos;)
+
+//一次性全部导入模型
+exports.initSchemas = ()=&gt;{
+    glob.sync(resolve(__dirname,&apos;./schema&apos;,&apos;**/*.js&apos;)).forEach(require)
 }
-</code></pre><p>备注:values，对数组项的遍历</p>
-<h4 id="keys"><a href="#keys" class="headerlink" title="keys()"></a>keys()</h4><p>let arr=[1,2,234,’sdf’,-2];<br>for(let a of arr.keys()){<br>    console.log(a) //结果：0,1,2,3,4  遍历了数组arr的索引<br>}</p>
-<p>备注: keys，对数组索引的遍历</p>
-<h4 id="entries"><a href="#entries" class="headerlink" title="entries()"></a>entries()</h4><pre><code>let arr=[&apos;w&apos;,&apos;b&apos;];
-for(let a of arr.entries()){
-    console.log(a) //结果：[0,w],[1,b]
+exports.connect = ()=&gt;{
+    //连接数据库
+    mongoose.connect(db)
+    let  maxConnectTimes = 0
+    return new Promise((resolve,reject)=&gt;{
+         //增加数据库监听事件
+        mongoose.connection.on(&apos;disconnected&apos;,()=&gt;{
+            console.log(&apos;***********数据库断开***********&apos;)
+            if(maxConnectTimes&lt;=3){
+                maxConnectTimes++
+                mongoose.connect(db)
+            }else{
+                reject()
+                throw new Error(&apos;数据库出现问题&apos;)
+            }      
+        })
+        mongoose.connection.on(&apos;error&apos;,(err)=&gt;{
+            console.log(&apos;***********数据库错误&apos;)
+            if(maxConnectTimes&lt;=3){
+                maxConnectTimes++
+                mongoose.connect(db)
+            }else{
+                reject(err)
+                throw new Error(&apos;数据库出现问题&apos;)
+            }
+        })
+        //链接打开的时
+        mongoose.connection.once(&apos;open&apos;,()=&gt;{
+            console.log(&apos;MongoDB connected successfully&apos;)           
+            resolve()
+        })
+    })
 }
-for(let [i,v] of arr.entries()){
-    console.log(i,v) //结果：0 w,1 b
+</code></pre><ul>
+<li><p>shema文件夹创建模型</p>
+<pre><code>//User.js
+const mongoose = require(&apos;mongoose&apos;)
+const Schema = mongoose.Schema
+let ObjectId = Schema.Types.ObjectId
+const bcrypt = require(&apos;bcrypt&apos;)
+const SALT_WORK_FACTOR = 10
+
+//创建UserShema
+const userSchema = new Schema({
+    UserId :{type:ObjectId},
+    userName : {unique:true,type:String},
+    password : String,
+    createAt:{type:Date, default:Date.now()},
+    lastLoginAt:{type:Date, default:Date.now()}
+},{
+  collection:&apos;user&apos;  
+}) 
+userSchema.pre(&apos;save&apos;, function(next){
+    bcrypt.genSalt(SALT_WORK_FACTOR,(err,salt)=&gt;{
+        if(err) return next(err)
+        bcrypt.hash(this.password,salt,(err,hash)=&gt;{
+            if(err) return next(err)
+            this.password = hash
+            next()
+        })
+    })
+})
+
+userSchema.methods={
+    comparePassword:(_password,password)=&gt;{
+        return new Promise((resolve,reject)=&gt;{
+            bcrypt.compare(_password,password,(err,isMatch)=&gt;{
+                if(!err) resolve(isMatch)
+                else reject(err)
+            })
+        })
+    }
 }
-</code></pre><p>备注:entries，对数组键值对的遍历。</p>
+</code></pre></li>
+</ul>
+<pre><code>//发布模型
+mongoose.model(&apos;User&apos;,userSchema)
+</code></pre><ul>
+<li>服务器连接开启数据库并导入模型</li>
+</ul>
+<pre><code>const Koa = require(&apos;koa&apos;)
+const app = new Koa()
+const { connect , initSchemas } = require(&apos;./database/init.js&apos;)
+const mongoose = require(&apos;mongoose&apos;)
+const bodyParser = require(&apos;koa-bodyparser&apos;)
+const cors = require(&apos;koa2-cors&apos;)
+const Router = require(&apos;koa-router&apos;)
+app.use(bodyParser())
+app.use(cors())
+let user = require(&apos;./appApi/user.js&apos;)
+let home = require(&apos;./appApi/home.js&apos;)
+let goods = require(&apos;./appApi/goods.js&apos;)
+
+//装载所有子路由
+let router = new Router()
+router.use(&apos;/user&apos;,user.routes())
+router.use(&apos;/home&apos;,home.routes())
+router.use(&apos;/goods&apos;,goods.routes())
+//egg.js
+
+//加载路由中间件
+app.use(router.routes())
+app.use(router.allowedMethods())
+//这个函数说明立即执行,创建数据库连接导入模型
+;(async ()=&gt;{
+    await connect()
+    initSchemas()
+})()
+app.use(async(ctx)=&gt;{
+    ctx.body=&apos;&lt;h1&gt;Hello Koa2&lt;/h1&gt;&apos;
+})
+app.listen(3000,()=&gt;{
+    console.log(&apos;[Server] starting at port 3000&apos;)
+})
+</code></pre><ul>
+<li><p>在路由中使用</p>
+<pre><code>const Router = require(&apos;koa-router&apos;)
+const mongoose = require(&apos;mongoose&apos;)
+
+let router = new Router()
+router.get(&apos;/&apos;,async(ctx)=&gt;{
+    ctx.body=&quot;这是用户操作首页&quot;
+})
+
+router.post(&apos;/register&apos;,async(ctx)=&gt;{
+    const User = mongoose.model(&apos;User&apos;)
+    let newUser = new User(ctx.request.body)
+    await newUser.save().then(()=&gt;{
+        ctx.body={
+            code:200,
+            message:&apos;注册成功&apos;
+        }
+    }).catch(error=&gt;{
+        ctx.body={
+            code:500,
+            message:error
+        }
+    })
+})
+router.post(&apos;/login&apos;,async(ctx)=&gt;{
+    let loginUser = ctx.request.body
+    console.log(loginUser)
+    let userName = loginUser.userName
+    let password = loginUser.password
+    //引入User的model
+    const User = mongoose.model(&apos;User&apos;)
+    await User.findOne({userName:userName}).exec().then(async(result)=&gt;{
+        console.log(result)
+        if(result){
+            let newUser = new User()
+            await newUser.comparePassword(password,result.password)
+            .then(isMatch=&gt;{
+                ctx.body={code:200,message:isMatch}
+            })
+            .catch(error=&gt;{
+                console.log(error)
+                ctx.body={code:500,message:error}
+            })
+        }else{
+            ctx.body={code:200,message:&apos;用户名不存在&apos;}
+        }
+    }).catch(error=&gt;{
+        console.log(error)
+        ctx.body={code:500,message:error}
+    })
+})
+
+module.exports =router
+</code></pre></li>
+</ul>
 
       
     </div>
@@ -522,7 +645,11 @@ for(let [i,v] of arr.entries()){
       
         <div class="post-tags">
           
-            <a href="/tags/导航-javascript-ES6/" rel="tag"># 导航 - javascript - ES6</a>
+            <a href="/tags/导航/" rel="tag"># 导航</a>
+          
+            <a href="/tags/koa/" rel="tag"># koa</a>
+          
+            <a href="/tags/mongodb/" rel="tag"># mongodb</a>
           
         </div>
       
@@ -535,8 +662,8 @@ for(let [i,v] of arr.entries()){
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/11/05/ES6在条件语句的优雅应用/" rel="next" title="ES6在条件语句的优雅应用">
-                <i class="fa fa-chevron-left"></i> ES6在条件语句的优雅应用
+              <a href="/2018/11/12/js-xlsx前置知识点/" rel="next" title="js-xlsx前置知识点">
+                <i class="fa fa-chevron-left"></i> js-xlsx前置知识点
               </a>
             
           </div>
@@ -545,8 +672,8 @@ for(let [i,v] of arr.entries()){
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/11/05/javasript数组常用方法/" rel="prev" title="javasript数组常用方法">
-                javasript数组常用方法 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/11/12/express-mongoose模块化/" rel="prev" title="express-mongoose模块化">
+                express-mongoose模块化 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -721,7 +848,7 @@ for(let [i,v] of arr.entries()){
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#ES6常用数据方法总结"><span class="nav-number">1.</span> <span class="nav-text">ES6常用数据方法总结</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#概述"><span class="nav-number">1.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#forEach"><span class="nav-number">1.2.</span> <span class="nav-text">forEach()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#map"><span class="nav-number">1.3.</span> <span class="nav-text">map()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#filter"><span class="nav-number">1.4.</span> <span class="nav-text">filter()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#reduce"><span class="nav-number">1.5.</span> <span class="nav-text">reduce()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#every"><span class="nav-number">1.6.</span> <span class="nav-text">every()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#some"><span class="nav-number">1.7.</span> <span class="nav-text">some()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#values"><span class="nav-number">1.8.</span> <span class="nav-text">values()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#keys"><span class="nav-number">1.9.</span> <span class="nav-text">keys()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#entries"><span class="nav-number">1.10.</span> <span class="nav-text">entries()</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#在koa中应用mongoose模块化实现"><span class="nav-number">1.</span> <span class="nav-text">在koa中应用mongoose模块化实现</span></a></li></ol></div>
             
 
           </div>
