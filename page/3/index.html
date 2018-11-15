@@ -300,6 +300,210 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/04/javascript逻辑运算符/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="厚朴酚">
+      <meta itemprop="description" content="学习笔记">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="厚朴酚">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/04/javascript逻辑运算符/" itemprop="url">
+                  javascript逻辑运算符
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-11-04 15:41:17 / 修改时间：15:49:56" itemprop="dateCreated datePublished" datetime="2018-11-04T15:41:17+08:00">2018-11-04</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="javascript逻辑运算符"><a href="#javascript逻辑运算符" class="headerlink" title="javascript逻辑运算符"></a>javascript逻辑运算符</h3><h4 id="1-逻辑或"><a href="#1-逻辑或" class="headerlink" title="1:逻辑或(||)"></a>1:逻辑或(||)</h4><h5 id="示例代码1"><a href="#示例代码1" class="headerlink" title="示例代码1"></a>示例代码1</h5><pre><code>console.log(0 || &apos;我是string，boolean值为true&apos;);          // 返回字符串
+console.log(NaN || &apos;我是string，boolean值为true&apos;);        // 返回字符串
+console.log(&apos;&apos; || &apos;我是string，boolean值为true&apos;);         // 返回字符串
+console.log(null || &apos;我是string，boolean值为true&apos;);       // 返回字符串
+console.log(undefined || &apos;我是string，boolean值为true&apos;);  // 返回字符串
+</code></pre><p>我们知道 0、NaN、’ ‘、null、undefined转换为boolean值都为flase，若第一个值为false，第二个值为true，则返回第二个值。</p>
+<h5 id="示例代码2"><a href="#示例代码2" class="headerlink" title="示例代码2"></a>示例代码2</h5><pre><code>console.log(0 || &apos;NaN&apos;);           // 返回 NaN
+console.log(NaN || &apos;&apos;);            // 返回 &apos;&apos; 空字符串
+console.log(&apos;&apos; || null);           // 返回 null
+console.log(null || &apos;undefined&apos;);  // 返回 undefined
+console.log(undefined || 0);       // 返回 0
+</code></pre><p>结合上面两个例子我们可以发现，<strong> 只要第一个值的布尔值为false，那么永远返回第二个值，</strong>不管第二个值的布尔值是true还是false。</p>
+<h5 id="示例代码3"><a href="#示例代码3" class="headerlink" title="示例代码3"></a>示例代码3</h5><pre><code>var obj = {};
+console.log(obj || NaN);      // 返回 obj
+console.log(obj || number);   // 返回 obj
+console.log( 0 || number);    // 报错，number未定义
+</code></pre><p>通过这个例子可以发现逻辑或属于短路操作，只要第一个值的布尔值为true，不再操作第二个值，直接返回第一个值，number变量未定义也不会报错。</p>
+<h4 id="2逻辑与-amp-amp"><a href="#2逻辑与-amp-amp" class="headerlink" title="2逻辑与(&amp;&amp;)"></a>2逻辑与(&amp;&amp;)</h4><p>逻辑与 操作符在JavaScript中主要用在条件判断语句中，极少情况下出现在赋值语句中，特性和 逻辑或 很相似。</p>
+<h5 id="示例1"><a href="#示例1" class="headerlink" title="示例1"></a>示例1</h5><pre><code>var obj = {};
+console.log(0 &amp;&amp; obj);               // 返回 0
+console.log(NaN &amp;&amp; obj);             // 返回 NaN
+console.log(&apos;&apos; &amp;&amp; obj);              // 返回 &apos;&apos; 空字符串
+console.log(null &amp;&amp; obj);            // 返回 null
+console.log(undefined &amp;&amp; obj);       // 返回 undefined
+// number 未定义
+console.log(undefined &amp;&amp; number);    // 返回 undefined 不会报错
+</code></pre><p>通过上面的代码发现 逻辑与 与 逻辑或 很近似，逻辑与 也属于短路操作；当第一个值的布尔值为false，它不再操作第二个值，同时直接返回第一个值。</p>
+<h5 id="示例2"><a href="#示例2" class="headerlink" title="示例2"></a>示例2</h5><pre><code>var obj = {};
+var str = &apos;Riny&apos;;
+
+/* 当第一个值的布尔值为true 返回第二个值 */
+console.log(obj &amp;&amp; 0);          // 返回 0
+console.log(obj &amp;&amp; NaN);        // 返回 NaN
+console.log(obj &amp;&amp; &apos;&apos;);         // 返回 &apos;&apos; 空字符串
+console.log(obj &amp;&amp; undefined);  // 返回 undefined
+console.log(obj &amp;&amp; null);       // 返回 null
+
+/* 当第一个值的布尔值为true 返回第二个值 */
+console.log(obj &amp;&amp; str);        // 返回 字符串
+</code></pre><p>通过上面比较可以发现，逻辑与 只要第一个值的布尔值为true，永远返回第二个值。</p>
+<h4 id="3总结"><a href="#3总结" class="headerlink" title="3总结"></a>3总结</h4><h5 id="逻辑或（-）总结："><a href="#逻辑或（-）总结：" class="headerlink" title="逻辑或（||）总结："></a>逻辑或（||）总结：</h5><p>只要第一个值的布尔值为false，那么永远返回第二个值。<br>逻辑或属于短路操作，第一个值为true时，不再操作第二个值，且返回第一个值。</p>
+<h5 id="逻辑与（-amp-amp-）总结："><a href="#逻辑与（-amp-amp-）总结：" class="headerlink" title="逻辑与（&amp;&amp;）总结："></a>逻辑与（&amp;&amp;）总结：</h5><p>只要第一个值的布尔值为true，那么永远返回第二个值。<br>逻辑与属于短路操作，第一个值为false时，不再操作第二个值，且返回第一个值。</p>
+<p>链接：<a href="https://www.jianshu.com/p/07a1cabe6484" target="_blank" rel="noopener">https://www.jianshu.com/p/07a1cabe6484</a></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+    
+
+    
+    <div>
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/02/vuejs路由显示控制/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1834,7 +2038,7 @@ loader:&quot;babel-loader&quot;
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">27</span>
+                    <span class="site-state-item-count">28</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1861,7 +2065,9 @@ loader:&quot;babel-loader&quot;
                     
                       
                     
-                    <span class="site-state-item-count">7</span>
+                      
+                    
+                    <span class="site-state-item-count">8</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -1900,7 +2106,9 @@ loader:&quot;babel-loader&quot;
                     
                       
                     
-                    <span class="site-state-item-count">13</span>
+                      
+                    
+                    <span class="site-state-item-count">14</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

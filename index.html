@@ -300,6 +300,272 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/15/学习Nginx/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="厚朴酚">
+      <meta itemprop="description" content="学习笔记">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="厚朴酚">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/15/学习Nginx/" itemprop="url">
+                  学习Nginx
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-11-15 21:53:39 / 修改时间：22:28:00" itemprop="dateCreated datePublished" datetime="2018-11-15T21:53:39+08:00">2018-11-15</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/nginx/" itemprop="url" rel="index"><span itemprop="name">nginx</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="学习Nginx"><a href="#学习Nginx" class="headerlink" title="学习Nginx"></a>学习Nginx</h3><p>来源自技术胖,<a href="http://jspang.com/post/nginx.html" target="_blank" rel="noopener">http://jspang.com/post/nginx.html</a></p>
+<h4 id="安装环境搭建"><a href="#安装环境搭建" class="headerlink" title="安装环境搭建"></a>安装环境搭建</h4><ul>
+<li>yum -y install gcc gcc-c++ autoconf pcre-devel make automake</li>
+<li>yum -y install wget httpd-tools vim</li>
+</ul>
+<h4 id="Nginx源配置安装"><a href="#Nginx源配置安装" class="headerlink" title="Nginx源配置安装"></a>Nginx源配置安装</h4><ul>
+<li><p>查看是否有Nginx源</p>
+<pre><code>yum list | grep nginx
+</code></pre></li>
+<li><p>配置最新源</p>
+</li>
+</ul>
+<p>到官网找稳定版</p>
+<p>第一步:到yum文件</p>
+<pre><code>vim /etc/yum.repos.d/nginx.repo
+</code></pre><p>第二步:</p>
+<pre><code>[nginx]
+name=nginx repo
+baseurl=http://nginx.org/packages/OS/OSRELEASE/$basearch/
+gpgcheck=0
+enabled=1
+</code></pre><p>第三步:<br>赋值完成后，你需要修改一下对应的操作系统和版本号，因为我的是centos和7的版本</p>
+<pre><code>baseurl=http://nginx.org/packages/centos/7/$basearch/
+</code></pre><p>第四步: 安装</p>
+<pre><code>yum install nginx
+</code></pre><p>第五步: 查看是否成功</p>
+<pre><code>nginx -v
+</code></pre><h4 id="Nginx基本配置文件"><a href="#Nginx基本配置文件" class="headerlink" title="Nginx基本配置文件"></a>Nginx基本配置文件</h4><p>-查看目录位置</p>
+<pre><code>rpm -ql nginx
+</code></pre><p>rpm 是linux的rpm包管理工具，-q 代表询问模式，-l 代表返回列表，这样我们就可以找到nginx的所有安装位置</p>
+<h5 id="nginx-conf文件解读"><a href="#nginx-conf文件解读" class="headerlink" title="nginx.conf文件解读"></a>nginx.conf文件解读</h5><pre><code>cd /etc/nginx
+vim nginx.conf
+</code></pre><p>文件注释</p>
+<pre><code>#运行用户，默认即是nginx，可以不进行设置
+user  nginx;
+#Nginx进程，一般设置为和CPU核数一样
+worker_processes  1;   
+#错误日志存放目录
+error_log  /var/log/nginx/error.log warn;
+#进程pid存放位置
+pid        /var/run/nginx.pid;
+events {
+    worker_connections  1024; # 单个后台进程的最大并发数
+}
+http {
+    include       /etc/nginx/mime.types;   #文件扩展名与类型映射表
+    default_type  application/octet-stream;  #默认文件类型
+    #设置日志模式
+    log_format  main  &apos;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &apos;
+                      &apos;$status $body_bytes_sent &quot;$http_referer&quot; &apos;
+                      &apos;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&apos;;
+    access_log  /var/log/nginx/access.log  main;   #nginx访问日志存放位置
+    sendfile        on;   #开启高效传输模式
+    #tcp_nopush     on;    #减少网络报文段的数量
+    keepalive_timeout  65;  #保持连接的时间，也叫超时时间
+    #gzip  on;  #开启gzip压缩
+    include /etc/nginx/conf.d/*.conf; #包含的子配置项位置和文件
+</code></pre><p>default.conf 配置项讲解 我们看到最后有一个子文件的配置项，那我们打开这个include子文件配置项看一下里边都有些什么内容。</p>
+<p>进入conf.d目录，然后使用vim default.conf进行查看。</p>
+<pre><code>server {
+    listen       80;   #配置监听端口
+    server_name  localhost;  //配置域名
+    #charset koi8-r;     
+    #access_log  /var/log/nginx/host.access.log  main;
+    location / {
+        root   /usr/share/nginx/html;     #服务默认启动目录
+        index  index.html index.htm;    #默认访问文件
+    }
+    #error_page  404              /404.html;   # 配置404页面
+    # redirect server error pages to the static page /50x.html
+    #
+    error_page   500 502 503 504  /50x.html;   #错误状态码的显示页面，配置后需要重启
+    location = /50x.html {
+        root   /usr/share/nginx/html;
+    }
+    # proxy the PHP scripts to Apache listening on 127.0.0.1:80
+    #
+    #location ~ \.php$ {
+    #    proxy_pass   http://127.0.0.1;
+    #}
+    # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+    #
+    #location ~ \.php$ {
+    #    root           html;
+    #    fastcgi_pass   127.0.0.1:9000;
+    #    fastcgi_index  index.php;
+    #    fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;
+    #    include        fastcgi_params;
+    #}
+    # deny access to .htaccess files, if Apache&apos;s document root
+    # concurs with nginx&apos;s one
+    #
+    #location ~ /\.ht {
+    #    deny  all;
+    #}
+}
+</code></pre><p>明白了这些配置项，我们知道我们的服务目录放在了/usr/share/nginx/html下，可以使用命令进入看一下目录下的文件。</p>
+<pre><code>cd /usr/share/nginx/html
+ls 
+</code></pre><ul>
+<li><p>启动  sudo nginx</p>
+</li>
+<li><p>访问 127.0.0.1:80 就可以看到index.html的内容了</p>
+</li>
+</ul>
+<h4 id="Nginx常用的操作"><a href="#Nginx常用的操作" class="headerlink" title="Nginx常用的操作"></a>Nginx常用的操作</h4>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+    
+
+    
+    <div>
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/12/express-mongoose模块化/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -3040,253 +3306,6 @@ function createDownload(fileName, content){
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/09/html5的FileReader对象/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="厚朴酚">
-      <meta itemprop="description" content="学习笔记">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="厚朴酚">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/09/html5的FileReader对象/" itemprop="url">
-                  html5的FileReader对象
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-11-09 13:16:39 / 修改时间：13:31:15" itemprop="dateCreated datePublished" datetime="2018-11-09T13:16:39+08:00">2018-11-09</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/HTML5/" itemprop="url" rel="index"><span itemprop="name">HTML5</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="HTML5的FileReader对象"><a href="#HTML5的FileReader对象" class="headerlink" title="HTML5的FileReader对象"></a>HTML5的FileReader对象</h3><h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>FileReader主要用于将文件内容读入内存，通过一系列异步接口，可以在主线程中访问本地文件。</p>
-<p>使用FileReader对象，web应用程序可以异步的读取存储在用户计算机上的文件(或者原始数据缓冲)内容，可以使用File对象或者Blob对象来指定所要处理的文件或数据。</p>
-<h4 id="创建对象"><a href="#创建对象" class="headerlink" title="创建对象"></a>创建对象</h4><pre><code>var reader = new FileReader();
-</code></pre><h4 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h4><pre><code>方法定义                               描述
-abort():void                     终止文件读取操作
-readAsArrayBuffer(file):void     异步按字节读取文件内容，结果用ArrayBuffer对象表示
-readAsBinaryString(file):void    异步按字节读取文件内容，结果为文件的二进制串
-readAsDataURL(file):void         异步读取文件内容，结果用data:url的字符串形式表示
-readAsText(file,encoding):void   异步按字符读取文件内容，结果用字符串形式表示
-</code></pre><h4 id="事件"><a href="#事件" class="headerlink" title="事件"></a>事件</h4><pre><code>事件名称                         描述
-onabort               当读取操作被中止时调用
-onerror               当读取操作发生错误时调用
-onload                当读取操作成功完成时调用
-onloadend              当读取操作完成时调用,不管是成功还是失败
-onloadstart              当读取操作将要开始之前调用    
-onprogress              在读取数据过程中周期性调用
-</code></pre><h4 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h4><p>FileReader通过异步的方式读取文件内容，结果均是通过事件回调获取，下面是一个读取本地txt文件内容的例子：</p>
-<pre><code>var input  = document.getElementById(&quot;file&quot;); //input file
-input.onchange = function(){
-    var file = this.files[0];
-    if(!!file){
-        //读取本地文件，以gbk编码方式输出
-        var reader = new FileReader();
-        reader.readAsText(file,&quot;gbk&quot;);
-        reader.onload = function(){
-            //读取完毕后输出结果
-            console.log(this.result);
-        }
-    }
-}
-</code></pre><h4 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h4><ul>
-<li>在线预览本地文件</li>
-</ul>
-<p>img的src属性或background的url属性，可以通过被赋值为图片网络地址或base64的方式显示图片。<br>在文件上传中，我们一般会先将本地文件上传到服务器，上传成功后，由后台返回图片的网络地址再在前端显示。<br>通过FileReader的readAsDataURL方法，我们可以不经过后台，直接将本地图片显示在页面上。这样做可以减少前后端频繁的交互过程，减少服务器端无用的图片资源，代码如下：</p>
-<pre><code>var input  = document.getElementById(&quot;file&quot;);   // input file
-input.onchange = function(){
-    var file = this.files[0];
-        if(!!file){
-            var reader = new FileReader();
-            // 图片文件转换为base64
-            reader.readAsDataURL(file);
-            reader.onload = function(){
-                // 显示图片
-                document.getElementById(&quot;file_img&quot;).src = this.result;
-        }
-    }
-}
-</code></pre><p>对于图片上传，我们也可以先将图片转换为base64进行传输，此时由于传输的图片内容就是一段字符串，故上传接口可以当做普通post接口处理，当图片传输到后台后，可以在转换为文件实体存储。<br>当然，考虑到base64转换效率及其本身的大小，本方法还是适合于上传内容简单或所占内存较小的文件。</p>
-<ul>
-<li>二进制数据上传</li>
-</ul>
-<p>我们可以直接上传或下载二进制内容，无需像以往一样通过form标签由后端拉取二进制内容。<br>简单整理下上传逻辑：<br>1、通过input[type=”file”]标签获取本地文件File对象<br>2、通过FileReader的readAsArrayBuffer方法将File对象转换为ArrayBuffer<br>3、创建xhr对象，配置请求信息<br>4、通过xhr.sendAsBinary直接将文件的ArrayBuffer内容装填至post body后发送</p>
-<pre><code>var input  = document.getElementById(&quot;file&quot;);   // input file
-input.onchange = function(){
-    var file = this.files[0];
-        if(!!file){
-            var reader = new FileReader();
-            reader.readAsArrayBuffer(file);
-            reader.onload = function(){
-                var binary = this.result;
-                upload(binary);
-        }
-    }
-}
-
-//文件上传
-function upload(binary){
-    var xhr = new XMLHttpRequest();
-    xhr.open(&quot;POST&quot;, &quot;http://xxxx/opload&quot;);
-    xhr.overrideMimeType(&quot;application/octet-stream&quot;);
-    //直接发送二进制数据
-    if(xhr.sendAsBinary){
-        xhr.sendAsBinary(binary);
-    }else{
-        xhr.send(binary);
-    }
-
-    // 监听变化
-    xhr.onreadystatechange = function(e){
-        if(xhr.readyState===4){
-            if(xhr.status===200){
-                // 响应成功       
-            }
-        }
-    }
-}
-</code></pre>
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-    
-
-    
-    <div>
-      
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -3336,7 +3355,7 @@ function upload(binary){
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">27</span>
+                    <span class="site-state-item-count">28</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -3363,7 +3382,9 @@ function upload(binary){
                     
                       
                     
-                    <span class="site-state-item-count">7</span>
+                      
+                    
+                    <span class="site-state-item-count">8</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -3402,7 +3423,9 @@ function upload(binary){
                     
                       
                     
-                    <span class="site-state-item-count">13</span>
+                      
+                    
+                    <span class="site-state-item-count">14</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

@@ -300,6 +300,253 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/09/html5的FileReader对象/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="厚朴酚">
+      <meta itemprop="description" content="学习笔记">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="厚朴酚">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/09/html5的FileReader对象/" itemprop="url">
+                  html5的FileReader对象
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-11-09 13:16:39 / 修改时间：13:31:15" itemprop="dateCreated datePublished" datetime="2018-11-09T13:16:39+08:00">2018-11-09</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/HTML5/" itemprop="url" rel="index"><span itemprop="name">HTML5</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="HTML5的FileReader对象"><a href="#HTML5的FileReader对象" class="headerlink" title="HTML5的FileReader对象"></a>HTML5的FileReader对象</h3><h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>FileReader主要用于将文件内容读入内存，通过一系列异步接口，可以在主线程中访问本地文件。</p>
+<p>使用FileReader对象，web应用程序可以异步的读取存储在用户计算机上的文件(或者原始数据缓冲)内容，可以使用File对象或者Blob对象来指定所要处理的文件或数据。</p>
+<h4 id="创建对象"><a href="#创建对象" class="headerlink" title="创建对象"></a>创建对象</h4><pre><code>var reader = new FileReader();
+</code></pre><h4 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h4><pre><code>方法定义                               描述
+abort():void                     终止文件读取操作
+readAsArrayBuffer(file):void     异步按字节读取文件内容，结果用ArrayBuffer对象表示
+readAsBinaryString(file):void    异步按字节读取文件内容，结果为文件的二进制串
+readAsDataURL(file):void         异步读取文件内容，结果用data:url的字符串形式表示
+readAsText(file,encoding):void   异步按字符读取文件内容，结果用字符串形式表示
+</code></pre><h4 id="事件"><a href="#事件" class="headerlink" title="事件"></a>事件</h4><pre><code>事件名称                         描述
+onabort               当读取操作被中止时调用
+onerror               当读取操作发生错误时调用
+onload                当读取操作成功完成时调用
+onloadend              当读取操作完成时调用,不管是成功还是失败
+onloadstart              当读取操作将要开始之前调用    
+onprogress              在读取数据过程中周期性调用
+</code></pre><h4 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h4><p>FileReader通过异步的方式读取文件内容，结果均是通过事件回调获取，下面是一个读取本地txt文件内容的例子：</p>
+<pre><code>var input  = document.getElementById(&quot;file&quot;); //input file
+input.onchange = function(){
+    var file = this.files[0];
+    if(!!file){
+        //读取本地文件，以gbk编码方式输出
+        var reader = new FileReader();
+        reader.readAsText(file,&quot;gbk&quot;);
+        reader.onload = function(){
+            //读取完毕后输出结果
+            console.log(this.result);
+        }
+    }
+}
+</code></pre><h4 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h4><ul>
+<li>在线预览本地文件</li>
+</ul>
+<p>img的src属性或background的url属性，可以通过被赋值为图片网络地址或base64的方式显示图片。<br>在文件上传中，我们一般会先将本地文件上传到服务器，上传成功后，由后台返回图片的网络地址再在前端显示。<br>通过FileReader的readAsDataURL方法，我们可以不经过后台，直接将本地图片显示在页面上。这样做可以减少前后端频繁的交互过程，减少服务器端无用的图片资源，代码如下：</p>
+<pre><code>var input  = document.getElementById(&quot;file&quot;);   // input file
+input.onchange = function(){
+    var file = this.files[0];
+        if(!!file){
+            var reader = new FileReader();
+            // 图片文件转换为base64
+            reader.readAsDataURL(file);
+            reader.onload = function(){
+                // 显示图片
+                document.getElementById(&quot;file_img&quot;).src = this.result;
+        }
+    }
+}
+</code></pre><p>对于图片上传，我们也可以先将图片转换为base64进行传输，此时由于传输的图片内容就是一段字符串，故上传接口可以当做普通post接口处理，当图片传输到后台后，可以在转换为文件实体存储。<br>当然，考虑到base64转换效率及其本身的大小，本方法还是适合于上传内容简单或所占内存较小的文件。</p>
+<ul>
+<li>二进制数据上传</li>
+</ul>
+<p>我们可以直接上传或下载二进制内容，无需像以往一样通过form标签由后端拉取二进制内容。<br>简单整理下上传逻辑：<br>1、通过input[type=”file”]标签获取本地文件File对象<br>2、通过FileReader的readAsArrayBuffer方法将File对象转换为ArrayBuffer<br>3、创建xhr对象，配置请求信息<br>4、通过xhr.sendAsBinary直接将文件的ArrayBuffer内容装填至post body后发送</p>
+<pre><code>var input  = document.getElementById(&quot;file&quot;);   // input file
+input.onchange = function(){
+    var file = this.files[0];
+        if(!!file){
+            var reader = new FileReader();
+            reader.readAsArrayBuffer(file);
+            reader.onload = function(){
+                var binary = this.result;
+                upload(binary);
+        }
+    }
+}
+
+//文件上传
+function upload(binary){
+    var xhr = new XMLHttpRequest();
+    xhr.open(&quot;POST&quot;, &quot;http://xxxx/opload&quot;);
+    xhr.overrideMimeType(&quot;application/octet-stream&quot;);
+    //直接发送二进制数据
+    if(xhr.sendAsBinary){
+        xhr.sendAsBinary(binary);
+    }else{
+        xhr.send(binary);
+    }
+
+    // 监听变化
+    xhr.onreadystatechange = function(e){
+        if(xhr.readyState===4){
+            if(xhr.status===200){
+                // 响应成功       
+            }
+        }
+    }
+}
+</code></pre>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+    
+
+    
+    <div>
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/09/vue的一些工具方法/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -3243,210 +3490,6 @@ function test(color) {
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/04/javascript逻辑运算符/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="厚朴酚">
-      <meta itemprop="description" content="学习笔记">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="厚朴酚">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/04/javascript逻辑运算符/" itemprop="url">
-                  javascript逻辑运算符
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-11-04 15:41:17 / 修改时间：15:49:56" itemprop="dateCreated datePublished" datetime="2018-11-04T15:41:17+08:00">2018-11-04</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="javascript逻辑运算符"><a href="#javascript逻辑运算符" class="headerlink" title="javascript逻辑运算符"></a>javascript逻辑运算符</h3><h4 id="1-逻辑或"><a href="#1-逻辑或" class="headerlink" title="1:逻辑或(||)"></a>1:逻辑或(||)</h4><h5 id="示例代码1"><a href="#示例代码1" class="headerlink" title="示例代码1"></a>示例代码1</h5><pre><code>console.log(0 || &apos;我是string，boolean值为true&apos;);          // 返回字符串
-console.log(NaN || &apos;我是string，boolean值为true&apos;);        // 返回字符串
-console.log(&apos;&apos; || &apos;我是string，boolean值为true&apos;);         // 返回字符串
-console.log(null || &apos;我是string，boolean值为true&apos;);       // 返回字符串
-console.log(undefined || &apos;我是string，boolean值为true&apos;);  // 返回字符串
-</code></pre><p>我们知道 0、NaN、’ ‘、null、undefined转换为boolean值都为flase，若第一个值为false，第二个值为true，则返回第二个值。</p>
-<h5 id="示例代码2"><a href="#示例代码2" class="headerlink" title="示例代码2"></a>示例代码2</h5><pre><code>console.log(0 || &apos;NaN&apos;);           // 返回 NaN
-console.log(NaN || &apos;&apos;);            // 返回 &apos;&apos; 空字符串
-console.log(&apos;&apos; || null);           // 返回 null
-console.log(null || &apos;undefined&apos;);  // 返回 undefined
-console.log(undefined || 0);       // 返回 0
-</code></pre><p>结合上面两个例子我们可以发现，<strong> 只要第一个值的布尔值为false，那么永远返回第二个值，</strong>不管第二个值的布尔值是true还是false。</p>
-<h5 id="示例代码3"><a href="#示例代码3" class="headerlink" title="示例代码3"></a>示例代码3</h5><pre><code>var obj = {};
-console.log(obj || NaN);      // 返回 obj
-console.log(obj || number);   // 返回 obj
-console.log( 0 || number);    // 报错，number未定义
-</code></pre><p>通过这个例子可以发现逻辑或属于短路操作，只要第一个值的布尔值为true，不再操作第二个值，直接返回第一个值，number变量未定义也不会报错。</p>
-<h4 id="2逻辑与-amp-amp"><a href="#2逻辑与-amp-amp" class="headerlink" title="2逻辑与(&amp;&amp;)"></a>2逻辑与(&amp;&amp;)</h4><p>逻辑与 操作符在JavaScript中主要用在条件判断语句中，极少情况下出现在赋值语句中，特性和 逻辑或 很相似。</p>
-<h5 id="示例1"><a href="#示例1" class="headerlink" title="示例1"></a>示例1</h5><pre><code>var obj = {};
-console.log(0 &amp;&amp; obj);               // 返回 0
-console.log(NaN &amp;&amp; obj);             // 返回 NaN
-console.log(&apos;&apos; &amp;&amp; obj);              // 返回 &apos;&apos; 空字符串
-console.log(null &amp;&amp; obj);            // 返回 null
-console.log(undefined &amp;&amp; obj);       // 返回 undefined
-// number 未定义
-console.log(undefined &amp;&amp; number);    // 返回 undefined 不会报错
-</code></pre><p>通过上面的代码发现 逻辑与 与 逻辑或 很近似，逻辑与 也属于短路操作；当第一个值的布尔值为false，它不再操作第二个值，同时直接返回第一个值。</p>
-<h5 id="示例2"><a href="#示例2" class="headerlink" title="示例2"></a>示例2</h5><pre><code>var obj = {};
-var str = &apos;Riny&apos;;
-
-/* 当第一个值的布尔值为true 返回第二个值 */
-console.log(obj &amp;&amp; 0);          // 返回 0
-console.log(obj &amp;&amp; NaN);        // 返回 NaN
-console.log(obj &amp;&amp; &apos;&apos;);         // 返回 &apos;&apos; 空字符串
-console.log(obj &amp;&amp; undefined);  // 返回 undefined
-console.log(obj &amp;&amp; null);       // 返回 null
-
-/* 当第一个值的布尔值为true 返回第二个值 */
-console.log(obj &amp;&amp; str);        // 返回 字符串
-</code></pre><p>通过上面比较可以发现，逻辑与 只要第一个值的布尔值为true，永远返回第二个值。</p>
-<h4 id="3总结"><a href="#3总结" class="headerlink" title="3总结"></a>3总结</h4><h5 id="逻辑或（-）总结："><a href="#逻辑或（-）总结：" class="headerlink" title="逻辑或（||）总结："></a>逻辑或（||）总结：</h5><p>只要第一个值的布尔值为false，那么永远返回第二个值。<br>逻辑或属于短路操作，第一个值为true时，不再操作第二个值，且返回第一个值。</p>
-<h5 id="逻辑与（-amp-amp-）总结："><a href="#逻辑与（-amp-amp-）总结：" class="headerlink" title="逻辑与（&amp;&amp;）总结："></a>逻辑与（&amp;&amp;）总结：</h5><p>只要第一个值的布尔值为true，那么永远返回第二个值。<br>逻辑与属于短路操作，第一个值为false时，不再操作第二个值，且返回第一个值。</p>
-<p>链接：<a href="https://www.jianshu.com/p/07a1cabe6484" target="_blank" rel="noopener">https://www.jianshu.com/p/07a1cabe6484</a></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-    
-
-    
-    <div>
-      
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -3496,7 +3539,7 @@ console.log(obj &amp;&amp; str);        // 返回 字符串
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">27</span>
+                    <span class="site-state-item-count">28</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -3523,7 +3566,9 @@ console.log(obj &amp;&amp; str);        // 返回 字符串
                     
                       
                     
-                    <span class="site-state-item-count">7</span>
+                      
+                    
+                    <span class="site-state-item-count">8</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -3562,7 +3607,9 @@ console.log(obj &amp;&amp; str);        // 返回 字符串
                     
                       
                     
-                    <span class="site-state-item-count">13</span>
+                      
+                    
+                    <span class="site-state-item-count">14</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

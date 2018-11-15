@@ -108,25 +108,25 @@
 
 
 
-  <meta name="description" content="mongoose模块化为了便于管理,代码复用的原则 connect连接的时候mongodb4.x版本会有deprecationwaring警告,为了消除这个,可以在第二个参数传入{userNewParser:true},同时为了监听连接的情况,可以写个回调.  mongoose连接的代码 var mongoose = require(&amp;apos;mongoose&amp;apos;)  mongoose.">
-<meta name="keywords" content="导航 - mongoose">
+  <meta name="description" content="学习Nginx来源自技术胖,http://jspang.com/post/nginx.html 安装环境搭建 yum -y install gcc gcc-c++ autoconf pcre-devel make automake yum -y install wget httpd-tools vim  Nginx源配置安装 查看是否有Nginx源 yum list | grep nginx  配">
+<meta name="keywords" content="导航,nginx">
 <meta property="og:type" content="article">
-<meta property="og:title" content="mongoose模块化">
-<meta property="og:url" content="http://yoursite.com/2018/11/11/mongoose模块化/index.html">
+<meta property="og:title" content="学习Nginx">
+<meta property="og:url" content="http://yoursite.com/2018/11/15/学习Nginx/index.html">
 <meta property="og:site_name" content="厚朴酚">
-<meta property="og:description" content="mongoose模块化为了便于管理,代码复用的原则 connect连接的时候mongodb4.x版本会有deprecationwaring警告,为了消除这个,可以在第二个参数传入{userNewParser:true},同时为了监听连接的情况,可以写个回调.  mongoose连接的代码 var mongoose = require(&amp;apos;mongoose&amp;apos;)  mongoose.">
+<meta property="og:description" content="学习Nginx来源自技术胖,http://jspang.com/post/nginx.html 安装环境搭建 yum -y install gcc gcc-c++ autoconf pcre-devel make automake yum -y install wget httpd-tools vim  Nginx源配置安装 查看是否有Nginx源 yum list | grep nginx  配">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-11-11T14:04:31.398Z">
+<meta property="og:updated_time" content="2018-11-15T14:28:00.467Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="mongoose模块化">
-<meta name="twitter:description" content="mongoose模块化为了便于管理,代码复用的原则 connect连接的时候mongodb4.x版本会有deprecationwaring警告,为了消除这个,可以在第二个参数传入{userNewParser:true},同时为了监听连接的情况,可以写个回调.  mongoose连接的代码 var mongoose = require(&amp;apos;mongoose&amp;apos;)  mongoose.">
+<meta name="twitter:title" content="学习Nginx">
+<meta name="twitter:description" content="学习Nginx来源自技术胖,http://jspang.com/post/nginx.html 安装环境搭建 yum -y install gcc gcc-c++ autoconf pcre-devel make automake yum -y install wget httpd-tools vim  Nginx源配置安装 查看是否有Nginx源 yum list | grep nginx  配">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/11/11/mongoose模块化/">
+  <link rel="canonical" href="http://yoursite.com/2018/11/15/学习Nginx/">
 
 
 
@@ -136,7 +136,7 @@
   };
 </script>
 
-  <title>mongoose模块化 | 厚朴酚</title>
+  <title>学习Nginx | 厚朴酚</title>
   
 
 
@@ -301,7 +301,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/11/mongoose模块化/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/15/学习Nginx/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="厚朴酚">
@@ -318,7 +318,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">mongoose模块化
+          <h1 class="post-title" itemprop="name headline">学习Nginx
               
             
           </h1>
@@ -343,7 +343,7 @@
                 
               
 
-              <time title="创建时间：2018-11-11 21:25:12 / 修改时间：22:04:31" itemprop="dateCreated datePublished" datetime="2018-11-11T21:25:12+08:00">2018-11-11</time>
+              <time title="创建时间：2018-11-15 21:53:39 / 修改时间：22:28:00" itemprop="dateCreated datePublished" datetime="2018-11-15T21:53:39+08:00">2018-11-15</time>
             
 
             
@@ -365,7 +365,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/node-js-mongodb/" itemprop="url" rel="index"><span itemprop="name">node.js mongodb</span></a></span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/nginx/" itemprop="url" rel="index"><span itemprop="name">nginx</span></a></span>
 
                 
                 
@@ -399,99 +399,112 @@
       
 
       
-        <h3 id="mongoose模块化"><a href="#mongoose模块化" class="headerlink" title="mongoose模块化"></a>mongoose模块化</h3><p>为了便于管理,代码复用的原则</p>
-<p>connect连接的时候mongodb4.x版本会有deprecationwaring警告,为了消除这个,可以在第二个参数传入{userNewParser:true},同时为了监听连接的情况,可以写个回调.</p>
-<ul>
-<li><p>mongoose连接的代码</p>
-<pre><code>var mongoose = require(&apos;mongoose&apos;)
-
-mongoose.connect(&apos;mongodb数据库地址&apos;,{userNewParser:true},function{
-    if (err) {
-    console.log(&quot;数据库连接失败&quot;)
-    } else {
-    console.log(&quot;数据库连接成功&quot;)
-    }
-})
-</code></pre></li>
+        <h3 id="学习Nginx"><a href="#学习Nginx" class="headerlink" title="学习Nginx"></a>学习Nginx</h3><p>来源自技术胖,<a href="http://jspang.com/post/nginx.html" target="_blank" rel="noopener">http://jspang.com/post/nginx.html</a></p>
+<h4 id="安装环境搭建"><a href="#安装环境搭建" class="headerlink" title="安装环境搭建"></a>安装环境搭建</h4><ul>
+<li>yum -y install gcc gcc-c++ autoconf pcre-devel make automake</li>
+<li>yum -y install wget httpd-tools vim</li>
 </ul>
-<h4 id="mongoose-默认参数"><a href="#mongoose-默认参数" class="headerlink" title="mongoose 默认参数"></a>mongoose 默认参数</h4><p>增加数据的时候,如果不传入数据会使用默认配置的数据</p>
-<ul>
-<li><p>定义数据表映射  : 字段必须和数据库保持一致</p>
-<p>  var UserSchema = mongoose.Schema({</p>
-<pre><code>name:String,
-age:Number,
-status:{
-    type:Number,
-    default:1 //这就是默认参数
-}    
-</code></pre><p>})</p>
+<h4 id="Nginx源配置安装"><a href="#Nginx源配置安装" class="headerlink" title="Nginx源配置安装"></a>Nginx源配置安装</h4><ul>
+<li><p>查看是否有Nginx源</p>
+<pre><code>yum list | grep nginx
+</code></pre></li>
+<li><p>配置最新源</p>
 </li>
 </ul>
-<p>var UserModel = mongoose.model(“User”,UserSchema,’user’)</p>
-<h4 id="模块化"><a href="#模块化" class="headerlink" title="模块化"></a>模块化</h4><ul>
-<li>数据库连接模块</li>
-</ul>
-<p>//连接数据库</p>
-<pre><code>var mongoose=require(&apos;mongoose&apos;);
-
-//useNewUrlParser这个属性会在url里识别验证用户所需的db,未升级前是不需要指定的,升级到一定要指定。
-
-mongoose.connect(&apos;mongodb://127.0.0.1:27017/xxx&apos;,{ useNewUrlParser: true },function(err){
-        if(err){
-
-            console.log(err);
-            return;
-        }
-        console.log(&apos;数据库连接成功&apos;)
-});
-
-module.exports=mongoose;
-</code></pre><ul>
-<li><p>模型定义</p>
-<pre><code>var mongoose=require(&apos;./db.js&apos;);
-</code></pre></li>
-</ul>
-<pre><code>var UserSchema=mongoose.Schema({
-    name:String,
-    age:Number,
-    status:{
-        type:Number,
-        default:1   
-    }
-})
-
-module.exports=mongoose.model(&apos;User&apos;,UserSchema,&apos;user&apos;)
-</code></pre><ul>
-<li><p>表的使用</p>
-<p>  var UserModel=require(‘./model/user.js’);<br>  var user=new UserModel({</p>
-<pre><code>name:&quot;李四666&quot;,
-age:40
-</code></pre><p>  })<br>  user.save(function(err){</p>
-<pre><code>if(err){
-    console.log(err);
-    return;
+<p>到官网找稳定版</p>
+<p>第一步:到yum文件</p>
+<pre><code>vim /etc/yum.repos.d/nginx.repo
+</code></pre><p>第二步:</p>
+<pre><code>[nginx]
+name=nginx repo
+baseurl=http://nginx.org/packages/OS/OSRELEASE/$basearch/
+gpgcheck=0
+enabled=1
+</code></pre><p>第三步:<br>赋值完成后，你需要修改一下对应的操作系统和版本号，因为我的是centos和7的版本</p>
+<pre><code>baseurl=http://nginx.org/packages/centos/7/$basearch/
+</code></pre><p>第四步: 安装</p>
+<pre><code>yum install nginx
+</code></pre><p>第五步: 查看是否成功</p>
+<pre><code>nginx -v
+</code></pre><h4 id="Nginx基本配置文件"><a href="#Nginx基本配置文件" class="headerlink" title="Nginx基本配置文件"></a>Nginx基本配置文件</h4><p>-查看目录位置</p>
+<pre><code>rpm -ql nginx
+</code></pre><p>rpm 是linux的rpm包管理工具，-q 代表询问模式，-l 代表返回列表，这样我们就可以找到nginx的所有安装位置</p>
+<h5 id="nginx-conf文件解读"><a href="#nginx-conf文件解读" class="headerlink" title="nginx.conf文件解读"></a>nginx.conf文件解读</h5><pre><code>cd /etc/nginx
+vim nginx.conf
+</code></pre><p>文件注释</p>
+<pre><code>#运行用户，默认即是nginx，可以不进行设置
+user  nginx;
+#Nginx进程，一般设置为和CPU核数一样
+worker_processes  1;   
+#错误日志存放目录
+error_log  /var/log/nginx/error.log warn;
+#进程pid存放位置
+pid        /var/run/nginx.pid;
+events {
+    worker_connections  1024; # 单个后台进程的最大并发数
 }
-
-//获取user表的数据
-UserModel.find({},function(err,docs){
-    if(err){ 
-        console.log(err);
-        return;
+http {
+    include       /etc/nginx/mime.types;   #文件扩展名与类型映射表
+    default_type  application/octet-stream;  #默认文件类型
+    #设置日志模式
+    log_format  main  &apos;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &apos;
+                      &apos;$status $body_bytes_sent &quot;$http_referer&quot; &apos;
+                      &apos;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&apos;;
+    access_log  /var/log/nginx/access.log  main;   #nginx访问日志存放位置
+    sendfile        on;   #开启高效传输模式
+    #tcp_nopush     on;    #减少网络报文段的数量
+    keepalive_timeout  65;  #保持连接的时间，也叫超时时间
+    #gzip  on;  #开启gzip压缩
+    include /etc/nginx/conf.d/*.conf; #包含的子配置项位置和文件
+</code></pre><p>default.conf 配置项讲解 我们看到最后有一个子文件的配置项，那我们打开这个include子文件配置项看一下里边都有些什么内容。</p>
+<p>进入conf.d目录，然后使用vim default.conf进行查看。</p>
+<pre><code>server {
+    listen       80;   #配置监听端口
+    server_name  localhost;  //配置域名
+    #charset koi8-r;     
+    #access_log  /var/log/nginx/host.access.log  main;
+    location / {
+        root   /usr/share/nginx/html;     #服务默认启动目录
+        index  index.html index.htm;    #默认访问文件
     }
-    console.log(docs);
-})
-</code></pre><p>  })</p>
+    #error_page  404              /404.html;   # 配置404页面
+    # redirect server error pages to the static page /50x.html
+    #
+    error_page   500 502 503 504  /50x.html;   #错误状态码的显示页面，配置后需要重启
+    location = /50x.html {
+        root   /usr/share/nginx/html;
+    }
+    # proxy the PHP scripts to Apache listening on 127.0.0.1:80
+    #
+    #location ~ \.php$ {
+    #    proxy_pass   http://127.0.0.1;
+    #}
+    # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+    #
+    #location ~ \.php$ {
+    #    root           html;
+    #    fastcgi_pass   127.0.0.1:9000;
+    #    fastcgi_index  index.php;
+    #    fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;
+    #    include        fastcgi_params;
+    #}
+    # deny access to .htaccess files, if Apache&apos;s document root
+    # concurs with nginx&apos;s one
+    #
+    #location ~ /\.ht {
+    #    deny  all;
+    #}
+}
+</code></pre><p>明白了这些配置项，我们知道我们的服务目录放在了/usr/share/nginx/html下，可以使用命令进入看一下目录下的文件。</p>
+<pre><code>cd /usr/share/nginx/html
+ls 
+</code></pre><ul>
+<li><p>启动  sudo nginx</p>
 </li>
-<li><p>性能测试</p>
-<pre><code>console.time(&apos;user&apos;);
-var UserModel=require(&apos;./model/user.js&apos;);
-console.timeEnd(&apos;user&apos;);
-console.time(&apos;news&apos;);
-var NewsModel=require(&apos;./model/news.js&apos;);
-console.timeEnd(&apos;news&apos;);
-</code></pre></li>
+<li><p>访问 127.0.0.1:80 就可以看到index.html的内容了</p>
+</li>
 </ul>
-
+<h4 id="Nginx常用的操作"><a href="#Nginx常用的操作" class="headerlink" title="Nginx常用的操作"></a>Nginx常用的操作</h4>
       
     </div>
 
@@ -552,7 +565,9 @@ console.timeEnd(&apos;news&apos;);
       
         <div class="post-tags">
           
-            <a href="/tags/导航-mongoose/" rel="tag"># 导航 - mongoose</a>
+            <a href="/tags/导航/" rel="tag"># 导航</a>
+          
+            <a href="/tags/nginx/" rel="tag"># nginx</a>
           
         </div>
       
@@ -565,8 +580,8 @@ console.timeEnd(&apos;news&apos;);
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/11/11/async-await的应用/" rel="next" title="async/await的应用">
-                <i class="fa fa-chevron-left"></i> async/await的应用
+              <a href="/2018/11/12/express-mongoose模块化/" rel="next" title="express-mongoose模块化">
+                <i class="fa fa-chevron-left"></i> express-mongoose模块化
               </a>
             
           </div>
@@ -574,10 +589,6 @@ console.timeEnd(&apos;news&apos;);
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/11/12/js-xlsx前置知识点/" rel="prev" title="js-xlsx前置知识点">
-                js-xlsx前置知识点 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -755,7 +766,7 @@ console.timeEnd(&apos;news&apos;);
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#mongoose模块化"><span class="nav-number">1.</span> <span class="nav-text">mongoose模块化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#mongoose-默认参数"><span class="nav-number">1.1.</span> <span class="nav-text">mongoose 默认参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#模块化"><span class="nav-number">1.2.</span> <span class="nav-text">模块化</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#学习Nginx"><span class="nav-number">1.</span> <span class="nav-text">学习Nginx</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装环境搭建"><span class="nav-number">1.1.</span> <span class="nav-text">安装环境搭建</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Nginx源配置安装"><span class="nav-number">1.2.</span> <span class="nav-text">Nginx源配置安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Nginx基本配置文件"><span class="nav-number">1.3.</span> <span class="nav-text">Nginx基本配置文件</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#nginx-conf文件解读"><span class="nav-number">1.3.1.</span> <span class="nav-text">nginx.conf文件解读</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Nginx常用的操作"><span class="nav-number">1.4.</span> <span class="nav-text">Nginx常用的操作</span></a></li></ol></li></ol></div>
             
 
           </div>
