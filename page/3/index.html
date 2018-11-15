@@ -1364,7 +1364,7 @@ p.fun1()
           <h1 class="post-title" itemprop="name headline">
                 
                 <a class="post-title-link" href="/2018/10/23/vue/" itemprop="url">
-                  vue
+                  记录vue开发遇到的问题
                 </a>
               
             
@@ -1407,7 +1407,7 @@ p.fun1()
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-11-09 10:23:02" itemprop="dateModified" datetime="2018-11-09T10:23:02+08:00">2018-11-09</time>
+                <time title="修改时间：2018-11-15 11:50:35" itemprop="dateModified" datetime="2018-11-15T11:50:35+08:00">2018-11-15</time>
               
             
           </span>
@@ -1460,7 +1460,67 @@ p.fun1()
       
         
           
-            <h1 id="vue-cli脚手架的应用"><a href="#vue-cli脚手架的应用" class="headerlink" title="vue-cli脚手架的应用"></a>vue-cli脚手架的应用</h1><h2 id="安装vue-cli脚手架"><a href="#安装vue-cli脚手架" class="headerlink" title="安装vue-cli脚手架"></a>安装vue-cli脚手架</h2>
+            <h3 id="记录vue开发遇到的问题"><a href="#记录vue开发遇到的问题" class="headerlink" title="记录vue开发遇到的问题"></a>记录vue开发遇到的问题</h3><ul>
+<li>计算屏幕的高度</li>
+</ul>
+<pre><code>&lt;script&gt;
+ data(){
+    return {
+      culWidth:0
+    }
+}    
+ beforeMount() {
+        var h = document.documentElement.clientHeight || document.body.clientHeight;
+        this.curHeight =h - 60 +&apos;px&apos;; //减去页面上固定高度height
+        console.log(this.curHeight)
+  }
+&lt;/script&gt;
+</code></pre><ul>
+<li>轮番发请求</li>
+</ul>
+<p>平时需要每经过多少秒就向后台请求数据</p>
+<ol>
+<li><p>解决方式: 尝试递归, 成功回调设置间隔时间再次发请求</p>
+<pre><code>getData(){
+ let self = this
+ let axiosURL= &apos;请求地址&apos;
+ self.axios(axiosURL, params).then(res =&gt; {
+ if (res.data.status) {
+    console.log(&quot;请求成功&quot;)
+    setTimeout(()=&gt;{
+        self.getData()
+    },5000)
+    } else {
+        console.log(&quot;请求失败&quot;)
+        return
+    }    
+})     
+}
+</code></pre></li>
+</ol>
+<ul>
+<li>并发请求</li>
+</ul>
+<p>有时候我们需要在一个方法里面进行多个请求</p>
+<pre><code>created(){
+
+      this.$axios.all([this.getBanner(), this.getDesign()])
+        .then(this.$axios.spread(function (a, b) {
+          // 两个请求现在都执行完成
+          console.log(b);
+          console.log(a);
+        }));    
+    },
+    methods: {
+      getBanner() {
+        return this.$axios.get(&apos;Api/getBanner&apos;);
+      },
+      getDesign() {
+        return this.$axios.get(&apos;Index/design&apos;);
+      }
+    }
+</code></pre><p>axios.all([]) 返回的结果是一个数组，使用 axios.spread 可将数组 [res1,res2] 展开为 res1, res2</p>
+
           
         
       
