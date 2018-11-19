@@ -300,6 +300,476 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/19/javaScript设计模式之模板方法/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="厚朴酚">
+      <meta itemprop="description" content="学习笔记">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="厚朴酚">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/19/javaScript设计模式之模板方法/" itemprop="url">
+                  javaScript设计模式之模板方法
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-11-19 14:32:18 / 修改时间：16:09:27" itemprop="dateCreated datePublished" datetime="2018-11-19T14:32:18+08:00">2018-11-19</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/设计模式/" itemprop="url" rel="index"><span itemprop="name">设计模式</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="javaScript设计模式之模板方法"><a href="#javaScript设计模式之模板方法" class="headerlink" title="javaScript设计模式之模板方法"></a>javaScript设计模式之模板方法</h3><p>基于继承的设计模式</p>
+<h4 id="定义和组成"><a href="#定义和组成" class="headerlink" title="定义和组成"></a>定义和组成</h4><p>模板方法模式由两部分结构组成，第一部分是抽象父类，第二部分是具体的实现子类。通常在抽象父类中封装了子类的算法框架，包括实现一些公共方法以及封装子类中所有方法的执行顺序。子类通过继承这个抽象类，也继承了整个算法结构，并且可以选择重写父类的方法。<br>如果相同和不同的行为都混合在各个子类的实现中，说明这些相同的行为会在各个子类中重复出现。但实际上，相同的行为可以被搬移到另外一个单一的地方，模板方法模式就是为解决这个问题而生的。</p>
+<h4 id="例子-coffer-or-tea"><a href="#例子-coffer-or-tea" class="headerlink" title="例子 coffer or  tea"></a>例子 coffer or  tea</h4><pre><code>//泡coffer的过程
+var Coffee = function(){};
+Coffee.prototype.boilWater = function(){
+ console.log( &apos;把水煮沸&apos; );
+};
+Coffee.prototype.brewCoffeeGriends = function(){
+ console.log( &apos;用沸水冲泡咖啡&apos; );
+};
+Coffee.prototype.pourInCup = function(){
+ console.log( &apos;把咖啡倒进杯子&apos; );
+};
+Coffee.prototype.addSugarAndMilk = function(){
+ console.log( &apos;加糖和牛奶&apos; );
+};
+Coffee.prototype.init = function(){
+ this.boilWater();
+ this.brewCoffeeGriends();
+this.pourInCup();
+ this.addSugarAndMilk();
+};
+var coffee = new Coffee();
+coffee.init(); 
+
+
+
+//泡茶的过程
+
+var Tea = function(){};
+Tea.prototype.boilWater = function(){
+ console.log( &apos;把水煮沸&apos; );
+};
+Tea.prototype.steepTeaBag = function(){
+ console.log( &apos;用沸水浸泡茶叶&apos; );
+};
+Tea.prototype.pourInCup = function(){
+ console.log( &apos;把茶水倒进杯子&apos; );
+};
+Tea.prototype.addLemon = function(){
+ console.log( &apos;加柠檬&apos; );
+};
+Tea.prototype.init = function(){
+ this.boilWater();
+ this.steepTeaBag();
+ this.pourInCup();
+ this.addLemon();
+};
+var tea = new Tea()
+tea.init()
+</code></pre><p>这两个过程拥有许多共同点:进行模板化</p>
+<pre><code>var Beverage = function(){};
+Beverage.prototype.boilWater = function(){
+ console.log( &apos;把水煮沸&apos; );
+};
+Beverage.prototype.brew = function(){}; // 空方法，应该由子类重写
+Beverage.prototype.pourInCup = function(){}; // 空方法，应该由子类重写
+Beverage.prototype.addCondiments = function(){}; // 空方法，应该由子类重写
+Beverage.prototype.init = function(){
+ this.boilWater();
+ this.brew();
+ this.pourInCup();
+ this.addCondiments();
+}; 
+</code></pre><p>创建 Coffee 子类和 Tea 子类</p>
+<pre><code>var Coffee = function(){};
+Coffee.prototype = new Beverage(); 
+Coffee.prototype.brew = function(){
+ console.log( &apos;用沸水冲泡咖啡&apos; );
+};
+Coffee.prototype.pourInCup = function(){
+ console.log( &apos;把咖啡倒进杯子&apos; ); 
+};
+Coffee.prototype.addCondiments = function(){
+ console.log( &apos;加糖和牛奶&apos; );
+};
+var Coffee = new Coffee();
+Coffee.init();
+</code></pre><p>至此我们的 Coffee 类已经完成了，当调用 coffee 对象的 init 方法时，由于 coffee 对象和Coffee 构造器的原型 prototype 上都没有对应的 init 方法，所以该请求会顺着原型链，被委托给Coffee 的“父类”Beverage 原型上的 init 方法。</p>
+<ul>
+<li><p>茶类</p>
+<pre><code>var Tea = function(){};
+Tea.prototype = new Beverage();
+Tea.prototype.brew = function(){
+ console.log( &apos;用沸水浸泡茶叶&apos; );
+};
+Tea.prototype.pourInCup = function(){
+ console.log( &apos;把茶倒进杯子&apos; );
+};
+Tea.prototype.addCondiments = function(){
+ console.log( &apos;加柠檬&apos; );
+};
+var tea = new Tea();
+tea.init(); 
+</code></pre></li>
+</ul>
+<p>Beverage.prototype.init 被称为模板方法的原因是，该方法中封装了子类的算法框架，它作为一个算法的模板，指导子类以何种顺序去执行哪些方法。在 Beverage.prototype.init 方法中，算法内的每一个步骤都清楚地展示在我们眼前。</p>
+<h4 id="JavaScript-没有抽象类的缺点和解决方案"><a href="#JavaScript-没有抽象类的缺点和解决方案" class="headerlink" title="JavaScript 没有抽象类的缺点和解决方案"></a>JavaScript 没有抽象类的缺点和解决方案</h4><p>当我们在 JavaScript 中使用原型继承来模拟传统的类式继承时，并没有编译器帮助我们进行任何形式的检查，我们也没有办法保证子类会重写父类中的“抽象方法”。我们知道，Beverage.prototype.init 方法作为模板方法，已经规定了子类的算法框架，代码如下：</p>
+<pre><code>Beverage.prototype.init = function(){
+ this.boilWater();
+ this.brew();
+ this.pourInCup();
+ this.addCondiments();
+}; 
+</code></pre><p>下面提供两种变通的解决方案。<br> 第 1 种方案是用鸭子类型来模拟接口检查，以便确保子类中确实重写了父类的方法。但模拟接口检查会带来不必要的复杂性，而且要求程序员主动进行这些接口检查，这就要求我们在业务代码中添加一些跟业务逻辑无关的代码。<br> 第 2 种方案是让 Beverage.prototype.brew 等方法直接抛出一个异常，如果因为粗心忘记编写 Coffee.prototype.brew 方法，那么至少我们会在程序运行时得到一个错误：</p>
+<pre><code>Beverage.prototype.brew = function(){
+ throw new Error( &apos;子类必须重写 brew 方法&apos; );
+};
+Beverage.prototype.pourInCup = function(){
+ throw new Error( &apos;子类必须重写 pourInCup 方法&apos; );
+};
+Beverage.prototype.addCondiments = function(){
+ throw new Error( &apos;子类必须重写 addCondiments 方法&apos; );
+};
+</code></pre><h3 id="钩子方法"><a href="#钩子方法" class="headerlink" title="钩子方法"></a>钩子方法</h3><p>通过模板方法模式，我们在父类中封装了子类的算法框架。这些算法框架在正常状态下是适用于大多数子类的，但如果有一些特别“个性”的子类呢？</p>
+<p>在这个例子里，我们把挂钩的名字定为 customerWantsCondiments，接下来将挂钩放入 Beverage类，看看我们如何得到一杯不需要糖和牛奶的咖啡，代码如下：</p>
+<pre><code>var Beverage = function(){};
+Beverage.prototype.boilWater = function(){
+ console.log( &apos;把水煮沸&apos; );
+};
+Beverage.prototype.brew = function(){
+ throw new Error( &apos;子类必须重写 brew 方法&apos; );
+};
+Beverage.prototype.pourInCup = function(){
+ throw new Error( &apos;子类必须重写 pourInCup 方法&apos; );
+};
+Beverage.prototype.addCondiments = function(){
+ throw new Error( &apos;子类必须重写 addCondiments 方法&apos; );
+};
+Beverage.prototype.customerWantsCondiments = function(){
+ return true; // 默认需要调料
+};
+Beverage.prototype.init = function(){
+ this.boilWater();
+ this.brew();
+ this.pourInCup();
+ if ( this.customerWantsCondiments() ){ // 如果挂钩返回 true，则需要调料
+ this.addCondiments();
+ } 
+};
+var CoffeeWithHook = function(){};
+CoffeeWithHook.prototype = new Beverage();
+CoffeeWithHook.prototype.brew = function(){
+ console.log( &apos;用沸水冲泡咖啡&apos; );
+};
+CoffeeWithHook.prototype.pourInCup = function(){
+ console.log( &apos;把咖啡倒进杯子&apos; );
+};
+CoffeeWithHook.prototype.addCondiments = function(){
+ console.log( &apos;加糖和牛奶&apos; );
+};
+CoffeeWithHook.prototype.customerWantsCondiments = function(){ return window.confirm( &apos;请问需要调料吗？&apos; );
+};
+var coffeeWithHook = new CoffeeWithHook();
+coffeeWithHook.init(); 
+</code></pre><h4 id="好莱坞原则"><a href="#好莱坞原则" class="headerlink" title="好莱坞原则"></a>好莱坞原则</h4><p>模板方法模式是好莱坞原则的一个典型使用场景，它与好莱坞原则的联系非常明显，当我们用模板方法模式编写一个程序时，就意味着子类放弃了对自己的控制权，而是改为父类通知子类，哪些方法应该在什么时候被调用。作为子类，只负责提供一些设计上的细节。<br>除此之外，好莱坞原则还常常应用于其他模式和场景，例如发布订阅模式和回调函数</p>
+<pre><code>var Beverage = function( param ){
+ var boilWater = function(){
+ console.log( &apos;把水煮沸&apos; );
+ };
+ var brew = param.brew || function(){
+ throw new Error( &apos;必须传递 brew 方法&apos; );
+ };
+ var pourInCup = param.pourInCup || function(){
+ throw new Error( &apos;必须传递 pourInCup 方法&apos; );
+ };
+ var addCondiments = param.addCondiments || function(){
+ throw new Error( &apos;必须传递 addCondiments 方法&apos; );
+ };
+ var F = function(){};
+ F.prototype.init = function(){
+ boilWater();
+ brew();
+ pourInCup();
+ addCondiments();
+ }; 
+return F;
+};
+var Coffee = Beverage({
+ brew: function(){
+ console.log( &apos;用沸水冲泡咖啡&apos; );
+ },
+ pourInCup: function(){
+ console.log( &apos;把咖啡倒进杯子&apos; );
+ },
+ addCondiments: function(){
+ console.log( &apos;加糖和牛奶&apos; );
+ }
+}); 
+var Tea = Beverage({
+ brew: function(){
+ console.log( &apos;用沸水浸泡茶叶&apos; );
+ },
+ pourInCup: function(){
+ console.log( &apos;把茶倒进杯子&apos; );
+ },
+ addCondiments: function(){
+ console.log( &apos;加柠檬&apos; );
+ }
+});
+var coffee = new Coffee();
+coffee.init();
+var tea = new Tea();
+tea.init(); 
+</code></pre><p>在这段代码中，我们把 brew、pourInCup、addCondiments 这些方法依次传入 Beverage 函数，<br>Beverage 函数被调用之后返回构造器 F。F 类中包含了“模板方法”F.prototype.init。跟继承得<br>到的效果一样，该“模板方法”里依然封装了饮料子类的算法框架。</p>
+<h3 id="ES6的实现"><a href="#ES6的实现" class="headerlink" title="ES6的实现"></a>ES6的实现</h3><pre><code>/父类咖啡
+class Beverage {
+    constructor(name) {
+        //单独调用会报错，所以写constructor里面绑定this，this指向父类
+        this.init = () =&gt; {
+            this.boilWater();
+            this.brew();
+            this.pourInCup();
+            if (this.customerWantsCondiments()) { // 如果挂钩返回 true，则需要调料
+                this.addCondiments();
+            }
+        };
+        console.log(&apos;构造函数的&apos;+name)
+    };
+    //共用boilWater，子类不会修改它
+    boilWater() {
+        console.log(&apos;把水煮沸&apos;);
+    };
+    brew() {
+        throw new Error(&apos;子类必须重写 brew 方法&apos;);
+    };
+    pourInCup() {
+        throw new Error(&apos;子类必须重写 pourInCup 方法&apos;);
+    };
+    addCondiments() {
+        throw new Error(&apos;子类必须重写 addCondiments 方法&apos;);
+    };
+    customerWantsCondiments() {
+        return true; // 默认需要调料
+    };
+    //init也可以写在这里，解构之后单独调用时，在es5 ,this会指向window，在es6,this不会指向window，会报错
+    // init() {
+    //     console.log(this);
+    //     this.boilWater();
+    //     this.brew();
+    //     this.pourInCup();
+    //     if (this.customerWantsCondiments()) { // 如果挂钩返回 true，则需要调料
+    //         this.addCondiments();
+    //     }
+    // };
+
+
+}
+//子类咖啡，继承父类饮料
+class CoffeeWithHook extends Beverage {
+    constructor(name) {
+        //调用父类的构造函数,演示一下super怎么用，下面传了‘名字’字符串
+        super(name);
+    }
+    brew() {
+        console.log(&apos;用沸水冲泡咖啡&apos;);
+    };
+    pourInCup() {
+        console.log(&apos;把咖啡倒进杯子&apos;);
+    };
+    addCondiments() {
+        console.log(&apos;加糖和牛奶&apos;);
+    };
+    customerWantsCondiments() {
+        return window.confirm(&apos;请问需要调料吗？&apos;);
+    };
+
+};
+
+let coffeeWithHook = new CoffeeWithHook(&apos;名字&apos;);
+//如果不把init写在constructor里面的，下面的解构会报错。在es5 ,this会指向window，在es6,this不会指向window，会报错
+let {init} = coffeeWithHook;//var init = coffeeWithHook.init
+init();
+</code></pre><h3 id="ES5实现完整"><a href="#ES5实现完整" class="headerlink" title="ES5实现完整"></a>ES5实现完整</h3><pre><code>var Beverage = function (param) {
+    var boilWater = function () {
+        console.log(&apos;把水煮沸&apos;);
+    };
+    var brew = param.brew || function () {
+        throw new Error(&apos;必须传递 brew 方法&apos;);
+    };
+    var pourInCup = param.pourInCup || function () {
+        throw new Error(&apos;必须传递 pourInCup 方法&apos;);
+    };
+    var addCondiments = param.addCondiments || function () {
+        throw new Error(&apos;必须传递 addCondiments 方法&apos;);
+    };
+    var F = function () { };
+    F.prototype.init = function () {
+        boilWater();
+        brew();
+        pourInCup();
+        addCondiments();
+    };
+    return F;
+};
+var Coffee = Beverage({
+    brew: function () {
+        console.log(&apos;用沸水冲泡咖啡&apos;);
+    },
+    pourInCup: function () {
+        console.log(&apos;把咖啡倒进杯子&apos;);
+    },
+    addCondiments: function () {
+        console.log(&apos;加糖和牛奶&apos;);
+    }
+});
+
+var coffee = new Coffee();
+coffee.init();
+</code></pre>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+    
+
+    
+    <div>
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/19/Table中render以及renderHeader的应用/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -3010,236 +3480,6 @@ console.log(a.getName())
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/09/js-xlsx的一些操作封装/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="厚朴酚">
-      <meta itemprop="description" content="学习笔记">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="厚朴酚">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/09/js-xlsx的一些操作封装/" itemprop="url">
-                  js-xlsx的一些操作封装
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-11-09 15:55:13 / 修改时间：16:51:22" itemprop="dateCreated datePublished" datetime="2018-11-09T15:55:13+08:00">2018-11-09</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/node-js/" itemprop="url" rel="index"><span itemprop="name">node.js</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="js-xlsx的一些常用封装"><a href="#js-xlsx的一些常用封装" class="headerlink" title="js-xlsx的一些常用封装"></a>js-xlsx的一些常用封装</h3><ul>
-<li><p>从excel文件中获取头，返回数组</p>
-<pre><code>// get head from excel file,return array
-// 从excel文件中获取头，返回数组
-function get_header_row(sheet) {
-    const headers = []
-        /*
-         sheet1[&apos;!ref&apos;]　获取工作薄的有效范围　&apos;A1:C20&apos;
-         XLSX.utils.decode_range 将有效范围转为　range对象
-         range: {s: {r:0, c:0}, e: {r:10, 3}}
-         */
-    const range = XLSX.utils.decode_range(sheet[&apos;!ref&apos;]) 
-    // worksheet[&apos;!ref&apos;] 是工作表的有效范围
-    let C
-    /* 获取单元格值 start in the first row */
-    const R = range.s.r //行 //C 列
-    for (C = range.s.c; C &lt;= range.e.c; ++C) { /* walk every column in the range */
-        //{c:C,r:R} 单元格地址
-        var cell = sheet[XLSX.utils.encode_cell({ c: C, r: R })] /* 根据地址得到单元格的值find the cell in the first row */
-        var hdr = &apos;UNKNOWN &apos; + C // &lt;-- 替换为您想要的默认值replace with your desired default
-        //XLSX.utils.format_cell 生成单元格文本值
-        if (cell &amp;&amp; cell.t) hdr = XLSX.utils.format_cell(cell)
-        headers.push(hdr)
-    }
-    return headers
-}
-</code></pre></li>
-<li><p>读取excel的表头和表数据</p>
-<pre><code>/*
-* 读取excel的表头和表数据
- */
-export const read = (data, type) =&gt; {
-    /* if type == &apos;base64&apos; must fix data first */
-    // const fixedData = fixdata(data)
-    // const workbook = XLSX.read(btoa(fixedData), { type: &apos;base64&apos; })
-    const workbook = XLSX.read(data, { type: type });//解析数据
-    const firstSheetName = workbook.SheetNames[0];//获取Sheets中第一个Sheet的名字
-    const worksheet = workbook.Sheets[firstSheetName];//获取第一个Sheet的数据
-    const header = get_header_row(worksheet);//获取表的第一行为表头
-    const results = XLSX.utils.sheet_to_json(worksheet); //表格对象变为json数据
-    return {header, results};
-}
-</code></pre></li>
-<li><p>针对base64的数据提前处理</p>
-<pre><code>// fix data,return string
-function fixdata(data) {
-    let o = &apos;&apos;
-    let l = 0
-    const w = 10240
-    for (; l &lt; data.byteLength / w; ++l) o += String.fromCharCode.apply(null, new Uint8Array(data.slice(l * w, l * w + w)))
-    o += String.fromCharCode.apply(null, new Uint8Array(data.slice(l * w)))
-    return o
-}
-</code></pre></li>
-<li><p>表格转excle</p>
-<p>  export const export_table_to_excel= (id, filename) =&gt; {</p>
-<pre><code>const table = document.getElementById(id);
-const wb = XLSX.utils.table_to_book(table);
-XLSX.writeFile(wb, filename);
-
-/* the second way */
-// const table = document.getElementById(id);
-// const wb = XLSX.utils.book_new();
-// const ws = XLSX.utils.table_to_sheet(table);
-// XLSX.utils.book_append_sheet(wb, ws, filename);
-// XLSX.writeFile(wb, filename);
-</code></pre><p>  }</p>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-    
-
-    
-    <div>
-      
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -3289,7 +3529,7 @@ XLSX.writeFile(wb, filename);
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">29</span>
+                    <span class="site-state-item-count">30</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -3359,7 +3599,9 @@ XLSX.writeFile(wb, filename);
                     
                       
                     
-                    <span class="site-state-item-count">14</span>
+                      
+                    
+                    <span class="site-state-item-count">15</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
