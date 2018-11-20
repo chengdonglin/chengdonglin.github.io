@@ -108,25 +108,25 @@
 
 
 
-  <meta name="description" content="为了更好的利用ES6语法来学习Javascript设计模式,我们通过webpack来搭建一个合适ES6运行的环境. 搭建开发环境1. 目录结构– dist    //生成的bundle.js文件  node_modules //依赖模块  src //业务代码  index.html //前端页面展示  //...其余配置 2. package.json  ` {    &amp;quot;name&amp;">
-<meta name="keywords" content="导航 - ES6 - 设计模式">
+  <meta name="description" content="iview之Table组件的服务端分页Table组件常常用来展示信息,如果服务端的记录太多,一次性返回前端进行处理就不合适了,那么服务端分页就是比较合理 template&amp;lt;Table :columns=&amp;quot;columns&amp;quot; :data=&amp;quot;data&amp;quot; :loading=&amp;quot;loading&amp;quot; border size=&amp;quot;small&amp;">
+<meta name="keywords" content="导航 - iview">
 <meta property="og:type" content="article">
-<meta property="og:title" content="开篇:ES6环境搭建">
-<meta property="og:url" content="http://yoursite.com/2018/10/23/hello-world/index.html">
+<meta property="og:title" content="iview之Table组件的服务端分页">
+<meta property="og:url" content="http://yoursite.com/2018/11/20/iview之Table组件的服务端分页/index.html">
 <meta property="og:site_name" content="厚朴酚">
-<meta property="og:description" content="为了更好的利用ES6语法来学习Javascript设计模式,我们通过webpack来搭建一个合适ES6运行的环境. 搭建开发环境1. 目录结构– dist    //生成的bundle.js文件  node_modules //依赖模块  src //业务代码  index.html //前端页面展示  //...其余配置 2. package.json  ` {    &amp;quot;name&amp;">
+<meta property="og:description" content="iview之Table组件的服务端分页Table组件常常用来展示信息,如果服务端的记录太多,一次性返回前端进行处理就不合适了,那么服务端分页就是比较合理 template&amp;lt;Table :columns=&amp;quot;columns&amp;quot; :data=&amp;quot;data&amp;quot; :loading=&amp;quot;loading&amp;quot; border size=&amp;quot;small&amp;">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-10-23T09:08:13.195Z">
+<meta property="og:updated_time" content="2018-11-20T09:11:30.252Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="开篇:ES6环境搭建">
-<meta name="twitter:description" content="为了更好的利用ES6语法来学习Javascript设计模式,我们通过webpack来搭建一个合适ES6运行的环境. 搭建开发环境1. 目录结构– dist    //生成的bundle.js文件  node_modules //依赖模块  src //业务代码  index.html //前端页面展示  //...其余配置 2. package.json  ` {    &amp;quot;name&amp;">
+<meta name="twitter:title" content="iview之Table组件的服务端分页">
+<meta name="twitter:description" content="iview之Table组件的服务端分页Table组件常常用来展示信息,如果服务端的记录太多,一次性返回前端进行处理就不合适了,那么服务端分页就是比较合理 template&amp;lt;Table :columns=&amp;quot;columns&amp;quot; :data=&amp;quot;data&amp;quot; :loading=&amp;quot;loading&amp;quot; border size=&amp;quot;small&amp;">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/10/23/hello-world/">
+  <link rel="canonical" href="http://yoursite.com/2018/11/20/iview之Table组件的服务端分页/">
 
 
 
@@ -136,7 +136,7 @@
   };
 </script>
 
-  <title>开篇:ES6环境搭建 | 厚朴酚</title>
+  <title>iview之Table组件的服务端分页 | 厚朴酚</title>
   
 
 
@@ -301,7 +301,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/23/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/20/iview之Table组件的服务端分页/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="厚朴酚">
@@ -318,7 +318,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">开篇:ES6环境搭建
+          <h1 class="post-title" itemprop="name headline">iview之Table组件的服务端分页
               
             
           </h1>
@@ -343,7 +343,7 @@
                 
               
 
-              <time title="创建时间：2018-10-23 15:44:54 / 修改时间：17:08:13" itemprop="dateCreated datePublished" datetime="2018-10-23T15:44:54+08:00">2018-10-23</time>
+              <time title="创建时间：2018-11-20 17:02:16 / 修改时间：17:11:30" itemprop="dateCreated datePublished" datetime="2018-11-20T17:02:16+08:00">2018-11-20</time>
             
 
             
@@ -365,7 +365,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/设计模式/" itemprop="url" rel="index"><span itemprop="name">设计模式</span></a></span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/vue/" itemprop="url" rel="index"><span itemprop="name">vue</span></a></span>
 
                 
                 
@@ -399,68 +399,43 @@
       
 
       
-        <p>  为了更好的利用ES6语法来学习Javascript设计模式,我们通过webpack来搭建一个合适ES6运行的环境.</p>
-<h2 id="搭建开发环境"><a href="#搭建开发环境" class="headerlink" title="搭建开发环境"></a>搭建开发环境</h2><h3 id="1-目录结构"><a href="#1-目录结构" class="headerlink" title="1. 目录结构"></a>1. 目录结构</h3><p>–</p>
-<pre><code>dist    //生成的bundle.js文件
-
-node_modules //依赖模块
-
-src //业务代码
-
-index.html //前端页面展示
-
-//...其余配置
-</code></pre><h3 id="2-package-json"><a href="#2-package-json" class="headerlink" title="2. package.json"></a>2. package.json</h3><p>  `</p>
-<pre><code>{    &quot;name&quot;: &quot;design-pattern-test&quot;,
-
-  &quot;version&quot;: &quot;1.0.0&quot;,
-  &quot;description&quot;: &quot;&quot;,
-  &quot;main&quot;: &quot;index.js&quot;,
-  &quot;scripts&quot;: {
-&quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;,
-&quot;dev&quot;: &quot;webpack-dev-server --config ./webpack.config.js --mode development&quot;
+        <h3 id="iview之Table组件的服务端分页"><a href="#iview之Table组件的服务端分页" class="headerlink" title="iview之Table组件的服务端分页"></a>iview之Table组件的服务端分页</h3><p>Table组件常常用来展示信息,如果服务端的记录太多,一次性返回前端进行处理就不合适了,那么服务端分页就是比较合理</p>
+<h4 id="template"><a href="#template" class="headerlink" title="template"></a>template</h4><pre><code>&lt;Table :columns=&quot;columns&quot; :data=&quot;data&quot; :loading=&quot;loading&quot; border size=&quot;small&quot;&gt;&lt;/Table&gt;
+&lt;div style=&quot;text-align: right;margin: 16px 0&quot;&gt;
+  &lt;Page :total=&quot;pageConfig.total&quot; size=&quot;small&quot;  :page-size-opts= &quot;pageConfig.pageOptions&quot; show-elevator show-sizer 
+    @on-change=&quot;getTableData&quot;
+    :current.sync=&quot;pageConfig.current&quot;
+    @on-page-size-change=&quot;handleChangeSize&quot;
+  /&gt;
+&lt;/div&gt;
+</code></pre><h4 id="script"><a href="#script" class="headerlink" title="script"></a>script</h4><pre><code>//data
+pageConfig:{
+          total:100,//默认
+          size:10,
+          current:1,
+          pageOptions:[10,30,50,100],
+        },
+//methods
+handleChangeSize (val) {//切换页码的回调,得到每页要显示的值
+                this.pageConfig.size = val;
+                console.log(this.pageConfig.size)
+                 this.$nextTick(() =&gt; {
+                     this.getTableData();
+                 });
+            },
+//向后端发请求
+ getTableData(){
+   // console.log(this.pageConfig.current)//点击页码切换
+    // console.log(this.pageConfig.size)//显示的条数
+    this.axios.get(this.$store.state.sysApi+`/custom/getTableData/${this.pageConfig.current}/${this.pageConfig.size}`).then(res =&gt; {
+      console.log(res.data.aaData)
+      this.pageConfig.total = res.data.aaData.length
+      this.clientData = res.data.aaData
+    })
   },
-  &quot;keywords&quot;: [],
-  &quot;author&quot;: &quot;&quot;,
-  &quot;license&quot;: &quot;ISC&quot;,
-  &quot;devDependencies&quot;: {
-&quot;babel-core&quot;: &quot;^6.26.0&quot;,
-&quot;babel-loader&quot;: &quot;^7.1.2&quot;,
-&quot;babel-polyfill&quot;: &quot;^6.26.0&quot;,
-&quot;babel-preset-es2015&quot;: &quot;^6.24.1&quot;,
-&quot;babel-preset-latest&quot;: &quot;^6.24.1&quot;,
-&quot;html-webpack-plugin&quot;: &quot;^3.2.0&quot;,
-&quot;webpack&quot;: &quot;^4.20.2&quot;,
-&quot;webpack-cli&quot;: &quot;^3.1.2&quot;,
-&quot;webpack-dev-server&quot;: &quot;^3.1.9&quot;
-</code></pre><p>  }<br>}</p>
-<p>`</p>
-<h3 id="3-webpack-config-js"><a href="#3-webpack-config-js" class="headerlink" title="3 webpack.config.js"></a>3 webpack.config.js</h3><pre><code>const path = require(&apos;path&apos;);
-const HtmlWebpackPlugin = require(&apos;html-webpack-plugin&apos;)
-module.exports = {
-  entry: &apos;./src/index.js&apos;,
-  output: {
-  path: path.resolve(__dirname, &apos;dist&apos;),
-filename: &apos;bundle.js&apos;
-  },
-  module:{
-rules:[{
-test:/\.js?$/,
-exclude:/(node_modules)/,
-loader:&quot;babel-loader&quot;
-}]
-  },
-  plugins:[
-  new HtmlWebpackPlugin({
-  template:&apos;./index.html&apos;
-  })
-  ],
-  devServer:{
-  contentBase:path.join(__dirname,&apos;./dist&apos;),
-  open:true,
-  port:9000
-  }
-};
+
+//mounted
+this.getTableData()
 </code></pre>
       
     </div>
@@ -522,7 +497,7 @@ loader:&quot;babel-loader&quot;
       
         <div class="post-tags">
           
-            <a href="/tags/导航-ES6-设计模式/" rel="tag"># 导航 - ES6 - 设计模式</a>
+            <a href="/tags/导航-iview/" rel="tag"># 导航 - iview</a>
           
         </div>
       
@@ -535,14 +510,18 @@ loader:&quot;babel-loader&quot;
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2018/11/20/解析Vuex/" rel="next" title="解析Vuex">
+                <i class="fa fa-chevron-left"></i> 解析Vuex
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/10/23/vue/" rel="prev" title="记录vue开发遇到的问题">
-                记录vue开发遇到的问题 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/11/20/Table自定义序号/" rel="prev" title="Table自定义序号">
+                Table自定义序号 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -733,7 +712,7 @@ loader:&quot;babel-loader&quot;
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#搭建开发环境"><span class="nav-number">1.</span> <span class="nav-text">搭建开发环境</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-目录结构"><span class="nav-number">1.1.</span> <span class="nav-text">1. 目录结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-package-json"><span class="nav-number">1.2.</span> <span class="nav-text">2. package.json</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-webpack-config-js"><span class="nav-number">1.3.</span> <span class="nav-text">3 webpack.config.js</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#iview之Table组件的服务端分页"><span class="nav-number">1.</span> <span class="nav-text">iview之Table组件的服务端分页</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#template"><span class="nav-number">1.1.</span> <span class="nav-text">template</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#script"><span class="nav-number">1.2.</span> <span class="nav-text">script</span></a></li></ol></li></ol></div>
             
 
           </div>
