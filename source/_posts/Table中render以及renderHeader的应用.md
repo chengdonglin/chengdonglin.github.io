@@ -121,3 +121,64 @@ categories: vue
 	              ])
 	            }
 	          }
+
+
+
+- 通常select的下拉框有很多项,所以需要采用更加简洁的方式
+
+		{
+		            title: "所在城市",
+		            key: "cityName",
+		            align: "center",
+		            render: (h, params) => {
+		              return h('div', [
+		                h('Select', {
+		                  props: {
+		                    value: this.ConnectTableData.datas[params.index].cityName,
+		                    'label-in-value': true
+		                  },
+		                  on: {
+		                    'on-change': (value) => {
+		                      params.row.cityName = value.label
+		                      this.ConnectTableData.datas[params.index] = params.row
+		                    }
+		                  }
+		                }, [
+		                  this.cityNames.map((type)=>{
+		                    return h('Option',{
+		                      props:{value:type.value}
+		                    },type.label)
+		                  })
+		                  // h('Option', {
+		                  //   props: {
+		                  //     value: "beijing"
+		                  //   }
+		                  // }, '北京'),
+		                  // h('Option', {
+		                  //   props: {
+		                  //     value: "shanghai"
+		                  //   }
+		                  // }, '上海'),
+		                  // h('Option', {
+		                  //   props: {
+		                  //     value: "shenzhen"
+		                  //   }
+		                  // }, '深圳'),
+		                ])
+		              ])
+		            }
+		          },
+
+
+数据格式:
+
+	cityNames:[{
+	          value:'beijing',
+	          label:'北京'
+	        },{
+	          value:'shanghai',
+	          label:'上海'
+	        },{
+	          value:'shenzhen',
+	          label:'深圳'
+	        }],
