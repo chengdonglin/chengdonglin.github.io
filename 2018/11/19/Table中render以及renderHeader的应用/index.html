@@ -116,7 +116,7 @@
 <meta property="og:site_name" content="厚朴酚">
 <meta property="og:description" content="title: Table中render以及renderHeader的应用通常在table中,我们要控制表格的显示,那么render函数将其非常重要 例子: 表格某一列的下拉控制 {             title: &amp;quot;意向产品&amp;quot;,             key: &amp;quot;fkaCrmProductClassName&amp;quot;,             align:">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-11-19T06:19:02.077Z">
+<meta property="og:updated_time" content="2018-11-20T01:55:51.502Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Table中render以及renderHeader的应用">
 <meta name="twitter:description" content="title: Table中render以及renderHeader的应用通常在table中,我们要控制表格的显示,那么render函数将其非常重要 例子: 表格某一列的下拉控制 {             title: &amp;quot;意向产品&amp;quot;,             key: &amp;quot;fkaCrmProductClassName&amp;quot;,             align:">
@@ -343,12 +343,24 @@
                 
               
 
-              <time title="创建时间：2018-11-19 14:13:59 / 修改时间：14:19:02" itemprop="dateCreated datePublished" datetime="2018-11-19T14:13:59+08:00">2018-11-19</time>
+              <time title="创建时间：2018-11-19 14:13:59" itemprop="dateCreated datePublished" datetime="2018-11-19T14:13:59+08:00">2018-11-19</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-11-20 09:55:51" itemprop="dateModified" datetime="2018-11-20T09:55:51+08:00">2018-11-20</time>
               
             
           </span>
@@ -505,6 +517,63 @@
              ])
            }
          }
+</code></pre><ul>
+<li><p>通常select的下拉框有很多项,所以需要采用更加简洁的方式</p>
+<pre><code>{
+            title: &quot;所在城市&quot;,
+            key: &quot;cityName&quot;,
+            align: &quot;center&quot;,
+            render: (h, params) =&gt; {
+              return h(&apos;div&apos;, [
+                h(&apos;Select&apos;, {
+                  props: {
+                    value: this.ConnectTableData.datas[params.index].cityName,
+                    &apos;label-in-value&apos;: true
+                  },
+                  on: {
+                    &apos;on-change&apos;: (value) =&gt; {
+                      params.row.cityName = value.label
+                      this.ConnectTableData.datas[params.index] = params.row
+                    }
+                  }
+                }, [
+                  this.cityNames.map((type)=&gt;{
+                    return h(&apos;Option&apos;,{
+                      props:{value:type.value}
+                    },type.label)
+                  })
+                  // h(&apos;Option&apos;, {
+                  //   props: {
+                  //     value: &quot;beijing&quot;
+                  //   }
+                  // }, &apos;北京&apos;),
+                  // h(&apos;Option&apos;, {
+                  //   props: {
+                  //     value: &quot;shanghai&quot;
+                  //   }
+                  // }, &apos;上海&apos;),
+                  // h(&apos;Option&apos;, {
+                  //   props: {
+                  //     value: &quot;shenzhen&quot;
+                  //   }
+                  // }, &apos;深圳&apos;),
+                ])
+              ])
+            }
+          },
+</code></pre></li>
+</ul>
+<p>数据格式:</p>
+<pre><code>cityNames:[{
+          value:&apos;beijing&apos;,
+          label:&apos;北京&apos;
+        },{
+          value:&apos;shanghai&apos;,
+          label:&apos;上海&apos;
+        },{
+          value:&apos;shenzhen&apos;,
+          label:&apos;深圳&apos;
+        }],
 </code></pre>
       
     </div>
@@ -663,7 +732,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">31</span>
+                    <span class="site-state-item-count">33</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -739,7 +808,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">16</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">18</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

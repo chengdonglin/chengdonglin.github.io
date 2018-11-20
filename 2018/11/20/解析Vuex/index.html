@@ -108,25 +108,25 @@
 
 
 
-  <meta name="description" content="HTML的Blob对象####前言一直以来，JS都没有比较好的可以直接处理二进制的方法。而Blob的存在，允许我们可以通过JS直接操作二进制数据。 Blob对象一个Blob对象就是一个包含有只读原始数据的类文件对象。Blob对象中的数据并不一定得是JavaScript中的原生形式。File接口基于Blob，继承了Blob的功能,并且扩展支持了用户计算机上的本地文件。 Blob对象可以看做是存放二进">
-<meta name="keywords" content="导航 - HTML5">
+  <meta name="description" content="解析Vuex来源: https://github.com/ljianshu/Blog/issues/36 Vuex实现了一个单向数据流，在全局拥有一个State存放数据，当组件要更改State中的数据时，必须通过Mutation进行，Mutation同时提供了订阅者模式供外部插件调用获取State数据的更新。而当所有异步操作(常见于调用后端接口异步获取更新数据)或批量的同步操作需要走Action，">
+<meta name="keywords" content="导航 - vuex">
 <meta property="og:type" content="article">
-<meta property="og:title" content="HTML5的Blob对象">
-<meta property="og:url" content="http://yoursite.com/2018/11/09/HTML5的Blob对象/index.html">
+<meta property="og:title" content="解析Vuex">
+<meta property="og:url" content="http://yoursite.com/2018/11/20/解析Vuex/index.html">
 <meta property="og:site_name" content="厚朴酚">
-<meta property="og:description" content="HTML的Blob对象####前言一直以来，JS都没有比较好的可以直接处理二进制的方法。而Blob的存在，允许我们可以通过JS直接操作二进制数据。 Blob对象一个Blob对象就是一个包含有只读原始数据的类文件对象。Blob对象中的数据并不一定得是JavaScript中的原生形式。File接口基于Blob，继承了Blob的功能,并且扩展支持了用户计算机上的本地文件。 Blob对象可以看做是存放二进">
+<meta property="og:description" content="解析Vuex来源: https://github.com/ljianshu/Blog/issues/36 Vuex实现了一个单向数据流，在全局拥有一个State存放数据，当组件要更改State中的数据时，必须通过Mutation进行，Mutation同时提供了订阅者模式供外部插件调用获取State数据的更新。而当所有异步操作(常见于调用后端接口异步获取更新数据)或批量的同步操作需要走Action，">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-11-09T06:04:49.439Z">
+<meta property="og:updated_time" content="2018-11-20T03:06:35.839Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="HTML5的Blob对象">
-<meta name="twitter:description" content="HTML的Blob对象####前言一直以来，JS都没有比较好的可以直接处理二进制的方法。而Blob的存在，允许我们可以通过JS直接操作二进制数据。 Blob对象一个Blob对象就是一个包含有只读原始数据的类文件对象。Blob对象中的数据并不一定得是JavaScript中的原生形式。File接口基于Blob，继承了Blob的功能,并且扩展支持了用户计算机上的本地文件。 Blob对象可以看做是存放二进">
+<meta name="twitter:title" content="解析Vuex">
+<meta name="twitter:description" content="解析Vuex来源: https://github.com/ljianshu/Blog/issues/36 Vuex实现了一个单向数据流，在全局拥有一个State存放数据，当组件要更改State中的数据时，必须通过Mutation进行，Mutation同时提供了订阅者模式供外部插件调用获取State数据的更新。而当所有异步操作(常见于调用后端接口异步获取更新数据)或批量的同步操作需要走Action，">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/11/09/HTML5的Blob对象/">
+  <link rel="canonical" href="http://yoursite.com/2018/11/20/解析Vuex/">
 
 
 
@@ -136,7 +136,7 @@
   };
 </script>
 
-  <title>HTML5的Blob对象 | 厚朴酚</title>
+  <title>解析Vuex | 厚朴酚</title>
   
 
 
@@ -301,7 +301,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/09/HTML5的Blob对象/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/20/解析Vuex/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="厚朴酚">
@@ -318,7 +318,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">HTML5的Blob对象
+          <h1 class="post-title" itemprop="name headline">解析Vuex
               
             
           </h1>
@@ -343,7 +343,7 @@
                 
               
 
-              <time title="创建时间：2018-11-09 13:31:53 / 修改时间：14:04:49" itemprop="dateCreated datePublished" datetime="2018-11-09T13:31:53+08:00">2018-11-09</time>
+              <time title="创建时间：2018-11-20 10:51:09 / 修改时间：11:06:35" itemprop="dateCreated datePublished" datetime="2018-11-20T10:51:09+08:00">2018-11-20</time>
             
 
             
@@ -365,7 +365,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/HTML5/" itemprop="url" rel="index"><span itemprop="name">HTML5</span></a></span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/vue/" itemprop="url" rel="index"><span itemprop="name">vue</span></a></span>
 
                 
                 
@@ -399,178 +399,31 @@
       
 
       
-        <h3 id="HTML的Blob对象"><a href="#HTML的Blob对象" class="headerlink" title="HTML的Blob对象"></a>HTML的Blob对象</h3><p>####前言<br>一直以来，JS都没有比较好的可以直接处理二进制的方法。而Blob的存在，允许我们可以通过JS直接操作二进制数据。</p>
-<h4 id="Blob对象"><a href="#Blob对象" class="headerlink" title="Blob对象"></a>Blob对象</h4><p>一个Blob对象就是一个包含有只读原始数据的类文件对象。Blob对象中的数据并不一定得是JavaScript中的原生形式。File接口基于Blob，继承了Blob的功能,并且扩展支持了用户计算机上的本地文件。</p>
-<p>Blob对象可以看做是存放二进制数据的容器，此外还可以通过Blob设置二进制数据的MIME类型.</p>
-<h4 id="创建Blob"><a href="#创建Blob" class="headerlink" title="创建Blob"></a>创建Blob</h4><pre><code>var blob = new Blob(dataArr:Array&lt;any&gt;, opt:{type:string});
-</code></pre><ul>
-<li>dataArray：数组，包含了要添加到Blob对象中的数据，数据可以是任意多个ArrayBuffer，ArrayBufferView， Blob，或者 DOMString对象。</li>
-<li><p>opt：对象，用于设置Blob对象的属性（如：MIME类型）</p>
+        <h3 id="解析Vuex"><a href="#解析Vuex" class="headerlink" title="解析Vuex"></a>解析Vuex</h3><p>来源: <a href="https://github.com/ljianshu/Blog/issues/36" target="_blank" rel="noopener">https://github.com/ljianshu/Blog/issues/36</a></p>
+<p>Vuex实现了一个单向数据流，在全局拥有一个State存放数据，当组件要更改State中的数据时，必须通过Mutation进行，Mutation同时提供了订阅者模式供外部插件调用获取State数据的更新。而当所有异步操作(常见于调用后端接口异步获取更新数据)或批量的同步操作需要走Action，但Action也是无法直接修改State的，还是需要通过Mutation来修改State的数据。最后，根据State的变化，渲染到视图上。</p>
+<h4 id="简要介绍各模块在流程中的主要功能："><a href="#简要介绍各模块在流程中的主要功能：" class="headerlink" title="简要介绍各模块在流程中的主要功能："></a>简要介绍各模块在流程中的主要功能：</h4><ul>
+<li><p>Vue Components：</p>
+<p>  Vue组件。HTML页面上，负责接收用户操作等交互行为，执行dispatch方法触发对应action进行回应。</p>
 </li>
-<li><p>创建一个装填DOMString对象的Blog对象</p>
-<p>  var s = “ <div>hello world!!</div> “</p>
-<p>  var blob = new Blob([s],{type:”text/xml”})</p>
-<p>  blob</p>
-<p>  Blob(24) {size: 24, type: “text/xml”}</p>
+<li><p>dispatch：</p>
+<p>  操作行为触发方法，是唯一能执行action的方法。</p>
 </li>
-<li><p>创建一个装填ArrayBuffer对象的Blob对象</p>
-<pre><code>var abf = new ArrayBuffer(8)
-var blob = new Blob([abf],{type:&quot;text/plain&quot;})
-blob
-Blob{size:8,type:&quot;text/plain&quot;}
-</code></pre></li>
-<li><p>创建一个装填ArrayBufferView对象的Blob对象(ArrayBufferView可基于ArrayBuffer创建,返回值是一个类数组),如下:创建一个8字节的ArrayBuffer,在其上创建一个每个数组元素为2字节的视图</p>
-<pre><code>var abf = new ArrayBuffer(8)
-var abv = new Int16Array(abf)
-var blob = new Blob(abv,{type:&quot;text/plain&quot;})
-blob
-Blob{size:4,type:&quot;text/plain&quot;}
-</code></pre></li>
-<li><p>通过Blob.slice()</p>
+<li><p>actions：</p>
+<p>  操作行为处理模块,由组件中的$store.dispatch(‘action 名称’, data1)来触发。然后由commit()来触发mutation的调用 , 间接更新 state。负责处理Vue Components接收到的所有交互行为。包含同步/异步操作，支持多个同名方法，按照注册的顺序依次触发。向后台API请求的操作就在这个模块中进行，包括触发其他action以及提交mutation的操作。该模块提供了Promise的封装，以支持action的链式触发。</p>
+</li>
+<li><p>commit：<br>  状态改变提交操作方法。对mutation进行提交，是唯一能执行mutation的方法。</p>
+</li>
+<li><p>mutations：<br>  状态改变操作方法，由actions中的commit(‘mutation 名称’)来触发。是Vuex修改state的唯一推荐方法。该方法只能进行同步操作，且方法名只能全局唯一。操作之中会有一些hook暴露出来，以进行state的监控等。</p>
+</li>
+<li><p>state：</p>
+<p>  页面状态管理容器对象。集中存储Vue components中data对象的零散数据，全局唯一，以进行统一的状态管理。页面显示所需的数据从该对象中进行读取，利用Vue的细粒度数据响应机制来进行高效的状态更新。</p>
+</li>
+<li><p>getters：</p>
+<p>  state对象读取方法。图中没有单独列出该模块，应该被包含在了render中，Vue Components通过该方法读取全局state对象。</p>
 </li>
 </ul>
-<p>此方法返回一个新的BLob对象,包含了原对象指定范围内的数据</p>
-<pre><code>Blob.slice(start:number,end:number,contentType:string)
-</code></pre><ul>
-<li>start: 开始索引,默认为0</li>
-<li>end: 截取结束索引(不包括end)</li>
-<li><p>contentType:新的Blob的MIME类型,默认为空字符串</p>
-<pre><code>var b = new Blob([&quot;zxxxffggggff&quot;],{type:&quot;text/plain&quot;})
-var b2 = b.slice(0,5,&quot;text/plain&quot;)
-b2
-Blob{size:5,type:&quot;text/plain&quot;}
-</code></pre></li>
-<li><p>通过canvas.toBlob()</p>
-<pre><code>var canvas = document.getElementById(&quot;canvas&quot;);
-canvas.toBlob(function(blob){
-    console.log(blob);
-});
-</code></pre></li>
-</ul>
-<h4 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h4><p>前面提到，File接口基于Blob，继承了Blob的功能并进行了扩展，故我们可以像使用Blob一样使用File对象。</p>
-<ul>
-<li>分片上传</li>
-</ul>
-<p>通过Blob.slice方法，可以将大文件分片，轮循向后台提交各文件片段，即可实现文件的分片上传。</p>
-<p>分片上传逻辑如下：</p>
-<ul>
-<li>获取要上传文件的File对象，根据chunk（每片大小）对文件进行分片</li>
-<li>通过post方法轮循上传每片文件，其中url中拼接querystring用于描述当前上传的文件信息；</li>
-<li>post body中存放本次要上传的二进制数据片段</li>
-<li>接口每次返回offset，用于执行下次上传</li>
-</ul>
-<p>下面是分片上传的简单实现：</p>
-<pre><code>initUpload();
-
-//初始化上传
-function initUpload() {
-    var chunk = 100 * 1024;   //每片大小
-    var input = document.getElementById(&quot;file&quot;);    //input file
-    input.onchange = function (e) {
-        var file = this.files[0];
-        var query = {};
-        var chunks = [];
-        if (!!file) {
-            var start = 0;
-            //文件分片
-            for (var i = 0; i &lt; Math.ceil(file.size / chunk); i++) {
-                var end = start + chunk;
-                chunks[i] = file.slice(start , end);
-                start = end;
-            }
-
-            // 采用post方法上传文件
-            // url query上拼接以下参数，用于记录上传偏移
-            // post body中存放本次要上传的二进制数据
-            query = {
-                fileSize: file.size,
-                dataSize: chunk,
-                nextOffset: 0
-            }
-
-            upload(chunks, query, successPerUpload);
-        }
-    }
-}
-
-// 执行上传
-    function upload(chunks, query, cb) {
-        var queryStr = Object.getOwnPropertyNames(query).map(key =&gt; {
-            return key + &quot;=&quot; + query[key];
-        }).join(&quot;&amp;&quot;);
-        var xhr = new XMLHttpRequest();
-        xhr.open(&quot;POST&quot;, &quot;http://xxxx/opload?&quot; + queryStr);
-        xhr.overrideMimeType(&quot;application/octet-stream&quot;);
-
-        //获取post body中二进制数据
-        var index = Math.floor(query.nextOffset / query.dataSize);
-        getFileBinary(chunks[index], function (binary) {
-            if (xhr.sendAsBinary) {
-                xhr.sendAsBinary(binary);
-            } else {
-                xhr.send(binary);
-            }
-
-        });
-
-        xhr.onreadystatechange = function (e) {
-            if (xhr.readyState === 4) {
-                if (xhr.status === 200) {
-                    var resp = JSON.parse(xhr.responseText);
-                    // 接口返回nextoffset
-                    // resp = {
-                    //     isFinish:false,
-                    //     offset:100*1024
-                    // }
-                    if (typeof cb === &quot;function&quot;) {
-                        cb.call(this, resp, chunks, query)
-                    }
-                }
-            }
-        }
-    }
-
-    // 每片上传成功后执行
-    function successPerUpload(resp, chunks, query) {
-        if (resp.isFinish === true) {
-            alert(&quot;上传成功&quot;);
-        } else {
-            //未上传完毕
-            query.offset = resp.offset;
-            upload(chunks, query, successPerUpload);
-        }
-    }
-
-    // 获取文件二进制数据
-    function getFileBinary(file, cb) {
-        var reader = new FileReader();
-        reader.readAsArrayBuffer(file);
-        reader.onload = function (e) {
-            if (typeof cb === &quot;function&quot;) {
-                cb.call(this, this.result);
-            }
-        }
-    }
-</code></pre><p>以上是文件分片上传前端的简单实现，当然，此功能还可以更加完善，如后台需要对合并后的文件大小进行校验；或者前端加密文件，全部上传完毕后后端解密校验等.</p>
-<ul>
-<li>通过url下载文件</li>
-</ul>
-<p>window.URL对象可以为Blob对象生成一个网络地址，结合a标签的download属性，可以实现点击url下载文件.</p>
-<pre><code>createDownload(&quot;download.txt&quot;,&quot;download file&quot;);
-
-function createDownload(fileName, content){
-    var blob = new Blob([content]);
-    var link = document.createElement(&quot;a&quot;);
-    link.innerHTML = fileName;
-    link.download = fileName;
-    link.href = URL.createObjectURL(blob);
-    document.getElementsByTagName(&quot;body&quot;)[0].appendChild(link);
-}
-</code></pre><ul>
-<li>通过url显示图片</li>
-</ul>
-<p>我们知道，img的src属性及background的url属性，都可以通过接收图片的网络地址或base64来显示图片，同样的，我们也可以把图片转化为Blob对象，生成URL（URL.createObjectURL(blob)），来显示图片。</p>
-<p>Blob对象作为一个装填二进制数据的基本对象，其作用也仅仅是一个容器，而真正的业务功能则需要通过FileReader、URL、Canvas等对象实现</p>
+<h4 id="actions和mutations区别"><a href="#actions和mutations区别" class="headerlink" title="actions和mutations区别"></a>actions和mutations区别</h4><p>actions和上面的Mutations功能基本一样，不同点是，actions是异步的改变state状态，而Mutations是同步改变状态。</p>
+<p>同步的意义在于这样每一个 mutation 执行完成后都可以对应到一个新的状态（和 reducer 一样），这样 devtools 就可以打个 snapshot 存下来，然后就可以随便 time-travel 了。如果你开着 devtool 调用一个异步的 action，你可以清楚地看到它所调用的 mutation 是何时被记录下来的，并且可以立刻查看它们对应的状态—-尤雨溪</p>
 
       
     </div>
@@ -632,7 +485,7 @@ function createDownload(fileName, content){
       
         <div class="post-tags">
           
-            <a href="/tags/导航-HTML5/" rel="tag"># 导航 - HTML5</a>
+            <a href="/tags/导航-vuex/" rel="tag"># 导航 - vuex</a>
           
         </div>
       
@@ -645,8 +498,8 @@ function createDownload(fileName, content){
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/11/09/html5的FileReader对象/" rel="next" title="html5的FileReader对象">
-                <i class="fa fa-chevron-left"></i> html5的FileReader对象
+              <a href="/2018/11/20/JavaScript正则表达式/" rel="next" title="JavaScript正则表达式">
+                <i class="fa fa-chevron-left"></i> JavaScript正则表达式
               </a>
             
           </div>
@@ -654,10 +507,6 @@ function createDownload(fileName, content){
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/11/09/js-xlsx的一些操作封装/" rel="prev" title="js-xlsx的一些操作封装">
-                js-xlsx的一些操作封装 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -845,7 +694,7 @@ function createDownload(fileName, content){
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#HTML的Blob对象"><span class="nav-number">1.</span> <span class="nav-text">HTML的Blob对象</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Blob对象"><span class="nav-number">1.1.</span> <span class="nav-text">Blob对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建Blob"><span class="nav-number">1.2.</span> <span class="nav-text">创建Blob</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#应用场景"><span class="nav-number">1.3.</span> <span class="nav-text">应用场景</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#解析Vuex"><span class="nav-number">1.</span> <span class="nav-text">解析Vuex</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#简要介绍各模块在流程中的主要功能："><span class="nav-number">1.1.</span> <span class="nav-text">简要介绍各模块在流程中的主要功能：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#actions和mutations区别"><span class="nav-number">1.2.</span> <span class="nav-text">actions和mutations区别</span></a></li></ol></li></ol></div>
             
 
           </div>
