@@ -108,25 +108,23 @@
 
 
 
-  <meta name="description" content="记录vue开发遇到的问题 计算屏幕的高度  &amp;lt;script&amp;gt;  data(){     return {       culWidth:0     } }      beforeMount() {         var h = document.documentElement.clientHeight || document.body.clientHeight;         th">
-<meta name="keywords" content="导航">
-<meta property="og:type" content="article">
-<meta property="og:title" content="记录vue开发遇到的问题">
-<meta property="og:url" content="http://yoursite.com/2018/10/23/vue/index.html">
+  <meta name="description" content="学习笔记">
+<meta property="og:type" content="website">
+<meta property="og:title" content="厚朴酚">
+<meta property="og:url" content="http://yoursite.com/page/5/index.html">
 <meta property="og:site_name" content="厚朴酚">
-<meta property="og:description" content="记录vue开发遇到的问题 计算屏幕的高度  &amp;lt;script&amp;gt;  data(){     return {       culWidth:0     } }      beforeMount() {         var h = document.documentElement.clientHeight || document.body.clientHeight;         th">
+<meta property="og:description" content="学习笔记">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-11-15T03:50:35.115Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="记录vue开发遇到的问题">
-<meta name="twitter:description" content="记录vue开发遇到的问题 计算屏幕的高度  &amp;lt;script&amp;gt;  data(){     return {       culWidth:0     } }      beforeMount() {         var h = document.documentElement.clientHeight || document.body.clientHeight;         th">
+<meta name="twitter:title" content="厚朴酚">
+<meta name="twitter:description" content="学习笔记">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/10/23/vue/">
+  <link rel="canonical" href="http://yoursite.com/page/5/">
 
 
 
@@ -136,7 +134,7 @@
   };
 </script>
 
-  <title>记录vue开发遇到的问题 | 厚朴酚</title>
+  <title>厚朴酚</title>
   
 
 
@@ -183,7 +181,8 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail">
+  <div class="container sidebar-position-left 
+  page-home">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -284,9 +283,9 @@
           
           <div id="content" class="content">
             
-
-  <div id="posts" class="posts-expand">
+  <section id="posts" class="posts-expand">
     
+      
 
   
 
@@ -301,7 +300,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/23/vue/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/23/hello-world/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="厚朴酚">
@@ -318,7 +317,11 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">记录vue开发遇到的问题
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/23/hello-world/" itemprop="url">
+                  开篇:ES6环境搭建
+                </a>
               
             
           </h1>
@@ -343,24 +346,12 @@
                 
               
 
-              <time title="创建时间：2018-10-23 15:44:54" itemprop="dateCreated datePublished" datetime="2018-10-23T15:44:54+08:00">2018-10-23</time>
+              <time title="创建时间：2018-10-23 15:44:54 / 修改时间：17:08:13" itemprop="dateCreated datePublished" datetime="2018-10-23T15:44:54+08:00">2018-10-23</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-11-15 11:50:35" itemprop="dateModified" datetime="2018-11-15T11:50:35+08:00">2018-11-15</time>
               
             
           </span>
@@ -377,7 +368,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/vue/" itemprop="url" rel="index"><span itemprop="name">vue</span></a></span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/设计模式/" itemprop="url" rel="index"><span itemprop="name">设计模式</span></a></span>
 
                 
                 
@@ -411,67 +402,73 @@
       
 
       
-        <h3 id="记录vue开发遇到的问题"><a href="#记录vue开发遇到的问题" class="headerlink" title="记录vue开发遇到的问题"></a>记录vue开发遇到的问题</h3><ul>
-<li>计算屏幕的高度</li>
-</ul>
-<pre><code>&lt;script&gt;
- data(){
-    return {
-      culWidth:0
-    }
-}    
- beforeMount() {
-        var h = document.documentElement.clientHeight || document.body.clientHeight;
-        this.curHeight =h - 60 +&apos;px&apos;; //减去页面上固定高度height
-        console.log(this.curHeight)
+        
+          
+            <p>  为了更好的利用ES6语法来学习Javascript设计模式,我们通过webpack来搭建一个合适ES6运行的环境.</p>
+<h2 id="搭建开发环境"><a href="#搭建开发环境" class="headerlink" title="搭建开发环境"></a>搭建开发环境</h2><h3 id="1-目录结构"><a href="#1-目录结构" class="headerlink" title="1. 目录结构"></a>1. 目录结构</h3><p>–</p>
+<pre><code>dist    //生成的bundle.js文件
+
+node_modules //依赖模块
+
+src //业务代码
+
+index.html //前端页面展示
+
+//...其余配置
+</code></pre><h3 id="2-package-json"><a href="#2-package-json" class="headerlink" title="2. package.json"></a>2. package.json</h3><p>  `</p>
+<pre><code>{    &quot;name&quot;: &quot;design-pattern-test&quot;,
+
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;description&quot;: &quot;&quot;,
+  &quot;main&quot;: &quot;index.js&quot;,
+  &quot;scripts&quot;: {
+&quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;,
+&quot;dev&quot;: &quot;webpack-dev-server --config ./webpack.config.js --mode development&quot;
+  },
+  &quot;keywords&quot;: [],
+  &quot;author&quot;: &quot;&quot;,
+  &quot;license&quot;: &quot;ISC&quot;,
+  &quot;devDependencies&quot;: {
+&quot;babel-core&quot;: &quot;^6.26.0&quot;,
+&quot;babel-loader&quot;: &quot;^7.1.2&quot;,
+&quot;babel-polyfill&quot;: &quot;^6.26.0&quot;,
+&quot;babel-preset-es2015&quot;: &quot;^6.24.1&quot;,
+&quot;babel-preset-latest&quot;: &quot;^6.24.1&quot;,
+&quot;html-webpack-plugin&quot;: &quot;^3.2.0&quot;,
+&quot;webpack&quot;: &quot;^4.20.2&quot;,
+&quot;webpack-cli&quot;: &quot;^3.1.2&quot;,
+&quot;webpack-dev-server&quot;: &quot;^3.1.9&quot;
+</code></pre><p>  }<br>}</p>
+<p>`</p>
+<h3 id="3-webpack-config-js"><a href="#3-webpack-config-js" class="headerlink" title="3 webpack.config.js"></a>3 webpack.config.js</h3><pre><code>const path = require(&apos;path&apos;);
+const HtmlWebpackPlugin = require(&apos;html-webpack-plugin&apos;)
+module.exports = {
+  entry: &apos;./src/index.js&apos;,
+  output: {
+  path: path.resolve(__dirname, &apos;dist&apos;),
+filename: &apos;bundle.js&apos;
+  },
+  module:{
+rules:[{
+test:/\.js?$/,
+exclude:/(node_modules)/,
+loader:&quot;babel-loader&quot;
+}]
+  },
+  plugins:[
+  new HtmlWebpackPlugin({
+  template:&apos;./index.html&apos;
+  })
+  ],
+  devServer:{
+  contentBase:path.join(__dirname,&apos;./dist&apos;),
+  open:true,
+  port:9000
   }
-&lt;/script&gt;
-</code></pre><ul>
-<li>轮番发请求</li>
-</ul>
-<p>平时需要每经过多少秒就向后台请求数据</p>
-<ol>
-<li><p>解决方式: 尝试递归, 成功回调设置间隔时间再次发请求</p>
-<pre><code>getData(){
- let self = this
- let axiosURL= &apos;请求地址&apos;
- self.axios(axiosURL, params).then(res =&gt; {
- if (res.data.status) {
-    console.log(&quot;请求成功&quot;)
-    setTimeout(()=&gt;{
-        self.getData()
-    },5000)
-    } else {
-        console.log(&quot;请求失败&quot;)
-        return
-    }    
-})     
-}
-</code></pre></li>
-</ol>
-<ul>
-<li>并发请求</li>
-</ul>
-<p>有时候我们需要在一个方法里面进行多个请求</p>
-<pre><code>created(){
-
-      this.$axios.all([this.getBanner(), this.getDesign()])
-        .then(this.$axios.spread(function (a, b) {
-          // 两个请求现在都执行完成
-          console.log(b);
-          console.log(a);
-        }));    
-    },
-    methods: {
-      getBanner() {
-        return this.$axios.get(&apos;Api/getBanner&apos;);
-      },
-      getDesign() {
-        return this.$axios.get(&apos;Index/design&apos;);
-      }
-    }
-</code></pre><p>axios.all([]) 返回的结果是一个数组，使用 axios.spread 可将数组 [res1,res2] 展开为 res1, res2</p>
-
+};
+</code></pre>
+          
+        
       
     </div>
 
@@ -485,85 +482,22 @@
     
     <div>
       
-        <div>
-    
-        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-heart"></i>感谢阅读-------------</div>
-    
-</div>
-
-
-      
     </div>
 
-    
-      <div>
-        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
-  <div>希望您也有收获,我们一起成长!</div>
-  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
-    <span>打赏</span>
-  </button>
-  <div id="QR" style="display: none;">
-
-    
-      <div id="wechat" style="display: inline-block">
-        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="厚朴酚 微信支付">
-        <p>微信支付</p>
-      </div>
-    
-
-    
-      <div id="alipay" style="display: inline-block">
-        <img id="alipay_qr" src="/images/alipay.jpg" alt="厚朴酚 支付宝">
-        <p>支付宝</p>
-      </div>
-    
-
-    
-
-  </div>
-</div>
-
-      </div>
     
 
     
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/导航/" rel="tag"># 导航</a>
-          
-        </div>
+
+      
+
       
 
       
       
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2018/10/23/hello-world/" rel="next" title="开篇:ES6环境搭建">
-                <i class="fa fa-chevron-left"></i> 开篇:ES6环境搭建
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/10/24/javascript设计模式之工厂模式/" rel="prev" title="javascript设计模式之工厂模式">
-                javascript设计模式之工厂模式 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
+        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -573,15 +507,18 @@
   </article>
 
 
-  </div>
+    
+  </section>
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span>
+  </nav>
+
 
 
           </div>
           
-
-  
-
-
 
         </div>
         
@@ -602,17 +539,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -750,22 +678,6 @@
       </section>
 
       
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#记录vue开发遇到的问题"><span class="nav-number">1.</span> <span class="nav-text">记录vue开发遇到的问题</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
 
       
 
@@ -902,10 +814,6 @@
 
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.2"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=6.4.2"></script>
-
-
 
   
 

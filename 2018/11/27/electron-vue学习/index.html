@@ -108,25 +108,25 @@
 
 
 
-  <meta name="description" content="记录vue开发遇到的问题 计算屏幕的高度  &amp;lt;script&amp;gt;  data(){     return {       culWidth:0     } }      beforeMount() {         var h = document.documentElement.clientHeight || document.body.clientHeight;         th">
-<meta name="keywords" content="导航">
+  <meta name="description" content="electron-vue学习隐藏顶部菜单在创建窗体完成的时候的时候设置 mainWindow.setMenu(null) 去掉顶部导航 去掉关闭按钮 最大化最小化按钮 在创建BrowserWindow的时候设置frame的属性未false">
+<meta name="keywords" content="导航 - electron">
 <meta property="og:type" content="article">
-<meta property="og:title" content="记录vue开发遇到的问题">
-<meta property="og:url" content="http://yoursite.com/2018/10/23/vue/index.html">
+<meta property="og:title" content="electron-vue学习">
+<meta property="og:url" content="http://yoursite.com/2018/11/27/electron-vue学习/index.html">
 <meta property="og:site_name" content="厚朴酚">
-<meta property="og:description" content="记录vue开发遇到的问题 计算屏幕的高度  &amp;lt;script&amp;gt;  data(){     return {       culWidth:0     } }      beforeMount() {         var h = document.documentElement.clientHeight || document.body.clientHeight;         th">
+<meta property="og:description" content="electron-vue学习隐藏顶部菜单在创建窗体完成的时候的时候设置 mainWindow.setMenu(null) 去掉顶部导航 去掉关闭按钮 最大化最小化按钮 在创建BrowserWindow的时候设置frame的属性未false">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-11-15T03:50:35.115Z">
+<meta property="og:updated_time" content="2018-11-27T07:26:22.852Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="记录vue开发遇到的问题">
-<meta name="twitter:description" content="记录vue开发遇到的问题 计算屏幕的高度  &amp;lt;script&amp;gt;  data(){     return {       culWidth:0     } }      beforeMount() {         var h = document.documentElement.clientHeight || document.body.clientHeight;         th">
+<meta name="twitter:title" content="electron-vue学习">
+<meta name="twitter:description" content="electron-vue学习隐藏顶部菜单在创建窗体完成的时候的时候设置 mainWindow.setMenu(null) 去掉顶部导航 去掉关闭按钮 最大化最小化按钮 在创建BrowserWindow的时候设置frame的属性未false">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/10/23/vue/">
+  <link rel="canonical" href="http://yoursite.com/2018/11/27/electron-vue学习/">
 
 
 
@@ -136,7 +136,7 @@
   };
 </script>
 
-  <title>记录vue开发遇到的问题 | 厚朴酚</title>
+  <title>electron-vue学习 | 厚朴酚</title>
   
 
 
@@ -301,7 +301,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/23/vue/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/27/electron-vue学习/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="厚朴酚">
@@ -318,7 +318,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">记录vue开发遇到的问题
+          <h1 class="post-title" itemprop="name headline">electron-vue学习
               
             
           </h1>
@@ -343,24 +343,12 @@
                 
               
 
-              <time title="创建时间：2018-10-23 15:44:54" itemprop="dateCreated datePublished" datetime="2018-10-23T15:44:54+08:00">2018-10-23</time>
+              <time title="创建时间：2018-11-27 15:22:45 / 修改时间：15:26:22" itemprop="dateCreated datePublished" datetime="2018-11-27T15:22:45+08:00">2018-11-27</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-11-15 11:50:35" itemprop="dateModified" datetime="2018-11-15T11:50:35+08:00">2018-11-15</time>
               
             
           </span>
@@ -377,7 +365,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/vue/" itemprop="url" rel="index"><span itemprop="name">vue</span></a></span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/electron/" itemprop="url" rel="index"><span itemprop="name">electron</span></a></span>
 
                 
                 
@@ -411,67 +399,11 @@
       
 
       
-        <h3 id="记录vue开发遇到的问题"><a href="#记录vue开发遇到的问题" class="headerlink" title="记录vue开发遇到的问题"></a>记录vue开发遇到的问题</h3><ul>
-<li>计算屏幕的高度</li>
-</ul>
-<pre><code>&lt;script&gt;
- data(){
-    return {
-      culWidth:0
-    }
-}    
- beforeMount() {
-        var h = document.documentElement.clientHeight || document.body.clientHeight;
-        this.curHeight =h - 60 +&apos;px&apos;; //减去页面上固定高度height
-        console.log(this.curHeight)
-  }
-&lt;/script&gt;
-</code></pre><ul>
-<li>轮番发请求</li>
-</ul>
-<p>平时需要每经过多少秒就向后台请求数据</p>
-<ol>
-<li><p>解决方式: 尝试递归, 成功回调设置间隔时间再次发请求</p>
-<pre><code>getData(){
- let self = this
- let axiosURL= &apos;请求地址&apos;
- self.axios(axiosURL, params).then(res =&gt; {
- if (res.data.status) {
-    console.log(&quot;请求成功&quot;)
-    setTimeout(()=&gt;{
-        self.getData()
-    },5000)
-    } else {
-        console.log(&quot;请求失败&quot;)
-        return
-    }    
-})     
-}
-</code></pre></li>
-</ol>
-<ul>
-<li>并发请求</li>
-</ul>
-<p>有时候我们需要在一个方法里面进行多个请求</p>
-<pre><code>created(){
-
-      this.$axios.all([this.getBanner(), this.getDesign()])
-        .then(this.$axios.spread(function (a, b) {
-          // 两个请求现在都执行完成
-          console.log(b);
-          console.log(a);
-        }));    
-    },
-    methods: {
-      getBanner() {
-        return this.$axios.get(&apos;Api/getBanner&apos;);
-      },
-      getDesign() {
-        return this.$axios.get(&apos;Index/design&apos;);
-      }
-    }
-</code></pre><p>axios.all([]) 返回的结果是一个数组，使用 axios.spread 可将数组 [res1,res2] 展开为 res1, res2</p>
-
+        <h3 id="electron-vue学习"><a href="#electron-vue学习" class="headerlink" title="electron-vue学习"></a>electron-vue学习</h3><h4 id="隐藏顶部菜单"><a href="#隐藏顶部菜单" class="headerlink" title="隐藏顶部菜单"></a>隐藏顶部菜单</h4><p>在创建窗体完成的时候的时候设置</p>
+<pre><code>mainWindow.setMenu(null)
+</code></pre><p>去掉顶部导航 去掉关闭按钮 最大化最小化按钮</p>
+<pre><code>在创建BrowserWindow的时候设置frame的属性未false
+</code></pre>
       
     </div>
 
@@ -532,7 +464,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/导航/" rel="tag"># 导航</a>
+            <a href="/tags/导航-electron/" rel="tag"># 导航 - electron</a>
           
         </div>
       
@@ -545,8 +477,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/10/23/hello-world/" rel="next" title="开篇:ES6环境搭建">
-                <i class="fa fa-chevron-left"></i> 开篇:ES6环境搭建
+              <a href="/2018/11/26/Nedb数据库的使用/" rel="next" title="Nedb数据库的使用">
+                <i class="fa fa-chevron-left"></i> Nedb数据库的使用
               </a>
             
           </div>
@@ -554,10 +486,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/10/24/javascript设计模式之工厂模式/" rel="prev" title="javascript设计模式之工厂模式">
-                javascript设计模式之工厂模式 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -759,7 +687,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#记录vue开发遇到的问题"><span class="nav-number">1.</span> <span class="nav-text">记录vue开发遇到的问题</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#electron-vue学习"><span class="nav-number">1.</span> <span class="nav-text">electron-vue学习</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#隐藏顶部菜单"><span class="nav-number">1.1.</span> <span class="nav-text">隐藏顶部菜单</span></a></li></ol></li></ol></div>
             
 
           </div>
