@@ -108,18 +108,18 @@
 
 
 
-  <meta name="description" content="electron-vue学习隐藏顶部菜单在创建窗体完成的时候的时候设置 mainWindow.setMenu(null) 去掉顶部导航 去掉关闭按钮 最大化最小化按钮 在创建BrowserWindow的时候设置frame的属性未false">
+  <meta name="description" content="electron-vue学习隐藏顶部菜单在创建窗体完成的时候的时候设置 mainWindow.setMenu(null) 去掉顶部导航 去掉关闭按钮 最大化最小化按钮 在创建BrowserWindow的时候设置frame的属性未false electron中使用nedb数据库使用 electron 的一大好处是可以访问用户的文件系统。这使你可以读取和写入本地系统上的文件。为了避免 Chromium">
 <meta name="keywords" content="导航 - electron">
 <meta property="og:type" content="article">
 <meta property="og:title" content="electron-vue学习">
 <meta property="og:url" content="http://yoursite.com/2018/11/27/electron-vue学习/index.html">
 <meta property="og:site_name" content="厚朴酚">
-<meta property="og:description" content="electron-vue学习隐藏顶部菜单在创建窗体完成的时候的时候设置 mainWindow.setMenu(null) 去掉顶部导航 去掉关闭按钮 最大化最小化按钮 在创建BrowserWindow的时候设置frame的属性未false">
+<meta property="og:description" content="electron-vue学习隐藏顶部菜单在创建窗体完成的时候的时候设置 mainWindow.setMenu(null) 去掉顶部导航 去掉关闭按钮 最大化最小化按钮 在创建BrowserWindow的时候设置frame的属性未false electron中使用nedb数据库使用 electron 的一大好处是可以访问用户的文件系统。这使你可以读取和写入本地系统上的文件。为了避免 Chromium">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-11-27T07:26:22.852Z">
+<meta property="og:updated_time" content="2018-11-28T03:44:32.804Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="electron-vue学习">
-<meta name="twitter:description" content="electron-vue学习隐藏顶部菜单在创建窗体完成的时候的时候设置 mainWindow.setMenu(null) 去掉顶部导航 去掉关闭按钮 最大化最小化按钮 在创建BrowserWindow的时候设置frame的属性未false">
+<meta name="twitter:description" content="electron-vue学习隐藏顶部菜单在创建窗体完成的时候的时候设置 mainWindow.setMenu(null) 去掉顶部导航 去掉关闭按钮 最大化最小化按钮 在创建BrowserWindow的时候设置frame的属性未false electron中使用nedb数据库使用 electron 的一大好处是可以访问用户的文件系统。这使你可以读取和写入本地系统上的文件。为了避免 Chromium">
 
 
 
@@ -343,12 +343,24 @@
                 
               
 
-              <time title="创建时间：2018-11-27 15:22:45 / 修改时间：15:26:22" itemprop="dateCreated datePublished" datetime="2018-11-27T15:22:45+08:00">2018-11-27</time>
+              <time title="创建时间：2018-11-27 15:22:45" itemprop="dateCreated datePublished" datetime="2018-11-27T15:22:45+08:00">2018-11-27</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-11-28 11:44:32" itemprop="dateModified" datetime="2018-11-28T11:44:32+08:00">2018-11-28</time>
               
             
           </span>
@@ -403,6 +415,42 @@
 <pre><code>mainWindow.setMenu(null)
 </code></pre><p>去掉顶部导航 去掉关闭按钮 最大化最小化按钮</p>
 <pre><code>在创建BrowserWindow的时候设置frame的属性未false
+</code></pre><h4 id="electron中使用nedb数据库"><a href="#electron中使用nedb数据库" class="headerlink" title="electron中使用nedb数据库"></a>electron中使用nedb数据库</h4><p>使用 electron 的一大好处是可以访问用户的文件系统。这使你可以读取和写入本地系统上的文件。为了避免 Chromium 的限制以及对应用程序内部文件的改写，请确保使用 electron 的 API，特别是 app.getPath(name) 函数。这个帮助函数可以使你获得指向系统目录的文件路径，如用户的桌面、系统临时文件等等.</p>
+<h5 id="使用案例"><a href="#使用案例" class="headerlink" title="使用案例"></a>使用案例</h5><pre><code>yarn add nedb # 或 npm install nedb --save
+</code></pre><p>src/renderer/datastore.js</p>
+<p>我们设置 NeDB 并将其指向我们的 userData 目录。这个空间专门为我们的应用程序所保留，所以，我们可以确信，其他程序 或 与其他用户的交互不应该篡改这个文件空间。至此，我们可以在 renderer 进程中导入 datastore.js 并使用它。</p>
+<pre><code>import Datastore from &apos;nedb&apos;
+import path from &apos;path&apos;
+import { remote } from &apos;electron&apos;
+
+export default new Datastore({
+  autoload: true,
+  filename: path.join(remote.app.getPath(&apos;userData&apos;), &apos;/data.db&apos;)
+})
+</code></pre><p>app.getPath你可以通过名称请求以下的路径:</p>
+<pre><code>home 用户的 home 文件夹（主目录）
+appData 当前用户的应用数据文件夹，默认对应：
+
+%APPDATA% Windows 中
+$XDG_CONFIG_HOME or ~/.config Linux 中
+~/Library/Application Support macOS 中
+userData 储存你应用程序设置文件的文件夹，默认是 appData 文件夹附加应用的名称
+temp 临时文件夹
+exe当前的可执行文件
+module The libchromiumcontent 库
+desktop 当前用户的桌面文件夹
+documents 用户文档目录的路径
+downloads 用户下载目录的路径
+music 用户音乐目录的路径
+pictures 用户图片目录的路径
+videos 用户视频目录的路径
+logs应用程序的日志文件夹
+pepperFlashSystemPlugin Pepper Flash 插件的系统版本的完成路径。
+</code></pre><p>src/renderer/main.js</p>
+<p>为了更进一步，我们可以将数据存储导入到 src/renderer/main.js 里，并将其附加到 Vue 的 原型 (prototype) 上。通过在所有组件文件中使用 this.$db，我们现在可以访问数据存储的 API。</p>
+<pre><code>import db from &apos;./datastore&apos;
+</code></pre><p>/<em> 其它代码 </em>/</p>
+<pre><code>Vue.prototype.$db = db
 </code></pre>
       
     </div>
@@ -687,7 +735,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#electron-vue学习"><span class="nav-number">1.</span> <span class="nav-text">electron-vue学习</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#隐藏顶部菜单"><span class="nav-number">1.1.</span> <span class="nav-text">隐藏顶部菜单</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#electron-vue学习"><span class="nav-number">1.</span> <span class="nav-text">electron-vue学习</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#隐藏顶部菜单"><span class="nav-number">1.1.</span> <span class="nav-text">隐藏顶部菜单</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#electron中使用nedb数据库"><span class="nav-number">1.2.</span> <span class="nav-text">electron中使用nedb数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#使用案例"><span class="nav-number">1.2.1.</span> <span class="nav-text">使用案例</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
