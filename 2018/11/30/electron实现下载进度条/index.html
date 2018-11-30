@@ -108,25 +108,25 @@
 
 
 
-  <meta name="description" content="centos7下docker安装sudo yum install yum-utils device-mapper-persistent-data lvm2   sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo $sudo yum install docker-ce">
-<meta name="keywords" content="导航 - docker">
+  <meta name="description" content="electron下载进度条通过 Electron 中 will-download 事件  mainWindow.webContents.session.on(&amp;apos;will-download&amp;apos;, (e, item) =&amp;gt; {     //获取文件的总大小    const totalBytes = item.getTotalBytes();      //设置文件的保存路径，">
+<meta name="keywords" content="导航 - electron">
 <meta property="og:type" content="article">
-<meta property="og:title" content="docker环境安装">
-<meta property="og:url" content="http://yoursite.com/2018/11/19/docker环境安装/index.html">
+<meta property="og:title" content="electron实现下载进度条">
+<meta property="og:url" content="http://yoursite.com/2018/11/30/electron实现下载进度条/index.html">
 <meta property="og:site_name" content="厚朴酚">
-<meta property="og:description" content="centos7下docker安装sudo yum install yum-utils device-mapper-persistent-data lvm2   sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo $sudo yum install docker-ce">
+<meta property="og:description" content="electron下载进度条通过 Electron 中 will-download 事件  mainWindow.webContents.session.on(&amp;apos;will-download&amp;apos;, (e, item) =&amp;gt; {     //获取文件的总大小    const totalBytes = item.getTotalBytes();      //设置文件的保存路径，">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-11-19T12:42:40.061Z">
+<meta property="og:updated_time" content="2018-11-30T06:10:34.188Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="docker环境安装">
-<meta name="twitter:description" content="centos7下docker安装sudo yum install yum-utils device-mapper-persistent-data lvm2   sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo $sudo yum install docker-ce">
+<meta name="twitter:title" content="electron实现下载进度条">
+<meta name="twitter:description" content="electron下载进度条通过 Electron 中 will-download 事件  mainWindow.webContents.session.on(&amp;apos;will-download&amp;apos;, (e, item) =&amp;gt; {     //获取文件的总大小    const totalBytes = item.getTotalBytes();      //设置文件的保存路径，">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/11/19/docker环境安装/">
+  <link rel="canonical" href="http://yoursite.com/2018/11/30/electron实现下载进度条/">
 
 
 
@@ -136,7 +136,7 @@
   };
 </script>
 
-  <title>docker环境安装 | 厚朴酚</title>
+  <title>electron实现下载进度条 | 厚朴酚</title>
   
 
 
@@ -301,7 +301,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/19/docker环境安装/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/30/electron实现下载进度条/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="厚朴酚">
@@ -318,7 +318,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">docker环境安装
+          <h1 class="post-title" itemprop="name headline">electron实现下载进度条
               
             
           </h1>
@@ -343,7 +343,7 @@
                 
               
 
-              <time title="创建时间：2018-11-19 20:30:26 / 修改时间：20:42:40" itemprop="dateCreated datePublished" datetime="2018-11-19T20:30:26+08:00">2018-11-19</time>
+              <time title="创建时间：2018-11-30 14:07:54 / 修改时间：14:10:34" itemprop="dateCreated datePublished" datetime="2018-11-30T14:07:54+08:00">2018-11-30</time>
             
 
             
@@ -365,7 +365,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/docker/" itemprop="url" rel="index"><span itemprop="name">docker</span></a></span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/electron/" itemprop="url" rel="index"><span itemprop="name">electron</span></a></span>
 
                 
                 
@@ -399,34 +399,39 @@
       
 
       
-        <h3 id="centos7下docker安装"><a href="#centos7下docker安装" class="headerlink" title="centos7下docker安装"></a>centos7下docker安装</h3><pre><code>sudo yum install yum-utils device-mapper-persistent-data lvm2
+        <h3 id="electron下载进度条"><a href="#electron下载进度条" class="headerlink" title="electron下载进度条"></a>electron下载进度条</h3><pre><code>通过 Electron 中 will-download 事件
 
- sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
-$sudo yum install docker-ce
+mainWindow.webContents.session.on(&apos;will-download&apos;, (e, item) =&gt; {
+    //获取文件的总大小
+   const totalBytes = item.getTotalBytes();
 
- sudo systemctl enable docker
- sudo systemctl start docker
-</code></pre><ul>
-<li><p>启动</p>
-<pre><code>sudo systemctl start docker
-</code></pre></li>
-<li><p>开机自启动</p>
-<pre><code>sudo systemctl enable docker
-</code></pre></li>
-<li><p>查看 Docker 版本的命令</p>
-<pre><code>docker version
-</code></pre></li>
-<li><p>配置国内镜像源</p>
-</li>
-</ul>
-<p>通过修改 /etc/docker/daemon.json ( 如果文件不存在，你可以直接创建它 ) 这个 Docker 服务的配置文件达到效果。</p>
-<pre><code>{
-    &quot;registry-mirrors&quot;: [
-        &quot;https://registry.docker-cn.com&quot;
-    ]
-}
-</code></pre><p>重新启动 docker daemon 来让配置生效</p>
-<pre><code>sudo systemctl restart docker
+    //设置文件的保存路径，此时默认弹出的 save dialog 将被覆盖
+   const filePath = path.join(app.getPath(&apos;downloads&apos;), item.getFilename());
+   item.setSavePath(filePath);
+
+    //监听下载过程，计算并设置进度条进度
+   item.on(&apos;updated&apos;, () =&gt; {
+       mainWindow.setProgressBar(item.getReceivedBytes() / totalBytes);
+   });
+
+    //监听下载结束事件
+   item.on(&apos;done&apos;, (e, state) =&gt; {
+           //如果窗口还在的话，去掉进度条
+       if (!mainWindow.isDestroyed()) {
+           mainWindow.setProgressBar(-1);
+       }
+
+        //下载被取消或中断了
+       if (state === &apos;interrupted&apos;) {
+           electron.dialog.showErrorBox(&apos;下载失败&apos;, `文件 ${item.getFilename()} 因为某些原因被中断下载`);
+       }
+
+        //下载完成，让 dock 上的下载目录Q弹一下下
+       if (state === &apos;completed&apos;) {
+           app.dock.downloadFinished(filePath);
+       }
+   });
+});
 </code></pre>
       
     </div>
@@ -488,7 +493,7 @@ $sudo yum install docker-ce
       
         <div class="post-tags">
           
-            <a href="/tags/导航-docker/" rel="tag"># 导航 - docker</a>
+            <a href="/tags/导航-electron/" rel="tag"># 导航 - electron</a>
           
         </div>
       
@@ -501,8 +506,8 @@ $sudo yum install docker-ce
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/11/19/javaScript设计模式之模板方法/" rel="next" title="javaScript设计模式之模板方法">
-                <i class="fa fa-chevron-left"></i> javaScript设计模式之模板方法
+              <a href="/2018/11/30/基础算法/" rel="next" title="基础算法">
+                <i class="fa fa-chevron-left"></i> 基础算法
               </a>
             
           </div>
@@ -510,10 +515,6 @@ $sudo yum install docker-ce
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/11/20/JavaScript正则表达式/" rel="prev" title="JavaScript正则表达式">
-                JavaScript正则表达式 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -717,7 +718,7 @@ $sudo yum install docker-ce
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#centos7下docker安装"><span class="nav-number">1.</span> <span class="nav-text">centos7下docker安装</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#electron下载进度条"><span class="nav-number">1.</span> <span class="nav-text">electron下载进度条</span></a></li></ol></div>
             
 
           </div>
