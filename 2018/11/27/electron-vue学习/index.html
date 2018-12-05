@@ -116,7 +116,7 @@
 <meta property="og:site_name" content="厚朴酚">
 <meta property="og:description" content="electron-vue学习隐藏顶部菜单在创建窗体完成的时候的时候设置 mainWindow.setMenu(null) 去掉顶部导航 去掉关闭按钮 最大化最小化按钮 在创建BrowserWindow的时候设置frame的属性未false electron中使用nedb数据库使用 electron 的一大好处是可以访问用户的文件系统。这使你可以读取和写入本地系统上的文件。为了避免 Chromium">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-11-28T03:44:32.804Z">
+<meta property="og:updated_time" content="2018-12-05T05:02:31.697Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="electron-vue学习">
 <meta name="twitter:description" content="electron-vue学习隐藏顶部菜单在创建窗体完成的时候的时候设置 mainWindow.setMenu(null) 去掉顶部导航 去掉关闭按钮 最大化最小化按钮 在创建BrowserWindow的时候设置frame的属性未false electron中使用nedb数据库使用 electron 的一大好处是可以访问用户的文件系统。这使你可以读取和写入本地系统上的文件。为了避免 Chromium">
@@ -360,7 +360,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2018-11-28 11:44:32" itemprop="dateModified" datetime="2018-11-28T11:44:32+08:00">2018-11-28</time>
+                <time title="修改时间：2018-12-05 13:02:31" itemprop="dateModified" datetime="2018-12-05T13:02:31+08:00">2018-12-05</time>
               
             
           </span>
@@ -451,6 +451,37 @@ pepperFlashSystemPlugin Pepper Flash 插件的系统版本的完成路径。
 <pre><code>import db from &apos;./datastore&apos;
 </code></pre><p>/<em> 其它代码 </em>/</p>
 <pre><code>Vue.prototype.$db = db
+</code></pre><h5 id="jsx"><a href="#jsx" class="headerlink" title="jsx"></a>jsx</h5><pre><code>npm install babel-plugin-syntax-jsx babel-plugin-transform-vue-jsx babel-helper-vue-jsx-merge-props babel-preset-env --save-dev
+
+&quot;renderer&quot;: {
+      &quot;presets&quot;: [
+        [&quot;env&quot;, {
+          &quot;modules&quot;: false
+        }],
+        &quot;stage-0&quot;
+      ],
+      &quot;plugins&quot;: [&quot;transform-vue-jsx&quot;]
+    },
+</code></pre><h5 id="弹出框"><a href="#弹出框" class="headerlink" title="弹出框"></a>弹出框</h5><p>在electron-vue项目中由于使用组件UI的弹出框会有警告,所以采用原生的dialog的API来实现</p>
+<pre><code>this.$electron.remote.dialog.showMessageBox({
+                            type:&apos;info&apos;,
+                            title:&apos;删除节点操作&apos;,
+                            message:`您确认要删除节点${data.title}吗?`,
+                            buttons:[&apos;ok&apos;,&apos;cancel&apos;]
+                        },(index)=&gt;{
+                            if (index == 0){
+                                this.remove(root,node,data)
+                                this.$Message.success({
+                                     content: &apos;删除成功&apos;,
+                                     duration: 3
+                                })
+                            } else {
+                                this.$Message.error({
+                                     content: &apos;删除失败&apos;,
+                                     duration: 3
+                                })
+                            }
+                        })
 </code></pre>
       
     </div>
@@ -609,7 +640,7 @@ pepperFlashSystemPlugin Pepper Flash 插件的系统版本的完成路径。
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">43</span>
+                    <span class="site-state-item-count">45</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -644,7 +675,9 @@ pepperFlashSystemPlugin Pepper Flash 插件的系统版本的完成路径。
                     
                       
                     
-                    <span class="site-state-item-count">11</span>
+                      
+                    
+                    <span class="site-state-item-count">12</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -705,7 +738,9 @@ pepperFlashSystemPlugin Pepper Flash 插件的系统版本的完成路径。
                     
                       
                     
-                    <span class="site-state-item-count">24</span>
+                      
+                    
+                    <span class="site-state-item-count">25</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -741,7 +776,7 @@ pepperFlashSystemPlugin Pepper Flash 插件的系统版本的完成路径。
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#electron-vue学习"><span class="nav-number">1.</span> <span class="nav-text">electron-vue学习</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#隐藏顶部菜单"><span class="nav-number">1.1.</span> <span class="nav-text">隐藏顶部菜单</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#electron中使用nedb数据库"><span class="nav-number">1.2.</span> <span class="nav-text">electron中使用nedb数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#使用案例"><span class="nav-number">1.2.1.</span> <span class="nav-text">使用案例</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#electron-vue学习"><span class="nav-number">1.</span> <span class="nav-text">electron-vue学习</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#隐藏顶部菜单"><span class="nav-number">1.1.</span> <span class="nav-text">隐藏顶部菜单</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#electron中使用nedb数据库"><span class="nav-number">1.2.</span> <span class="nav-text">electron中使用nedb数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#使用案例"><span class="nav-number">1.2.1.</span> <span class="nav-text">使用案例</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#jsx"><span class="nav-number">1.2.2.</span> <span class="nav-text">jsx</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#弹出框"><span class="nav-number">1.2.3.</span> <span class="nav-text">弹出框</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
