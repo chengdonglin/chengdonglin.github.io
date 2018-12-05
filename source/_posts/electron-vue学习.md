@@ -72,3 +72,45 @@ src/renderer/main.js
 /* 其它代码 */
 
 	Vue.prototype.$db = db
+
+
+##### jsx
+
+	npm install babel-plugin-syntax-jsx babel-plugin-transform-vue-jsx babel-helper-vue-jsx-merge-props babel-preset-env --save-dev
+
+	"renderer": {
+	      "presets": [
+	        ["env", {
+	          "modules": false
+	        }],
+	        "stage-0"
+	      ],
+	      "plugins": ["transform-vue-jsx"]
+	    },
+
+
+##### 弹出框
+
+在electron-vue项目中由于使用组件UI的弹出框会有警告,所以采用原生的dialog的API来实现
+
+	this.$electron.remote.dialog.showMessageBox({
+	                            type:'info',
+	                            title:'删除节点操作',
+	                            message:`您确认要删除节点${data.title}吗?`,
+	                            buttons:['ok','cancel']
+	                        },(index)=>{
+	                            if (index == 0){
+	                                this.remove(root,node,data)
+	                                this.$Message.success({
+	                                     content: '删除成功',
+	                                     duration: 3
+	                                })
+	                            } else {
+	                                this.$Message.error({
+	                                     content: '删除失败',
+	                                     duration: 3
+	                                })
+	                            }
+	                        })
+
+
