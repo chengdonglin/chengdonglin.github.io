@@ -300,6 +300,199 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/07/web应用启动外部exe程序/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="厚朴酚">
+      <meta itemprop="description" content="学习笔记">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="厚朴酚">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/07/web应用启动外部exe程序/" itemprop="url">
+                  web应用启动外部exe程序
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-12-07 10:21:14 / 修改时间：10:30:13" itemprop="dateCreated datePublished" datetime="2018-12-07T10:21:14+08:00">2018-12-07</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/electron/" itemprop="url" rel="index"><span itemprop="name">electron</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="web应用启动外部exe程序"><a href="#web应用启动外部exe程序" class="headerlink" title="web应用启动外部exe程序"></a>web应用启动外部exe程序</h3><p>有时候，需要在网页上去执行本地的一个EXE文件,但是采用js通常对大部分浏览器不支持,所以采用写注册表是一个比较好的解决方案</p>
+<h4 id="url-protocol方式"><a href="#url-protocol方式" class="headerlink" title="url protocol方式"></a>url protocol方式</h4><p>在网页上点击的时候，就会弹出QQ，或者迅雷，电驴的下载界面，用的就是这个原理.</p>
+<pre><code>Windows Registry Editor Version 5.00
+
+[HKEY_CLASSES_ROOT\注册表名字]
+@=&quot;注册表名字 Protocol&quot;
+&quot;URL Protocol&quot;=&quot;&quot;
+
+[HKEY_CLASSES_ROOT\注册表名字\DefaultIcon]
+@=&quot;C:\\你的程序安装路径\\程序名字.exe&quot;
+
+[HKEY_CLASSES_ROOT\注册表名字\shell]
+@=&quot;&quot;
+
+[HKEY_CLASSES_ROOT\注册表名字\shell\open]
+@=&quot;&quot;
+
+[HKEY_CLASSES_ROOT\注册表名字\shell\open\command]
+@=&quot;\&quot;C:\\你的程序安装路径\\程序名字.exe\&quot; &quot;
+</code></pre><h4 id="html代码"><a href="#html代码" class="headerlink" title="html代码"></a>html代码</h4><pre><code>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt;
+&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
+  &lt;head&gt;
+      &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot; /&gt;
+  &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div&gt;
+            &lt;a href=&quot;刚才你写的注册表名称://&quot;&gt;
+            执行可执行文件
+            &lt;/a&gt;
+        &lt;/div&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+    
+
+    
+    <div>
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/05/vue中keep-alive组件的作用/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -3175,251 +3368,6 @@ export default function initMenu() {
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/21/electron文件上传以及断点下载/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="厚朴酚">
-      <meta itemprop="description" content="学习笔记">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="厚朴酚">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/21/electron文件上传以及断点下载/" itemprop="url">
-                  electron文件上传以及断点上传
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-11-21 15:40:53 / 修改时间：16:22:26" itemprop="dateCreated datePublished" datetime="2018-11-21T15:40:53+08:00">2018-11-21</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/electron/" itemprop="url" rel="index"><span itemprop="name">electron</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="electron文件上传以及断点上传"><a href="#electron文件上传以及断点上传" class="headerlink" title="electron文件上传以及断点上传"></a>electron文件上传以及断点上传</h3><p>感谢博文:<a href="https://www.cnblogs.com/leejay6567/p/9865373.html" target="_blank" rel="noopener">https://www.cnblogs.com/leejay6567/p/9865373.html</a></p>
-<p>在Electron中实现文件的上传以及断点续传。网上关于h5的上传下载的案例已经非常多，但是关于大文件的上传和续传的很少。</p>
-<p>首先上传方案，我们通过将大文件进行分片处理，将大文件切割成固定大小的分片。通过node的fs.createReadStream方法实现：</p>
-<pre><code>singleUpload function(file){
-    let path = file.path; //文件本地路径 
-    let stats = fs.statSync(path);//读取文件信息
-    let chunkSize = 3*1024*1024;//每片分块的大小3M
-    let size = stats.size;//文件大小
-    let pieces = Math.ceil(size / chunkSize);//总共的分片数  
-    function uploadPiece (i){ 
-        //计算每块的结束位置
-        let enddata = Math.min(size, (i + 1) * chunkSize);
-        let arr = [];
-       //创建一个readStream对象，根据文件起始位置和结束位置读取固定的分片
-       let readStream = fs.createReadStream(path, { start: i * chunkSize, end: enddata-1 });
-            //on data读取数据
-            readStream.on(&apos;data&apos;, (data)=&gt;{
-                arr.push(data)
-            }) 
-            //on end在该分片读取完成时触发
-            readStream.on(&apos;end&apos;, ()=&gt;{
-                //这里服务端只接受blob对象，需要把原始的数据流转成blob对象，这块为了配合后端才转
-                let blob = new Blob(arr)
-                //新建formdata数据对象
-                var formdata = new FormData();
-                let md5Val = md5(Buffer.concat(arr));
-                formdata.append(&quot;file&quot;, blob);
-                console.log(&apos;blob.size&apos;,blob.size)
-                formdata.append(&quot;md5&quot;, md5Val);
-                formdata.append(&quot;size&quot;, size + &apos;&apos;); // 数字30被转换成字符串&quot;30&quot;
-                formdata.append(&quot;chunk&quot;, i + &apos;&apos;);//第几个分片，从0开始
-                formdata.append(&quot;chunks&quot;, pieces + &apos;&apos;);//分片数
-                formdata.append(&quot;name&quot;, name);//文件名
-                post(formdata)//这里是伪代码，实现上传，开发者自己实现
-    }
-}
-</code></pre><p>首先读取文件的基本信息，如路径，大小进行分块，然后将每块上传，我们上传循环上传整个文件的分片，就循环调用uploadpiece方法。那么我们怎么实现断点续传呢？上面的代码中我们计算每块的md5值，这里计算每个md5值就是为了断点续传使用。我们每次上传文件前，我们会先调用预上传接口，预上传接口中，前端传入fileId，后端会将改文件已经上传的分块的md5数组传给前端，前端将该文件的分块的md5值和后端返回的md5值进行逐个对比，跳过已经上传的分块。这样就实现了大文件的上传和断点续传的问题。</p>
-<p>流程图方法:</p>
-<p><a href="https://img2018.cnblogs.com/blog/1400402/201810/1400402-20181028135505363-1547565923.png" target="_blank" rel="noopener">https://img2018.cnblogs.com/blog/1400402/201810/1400402-20181028135505363-1547565923.png</a></p>
-<h3 id="Electron实现文件的下载和断点续下载功能"><a href="#Electron实现文件的下载和断点续下载功能" class="headerlink" title="Electron实现文件的下载和断点续下载功能"></a>Electron实现文件的下载和断点续下载功能</h3><p>介绍在Electron中实现文件的下载和断点下载功能。这里下载的实现的方法较简单，采用流式下载的方案。<br>通过request库来实现下载。</p>
-<pre><code>downloadFile(fileInfo, downloadPath){
-    var received_bytes = 0;//已经接收到的集结
-    var total_bytes = item.fileInfo;//总字节
-    let path = this.downloadPath+&apos;/&apos;+fileInfo.name; //确定文件下载的本地位置
-    try{
-            let stats = fs.statSync(path);//如果文件已存在读取文件信息
-            if(total_bytes == stats.size){//如果文件已经存在并且已经下载按成则跳过该文件
-                return;
-            }
-            received_bytes = stats.size;
-      }catch (err){
-
-      }
-      let params ={           
-           &quot;method&quot;: &apos;GET&apos;,           
-           &quot;url&quot;: &apos;&apos;
-      }
-      if(received_bytes&gt;0){
-
-              params.headers[&apos;Range&apos;] = &apos;bytes=&apos;+received_bytes;
-        }
-
-      var req = request({
-           &quot;method&quot;: &apos;GET&apos;,
-           &quot;url&quot;: &apos;&apos;
-      });
-       var out = fs.createWriteStream(path);//创建文件写入
-       req.pipe(out);
-       req.on(&apos;response&apos;, ( data ) =&gt; { 
-            startTime = new Date().getTime();
-        });
-       //接收到文件流事件
-       req.on(&apos;data&apos;, (chunk) =&gt; {
-            received_bytes += chunk.length;
-       })
-      //文件接收结束
-       req.on(&apos;end&apos;, () =&gt; {
-            console.log(`file ${item.name} download complete`)
-            if(received_bytes &gt;= total_bytes){
-                this.dataset.splice(index, 1);
-            }
-        });
-}
-</code></pre><p>这里在每次开始接受字节流时，首先判断该文件是否存在，若存在计算该文件接受的字节流大小，放在header中 Range：bytes=&lt;文件的断点位置&gt;-，这样会继续断点的位置继续下载。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-    
-
-    
-    <div>
-      
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -3469,7 +3417,7 @@ export default function initMenu() {
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">45</span>
+                    <span class="site-state-item-count">46</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
