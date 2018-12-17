@@ -300,6 +300,426 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/22/微信小程序基础学习/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="厚朴酚">
+      <meta itemprop="description" content="学习笔记">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="厚朴酚">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/22/微信小程序基础学习/" itemprop="url">
+                  微信小程序基础学习
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-11-22 15:33:38 / 修改时间：16:50:37" itemprop="dateCreated datePublished" datetime="2018-11-22T15:33:38+08:00">2018-11-22</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="微信小程序基础学习"><a href="#微信小程序基础学习" class="headerlink" title="微信小程序基础学习"></a>微信小程序基础学习</h3><h4 id="自定义组件"><a href="#自定义组件" class="headerlink" title="自定义组件"></a>自定义组件</h4><ul>
+<li>新建components文件夹</li>
+<li>在components文件夹下面插件自定义组件的文件名的文件夹,然后创建组件</li>
+<li><p>在其他组件要进行调用此子组件:</p>
+<ol>
+<li><p>在父组件的json文件下面</p>
+<pre><code>{
+  &quot;navigationBarTitleText&quot;:&quot;父组件页面标题&quot;,
+
+  &quot;usingComponents&quot;: {
+    &quot;br&quot;: &quot;../../components/br/br&quot; ,//注册的子组件    
+    &quot;header&quot;: &quot;../../components/header/header&quot;//注册的子组件
+  }
+}
+</code></pre></li>
+</ol>
+</li>
+<li><p>备注: 特别需要注意的是路径</p>
+</li>
+</ul>
+<h4 id="父组件给子组件传值"><a href="#父组件给子组件传值" class="headerlink" title="父组件给子组件传值"></a>父组件给子组件传值</h4><ul>
+<li>父组件调用子组件的时候给子组件绑定属性(也就是定义字段)</li>
+<li><p>在子组件的js文件里面定义properties</p>
+<pre><code>properties: {
+    title: { // 属性名
+      type: String, // 类型（必填），目前接受的类型包括：String, Number, Boolean, Object, Array, null（表示任意类型）
+      value: &apos;&apos;, // 属性初始值（可选），如果未指定则会根据类型选择一个
+      observer: function(newVal, oldVal){} // 属性被改变时执行的函数（可选），也可以写成在methods段中定义的方法名字符串, 如：&apos;_propertyChange&apos;
+    },
+    name: String // 简化的定义方式
+  }
+</code></pre></li>
+<li><p>同时子组件可以定义slot来承载父组件调用的时候中间写wxml语言</p>
+</li>
+</ul>
+<h4 id="父组件调用子组件的方法"><a href="#父组件调用子组件的方法" class="headerlink" title="父组件调用子组件的方法"></a>父组件调用子组件的方法</h4><ol>
+<li>调用子组件的时候定义一个id</li>
+</ol>
+<pre><code>&lt;header id=&quot;header&quot;&gt;&lt;/header&gt;
+</code></pre><ol start="2">
+<li><p>父组件获取子组件的实例 </p>
+<pre><code>var header = this.selectComponent(&quot;#header&quot;)
+</code></pre></li>
+<li><p>header.方法名.  (实例.方法名)</p>
+<pre><code> 调用子组件里面的方法
+header.data.msg父组件里面直接获取子组件的数据
+</code></pre></li>
+</ol>
+<h4 id="子组件调用父组件的方法"><a href="#子组件调用父组件的方法" class="headerlink" title="子组件调用父组件的方法"></a>子组件调用父组件的方法</h4><ul>
+<li><p>父组件的方法</p>
+<pre><code>    run(){
+    console.log(&quot;我是父组件的方法&quot;)
+}
+</code></pre></li>
+</ul>
+<ul>
+<li><p>在footer子组件方法</p>
+<pre><code>&lt;Button bindtap=&quot;getParent&quot;&gt;触发父组件的run方法&lt;/button&gt;
+
+//methods
+
+1. this.triggerEvent(&apos;myevent&apos;, 数据, 参数）
+2. &lt;footer bindmyevent=&quot;run&quot; /&gt;
+
+getParent(){
+    this.triggerEvent(&apos;parent&apos;,&apos;子组件数据&apos;)
+}
+</code></pre></li>
+<li><p>在父组件的footer绑定</p>
+<pre><code>&lt;footer bingparent=&quot;run&quot;&gt;&lt;/footer&gt;
+</code></pre></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+    
+
+    
+    <div>
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/22/centos7安装golang以及配置vscode编辑器/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="厚朴酚">
+      <meta itemprop="description" content="学习笔记">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="厚朴酚">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/22/centos7安装golang以及配置vscode编辑器/" itemprop="url">
+                  centos7安装golang以及配置vscode编辑器
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-11-22 08:50:28 / 修改时间：09:06:22" itemprop="dateCreated datePublished" datetime="2018-11-22T08:50:28+08:00">2018-11-22</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/golang/" itemprop="url" rel="index"><span itemprop="name">golang</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="centos7安装golang以及配置vscode编辑器"><a href="#centos7安装golang以及配置vscode编辑器" class="headerlink" title="centos7安装golang以及配置vscode编辑器"></a>centos7安装golang以及配置vscode编辑器</h3><h4 id="centos7安装golang"><a href="#centos7安装golang" class="headerlink" title="centos7安装golang"></a>centos7安装golang</h4><ul>
+<li>下载tar包</li>
+</ul>
+<p>链接地址  <a href="https://studygolang.com/dl" target="_blank" rel="noopener">https://studygolang.com/dl</a></p>
+<ul>
+<li>解压至指定文件夹</li>
+</ul>
+<p>tar -zxvf &lt;包名&gt;</p>
+<ul>
+<li><p>解压完毕后在 /usr/local 目录下会有一个go文件夹</p>
+</li>
+<li><p>建立工作目录workspace,新项目将建立在src文件夹下</p>
+<pre><code>mkdir -p /usr/local/goproject
+cd /usr/local/goproject
+mkdir src pkg bin
+</code></pre></li>
+<li><p>设置环境变量</p>
+<pre><code>在跟目录   ls -a  找到.bashrc文件
+</code></pre></li>
+<li><p>在文件最后加入如下代码，不要有空行, 保存退出</p>
+<pre><code>export GOROOT=/usr/local/go
+export PATH=$GOROOT/bin:$PATH
+export GOPATH=/usr/local/goproject
+</code></pre></li>
+<li><p>刷新系统配置</p>
+<pre><code>source .bashrc
+</code></pre></li>
+<li><p>输入go就可以查看是否安装成功</p>
+</li>
+</ul>
+<h4 id="配置vscode编辑器"><a href="#配置vscode编辑器" class="headerlink" title="配置vscode编辑器"></a>配置vscode编辑器</h4><p>主要根据官网:<a href="https://code.visualstudio.com/docs/setup/linux" target="_blank" rel="noopener">https://code.visualstudio.com/docs/setup/linux</a></p>
+<ul>
+<li><p>注册源</p>
+<pre><code>sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
+sudo sh -c &apos;echo -e &quot;[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc&quot; &gt; /etc/yum.repos.d/vscode.repo&apos;
+</code></pre></li>
+</ul>
+<ul>
+<li><p>更新源并安装</p>
+<pre><code>yum check-update
+sudo yum install code
+</code></pre></li>
+</ul>
+<p>然后 在终端输入 code就可以启动了,然后可以安装各种插件助你提高开发效率.</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+    
+
+    
+    <div>
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/21/electron-vue主进程分离/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -2414,608 +2834,6 @@ coffee.init();
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/19/Table中render以及renderHeader的应用/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="厚朴酚">
-      <meta itemprop="description" content="学习笔记">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="厚朴酚">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/19/Table中render以及renderHeader的应用/" itemprop="url">
-                  Table中render以及renderHeader的应用
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-11-19 14:13:59" itemprop="dateCreated datePublished" datetime="2018-11-19T14:13:59+08:00">2018-11-19</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-11-20 09:55:51" itemprop="dateModified" datetime="2018-11-20T09:55:51+08:00">2018-11-20</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/vue/" itemprop="url" rel="index"><span itemprop="name">vue</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="title-Table中render以及renderHeader的应用"><a href="#title-Table中render以及renderHeader的应用" class="headerlink" title="title: Table中render以及renderHeader的应用"></a>title: Table中render以及renderHeader的应用</h3><p>通常在table中,我们要控制表格的显示,那么render函数将其非常重要</p>
-<p>例子: 表格某一列的下拉控制</p>
-<pre><code>{
-            title: &quot;意向产品&quot;,
-            key: &quot;fkaCrmProductClassName&quot;,
-            align: &quot;center&quot;,
-            render:(h,params) =&gt;{
-                var that = this
-                return h(&apos;div&apos;,[
-                    h(&apos;Select&apos;,{
-                        props:{
-                            value: that.ConnectTableData.datas[params.index].fkaCrmProductClassName,
-                            &apos;label-in-value&apos;:true
-                        },
-                        on:{
-                            &apos;on-change&apos;:(value)=&gt;{
-                               params.row.fkaCrmProductClassName = value.label
-                               that.ConnectTableData.datas[params.index] = params.row 
-                            }
-                        }
-                    },[
-                        h(&apos;Option&apos;,{
-                            props:{
-                                value:&quot;software&quot;
-                            }
-                        },&apos;软件&apos;),
-                        h(&apos;Option&apos;,{
-                            props:{
-                                value:&quot;hardware&quot;
-                            }
-                        },&apos;硬件&apos;),
-                        h(&apos;Option&apos;,{
-                            props:{
-                                value:&quot;service&quot;
-                            }
-                        },&apos;服务&apos;),
-                    ])
-                ])
-            }
-          },
-</code></pre><p>另外,在表头我们要进行一些控制,比如添加一行,并可编辑,要采用renderHeader</p>
-<pre><code>{
-           title: &quot;添加&quot;,
-           key: &quot;action&quot;,
-           align: &quot;center&quot;,
-           renderHeader:(h,colObj) =&gt; {
-               var that = this
-               return h(&apos;div&apos;,[
-                   h(&apos;Button&apos;,{
-                       props:{
-                           icon:&apos;md-add&apos;,
-                           size:&apos;small&apos;
-                       },
-                       on:{
-                           click:()=&gt;{
-                               var obj = {
-                                   crmCustomName:&quot;&quot;,
-                                   crmCustomCode:&quot;&quot;,
-                                   cityName:&quot;&quot;,
-                                   customType:&quot;&quot;,
-                                   customOrigin:&quot;&quot;,
-                                   customType:&quot;&quot;,
-                                   fkaCrmProductClassName:&quot;&quot;,
-                                   lastConnectTime:&quot;&quot;,
-                                   fkaSysUserName:&quot;&quot;,
-                                   timeCreate:&quot;&quot;,
-                               }
-                               that.ConnectTableData.datas.push(obj) //表格行
-                           }
-                       }
-                   },&quot;添加&quot;)
-               ])
-           },
-           render: (h, params) =&gt; {
-               var that = this
-             return h(&apos;div&apos;, [
-               h(&apos;Icon&apos;, {
-                 props: {
-                   type: &quot;md-nutrition&quot;,
-                   size: &quot;20&quot;,
-                   color: &apos;blue&apos;
-                 },
-                 style: {
-                   marginRight: &apos;5px&apos;
-                 },
-                 on: {
-                   click: () =&gt; {
-                     that.handleEdit(params.row)
-                   }
-                 }
-               }),
-               h(&apos;Icon&apos;, {
-                 props: {
-                   type: &quot;ios-trash&quot;,
-                   size: &quot;20&quot;,
-                   color: &apos;red&apos;
-                 },
-                 on: {
-                   click: () =&gt; {
-                     that.handleDelete(params.row)
-                   }
-                 }
-               })
-             ])
-           }
-         }
-</code></pre><ul>
-<li><p>通常select的下拉框有很多项,所以需要采用更加简洁的方式</p>
-<pre><code>{
-            title: &quot;所在城市&quot;,
-            key: &quot;cityName&quot;,
-            align: &quot;center&quot;,
-            render: (h, params) =&gt; {
-              return h(&apos;div&apos;, [
-                h(&apos;Select&apos;, {
-                  props: {
-                    value: this.ConnectTableData.datas[params.index].cityName,
-                    &apos;label-in-value&apos;: true
-                  },
-                  on: {
-                    &apos;on-change&apos;: (value) =&gt; {
-                      params.row.cityName = value.label
-                      this.ConnectTableData.datas[params.index] = params.row
-                    }
-                  }
-                }, [
-                  this.cityNames.map((type)=&gt;{
-                    return h(&apos;Option&apos;,{
-                      props:{value:type.value}
-                    },type.label)
-                  })
-                  // h(&apos;Option&apos;, {
-                  //   props: {
-                  //     value: &quot;beijing&quot;
-                  //   }
-                  // }, &apos;北京&apos;),
-                  // h(&apos;Option&apos;, {
-                  //   props: {
-                  //     value: &quot;shanghai&quot;
-                  //   }
-                  // }, &apos;上海&apos;),
-                  // h(&apos;Option&apos;, {
-                  //   props: {
-                  //     value: &quot;shenzhen&quot;
-                  //   }
-                  // }, &apos;深圳&apos;),
-                ])
-              ])
-            }
-          },
-</code></pre></li>
-</ul>
-<p>数据格式:</p>
-<pre><code>cityNames:[{
-          value:&apos;beijing&apos;,
-          label:&apos;北京&apos;
-        },{
-          value:&apos;shanghai&apos;,
-          label:&apos;上海&apos;
-        },{
-          value:&apos;shenzhen&apos;,
-          label:&apos;深圳&apos;
-        }],
-</code></pre>
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-    
-
-    
-    <div>
-      
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/15/学习Nginx/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="厚朴酚">
-      <meta itemprop="description" content="学习笔记">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="厚朴酚">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/15/学习Nginx/" itemprop="url">
-                  学习Nginx
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-11-15 21:53:39 / 修改时间：22:28:00" itemprop="dateCreated datePublished" datetime="2018-11-15T21:53:39+08:00">2018-11-15</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/nginx/" itemprop="url" rel="index"><span itemprop="name">nginx</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="学习Nginx"><a href="#学习Nginx" class="headerlink" title="学习Nginx"></a>学习Nginx</h3><p>来源自技术胖,<a href="http://jspang.com/post/nginx.html" target="_blank" rel="noopener">http://jspang.com/post/nginx.html</a></p>
-<h4 id="安装环境搭建"><a href="#安装环境搭建" class="headerlink" title="安装环境搭建"></a>安装环境搭建</h4><ul>
-<li>yum -y install gcc gcc-c++ autoconf pcre-devel make automake</li>
-<li>yum -y install wget httpd-tools vim</li>
-</ul>
-<h4 id="Nginx源配置安装"><a href="#Nginx源配置安装" class="headerlink" title="Nginx源配置安装"></a>Nginx源配置安装</h4><ul>
-<li><p>查看是否有Nginx源</p>
-<pre><code>yum list | grep nginx
-</code></pre></li>
-<li><p>配置最新源</p>
-</li>
-</ul>
-<p>到官网找稳定版</p>
-<p>第一步:到yum文件</p>
-<pre><code>vim /etc/yum.repos.d/nginx.repo
-</code></pre><p>第二步:</p>
-<pre><code>[nginx]
-name=nginx repo
-baseurl=http://nginx.org/packages/OS/OSRELEASE/$basearch/
-gpgcheck=0
-enabled=1
-</code></pre><p>第三步:<br>赋值完成后，你需要修改一下对应的操作系统和版本号，因为我的是centos和7的版本</p>
-<pre><code>baseurl=http://nginx.org/packages/centos/7/$basearch/
-</code></pre><p>第四步: 安装</p>
-<pre><code>yum install nginx
-</code></pre><p>第五步: 查看是否成功</p>
-<pre><code>nginx -v
-</code></pre><h4 id="Nginx基本配置文件"><a href="#Nginx基本配置文件" class="headerlink" title="Nginx基本配置文件"></a>Nginx基本配置文件</h4><p>-查看目录位置</p>
-<pre><code>rpm -ql nginx
-</code></pre><p>rpm 是linux的rpm包管理工具，-q 代表询问模式，-l 代表返回列表，这样我们就可以找到nginx的所有安装位置</p>
-<h5 id="nginx-conf文件解读"><a href="#nginx-conf文件解读" class="headerlink" title="nginx.conf文件解读"></a>nginx.conf文件解读</h5><pre><code>cd /etc/nginx
-vim nginx.conf
-</code></pre><p>文件注释</p>
-<pre><code>#运行用户，默认即是nginx，可以不进行设置
-user  nginx;
-#Nginx进程，一般设置为和CPU核数一样
-worker_processes  1;   
-#错误日志存放目录
-error_log  /var/log/nginx/error.log warn;
-#进程pid存放位置
-pid        /var/run/nginx.pid;
-events {
-    worker_connections  1024; # 单个后台进程的最大并发数
-}
-http {
-    include       /etc/nginx/mime.types;   #文件扩展名与类型映射表
-    default_type  application/octet-stream;  #默认文件类型
-    #设置日志模式
-    log_format  main  &apos;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &apos;
-                      &apos;$status $body_bytes_sent &quot;$http_referer&quot; &apos;
-                      &apos;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&apos;;
-    access_log  /var/log/nginx/access.log  main;   #nginx访问日志存放位置
-    sendfile        on;   #开启高效传输模式
-    #tcp_nopush     on;    #减少网络报文段的数量
-    keepalive_timeout  65;  #保持连接的时间，也叫超时时间
-    #gzip  on;  #开启gzip压缩
-    include /etc/nginx/conf.d/*.conf; #包含的子配置项位置和文件
-</code></pre><p>default.conf 配置项讲解 我们看到最后有一个子文件的配置项，那我们打开这个include子文件配置项看一下里边都有些什么内容。</p>
-<p>进入conf.d目录，然后使用vim default.conf进行查看。</p>
-<pre><code>server {
-    listen       80;   #配置监听端口
-    server_name  localhost;  //配置域名
-    #charset koi8-r;     
-    #access_log  /var/log/nginx/host.access.log  main;
-    location / {
-        root   /usr/share/nginx/html;     #服务默认启动目录
-        index  index.html index.htm;    #默认访问文件
-    }
-    #error_page  404              /404.html;   # 配置404页面
-    # redirect server error pages to the static page /50x.html
-    #
-    error_page   500 502 503 504  /50x.html;   #错误状态码的显示页面，配置后需要重启
-    location = /50x.html {
-        root   /usr/share/nginx/html;
-    }
-    # proxy the PHP scripts to Apache listening on 127.0.0.1:80
-    #
-    #location ~ \.php$ {
-    #    proxy_pass   http://127.0.0.1;
-    #}
-    # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
-    #
-    #location ~ \.php$ {
-    #    root           html;
-    #    fastcgi_pass   127.0.0.1:9000;
-    #    fastcgi_index  index.php;
-    #    fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;
-    #    include        fastcgi_params;
-    #}
-    # deny access to .htaccess files, if Apache&apos;s document root
-    # concurs with nginx&apos;s one
-    #
-    #location ~ /\.ht {
-    #    deny  all;
-    #}
-}
-</code></pre><p>明白了这些配置项，我们知道我们的服务目录放在了/usr/share/nginx/html下，可以使用命令进入看一下目录下的文件。</p>
-<pre><code>cd /usr/share/nginx/html
-ls 
-</code></pre><ul>
-<li><p>启动  sudo nginx</p>
-</li>
-<li><p>访问 127.0.0.1:80 就可以看到index.html的内容了</p>
-</li>
-</ul>
-<h4 id="Nginx常用的操作"><a href="#Nginx常用的操作" class="headerlink" title="Nginx常用的操作"></a>Nginx常用的操作</h4>
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-    
-
-    
-    <div>
-      
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -3065,7 +2883,7 @@ ls
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">47</span>
+                    <span class="site-state-item-count">49</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -3165,7 +2983,11 @@ ls
                     
                       
                     
-                    <span class="site-state-item-count">25</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">27</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

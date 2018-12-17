@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.4.2" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.2">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.4.2">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.4.2">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.2" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.4.2',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="js进阶知识值类型与引用类型值类型与引用类型在内存的存储情况变量名 : 具体值 针对栈: 变量名 : 具体值 针对堆: 变量名 : 地址值  栈内存: 值类型存放的位置  简单类型比如string,number,boolean,null,undefined存放在栈空间  堆内存: 引用内存存放的位置, 内存空间  比如:function, object, Array   值类型和引用类型与传递 值">
+<meta name="keywords" content="javasript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="js进阶知识">
+<meta property="og:url" content="http://yoursite.com/2018/12/16/js进阶知识/index.html">
+<meta property="og:site_name" content="厚朴酚">
+<meta property="og:description" content="js进阶知识值类型与引用类型值类型与引用类型在内存的存储情况变量名 : 具体值 针对栈: 变量名 : 具体值 针对堆: 变量名 : 地址值  栈内存: 值类型存放的位置  简单类型比如string,number,boolean,null,undefined存放在栈空间  堆内存: 引用内存存放的位置, 内存空间  比如:function, object, Array   值类型和引用类型与传递 值">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-12-16T13:35:20.515Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="js进阶知识">
+<meta name="twitter:description" content="js进阶知识值类型与引用类型值类型与引用类型在内存的存储情况变量名 : 具体值 针对栈: 变量名 : 具体值 针对堆: 变量名 : 地址值  栈内存: 值类型存放的位置  简单类型比如string,number,boolean,null,undefined存放在栈空间  堆内存: 引用内存存放的位置, 内存空间  比如:function, object, Array   值类型和引用类型与传递 值">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/12/16/js进阶知识/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>js进阶知识 | 厚朴酚</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">厚朴酚</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">打磨技术!</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/16/js进阶知识/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="厚朴酚">
+      <meta itemprop="description" content="学习笔记">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="厚朴酚">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">js进阶知识
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-12-16 12:25:33 / 修改时间：21:35:20" itemprop="dateCreated datePublished" datetime="2018-12-16T12:25:33+08:00">2018-12-16</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="js进阶知识"><a href="#js进阶知识" class="headerlink" title="js进阶知识"></a>js进阶知识</h2><h3 id="值类型与引用类型"><a href="#值类型与引用类型" class="headerlink" title="值类型与引用类型"></a>值类型与引用类型</h3><h4 id="值类型与引用类型在内存的存储情况"><a href="#值类型与引用类型在内存的存储情况" class="headerlink" title="值类型与引用类型在内存的存储情况"></a>值类型与引用类型在内存的存储情况</h4><pre><code>变量名 : 具体值
+针对栈: 变量名 : 具体值
+针对堆: 变量名 : 地址值
+</code></pre><ol>
+<li><p>栈内存: 值类型存放的位置</p>
+<p> 简单类型比如string,number,boolean,null,undefined存放在栈空间</p>
+</li>
+<li><p>堆内存: 引用内存存放的位置, 内存空间</p>
+<p> 比如:function, object, Array</p>
+</li>
+</ol>
+<h4 id="值类型和引用类型与传递"><a href="#值类型和引用类型与传递" class="headerlink" title="值类型和引用类型与传递"></a>值类型和引用类型与传递</h4><ol>
+<li><p>值类型的复制赋值和引用类型的赋值的区别</p>
+<p> 引用类型的赋值操作:将引用类型堆上的内存地址进行赋值</p>
+</li>
+<li><p>函数参数的引用传递和值传递</p>
+<ul>
+<li>如果实参的值类型,会复制一个值类型的副本给函数,不会影响原来的传递参数的值类型变量</li>
+<li><p>如果实参是引用类型,传递只是引用类型的一个地址值,在函数内部操作参数对应的引用对象会影响到传递的参数,也就是会改变原来传递参数的值</p>
+<pre><code>var a = 9,b;
+var c = {age:9},d;
+//值类型
+b=a
+b=19
+console.log(a)   //9
+console.log(b)   //19
+//引用类型
+d =c;
+d.age = 22,
+console.log(c.age)  //22
+console.log(d.age)  //22
+</code></pre></li>
+</ul>
+</li>
+</ol>
+<h4 id="函数的参数"><a href="#函数的参数" class="headerlink" title="函数的参数"></a>函数的参数</h4><ol>
+<li>arguments参数</li>
+</ol>
+<pre><code>//实现max方法,可以接收任意多个参数,返回参数中最大的哪个值
+    function myMax(){
+        if (arguments.length &lt;0){
+            return NaN
+        }
+        var max = arguments[0];
+        for (var i=0; i&lt; arguments.length;i++){
+            if (arguments[i]&gt;max) {
+                max = arguments[i]
+            }
+        }
+        return max
+    }
+
+    const result = myMax(12,4,6,7,8)
+    console.log(result)
+</code></pre><ol start="2">
+<li><p>函数参数的封装</p>
+<p> 如果参数多于4个,难于记忆,可以将参数封装成对象来接受,对象的属性无序的,方便开发任意使用</p>
+<pre><code>var rect = {
+    x:19,
+    y:20,
+    width:256,
+    height:256,
+    bgColor:&apos;#ccc&apos;
+}
+function rect(rectObject){
+    console.log(rectObject + &apos;&apos;+ rectObject.y)
+}
+</code></pre></li>
+</ol>
+<h3 id="函数高级"><a href="#函数高级" class="headerlink" title="函数高级"></a>函数高级</h3><h4 id="javascript事件循环机制-Event-Loop"><a href="#javascript事件循环机制-Event-Loop" class="headerlink" title="javascript事件循环机制(Event Loop)"></a>javascript事件循环机制(Event Loop)</h4><ul>
+<li><p>为什么单线程? </p>
+<p>  Javascript执行线程和UI线程是互斥的</p>
+<p>  javascript的任务分为同步任务和异步任务</p>
+<p>  同步任务:一般赋值操作,循环,分支语句等</p>
+<p>  异步任务:DOM事件,Ajax,BOM等api</p>
+</li>
+<li><p>事件循环机制:</p>
+<p>  javascript的执行引擎的主线程从队列中获取任务执行,如果任务是异步任务,那么运行到异步任务的时候,异步任务就退出主线程,主线程进行下一个任务的获取处理. 如果异步任务完成,就插入到任务队列的末尾,等待主线程处理.        </p>
+<h4 id="变量作用域"><a href="#变量作用域" class="headerlink" title="变量作用域"></a>变量作用域</h4></li>
+<li><p>javscript的解释和执行阶段</p>
+<ul>
+<li>解释阶段<ul>
+<li>词法分析</li>
+<li>语法分析</li>
+<li>作用域规则确定</li>
+</ul>
+</li>
+<li>执行阶段<ul>
+<li>创建执行上下文</li>
+<li>执行函数代码</li>
+<li>垃圾回收</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>函数变量作用域</p>
+<ol>
+<li>作用域:就是变量声明的区域,就是变量和函数的可访问范围,在全局声明的变量为全局可见访问的就是全局变量,如果在函数内部声明的变量只能在函数内部访问</li>
+<li>函数的参数只能在函数内部访问,是局部变量</li>
+<li>javascript没有块级作用域,只有函数作用域和全局作用域,for循环内部定义的变量是函数级别的作用域,现在可以通过let解决</li>
+<li>变量没有在函数内声明或者声明的时候没有带var就是全局变量,拥有全局作用域,特殊: var a = b = c = 0;b与c是全局变量.</li>
+<li>全局作用域的变量可以在js中任何地方调用,函数作用域的变量只能在字节函数内部调用,包括字节定义的其他函数都可以直接调用</li>
+<li>变量的作用域是以它声明时为准,因为变量的作用域在js代码的解释阶段已经完成规则的制订</li>
+</ol>
+</li>
+</ul>
+<pre><code>var t = 9 //全局作用域,全部都可以访问
+function f1() { //f1函数全局作用域
+    var t2 = 10 //t2是f1函数内部可访问
+    console.log(t)
+    function f2() {//函数f2是函数f1的作用域
+        var t3 = 200; //t3只能在f2函数内部调用
+        console.log(t2)
+        return t2*t2 //f2函数可以访问f1函数作用域的变量以及f2字节内部变量
+    }
+    return f2()
+}
+var m =f1()
+console.log(m)
+</code></pre><p>函数的声明与变量同名的化,函数优先级较高,函数是一等公民</p>
+<h4 id="变量提升与函数提升"><a href="#变量提升与函数提升" class="headerlink" title="变量提升与函数提升"></a>变量提升与函数提升</h4><ul>
+<li><p>变量提升</p>
+<ol>
+<li>如果一个声明的变量在函数体内,那么它的作用域就是函数内部,如果是全局环境下声明的,那么它的作用域就是全局的,通过var声明的变量无法用delete删除的</li>
+<li>函数内部的声明的变量会被提升到函数的头部,函数在解释执行的时候,先进行变量声明处理,然后再运行函数内部的代码</li>
+<li>变量和赋值语句仪器书写,在js引擎解析时候,会将其拆成声明和赋值2部分,声明置顶,赋值保留在原来位置</li>
+<li><p>变量重复声明不会出错,后面会覆盖前面的</p>
+<pre><code>var a =10
+function f1(){
+    //函数的变量提升,因为在函数执行之前,先创建了函数的EC,
+    //在创建EC的时候以及把函数声明的变量以及初始化为undefined
+    console.log(a) //undefined
+    var a = 19
+    console.log(a) //19
+}
+f1()
+console.log(a) //  10
+</code></pre></li>
+</ol>
+</li>
+</ul>
+<h4 id="作用域链"><a href="#作用域链" class="headerlink" title="作用域链"></a>作用域链</h4><ol>
+<li>作用域链是一个数组</li>
+<li>作用域链是控制变量作用域的有序访问js内部实现</li>
+<li>作用域链存储在函数的执行上下文,作用域链存放的是执行环境中的VO或者AO</li>
+<li>当前函数的作用域对象都是在最前端,而且全局的在最末端</li>
+<li>变量(标识符)的搜索都是从作用域链的最前端向后搜索,直到全局作用域,标识符的解析是沿着作用域链一级一级搜索的过程,从第一个对象开始,逐渐向后回溯,直到找到同名标识符为止,找到后不在继续遍历,找不到就报错<h4 id="函数的arguments"><a href="#函数的arguments" class="headerlink" title="函数的arguments"></a>函数的arguments</h4><h4 id="函数执行上下文"><a href="#函数执行上下文" class="headerlink" title="函数执行上下文"></a>函数执行上下文</h4></li>
+</ol>
+<ul>
+<li>执行上下文相关</li>
+</ul>
+<ol>
+<li>栈的数据结构:先进后出</li>
+<li>EC:函数执行环境(或执行上下文)</li>
+<li>ECS:执行环境栈</li>
+<li>VO变量对象:js的执行上下文中都有个对象用来存放执行上下文中可被访问但是不能被delete的函数标识符,形参,变量声明等.他们会被挂载这个对象上,对象的属性对应他们的名字对象属性的值对应他们的值但这个对象是规范上或者说是引擎实现上的不可在js环境中访问到活动对象.</li>
+<li>AO激活对象:有了变量对象存每个上下文的东西,但是它是声明时候被访问呢?就是每进入一个执行上下文时,这个执行上下文的变量对象被激活,也就是该上下文的函数标识符,形参/变量声明就可以被访问了</li>
+</ol>
+<ul>
+<li>执行上下文的执行栈</li>
+</ul>
+<ol>
+<li>javascript执行在单线程上,使用代码都是排队执行</li>
+<li>一开始浏览器执行全局的代码时,首先创建全局的执行上下文,压入执行栈的顶部.</li>
+<li>每当进入一个函数的执行就会创建函数的执行上下文,并且把它压入执行栈的顶部.当函数执行完成后,当前函数的执行上下文出栈,并等待垃圾回收.</li>
+<li>浏览器的Js执行引擎总是访问栈定的执行上下文</li>
+<li><p>全局上下文只有唯一的一个,在浏览器关闭的时候出栈.</p>
+<pre><code>//(EQ)代码执行之前的时候,就会立即创建一个全局的执行上下文  global excution context
+//在这个例子当中就是这些函数
+//创建完全局的执行上下文之后,把全局的上下文压入执行栈
+function f1(){
+    console.log(&apos;f1&apos;)
+}
+function f2(){
+    console.log(&apos;f2&apos;)
+    f3()
+}
+function f3(){
+    console.log(&apos;f3&apos;)
+    f4()
+}
+function f4(){
+    console.log(&apos;f4&apos;)
+}
+
+f1() //代码进入f1函数,函数内的代码在执行之前,js执行引擎立即创建一个f1的
+    //执行环境 f1  Excution Context 立即把这个执行环境压入到执行环境栈中ecs
+    //f1() 函数执行完之后,从执行环境栈中弹出f1的执行上下文
+//f2()函数执行之前,创建f2的执行上下文,压栈到执行环境栈中ECS
+//因为f2调用了f3函数,f3函数执行之前也创建了一个f3的执行 上下文,并压栈到执行环境栈中
+//f3函数调用f4函数,创建f4的EC,并把f4的EC压入到ECS中
+//f4执行完成,f4的EC出栈
+//f3执行完成,f3的EC出栈
+//f2执行完成,f2的EC出栈
+f2()  //f2()-&gt; f3()-&gt;f4()  //
+</code></pre><h5 id="执行上下文的声明周期"><a href="#执行上下文的声明周期" class="headerlink" title="执行上下文的声明周期"></a>执行上下文的声明周期</h5></li>
+</ol>
+<ul>
+<li>总的生命周期: 创建-&gt;执行-&gt;出栈等待销毁</li>
+<li>创建阶段:<ol>
+<li>创建作用域链</li>
+<li>创建变量对象(AO):首先初始化函数的参数arguments,初始化函数声明,初始化变量(undefined),函数的优先级要高于变量,如果变量和函数重名,变量被忽略.<ul>
+<li>创建arguments对象,检查上下文,初始化参数名称和值并创建引用的复制</li>
+<li>扫描上下文的函数声明(而非函数表达式):<ul>
+<li>为发现的每一个函数,在变量对象创建一个属性–确切的说是函数的名字,其有一个指向函数在内存中的引用</li>
+<li>如果函数的名字已经存在,引用指针将被重写</li>
+</ul>
+</li>
+<li>扫描上下文的变量声明:<ul>
+<li>为发现的每个变量声明,在变量对象上创建一个属性-就是变量的名字,并且将变量的初始值为undefined</li>
+<li>如果变量的名字已经在变量对象里存在,将不会进行任何操作并继续扫描</li>
+</ul>
+</li>
+<li>求出上下文的内部this的值</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>执行阶段:<ul>
+<li>执行变量赋值,代码执行</li>
+</ul>
+</li>
+<li><p>回收阶段</p>
+<ul>
+<li><p>执行上下文出栈等待虚拟机回收执行上下文</p>
+<pre><code>//变量声明
+var a1 = 19,
+    a2 = 20,
+    a3 = &apos;sss&apos;,
+    b1 = {name:&apos;lcd&apos;}
+//函数声明
+a1 = f1(a1,a2) 
+//函数声明
+function f1(a,b){
+    //f1函数的执行上下文
+    //第一步:扫描参数, a =19, b = 20
+    //第二步:扫描函数声明 f2 = function(){}
+    //第三步:扫描变量声明  t=undefined  m = undifined i = undefined   变量提升
+    var t =0,
+        m =10;
+    for (var i= 0;i&lt; a;i++){
+        console.log(i)
+    }
+    function f2() {
+        console.log(f2)
+    }
+    return a + b;
+}
+</code></pre></li>
+</ul>
+</li>
+</ul>
+<h4 id="构造函数内部执行过程"><a href="#构造函数内部执行过程" class="headerlink" title="构造函数内部执行过程"></a>构造函数内部执行过程</h4><h4 id="函数的四种调用模式"><a href="#函数的四种调用模式" class="headerlink" title="函数的四种调用模式"></a>函数的四种调用模式</h4><h4 id="没有重载"><a href="#没有重载" class="headerlink" title="没有重载"></a>没有重载</h4><h4 id="函数的属性和方法-length-prototype"><a href="#函数的属性和方法-length-prototype" class="headerlink" title="函数的属性和方法(.length,.prototype)"></a>函数的属性和方法(.length,.prototype)</h4>
+      
+    </div>
+
+    
+
+    
+    
+    
+    
+
+    
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-heart"></i>感谢阅读-------------</div>
+    
+</div>
+
+
+      
+    </div>
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>希望您也有收获,我们一起成长!</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="厚朴酚 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="厚朴酚 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/javasript/" rel="tag"># javasript</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/07/扫描文件价生成指定格式/" rel="next" title="扫描文件夹生成指定格式">
+                <i class="fa fa-chevron-left"></i> 扫描文件夹生成指定格式
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/17/发布并更新npm包/" rel="prev" title="发布并更新npm包">
+                发布并更新npm包 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="厚朴酚">
+            
+              <p class="site-author-name" itemprop="name">厚朴酚</p>
+              <p class="site-description motion-element" itemprop="description">学习笔记</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">49</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">12</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">27</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#js进阶知识"><span class="nav-number">1.</span> <span class="nav-text">js进阶知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#值类型与引用类型"><span class="nav-number">1.1.</span> <span class="nav-text">值类型与引用类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#值类型与引用类型在内存的存储情况"><span class="nav-number">1.1.1.</span> <span class="nav-text">值类型与引用类型在内存的存储情况</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#值类型和引用类型与传递"><span class="nav-number">1.1.2.</span> <span class="nav-text">值类型和引用类型与传递</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#函数的参数"><span class="nav-number">1.1.3.</span> <span class="nav-text">函数的参数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#函数高级"><span class="nav-number">1.2.</span> <span class="nav-text">函数高级</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#javascript事件循环机制-Event-Loop"><span class="nav-number">1.2.1.</span> <span class="nav-text">javascript事件循环机制(Event Loop)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#变量作用域"><span class="nav-number">1.2.2.</span> <span class="nav-text">变量作用域</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#变量提升与函数提升"><span class="nav-number">1.2.3.</span> <span class="nav-text">变量提升与函数提升</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#作用域链"><span class="nav-number">1.2.4.</span> <span class="nav-text">作用域链</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#函数的arguments"><span class="nav-number">1.2.5.</span> <span class="nav-text">函数的arguments</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#函数执行上下文"><span class="nav-number">1.2.6.</span> <span class="nav-text">函数执行上下文</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#执行上下文的声明周期"><span class="nav-number">1.2.6.1.</span> <span class="nav-text">执行上下文的声明周期</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#构造函数内部执行过程"><span class="nav-number">1.2.7.</span> <span class="nav-text">构造函数内部执行过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#函数的四种调用模式"><span class="nav-number">1.2.8.</span> <span class="nav-text">函数的四种调用模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#没有重载"><span class="nav-number">1.2.9.</span> <span class="nav-text">没有重载</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#函数的属性和方法-length-prototype"><span class="nav-number">1.2.10.</span> <span class="nav-text">函数的属性和方法(.length,.prototype)</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">厚朴酚</span>
+
+  
+
+  
+</div>
+
+
+
+<!--
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Gemini</a> v6.4.2</div>
+ -->
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.4.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.4.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
