@@ -300,6 +300,1128 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/20/JavaScript正则表达式/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="厚朴酚">
+      <meta itemprop="description" content="学习笔记">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="厚朴酚">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/20/JavaScript正则表达式/" itemprop="url">
+                  JavaScript正则表达式
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-11-20 10:31:29" itemprop="dateCreated datePublished" datetime="2018-11-20T10:31:29+08:00">2018-11-20</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-12-20 15:35:31" itemprop="dateModified" datetime="2018-12-20T15:35:31+08:00">2018-12-20</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="JavaScript正则表达式"><a href="#JavaScript正则表达式" class="headerlink" title="JavaScript正则表达式"></a>JavaScript正则表达式</h3><p>来源:<a href="https://github.com/LiangJunrong/document-library/tree/master/other-library/RegularExpression" target="_blank" rel="noopener">https://github.com/LiangJunrong/document-library/tree/master/other-library/RegularExpression</a></p>
+<h4 id="常用正则表达式"><a href="#常用正则表达式" class="headerlink" title="常用正则表达式"></a>常用正则表达式</h4><ul>
+<li>验证姓名: </li>
+<li></li>
+</ul>
+<ol>
+<li>2-9 位中文昵称</li>
+</ol>
+<pre><code>^[\u4e00-\u9fa5]{2,9}$
+</code></pre><ul>
+<li>验证密码<br>-</li>
+</ul>
+<ol>
+<li><p>只能是字母、数字和下划线，长度不限制：</p>
+<pre><code>^\w+$
+</code></pre></li>
+<li><p>允许 小写字母 a-z、大写字母 A-Z、数字 0-9、下划线 _、 连接符 -，且长度在 6-18 位数：</p>
+<pre><code>/^[a-zA-Z0-9_-]{6,18}$/
+</code></pre></li>
+<li><p>必须包含数字+小写字母+大写字母的密码，且长度在8-10位之间</p>
+<pre><code>^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,10}$
+</code></pre></li>
+</ol>
+<ul>
+<li>验证email<br>-</li>
+</ul>
+<p>允许有一个字符符合 [A-Za-z0-9_] 之后可以为 [A-Za-z0-9_-+.] + @ + 允许有一个字符符合 [A-Za-z0-9_] 之后可以为 [A-Za-z0-9_-.] + . + 允许有一个字符符合 [A-Za-z0-9_] 之后可以有 [A-Za-z0-9_-.] 的邮箱：</p>
+<pre><code>^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$
+</code></pre><ul>
+<li>验证身份证<br>-</li>
+</ul>
+<ol>
+<li><p>18 位身份证号，尾数是数字或者字母 X：</p>
+<pre><code>^(\d{6})(\d{4})(\d{2})(\d{2})(\d{3})([0-9]|X)$
+</code></pre></li>
+<li><p>15 或者 18 位身份证号，尾数可以是数字及 X 或者 x</p>
+<pre><code>(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)
+</code></pre></li>
+</ol>
+<ul>
+<li>验证手机号</li>
+<li></li>
+</ul>
+<ol>
+<li><p>以 1 开头，第二位数是 3/4/5/7/8 的 11 位手机号码：</p>
+<pre><code>^1[3,4,5,7,8,9]\d{9}$
+</code></pre></li>
+<li><p>移动号码</p>
+<pre><code>^134[0-8]\d{7}$|^(?:13[5-9]|147|15[0-27-9]|178|1703|1705|1706|18[2-478])\d{7,8}$
+</code></pre></li>
+<li><p>电信号码</p>
+<pre><code>^(?:133|153|1700|1701|1702|177|173|18[019])\d{7,8}$
+</code></pre></li>
+<li><p>联通号码：</p>
+<pre><code>^(?:13[0-2]|145|15[56]|176|1704|1707|1708|1709|171|18[56])\d{7,8}|$
+</code></pre></li>
+</ol>
+<h4 id="匹配规则"><a href="#匹配规则" class="headerlink" title="匹配规则"></a>匹配规则</h4><pre><code>\
+将下一个字符标记为特殊字符、或原义字符、或向后引用、或八进制转义符。
+\n 表示换行符、\d 匹配 [0-9] 的数字
+
+
+^
+匹配输入字符串的开始位置。
+^abc 表示匹配有 abc 开头的字符串
+
+
+$
+匹配输入字符串的结束位置。
+^\d$ 表示匹配一个 [0-9] 的数字
+
+
+*
+匹配前面的子表达式零次或多次。
+zo* 能匹配 z 或者 zoo。* 等价于 {0,}。
+
+
++
+匹配前面的子表达式一次或多次。
+zo+ 能匹配 zo 或者 zoo，但不能匹配 z。+ 等价于 {1,}。
+
+
+?
+匹配前面的子表达式零次或一次。
+do(es)? 可以匹配 does 或 does 中的 do。? 等价于 {0,1}。
+
+
+{n}
+n 是一个非负整数。匹配确定的 n 次。
+o{2} 不能匹配 Bob 中的 o，但是能匹配 food 中的两个 o。
+
+
+{n,}
+n 是一个非负整数。至少匹配 n 次。
+o{2,} 不能匹配 Bob 中的 o，但能匹配 foooood 中的所有 o。o{1,} 等价于 o+。o{0,} 则等价于 o*。
+
+
+{n,m}
+m 和 n 均为非负整数，其中 n &lt;= m。最少匹配 n 次且最多匹配 m 次。
+例如，o{1,3} 将匹配 fooooood 中的前三个 o。o{0,1} 等价于 o?。请注意在逗号和两个数之间不能有空格。
+
+
+?
+当该字符紧跟在任何一个其他限制符 *、+、?、{n}、{n,}、{n,m} 后面时（例如 +?），匹配模式是非贪婪的。非贪婪模式尽可能少的匹配所搜索的字符串，而默认的贪婪模式则尽可能多的匹配所搜索的字符串。
+对于字符串 oooo，o+? 将匹配单个 o，而 o+ 将匹配所有 o。
+
+
+.
+匹配除 \n 之外的任何单个字符。. 是一个很强大的 元符号，请慎用。
+要匹配包括 \n 在内的任何字符，请使用 (.|\n) 的模式。要匹配小数点本身，请使用 \.。a.e 能匹配 nave 中的 ave 或者匹配 water 中的 ate
+
+
+(子表达式)
+标记一个子表达式的开始和结束位置。
+(\w)\1 能匹配 deep 中的 ee
+
+
+(?:子表达式)
+匹配 z子表达式 但不获取匹配结果，也就是说这是一个非获取匹配，不进行存储供以后使用。这在使用或字符 (|) 来组合一个模式的各个部分是很有用。
+industr(?:y|ies) 就是一个等同于 industry|industries 但更简略的正则表达式。
+
+
+(?=子表达式)
+一般用法：××(?=子表达式)，它的意思就是 ×× 后面的条件限制是 ?= 后面的 子表达式
+Windows(?=95|98|NT|2000) 能匹配 Windows2000 中的 Windows，但不能匹配 Windows3.1 中的 Windows。\w+(?=\.) 能匹配 He is. The dog ran. The sun is out. 中的 is、ran 和 out
+
+
+(?!子表达式)
+类似于 (?=子表达式)，表示不等于后面的 子表达式。
+Windows(?!95|98|NT|2000) 能匹配 Windows3.1 中的 Windows，但不能匹配 Windows2000 中的 Windows。\b(?!un)\w+\b 能匹配 unsure sure unity used 中的 sure 和 used
+
+
+(?&lt;=子表达式)
+同上。
+(?&lt;=95|98|NT|2000)Windows 能匹配 2000Windows 中的 Windows，但不能匹配 3.1Windows 中的Windows。(?&lt;=19)\d{2}\b 能匹配 1851 1999 1950 1905 2003 中的 99、50 和 05
+
+
+(?&lt;!子表达式)
+同上。
+(?&lt;!95|98|NT|2000)Windows 能匹配 3.1Windows 中的 Windows，但不能匹配 2000Windows 中的 Windows。\b(?!un)\w+\b 能匹配 unsure sure unity used 中的 sure 和 used
+
+
+x|y
+匹配 x 或者 y。
+z|food 能匹配 z 或者 food。(z|f)ood 则匹配 zood 或 food。
+
+
+[xyz]
+字符集合。匹配所包含的任意一个字符。
+[abc] 可以匹配 plain 中的 a。
+
+
+[^xyz]
+求反。匹配未包含的任意字符。
+例如，[^abc] 可以匹配 plain 中的 p。[^aei] 匹配 reign 中的 r、g 和 n
+
+
+[a-z]
+字符范围。匹配指定范围内的任意字符。
+[a-z] 可以匹配 a 到 z 范围内的任意小写字母字符。注意：[A-Z] 才匹配大写英文字母
+
+
+[^a-z]
+求反。匹配任何不在指定范围内的任意字符。
+[^a-z] 可以匹配任何不在 a 到 z 范围内的任意字符。
+
+
+\b
+匹配一个单词边界，也就是指单词和空格间的位置。
+er\b 可以匹配 never 中的 er，但不能匹配 verb 中的 er。
+
+
+\B
+匹配非单词边界。
+er\B 能匹配 verb 中的 er，但不能匹配 never 中的 er。
+
+
+\cx
+匹配由 x 指明的控制字符。
+例如，\cM 匹配一个 Control-M 或者回车符。x 的值必须为 A-Z 或 a-z 之一。否则，将 c 视为一个原义的 c 字符。
+
+
+\d
+匹配一个数字字符。等价于[0-9]。
+4 = IV 中的 4
+
+
+\D
+匹配一个非数字字符。等价于[^0-9]。
+4 = IV 中的 、=、、I 和 V
+
+
+\f
+匹配一个换页符。等价于\x0c和\cL。
+[\f]{2,}    能匹配 \f\f\f 中的 \f\f\f。
+
+
+\n
+匹配一个换行符。等价于\x0a和\cJ。
+\r\n(\w+) 能匹配 \r\nThese are\ntwo lines. 中的 \r\nThese
+
+
+\r
+匹配一个回车符。等价于\x0d和\cM。
+\r\n(\w+) 能匹配 \r\nThese are\ntwo lines. 中的 \r\nThese
+
+
+\s
+匹配任何空白字符，包括空格、制表符、换页符等等。等价于[ \f\n\r\t\v]。
+\w\s 能匹配 ID A1.3 中的 D
+
+
+\S
+匹配任何非空白字符。等价于[^ \f\n\r\t\v]。
+\s\S 能匹配 int __ctr 中的 _
+
+
+\t
+匹配一个制表符。等价于\x09和\cI。
+(\w+)\t 能 匹配 item1\titem2\t 中的 item1\t 和 item2\t
+
+
+\v
+匹配一个垂直制表符。等价于\x0b和\cK。
+[\v]{2,} 能匹配 \v\v\v 中的 \v\v\v
+
+
+\w
+匹配包括下划线的任何单词字符。等价于 [A-Za-z0-9_]。
+ID A1.3 中的 I、D、A、1 和 3
+
+
+\W
+匹配任何非单词字符。等价于 [^A-Za-z0-9_]。
+ID A1.3 中的 、.。
+</code></pre><h4 id="常用方法"><a href="#常用方法" class="headerlink" title="常用方法"></a>常用方法</h4><ol>
+<li>test()</li>
+</ol>
+<p>规则：正则表达式搜索字符串指定的值，从而去匹配字符串。如果匹配成功就返回 true，如果匹配失败就返回 false。</p>
+<pre><code>用法：正则.test(字符串)
+</code></pre><p>案例:</p>
+<pre><code>var str = &quot;123abc&quot;;
+var re = /\D/; // 匹配非数字
+if(re.test(str)) {
+  console.log(&quot;不全是数字！&quot;);
+} else {
+  console.log(&quot;全是数字！&quot;);
+}
+</code></pre><ol start="2">
+<li>search()</li>
+</ol>
+<p>规则：正则去匹配字符串，如果匹配成功，就返回匹配成功的位置，如果匹配失败就返回 -1</p>
+<pre><code>用法：字符串.search(正则)
+</code></pre><p>案例</p>
+<pre><code>var str = &quot;abcdef&quot;;
+var re1 = /d/i; // 3
+var re2 = /h/i; // -1
+console.log(str.search(re1));
+console.log(str.search(re2));
+</code></pre><ol start="3">
+<li>match()</li>
+</ol>
+<p>规则：正则去匹配字符串，如果匹配成功，就返回匹配成功的数组，如果匹配不成，就返回 null</p>
+<pre><code>用法：字符串.match(正则)
+</code></pre><p>案例：</p>
+<pre><code>var str = &quot;123fadf321dfadf4fadf1&quot;; //(4) [&quot;123&quot;, &quot;321&quot;, &quot;4&quot;, &quot;1&quot;]
+var re = /\d+/g;
+console.log(str.match(re));
+</code></pre><p>Console：(4) [“123”, “321”, “4”, “1”]</p>
+<ol start="4">
+<li>replace()</li>
+</ol>
+<p>规则：正则去匹配字符串，匹配成功的字符串去替换成新的字符串。函数的第一个参数，是匹配成功的字符；第二个参数：可以是字符串，也可以是一个回调函数。</p>
+<pre><code>用法：字符串.replace(正则,新的字符串)
+</code></pre><p>案例：</p>
+<pre><code>var str = &apos;aaa&apos;;
+var re = /a+/g;
+str = str.replace(re, &quot;b&quot;);
+console.log(str); // b
+</code></pre><h5 id="example"><a href="#example" class="headerlink" title="example"></a>example</h5><pre><code>var str = &quot;{&apos;   retmsg&apos;:&apos;success   &apos;,\n&apos;  trans_date&apos;:&apos;   20170906&apos;}&quot;;
+
+//去掉空格（两种方法都可以）
+str = str.replace(/\ +/g,&quot;&quot;);
+str = str.replace(/[ ]/g,&quot;&quot;)
+
+//去掉回车换行        
+str = str.replace(/[\r\n]/g,&quot;&quot;);
+
+//去掉 ‘-’
+str = str.replace(/-/g, &quot;&quot;);
+</code></pre>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+    
+
+    
+    <div>
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/19/docker环境安装/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="厚朴酚">
+      <meta itemprop="description" content="学习笔记">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="厚朴酚">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/19/docker环境安装/" itemprop="url">
+                  docker环境安装
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-11-19 20:30:26 / 修改时间：20:42:40" itemprop="dateCreated datePublished" datetime="2018-11-19T20:30:26+08:00">2018-11-19</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/docker/" itemprop="url" rel="index"><span itemprop="name">docker</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="centos7下docker安装"><a href="#centos7下docker安装" class="headerlink" title="centos7下docker安装"></a>centos7下docker安装</h3><pre><code>sudo yum install yum-utils device-mapper-persistent-data lvm2
+
+ sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+$sudo yum install docker-ce
+
+ sudo systemctl enable docker
+ sudo systemctl start docker
+</code></pre><ul>
+<li><p>启动</p>
+<pre><code>sudo systemctl start docker
+</code></pre></li>
+<li><p>开机自启动</p>
+<pre><code>sudo systemctl enable docker
+</code></pre></li>
+<li><p>查看 Docker 版本的命令</p>
+<pre><code>docker version
+</code></pre></li>
+<li><p>配置国内镜像源</p>
+</li>
+</ul>
+<p>通过修改 /etc/docker/daemon.json ( 如果文件不存在，你可以直接创建它 ) 这个 Docker 服务的配置文件达到效果。</p>
+<pre><code>{
+    &quot;registry-mirrors&quot;: [
+        &quot;https://registry.docker-cn.com&quot;
+    ]
+}
+</code></pre><p>重新启动 docker daemon 来让配置生效</p>
+<pre><code>sudo systemctl restart docker
+</code></pre>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+    
+
+    
+    <div>
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/19/javaScript设计模式之模板方法/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="厚朴酚">
+      <meta itemprop="description" content="学习笔记">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="厚朴酚">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/19/javaScript设计模式之模板方法/" itemprop="url">
+                  javaScript设计模式之模板方法
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-11-19 14:32:18 / 修改时间：16:09:27" itemprop="dateCreated datePublished" datetime="2018-11-19T14:32:18+08:00">2018-11-19</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/设计模式/" itemprop="url" rel="index"><span itemprop="name">设计模式</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="javaScript设计模式之模板方法"><a href="#javaScript设计模式之模板方法" class="headerlink" title="javaScript设计模式之模板方法"></a>javaScript设计模式之模板方法</h3><p>基于继承的设计模式</p>
+<h4 id="定义和组成"><a href="#定义和组成" class="headerlink" title="定义和组成"></a>定义和组成</h4><p>模板方法模式由两部分结构组成，第一部分是抽象父类，第二部分是具体的实现子类。通常在抽象父类中封装了子类的算法框架，包括实现一些公共方法以及封装子类中所有方法的执行顺序。子类通过继承这个抽象类，也继承了整个算法结构，并且可以选择重写父类的方法。<br>如果相同和不同的行为都混合在各个子类的实现中，说明这些相同的行为会在各个子类中重复出现。但实际上，相同的行为可以被搬移到另外一个单一的地方，模板方法模式就是为解决这个问题而生的。</p>
+<h4 id="例子-coffer-or-tea"><a href="#例子-coffer-or-tea" class="headerlink" title="例子 coffer or  tea"></a>例子 coffer or  tea</h4><pre><code>//泡coffer的过程
+var Coffee = function(){};
+Coffee.prototype.boilWater = function(){
+ console.log( &apos;把水煮沸&apos; );
+};
+Coffee.prototype.brewCoffeeGriends = function(){
+ console.log( &apos;用沸水冲泡咖啡&apos; );
+};
+Coffee.prototype.pourInCup = function(){
+ console.log( &apos;把咖啡倒进杯子&apos; );
+};
+Coffee.prototype.addSugarAndMilk = function(){
+ console.log( &apos;加糖和牛奶&apos; );
+};
+Coffee.prototype.init = function(){
+ this.boilWater();
+ this.brewCoffeeGriends();
+this.pourInCup();
+ this.addSugarAndMilk();
+};
+var coffee = new Coffee();
+coffee.init(); 
+
+
+
+//泡茶的过程
+
+var Tea = function(){};
+Tea.prototype.boilWater = function(){
+ console.log( &apos;把水煮沸&apos; );
+};
+Tea.prototype.steepTeaBag = function(){
+ console.log( &apos;用沸水浸泡茶叶&apos; );
+};
+Tea.prototype.pourInCup = function(){
+ console.log( &apos;把茶水倒进杯子&apos; );
+};
+Tea.prototype.addLemon = function(){
+ console.log( &apos;加柠檬&apos; );
+};
+Tea.prototype.init = function(){
+ this.boilWater();
+ this.steepTeaBag();
+ this.pourInCup();
+ this.addLemon();
+};
+var tea = new Tea()
+tea.init()
+</code></pre><p>这两个过程拥有许多共同点:进行模板化</p>
+<pre><code>var Beverage = function(){};
+Beverage.prototype.boilWater = function(){
+ console.log( &apos;把水煮沸&apos; );
+};
+Beverage.prototype.brew = function(){}; // 空方法，应该由子类重写
+Beverage.prototype.pourInCup = function(){}; // 空方法，应该由子类重写
+Beverage.prototype.addCondiments = function(){}; // 空方法，应该由子类重写
+Beverage.prototype.init = function(){
+ this.boilWater();
+ this.brew();
+ this.pourInCup();
+ this.addCondiments();
+}; 
+</code></pre><p>创建 Coffee 子类和 Tea 子类</p>
+<pre><code>var Coffee = function(){};
+Coffee.prototype = new Beverage(); 
+Coffee.prototype.brew = function(){
+ console.log( &apos;用沸水冲泡咖啡&apos; );
+};
+Coffee.prototype.pourInCup = function(){
+ console.log( &apos;把咖啡倒进杯子&apos; ); 
+};
+Coffee.prototype.addCondiments = function(){
+ console.log( &apos;加糖和牛奶&apos; );
+};
+var Coffee = new Coffee();
+Coffee.init();
+</code></pre><p>至此我们的 Coffee 类已经完成了，当调用 coffee 对象的 init 方法时，由于 coffee 对象和Coffee 构造器的原型 prototype 上都没有对应的 init 方法，所以该请求会顺着原型链，被委托给Coffee 的“父类”Beverage 原型上的 init 方法。</p>
+<ul>
+<li><p>茶类</p>
+<pre><code>var Tea = function(){};
+Tea.prototype = new Beverage();
+Tea.prototype.brew = function(){
+ console.log( &apos;用沸水浸泡茶叶&apos; );
+};
+Tea.prototype.pourInCup = function(){
+ console.log( &apos;把茶倒进杯子&apos; );
+};
+Tea.prototype.addCondiments = function(){
+ console.log( &apos;加柠檬&apos; );
+};
+var tea = new Tea();
+tea.init(); 
+</code></pre></li>
+</ul>
+<p>Beverage.prototype.init 被称为模板方法的原因是，该方法中封装了子类的算法框架，它作为一个算法的模板，指导子类以何种顺序去执行哪些方法。在 Beverage.prototype.init 方法中，算法内的每一个步骤都清楚地展示在我们眼前。</p>
+<h4 id="JavaScript-没有抽象类的缺点和解决方案"><a href="#JavaScript-没有抽象类的缺点和解决方案" class="headerlink" title="JavaScript 没有抽象类的缺点和解决方案"></a>JavaScript 没有抽象类的缺点和解决方案</h4><p>当我们在 JavaScript 中使用原型继承来模拟传统的类式继承时，并没有编译器帮助我们进行任何形式的检查，我们也没有办法保证子类会重写父类中的“抽象方法”。我们知道，Beverage.prototype.init 方法作为模板方法，已经规定了子类的算法框架，代码如下：</p>
+<pre><code>Beverage.prototype.init = function(){
+ this.boilWater();
+ this.brew();
+ this.pourInCup();
+ this.addCondiments();
+}; 
+</code></pre><p>下面提供两种变通的解决方案。<br> 第 1 种方案是用鸭子类型来模拟接口检查，以便确保子类中确实重写了父类的方法。但模拟接口检查会带来不必要的复杂性，而且要求程序员主动进行这些接口检查，这就要求我们在业务代码中添加一些跟业务逻辑无关的代码。<br> 第 2 种方案是让 Beverage.prototype.brew 等方法直接抛出一个异常，如果因为粗心忘记编写 Coffee.prototype.brew 方法，那么至少我们会在程序运行时得到一个错误：</p>
+<pre><code>Beverage.prototype.brew = function(){
+ throw new Error( &apos;子类必须重写 brew 方法&apos; );
+};
+Beverage.prototype.pourInCup = function(){
+ throw new Error( &apos;子类必须重写 pourInCup 方法&apos; );
+};
+Beverage.prototype.addCondiments = function(){
+ throw new Error( &apos;子类必须重写 addCondiments 方法&apos; );
+};
+</code></pre><h3 id="钩子方法"><a href="#钩子方法" class="headerlink" title="钩子方法"></a>钩子方法</h3><p>通过模板方法模式，我们在父类中封装了子类的算法框架。这些算法框架在正常状态下是适用于大多数子类的，但如果有一些特别“个性”的子类呢？</p>
+<p>在这个例子里，我们把挂钩的名字定为 customerWantsCondiments，接下来将挂钩放入 Beverage类，看看我们如何得到一杯不需要糖和牛奶的咖啡，代码如下：</p>
+<pre><code>var Beverage = function(){};
+Beverage.prototype.boilWater = function(){
+ console.log( &apos;把水煮沸&apos; );
+};
+Beverage.prototype.brew = function(){
+ throw new Error( &apos;子类必须重写 brew 方法&apos; );
+};
+Beverage.prototype.pourInCup = function(){
+ throw new Error( &apos;子类必须重写 pourInCup 方法&apos; );
+};
+Beverage.prototype.addCondiments = function(){
+ throw new Error( &apos;子类必须重写 addCondiments 方法&apos; );
+};
+Beverage.prototype.customerWantsCondiments = function(){
+ return true; // 默认需要调料
+};
+Beverage.prototype.init = function(){
+ this.boilWater();
+ this.brew();
+ this.pourInCup();
+ if ( this.customerWantsCondiments() ){ // 如果挂钩返回 true，则需要调料
+ this.addCondiments();
+ } 
+};
+var CoffeeWithHook = function(){};
+CoffeeWithHook.prototype = new Beverage();
+CoffeeWithHook.prototype.brew = function(){
+ console.log( &apos;用沸水冲泡咖啡&apos; );
+};
+CoffeeWithHook.prototype.pourInCup = function(){
+ console.log( &apos;把咖啡倒进杯子&apos; );
+};
+CoffeeWithHook.prototype.addCondiments = function(){
+ console.log( &apos;加糖和牛奶&apos; );
+};
+CoffeeWithHook.prototype.customerWantsCondiments = function(){ return window.confirm( &apos;请问需要调料吗？&apos; );
+};
+var coffeeWithHook = new CoffeeWithHook();
+coffeeWithHook.init(); 
+</code></pre><h4 id="好莱坞原则"><a href="#好莱坞原则" class="headerlink" title="好莱坞原则"></a>好莱坞原则</h4><p>模板方法模式是好莱坞原则的一个典型使用场景，它与好莱坞原则的联系非常明显，当我们用模板方法模式编写一个程序时，就意味着子类放弃了对自己的控制权，而是改为父类通知子类，哪些方法应该在什么时候被调用。作为子类，只负责提供一些设计上的细节。<br>除此之外，好莱坞原则还常常应用于其他模式和场景，例如发布订阅模式和回调函数</p>
+<pre><code>var Beverage = function( param ){
+ var boilWater = function(){
+ console.log( &apos;把水煮沸&apos; );
+ };
+ var brew = param.brew || function(){
+ throw new Error( &apos;必须传递 brew 方法&apos; );
+ };
+ var pourInCup = param.pourInCup || function(){
+ throw new Error( &apos;必须传递 pourInCup 方法&apos; );
+ };
+ var addCondiments = param.addCondiments || function(){
+ throw new Error( &apos;必须传递 addCondiments 方法&apos; );
+ };
+ var F = function(){};
+ F.prototype.init = function(){
+ boilWater();
+ brew();
+ pourInCup();
+ addCondiments();
+ }; 
+return F;
+};
+var Coffee = Beverage({
+ brew: function(){
+ console.log( &apos;用沸水冲泡咖啡&apos; );
+ },
+ pourInCup: function(){
+ console.log( &apos;把咖啡倒进杯子&apos; );
+ },
+ addCondiments: function(){
+ console.log( &apos;加糖和牛奶&apos; );
+ }
+}); 
+var Tea = Beverage({
+ brew: function(){
+ console.log( &apos;用沸水浸泡茶叶&apos; );
+ },
+ pourInCup: function(){
+ console.log( &apos;把茶倒进杯子&apos; );
+ },
+ addCondiments: function(){
+ console.log( &apos;加柠檬&apos; );
+ }
+});
+var coffee = new Coffee();
+coffee.init();
+var tea = new Tea();
+tea.init(); 
+</code></pre><p>在这段代码中，我们把 brew、pourInCup、addCondiments 这些方法依次传入 Beverage 函数，<br>Beverage 函数被调用之后返回构造器 F。F 类中包含了“模板方法”F.prototype.init。跟继承得<br>到的效果一样，该“模板方法”里依然封装了饮料子类的算法框架。</p>
+<h3 id="ES6的实现"><a href="#ES6的实现" class="headerlink" title="ES6的实现"></a>ES6的实现</h3><pre><code>/父类咖啡
+class Beverage {
+    constructor(name) {
+        //单独调用会报错，所以写constructor里面绑定this，this指向父类
+        this.init = () =&gt; {
+            this.boilWater();
+            this.brew();
+            this.pourInCup();
+            if (this.customerWantsCondiments()) { // 如果挂钩返回 true，则需要调料
+                this.addCondiments();
+            }
+        };
+        console.log(&apos;构造函数的&apos;+name)
+    };
+    //共用boilWater，子类不会修改它
+    boilWater() {
+        console.log(&apos;把水煮沸&apos;);
+    };
+    brew() {
+        throw new Error(&apos;子类必须重写 brew 方法&apos;);
+    };
+    pourInCup() {
+        throw new Error(&apos;子类必须重写 pourInCup 方法&apos;);
+    };
+    addCondiments() {
+        throw new Error(&apos;子类必须重写 addCondiments 方法&apos;);
+    };
+    customerWantsCondiments() {
+        return true; // 默认需要调料
+    };
+    //init也可以写在这里，解构之后单独调用时，在es5 ,this会指向window，在es6,this不会指向window，会报错
+    // init() {
+    //     console.log(this);
+    //     this.boilWater();
+    //     this.brew();
+    //     this.pourInCup();
+    //     if (this.customerWantsCondiments()) { // 如果挂钩返回 true，则需要调料
+    //         this.addCondiments();
+    //     }
+    // };
+
+
+}
+//子类咖啡，继承父类饮料
+class CoffeeWithHook extends Beverage {
+    constructor(name) {
+        //调用父类的构造函数,演示一下super怎么用，下面传了‘名字’字符串
+        super(name);
+    }
+    brew() {
+        console.log(&apos;用沸水冲泡咖啡&apos;);
+    };
+    pourInCup() {
+        console.log(&apos;把咖啡倒进杯子&apos;);
+    };
+    addCondiments() {
+        console.log(&apos;加糖和牛奶&apos;);
+    };
+    customerWantsCondiments() {
+        return window.confirm(&apos;请问需要调料吗？&apos;);
+    };
+
+};
+
+let coffeeWithHook = new CoffeeWithHook(&apos;名字&apos;);
+//如果不把init写在constructor里面的，下面的解构会报错。在es5 ,this会指向window，在es6,this不会指向window，会报错
+let {init} = coffeeWithHook;//var init = coffeeWithHook.init
+init();
+</code></pre><h3 id="ES5实现完整"><a href="#ES5实现完整" class="headerlink" title="ES5实现完整"></a>ES5实现完整</h3><pre><code>var Beverage = function (param) {
+    var boilWater = function () {
+        console.log(&apos;把水煮沸&apos;);
+    };
+    var brew = param.brew || function () {
+        throw new Error(&apos;必须传递 brew 方法&apos;);
+    };
+    var pourInCup = param.pourInCup || function () {
+        throw new Error(&apos;必须传递 pourInCup 方法&apos;);
+    };
+    var addCondiments = param.addCondiments || function () {
+        throw new Error(&apos;必须传递 addCondiments 方法&apos;);
+    };
+    var F = function () { };
+    F.prototype.init = function () {
+        boilWater();
+        brew();
+        pourInCup();
+        addCondiments();
+    };
+    return F;
+};
+var Coffee = Beverage({
+    brew: function () {
+        console.log(&apos;用沸水冲泡咖啡&apos;);
+    },
+    pourInCup: function () {
+        console.log(&apos;把咖啡倒进杯子&apos;);
+    },
+    addCondiments: function () {
+        console.log(&apos;加糖和牛奶&apos;);
+    }
+});
+
+var coffee = new Coffee();
+coffee.init();
+</code></pre>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+    
+
+    
+    <div>
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/19/Table中render以及renderHeader的应用/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -2633,687 +3755,11 @@ showColumnsInfo()
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/10/mongoose操作mongondb数据库入门/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="厚朴酚">
-      <meta itemprop="description" content="学习笔记">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="厚朴酚">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/10/mongoose操作mongondb数据库入门/" itemprop="url">
-                  mongoose操作mongondb数据库入门
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-11-10 20:34:17" itemprop="dateCreated datePublished" datetime="2018-11-10T20:34:17+08:00">2018-11-10</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-11-11 21:38:00" itemprop="dateModified" datetime="2018-11-11T21:38:00+08:00">2018-11-11</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/node-js-mongodb/" itemprop="url" rel="index"><span itemprop="name">node.js mongodb</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="mongoose操作mongodb数据库入门"><a href="#mongoose操作mongodb数据库入门" class="headerlink" title="mongoose操作mongodb数据库入门"></a>mongoose操作mongodb数据库入门</h3><h4 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h4><p>Mongoose是在node.js异步环境下对mongodb进行的对象模型工具.</p>
-<p>特点:</p>
-<ul>
-<li>通过关系型数据库的思想来设计非关系型数据库</li>
-<li>基于mongodb驱动,简化操作</li>
-</ul>
-<h4 id="mongoose的安装以及使用"><a href="#mongoose的安装以及使用" class="headerlink" title="mongoose的安装以及使用"></a>mongoose的安装以及使用</h4><ol>
-<li><p>安装</p>
-<pre><code>npm install mongoose --save
-</code></pre></li>
-<li><p>引入mongoose并连接数据库</p>
-<pre><code>const mongoose = require(&apos;&apos;mongoose)
-
-mongoose.connect(&quot;mongodb://127.0.0.1:27017/数据库名&quot;)
-</code></pre></li>
-<li><p>定义Schema</p>
-</li>
-</ol>
-<p>数据库中的Schema,为数据库对象的集合.schema是mongoose里会用到的一种数据模式,可以理解为表结构的定义;每个schema会映射到mongodb中的一个collection,不具备操作数据库的能力.</p>
-<pre><code>var UserSchema = mongoose.Schema({
-    name:String,
-    age:Number,
-    status:&apos;number&apos; //这种方式也可以
-})
-</code></pre><ol start="4">
-<li>创建数据模型</li>
-</ol>
-<p>定义好了Schema,接下来就是生成Model.model是由schema生成的模型,可以对数据库进行操作</p>
-<ul>
-<li><p>备注:mongoose.model里面可以传入两个参数,也可以传入三个参数</p>
-<pre><code>mongoose.model(参数1:模型名称(首字母大写),参数2:Schema)
-mongoose.model(参数1:模型名称(首字母大写),参数2:Schema,参数3:数据库集合名称)
-</code></pre></li>
-</ul>
-<p>如果传入2个参数:这个模型会模型名称相同的复数的数据库建立连接:如通过下面方法创建模型,那么这个模型将会操作users这个集合</p>
-<p>如果传入三个参数的话,模型默认操作第三个参数定义的集合名称</p>
-<pre><code>var User = mongoose.model(&quot;User&quot;,UserSchema)
-</code></pre><ul>
-<li><p>. 查找数据</p>
-<pre><code>User.find({},function(err,docs){
-    if (err) {
-    console.log(err)
-    return
-    }
-    console.log(docs)
-})
-</code></pre></li>
-<li><p>. 增加数据</p>
-<pre><code>var u = new User({//实例化模型,传入增加的数据
-    name:&quot;wt&quot;,
-    age:&quot;20&quot;,
-    status:true    
-})
-
-u.save()
-</code></pre></li>
-</ul>
-<ul>
-<li>. 修改数据</li>
-</ul>
-<p>User.updateOne({name:”wt”},{name:”lcd”},function(err,res){<br>    if (err) {<br>    console.log(err)<br>    return<br>}<br>    console.log(“修改数据成功”)<br>})</p>
-<ul>
-<li><p>. 删除数据</p>
-<pre><code>User.deleteOne({_id:&quot;127f77hjk45&quot;},function(err){
-    if(err){//只会删除一条数据
-    console.log(err)
-    return
-}
-    console.log(&quot;删除数据成功&quot;)
-})
-</code></pre></li>
-<li><p>.保存成功查找</p>
-</li>
-</ul>
-<pre><code>var u = new User({
-    name:&quot;lks&quot;,
-    age:20,
-    status:true
-})  
-u.save(function(err,docs){
-    if (err){
-    console.log(err)
-    return
-}
-    User.find({},function(err,docs){
-    if (err) {
-      //
-    }
-    //
-})
-})
-</code></pre><p>通过上述我们可以看到可以和你容易操作mongodb数据库,但是这种方式在应用过程会很麻烦,后面我们会采取模块化进行来管理.</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-    
-
-    
-    <div>
-      
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/09/javascript私有变量/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="厚朴酚">
-      <meta itemprop="description" content="学习笔记">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="厚朴酚">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/09/javascript私有变量/" itemprop="url">
-                  javascript私有变量
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-11-09 17:26:19 / 修改时间：17:50:44" itemprop="dateCreated datePublished" datetime="2018-11-09T17:26:19+08:00">2018-11-09</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="javascript私有变量"><a href="#javascript私有变量" class="headerlink" title="javascript私有变量"></a>javascript私有变量</h3><p>在javascript中,没有访问级别的修饰符,(比如,无法声明一个私有变量),所以实现封装的唯一方式就是通过函数作用域和闭包,使用一个工厂方法来实现私有变量</p>
-<pre><code>function createPerson(name){
-    const privateProperties = {};
-    const person = {
-        setName: name =&gt; {
-            if (!name) throw new Error(&apos;A person must have a name&apos;)
-            privateProperties.name = name
-        },
-        getName:() =&gt;{
-            return privateProperties.name
-        }
-    };
-    person.setName(name)
-    return person
-}
-
-let a = new createPerson(&apos;lcd&apos;)
-console.log(a.getName()) //出错  Cannot read property &apos;name&apos; of undefined
-a.setName(&apos;lcd&apos;) 
-console.log(a.getName())
-</code></pre>
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-    
-
-    
-    <div>
-      
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/09/js-xlsx的一些操作封装/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="厚朴酚">
-      <meta itemprop="description" content="学习笔记">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="厚朴酚">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/09/js-xlsx的一些操作封装/" itemprop="url">
-                  js-xlsx的一些操作封装
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-11-09 15:55:13 / 修改时间：16:51:22" itemprop="dateCreated datePublished" datetime="2018-11-09T15:55:13+08:00">2018-11-09</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/node-js/" itemprop="url" rel="index"><span itemprop="name">node.js</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="js-xlsx的一些常用封装"><a href="#js-xlsx的一些常用封装" class="headerlink" title="js-xlsx的一些常用封装"></a>js-xlsx的一些常用封装</h3><ul>
-<li><p>从excel文件中获取头，返回数组</p>
-<pre><code>// get head from excel file,return array
-// 从excel文件中获取头，返回数组
-function get_header_row(sheet) {
-    const headers = []
-        /*
-         sheet1[&apos;!ref&apos;]　获取工作薄的有效范围　&apos;A1:C20&apos;
-         XLSX.utils.decode_range 将有效范围转为　range对象
-         range: {s: {r:0, c:0}, e: {r:10, 3}}
-         */
-    const range = XLSX.utils.decode_range(sheet[&apos;!ref&apos;]) 
-    // worksheet[&apos;!ref&apos;] 是工作表的有效范围
-    let C
-    /* 获取单元格值 start in the first row */
-    const R = range.s.r //行 //C 列
-    for (C = range.s.c; C &lt;= range.e.c; ++C) { /* walk every column in the range */
-        //{c:C,r:R} 单元格地址
-        var cell = sheet[XLSX.utils.encode_cell({ c: C, r: R })] /* 根据地址得到单元格的值find the cell in the first row */
-        var hdr = &apos;UNKNOWN &apos; + C // &lt;-- 替换为您想要的默认值replace with your desired default
-        //XLSX.utils.format_cell 生成单元格文本值
-        if (cell &amp;&amp; cell.t) hdr = XLSX.utils.format_cell(cell)
-        headers.push(hdr)
-    }
-    return headers
-}
-</code></pre></li>
-<li><p>读取excel的表头和表数据</p>
-<pre><code>/*
-* 读取excel的表头和表数据
- */
-export const read = (data, type) =&gt; {
-    /* if type == &apos;base64&apos; must fix data first */
-    // const fixedData = fixdata(data)
-    // const workbook = XLSX.read(btoa(fixedData), { type: &apos;base64&apos; })
-    const workbook = XLSX.read(data, { type: type });//解析数据
-    const firstSheetName = workbook.SheetNames[0];//获取Sheets中第一个Sheet的名字
-    const worksheet = workbook.Sheets[firstSheetName];//获取第一个Sheet的数据
-    const header = get_header_row(worksheet);//获取表的第一行为表头
-    const results = XLSX.utils.sheet_to_json(worksheet); //表格对象变为json数据
-    return {header, results};
-}
-</code></pre></li>
-<li><p>针对base64的数据提前处理</p>
-<pre><code>// fix data,return string
-function fixdata(data) {
-    let o = &apos;&apos;
-    let l = 0
-    const w = 10240
-    for (; l &lt; data.byteLength / w; ++l) o += String.fromCharCode.apply(null, new Uint8Array(data.slice(l * w, l * w + w)))
-    o += String.fromCharCode.apply(null, new Uint8Array(data.slice(l * w)))
-    return o
-}
-</code></pre></li>
-<li><p>表格转excle</p>
-<p>  export const export_table_to_excel= (id, filename) =&gt; {</p>
-<pre><code>const table = document.getElementById(id);
-const wb = XLSX.utils.table_to_book(table);
-XLSX.writeFile(wb, filename);
-
-/* the second way */
-// const table = document.getElementById(id);
-// const wb = XLSX.utils.book_new();
-// const ws = XLSX.utils.table_to_sheet(table);
-// XLSX.utils.book_append_sheet(wb, ws, filename);
-// XLSX.writeFile(wb, filename);
-</code></pre><p>  }</p>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-    
-
-    
-    <div>
-      
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -3358,7 +3804,7 @@ XLSX.writeFile(wb, filename);
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">49</span>
+                    <span class="site-state-item-count">52</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>

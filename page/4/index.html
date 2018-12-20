@@ -300,6 +300,682 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/10/mongoose操作mongondb数据库入门/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="厚朴酚">
+      <meta itemprop="description" content="学习笔记">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="厚朴酚">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/10/mongoose操作mongondb数据库入门/" itemprop="url">
+                  mongoose操作mongondb数据库入门
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-11-10 20:34:17" itemprop="dateCreated datePublished" datetime="2018-11-10T20:34:17+08:00">2018-11-10</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-11-11 21:38:00" itemprop="dateModified" datetime="2018-11-11T21:38:00+08:00">2018-11-11</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/node-js-mongodb/" itemprop="url" rel="index"><span itemprop="name">node.js mongodb</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="mongoose操作mongodb数据库入门"><a href="#mongoose操作mongodb数据库入门" class="headerlink" title="mongoose操作mongodb数据库入门"></a>mongoose操作mongodb数据库入门</h3><h4 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h4><p>Mongoose是在node.js异步环境下对mongodb进行的对象模型工具.</p>
+<p>特点:</p>
+<ul>
+<li>通过关系型数据库的思想来设计非关系型数据库</li>
+<li>基于mongodb驱动,简化操作</li>
+</ul>
+<h4 id="mongoose的安装以及使用"><a href="#mongoose的安装以及使用" class="headerlink" title="mongoose的安装以及使用"></a>mongoose的安装以及使用</h4><ol>
+<li><p>安装</p>
+<pre><code>npm install mongoose --save
+</code></pre></li>
+<li><p>引入mongoose并连接数据库</p>
+<pre><code>const mongoose = require(&apos;&apos;mongoose)
+
+mongoose.connect(&quot;mongodb://127.0.0.1:27017/数据库名&quot;)
+</code></pre></li>
+<li><p>定义Schema</p>
+</li>
+</ol>
+<p>数据库中的Schema,为数据库对象的集合.schema是mongoose里会用到的一种数据模式,可以理解为表结构的定义;每个schema会映射到mongodb中的一个collection,不具备操作数据库的能力.</p>
+<pre><code>var UserSchema = mongoose.Schema({
+    name:String,
+    age:Number,
+    status:&apos;number&apos; //这种方式也可以
+})
+</code></pre><ol start="4">
+<li>创建数据模型</li>
+</ol>
+<p>定义好了Schema,接下来就是生成Model.model是由schema生成的模型,可以对数据库进行操作</p>
+<ul>
+<li><p>备注:mongoose.model里面可以传入两个参数,也可以传入三个参数</p>
+<pre><code>mongoose.model(参数1:模型名称(首字母大写),参数2:Schema)
+mongoose.model(参数1:模型名称(首字母大写),参数2:Schema,参数3:数据库集合名称)
+</code></pre></li>
+</ul>
+<p>如果传入2个参数:这个模型会模型名称相同的复数的数据库建立连接:如通过下面方法创建模型,那么这个模型将会操作users这个集合</p>
+<p>如果传入三个参数的话,模型默认操作第三个参数定义的集合名称</p>
+<pre><code>var User = mongoose.model(&quot;User&quot;,UserSchema)
+</code></pre><ul>
+<li><p>. 查找数据</p>
+<pre><code>User.find({},function(err,docs){
+    if (err) {
+    console.log(err)
+    return
+    }
+    console.log(docs)
+})
+</code></pre></li>
+<li><p>. 增加数据</p>
+<pre><code>var u = new User({//实例化模型,传入增加的数据
+    name:&quot;wt&quot;,
+    age:&quot;20&quot;,
+    status:true    
+})
+
+u.save()
+</code></pre></li>
+</ul>
+<ul>
+<li>. 修改数据</li>
+</ul>
+<p>User.updateOne({name:”wt”},{name:”lcd”},function(err,res){<br>    if (err) {<br>    console.log(err)<br>    return<br>}<br>    console.log(“修改数据成功”)<br>})</p>
+<ul>
+<li><p>. 删除数据</p>
+<pre><code>User.deleteOne({_id:&quot;127f77hjk45&quot;},function(err){
+    if(err){//只会删除一条数据
+    console.log(err)
+    return
+}
+    console.log(&quot;删除数据成功&quot;)
+})
+</code></pre></li>
+<li><p>.保存成功查找</p>
+</li>
+</ul>
+<pre><code>var u = new User({
+    name:&quot;lks&quot;,
+    age:20,
+    status:true
+})  
+u.save(function(err,docs){
+    if (err){
+    console.log(err)
+    return
+}
+    User.find({},function(err,docs){
+    if (err) {
+      //
+    }
+    //
+})
+})
+</code></pre><p>通过上述我们可以看到可以和你容易操作mongodb数据库,但是这种方式在应用过程会很麻烦,后面我们会采取模块化进行来管理.</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+    
+
+    
+    <div>
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/09/javascript私有变量/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="厚朴酚">
+      <meta itemprop="description" content="学习笔记">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="厚朴酚">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/09/javascript私有变量/" itemprop="url">
+                  javascript私有变量
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-11-09 17:26:19 / 修改时间：17:50:44" itemprop="dateCreated datePublished" datetime="2018-11-09T17:26:19+08:00">2018-11-09</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="javascript私有变量"><a href="#javascript私有变量" class="headerlink" title="javascript私有变量"></a>javascript私有变量</h3><p>在javascript中,没有访问级别的修饰符,(比如,无法声明一个私有变量),所以实现封装的唯一方式就是通过函数作用域和闭包,使用一个工厂方法来实现私有变量</p>
+<pre><code>function createPerson(name){
+    const privateProperties = {};
+    const person = {
+        setName: name =&gt; {
+            if (!name) throw new Error(&apos;A person must have a name&apos;)
+            privateProperties.name = name
+        },
+        getName:() =&gt;{
+            return privateProperties.name
+        }
+    };
+    person.setName(name)
+    return person
+}
+
+let a = new createPerson(&apos;lcd&apos;)
+console.log(a.getName()) //出错  Cannot read property &apos;name&apos; of undefined
+a.setName(&apos;lcd&apos;) 
+console.log(a.getName())
+</code></pre>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+    
+
+    
+    <div>
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/09/js-xlsx的一些操作封装/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="厚朴酚">
+      <meta itemprop="description" content="学习笔记">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="厚朴酚">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/09/js-xlsx的一些操作封装/" itemprop="url">
+                  js-xlsx的一些操作封装
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-11-09 15:55:13 / 修改时间：16:51:22" itemprop="dateCreated datePublished" datetime="2018-11-09T15:55:13+08:00">2018-11-09</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/node-js/" itemprop="url" rel="index"><span itemprop="name">node.js</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="js-xlsx的一些常用封装"><a href="#js-xlsx的一些常用封装" class="headerlink" title="js-xlsx的一些常用封装"></a>js-xlsx的一些常用封装</h3><ul>
+<li><p>从excel文件中获取头，返回数组</p>
+<pre><code>// get head from excel file,return array
+// 从excel文件中获取头，返回数组
+function get_header_row(sheet) {
+    const headers = []
+        /*
+         sheet1[&apos;!ref&apos;]　获取工作薄的有效范围　&apos;A1:C20&apos;
+         XLSX.utils.decode_range 将有效范围转为　range对象
+         range: {s: {r:0, c:0}, e: {r:10, 3}}
+         */
+    const range = XLSX.utils.decode_range(sheet[&apos;!ref&apos;]) 
+    // worksheet[&apos;!ref&apos;] 是工作表的有效范围
+    let C
+    /* 获取单元格值 start in the first row */
+    const R = range.s.r //行 //C 列
+    for (C = range.s.c; C &lt;= range.e.c; ++C) { /* walk every column in the range */
+        //{c:C,r:R} 单元格地址
+        var cell = sheet[XLSX.utils.encode_cell({ c: C, r: R })] /* 根据地址得到单元格的值find the cell in the first row */
+        var hdr = &apos;UNKNOWN &apos; + C // &lt;-- 替换为您想要的默认值replace with your desired default
+        //XLSX.utils.format_cell 生成单元格文本值
+        if (cell &amp;&amp; cell.t) hdr = XLSX.utils.format_cell(cell)
+        headers.push(hdr)
+    }
+    return headers
+}
+</code></pre></li>
+<li><p>读取excel的表头和表数据</p>
+<pre><code>/*
+* 读取excel的表头和表数据
+ */
+export const read = (data, type) =&gt; {
+    /* if type == &apos;base64&apos; must fix data first */
+    // const fixedData = fixdata(data)
+    // const workbook = XLSX.read(btoa(fixedData), { type: &apos;base64&apos; })
+    const workbook = XLSX.read(data, { type: type });//解析数据
+    const firstSheetName = workbook.SheetNames[0];//获取Sheets中第一个Sheet的名字
+    const worksheet = workbook.Sheets[firstSheetName];//获取第一个Sheet的数据
+    const header = get_header_row(worksheet);//获取表的第一行为表头
+    const results = XLSX.utils.sheet_to_json(worksheet); //表格对象变为json数据
+    return {header, results};
+}
+</code></pre></li>
+<li><p>针对base64的数据提前处理</p>
+<pre><code>// fix data,return string
+function fixdata(data) {
+    let o = &apos;&apos;
+    let l = 0
+    const w = 10240
+    for (; l &lt; data.byteLength / w; ++l) o += String.fromCharCode.apply(null, new Uint8Array(data.slice(l * w, l * w + w)))
+    o += String.fromCharCode.apply(null, new Uint8Array(data.slice(l * w)))
+    return o
+}
+</code></pre></li>
+<li><p>表格转excle</p>
+<p>  export const export_table_to_excel= (id, filename) =&gt; {</p>
+<pre><code>const table = document.getElementById(id);
+const wb = XLSX.utils.table_to_book(table);
+XLSX.writeFile(wb, filename);
+
+/* the second way */
+// const table = document.getElementById(id);
+// const wb = XLSX.utils.book_new();
+// const ws = XLSX.utils.table_to_sheet(table);
+// XLSX.utils.book_append_sheet(wb, ws, filename);
+// XLSX.writeFile(wb, filename);
+</code></pre><p>  }</p>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+    
+
+    
+    <div>
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/09/HTML5的Blob对象/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -2476,1018 +3152,11 @@ run(g);
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/06/js复杂判断的优雅写法/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="厚朴酚">
-      <meta itemprop="description" content="学习笔记">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="厚朴酚">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/06/js复杂判断的优雅写法/" itemprop="url">
-                  js复杂判断的优雅写法
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-11-06 13:31:47 / 修改时间：13:52:11" itemprop="dateCreated datePublished" datetime="2018-11-06T13:31:47+08:00">2018-11-06</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="JS复杂判断的优雅写法"><a href="#JS复杂判断的优雅写法" class="headerlink" title="JS复杂判断的优雅写法"></a>JS复杂判断的优雅写法</h2><p>教程来源链接:</p>
-<p><a href="https://juejin.im/post/5bdfef86e51d453bf8051bf8" target="_blank" rel="noopener">https://juejin.im/post/5bdfef86e51d453bf8051bf8</a></p>
-<p>作者:Think</p>
-<p>来源: 掘金</p>
-<h3 id="前提"><a href="#前提" class="headerlink" title="前提:"></a>前提:</h3><p>编写js代码时经常遇到复杂逻辑判的情况，通常大家可以用if/else或者switch来实现多个条件判断，但这样会有个问题，随着逻辑复杂度的增加，代码中的if/else/switch会变得越来越臃肿，越来越看不懂，那么如何更优雅的写判断逻辑。</p>
-<h3 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h3><h4 id="if-else实现"><a href="#if-else实现" class="headerlink" title="if/else实现"></a>if/else实现</h4><pre><code>/**
- * 按钮点击事件
- * @param {number} status 活动状态：1 开团进行中 2 开团失败 3 商品售罄 4 开团成功 5 系统取消
- */
-const onButtonClick1 = (status)=&gt;{
-  if(status == 1){
-    sendLog(&apos;processing&apos;)
-    jumpTo(&apos;IndexPage&apos;)
-  }else if(status == 2){
-    sendLog(&apos;fail&apos;)
-    jumpTo(&apos;FailPage&apos;)
-  }else if(status == 3){
-    sendLog(&apos;fail&apos;)
-    jumpTo(&apos;FailPage&apos;)
-  }else if(status == 4){
-    sendLog(&apos;success&apos;)
-    jumpTo(&apos;SuccessPage&apos;)
-  }else if(status == 5){
-    sendLog(&apos;cancel&apos;)
-    jumpTo(&apos;CancelPage&apos;)
-  }else {
-    sendLog(&apos;other&apos;)
-    jumpTo(&apos;Index&apos;)
-  }
-}
-</code></pre><p>通过代码可以看到这个按钮的点击逻辑：根据不同活动状态做两件事情，发送日志埋点和跳转到对应页面，大家可以很轻易的提出这段代码的改写方案，switch出场：</p>
-<h4 id="switch改进"><a href="#switch改进" class="headerlink" title="switch改进"></a>switch改进</h4><pre><code>/**
- * 按钮点击事件
- * @param {number} status 活动状态：1 开团进行中 2 开团失败 3 商品售罄 4 开团成功 5 系统取消
- */
-const onButtonClick = (status)=&gt;{
-  switch (status){
-    case 1:
-      sendLog(&apos;processing&apos;)
-      jumpTo(&apos;IndexPage&apos;)
-      break
-    case 2:
-    case 3:
-      sendLog(&apos;fail&apos;)
-      jumpTo(&apos;FailPage&apos;)
-      break  
-    case 4:
-      sendLog(&apos;success&apos;)
-      jumpTo(&apos;SuccessPage&apos;)
-      break
-    case 5:
-      sendLog(&apos;cancel&apos;)
-      jumpTo(&apos;CancelPage&apos;)
-      break
-    default:
-      sendLog(&apos;other&apos;)
-      jumpTo(&apos;Index&apos;)
-      break
-  }
-}
-</code></pre><p>这样看起来比if/else清晰多了，细心的同学也发现了小技巧，case 2和case 3逻辑一样的时候，可以省去执行语句和break，则case 2的情况自动执行case 3的逻辑。</p>
-<h4 id="条件作为属性名的实现"><a href="#条件作为属性名的实现" class="headerlink" title="条件作为属性名的实现"></a>条件作为属性名的实现</h4><pre><code>const actions = {
-  &apos;1&apos;: [&apos;processing&apos;,&apos;IndexPage&apos;],
-  &apos;2&apos;: [&apos;fail&apos;,&apos;FailPage&apos;],
-  &apos;3&apos;: [&apos;fail&apos;,&apos;FailPage&apos;],
-  &apos;4&apos;: [&apos;success&apos;,&apos;SuccessPage&apos;],
-  &apos;5&apos;: [&apos;cancel&apos;,&apos;CancelPage&apos;],
-  &apos;default&apos;: [&apos;other&apos;,&apos;Index&apos;],
-}
-/**
- * 按钮点击事件
- * @param {number} status 活动状态：1开团进行中 2开团失败 3 商品售罄 4 开团成功 5 系统取消
- */
-const onButtonClick = (status)=&gt;{
-  let action = actions[status] || actions[&apos;default&apos;],
-      logName = action[0],
-      pageName = action[1]
-  sendLog(logName)
-  jumpTo(pageName)
-}
-</code></pre><p>这种方法的聪明之处在于：将判断条件作为对象的属性名，将处理逻辑作为对象的属性值，在按钮点击的时候，通过对象属性查找的方式来进行逻辑判断，这种写法特别适合一元条件判断的情况。</p>
-<h4 id="再一种方法"><a href="#再一种方法" class="headerlink" title="再一种方法"></a>再一种方法</h4><pre><code>const actions = new Map([
-  [1, [&apos;processing&apos;,&apos;IndexPage&apos;]],
-  [2, [&apos;fail&apos;,&apos;FailPage&apos;]],
-  [3, [&apos;fail&apos;,&apos;FailPage&apos;]],
-  [4, [&apos;success&apos;,&apos;SuccessPage&apos;]],
-  [5, [&apos;cancel&apos;,&apos;CancelPage&apos;]],
-  [&apos;default&apos;, [&apos;other&apos;,&apos;Index&apos;]]
-])
-/**
- * 按钮点击事件
- * @param {number} status 活动状态：1 开团进行中 2 开团失败 3 商品售罄 4 开团成功 5 系统取消
- */
-const onButtonClick = (status)=&gt;{
-  let action = actions.get(status) || actions.get(&apos;default&apos;)
-  sendLog(action[0])
-  jumpTo(action[1])
-}
-</code></pre><p>这样写用到了es6里的Map对象，是不是更爽了？Map对象和Object对象有什么区别呢？</p>
-<ol>
-<li>一个对象通常都有自己的原型，所以一个对象总有一个”prototype”键。</li>
-<li>一个对象的键只能是字符串或者Symbols，但一个Map的键可以是任意值。</li>
-<li>你可以通过size属性很容易地得到一个Map的键值对个数，而对象的键值对个数只能手动确认。</li>
-</ol>
-<p>把问题升级一下，以前按钮点击时候只需要判断status，现在还需要判断用户的身份:</p>
-<pre><code>/**
- * 按钮点击事件
- * @param {number} status 活动状态：1开团进行中 2开团失败 3 开团成功 4 商品售罄 5 有库存未开团
- * @param {string} identity 身份标识：guest客态 master主态
- */
-const onButtonClick = (status,identity)=&gt;{
-  if(identity == &apos;guest&apos;){
-    if(status == 1){
-      //do sth
-    }else if(status == 2){
-      //do sth
-    }else if(status == 3){
-      //do sth
-    }else if(status == 4){
-      //do sth
-    }else if(status == 5){
-      //do sth
-    }else {
-      //do sth
-    }
-  }else if(identity == &apos;master&apos;) {
-    if(status == 1){
-      //do sth
-    }else if(status == 2){
-      //do sth
-    }else if(status == 3){
-      //do sth
-    }else if(status == 4){
-      //do sth
-    }else if(status == 5){
-      //do sth
-    }else {
-      //do sth
-    }
-  }
-}
-</code></pre><p>从上面的例子我们可以看到，当你的逻辑升级为二元判断时，你的判断量会加倍，你的代码量也会加倍，这时怎么写更清爽呢？</p>
-<pre><code>const actions = new Map([
-  [&apos;guest_1&apos;, ()=&gt;{/*do sth*/}],
-  [&apos;guest_2&apos;, ()=&gt;{/*do sth*/}],
-  [&apos;guest_3&apos;, ()=&gt;{/*do sth*/}],
-  [&apos;guest_4&apos;, ()=&gt;{/*do sth*/}],
-  [&apos;guest_5&apos;, ()=&gt;{/*do sth*/}],
-  [&apos;master_1&apos;, ()=&gt;{/*do sth*/}],
-  [&apos;master_2&apos;, ()=&gt;{/*do sth*/}],
-  [&apos;master_3&apos;, ()=&gt;{/*do sth*/}],
-  [&apos;master_4&apos;, ()=&gt;{/*do sth*/}],
-  [&apos;master_5&apos;, ()=&gt;{/*do sth*/}],
-  [&apos;default&apos;, ()=&gt;{/*do sth*/}],
-])
-
-/**
- * 按钮点击事件
- * @param {string} identity 身份标识：guest客态 master主态
- * @param {number} status 活动状态：1 开团进行中 2 开团失败 3 开团成功 4 商品售罄 5 有库存未开团
- */
-const onButtonClick = (identity,status)=&gt;{
-  let action = actions.get(`${identity}_${status}`) || actions.get(&apos;default&apos;)
-  action.call(this)
-}
-</code></pre><p>上述代码核心逻辑是：把两个条件拼接成字符串，并通过以条件拼接字符串作为键，以处理函数作为值的Map对象进行查找并执行，这种写法在多元条件判断时候尤其好用。</p>
-<p>当然上述代码如果用Object对象来实现也是类似的：</p>
-<pre><code>const actions = {
-  &apos;guest_1&apos;:()=&gt;{/*do sth*/},
-  &apos;guest_2&apos;:()=&gt;{/*do sth*/},
-  //....
-}
-
-const onButtonClick = (identity,status)=&gt;{
-  let action = actions[`${identity}_${status}`] || actions[&apos;default&apos;]
-  action.call(this)
-}
-</code></pre><p>如果觉得把查询条件拼成字符串有点别扭，那还有一种方案，就是用Map对象，以Object对象作为key：</p>
-<pre><code>const actions = new Map([
-  [{identity:&apos;guest&apos;,status:1},()=&gt;{/*do sth*/}],
-  [{identity:&apos;guest&apos;,status:2},()=&gt;{/*do sth*/}],
-  //...
-])
-
-const onButtonClick = (identity,status)=&gt;{
-  let action = [...actions].filter(([key,value])=&gt;(key.identity == identity &amp;&amp; key.status == status))
-  action.forEach(([key,value])=&gt;value.call(this))
-}
-</code></pre><p>这里也看出来Map与Object的区别，Map可以用任何类型的数据作为key。</p>
-<p>我们现在再将难度升级一点点，假如guest情况下，status1-4的处理逻辑都一样怎么办，最差的情况是这样：</p>
-<pre><code>const actions = new Map([
-  [{identity:&apos;guest&apos;,status:1},()=&gt;{/* functionA */}],
-  [{identity:&apos;guest&apos;,status:2},()=&gt;{/* functionA */}],
-  [{identity:&apos;guest&apos;,status:3},()=&gt;{/* functionA */}],
-  [{identity:&apos;guest&apos;,status:4},()=&gt;{/* functionA */}],
-  [{identity:&apos;guest&apos;,status:5},()=&gt;{/* functionB */}],
-  //...
-])
-</code></pre><p>好一点的写法是将处理逻辑函数进行缓存：</p>
-<pre><code>const actions = ()=&gt;{
-  const functionA = ()=&gt;{/*do sth*/}
-  const functionB = ()=&gt;{/*do sth*/}
-  return new Map([
-    [{identity:&apos;guest&apos;,status:1},functionA],
-    [{identity:&apos;guest&apos;,status:2},functionA],
-    [{identity:&apos;guest&apos;,status:3},functionA],
-    [{identity:&apos;guest&apos;,status:4},functionA],
-    [{identity:&apos;guest&apos;,status:5},functionB],
-    //...
-  ])
-}
-
-const onButtonClick = (identity,status)=&gt;{
-  let action = [...actions()].filter(([key,value])=&gt;(key.identity == identity &amp;&amp; key.status == status))
-  action.forEach(([key,value])=&gt;value.call(this))
-}
-</code></pre><p>这样写已经能满足日常需求了，但认真一点讲，上面重写了4次functionA还是有点不爽，假如判断条件变得特别复杂，比如identity有3种状态，status有10种状态，那你需要定义30条处理逻辑，而往往这些逻辑里面很多都是相同的，那可以这样实现:</p>
-<pre><code>const actions = ()=&gt;{
-  const functionA = ()=&gt;{/*do sth*/}
-  const functionB = ()=&gt;{/*do sth*/}
-  return new Map([
-    [/^guest_[1-4]$/,functionA],
-    [/^guest_5$/,functionB],
-    //...
-  ])
-}
-
-const onButtonClick = (identity,status)=&gt;{
-  let action = [...actions()].filter(([key,value])=&gt;(key.test(`${identity}_${status}`)))
-  action.forEach(([key,value])=&gt;value.call(this))
-}
-</code></pre><p>这里Map的优势更加凸显，可以用正则类型作为key了，这样就有了无限可能，假如需求变成，凡是guest情况都要发送一个日志埋点，不同status情况也需要单独的逻辑处理，那我们可以这样写:</p>
-<pre><code>const actions = ()=&gt;{
-  const functionA = ()=&gt;{/*do sth*/}
-  const functionB = ()=&gt;{/*do sth*/}
-  const functionC = ()=&gt;{/*send log*/}
-  return new Map([
-    [/^guest_[1-4]$/,functionA],
-    [/^guest_5$/,functionB],
-    [/^guest_.*$/,functionC],
-    //...
-  ])
-}
-
-const onButtonClick = (identity,status)=&gt;{
-  let action = [...actions()].filter(([key,value])=&gt;(key.test(`${identity}_${status}`)))
-  action.forEach(([key,value])=&gt;value.call(this))
-}
-</code></pre><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ol>
-<li>if/else</li>
-<li>switch</li>
-<li>一元判断时：存到Object里</li>
-<li>一元判断时：存到Map里</li>
-<li>多元判断时：将condition拼接成字符串存到Object里</li>
-<li>多元判断时：将condition拼接成字符串存到Map里</li>
-<li>多元判断时：将condition存为Object存到Map里</li>
-<li>多元判断时：将condition写作正则存到Map里</li>
-</ol>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-    
-
-    
-    <div>
-      
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/05/javasript数组常用方法/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="厚朴酚">
-      <meta itemprop="description" content="学习笔记">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="厚朴酚">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/05/javasript数组常用方法/" itemprop="url">
-                  javasript数组常用方法
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-11-05 10:57:40 / 修改时间：11:21:27" itemprop="dateCreated datePublished" datetime="2018-11-05T10:57:40+08:00">2018-11-05</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="改变原数组"><a href="#改变原数组" class="headerlink" title="改变原数组"></a>改变原数组</h2><h3 id="移除数组末尾最后一项-pop"><a href="#移除数组末尾最后一项-pop" class="headerlink" title="移除数组末尾最后一项.pop()"></a>移除数组末尾最后一项.pop()</h3><ul>
-<li>返回删除的元素</li>
-<li><p>如果你在一个空数组上调用 pop()，它返回 undefined</p>
-<pre><code> let word = [&apos;a&apos;, &apos;b&apos;, &apos;c&apos;, &apos;d&apos;];  
-let newArr = word.pop();  
-console.log(word);      //[&apos;a&apos;, &apos;b&apos;, &apos;c&apos;]  
-console.log(newArr);    //d  
-
-let nullArr = [];  
-console.log(nullArr.pop()); //undefined  
-</code></pre></li>
-</ul>
-<h3 id="在数组末尾添加一个或多个元素-push"><a href="#在数组末尾添加一个或多个元素-push" class="headerlink" title="在数组末尾添加一个或多个元素.push()"></a>在数组末尾添加一个或多个元素.push()</h3><ul>
-<li><p>返回修改后数组长度</p>
-<pre><code>let word = [&apos;a&apos;, &apos;b&apos;, &apos;c&apos;, &apos;d&apos;];  
-let newArr = word.push(&apos;e&apos;,&apos;f&apos;);  
-console.log(word);      //[&apos;a&apos;, &apos;b&apos;, &apos;c&apos;, &apos;d&apos;, &apos;e&apos;, &apos;f&apos;]  
-console.log(newArr);    //6
-</code></pre></li>
-</ul>
-<h3 id="移除数组第一项-shift"><a href="#移除数组第一项-shift" class="headerlink" title="移除数组第一项.shift()"></a>移除数组第一项.shift()</h3><ul>
-<li><p>返回移除的元素</p>
-<pre><code>let word = [&apos;a&apos;, &apos;b&apos;, &apos;c&apos;, &apos;d&apos;];  
-let newArr = word.shift();  
-console.log(word);      //[&apos;b&apos;, &apos;c&apos;, &apos;d&apos;]  
-console.log(newArr);    //a 
-</code></pre></li>
-</ul>
-<h3 id="在数组头部添加一个或多个元素-unshift"><a href="#在数组头部添加一个或多个元素-unshift" class="headerlink" title="在数组头部添加一个或多个元素.unshift()"></a>在数组头部添加一个或多个元素.unshift()</h3><ul>
-<li><p>返回修改后数组长度</p>
-<pre><code> let word = [&apos;a&apos;, &apos;b&apos;, &apos;c&apos;, &apos;d&apos;];  
-let newArr = word.unshift(&apos;11&apos;,&apos;22&apos;);  
-console.log(word);      //[&apos;11&apos;, &apos;22&apos;, &apos;a&apos;, &apos;b&apos;, &apos;c&apos;, &apos;d&apos;]  
-console.log(newArr);    //6 
-</code></pre></li>
-</ul>
-<h3 id="对数组元素排序-sort"><a href="#对数组元素排序-sort" class="headerlink" title="对数组元素排序.sort()"></a>对数组元素排序.sort()</h3><ul>
-<li>返回排序后的数组</li>
-<li><p>默认排序顺序是根据字符串Unicode码点</p>
-<pre><code>let fruit = [&apos;cherries&apos;, &apos;apples&apos;, &apos;bananas&apos;];  
-console.log(fruit.sort());       // [&apos;apples&apos;, &apos;bananas&apos;, &apos;cherries&apos;]  
-
-let scores = [1, 10, 21, 2];   
-console.log(scores.sort());  
-// [1, 10, 2, 21]  
-// 注意10在2之前,  
-// 因为在 Unicode 指针顺序中&quot;10&quot;在&quot;2&quot;之前  
-
-let things = [&apos;word&apos;, &apos;Word&apos;, &apos;1 Word&apos;, &apos;2 Words&apos;];  
-console.log(things.sort());   
-// [&apos;1 Word&apos;, &apos;2 Words&apos;, &apos;Word&apos;, &apos;word&apos;]  
-// 在Unicode中, 数字在大写字母之前,  
-// 大写字母在小写字母之前.  
-
-function compare(a, b) {  
-    if(a &lt; b) {  
-        return -1;  
-    }else if(a &gt; b) {  
-        return 1;  
-    }else {  
-        return 0;  
-    }  
-}  
-let num = [1, 10, 21, 2];  
-console.log(num.sort(compare)); //[1, 2, 10, 21]
-</code></pre></li>
-</ul>
-<h3 id="颠倒数组元素-reverse"><a href="#颠倒数组元素-reverse" class="headerlink" title="颠倒数组元素.reverse()"></a>颠倒数组元素.reverse()</h3><ul>
-<li>返回排序后的数组</li>
-<li><p>默认排序顺序是根据字符串Unicode码点</p>
-<pre><code>let word = [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;];  
-let newArr = word.reverse();  
-console.log(word);      //[&quot;d&quot;, &quot;c&quot;, &quot;b&quot;, &quot;a&quot;]  
-console.log(newArr);    //[&quot;d&quot;, &quot;c&quot;, &quot;b&quot;, &quot;a&quot;] 
-</code></pre></li>
-</ul>
-<h3 id="删除或插入元素-splice"><a href="#删除或插入元素-splice" class="headerlink" title="删除或插入元素.splice()"></a>删除或插入元素.splice()</h3><ul>
-<li>返回数组删除的项</li>
-<li><p>没有删除的项，返回空数组 </p>
-<pre><code>var word = [&apos;a&apos;, &apos;b&apos;, &apos;c&apos;, &apos;d&apos;];  
-//删除,前闭后开  
-var newArr = word.splice(0,2);  
-console.log(word);      //[&quot;c&quot;, &quot;d&quot;]  
-console.log(newArr);    //[&quot;a&quot;, &quot;b&quot;]  
-
-//插入,当前数组索引1处插入hello  
-var newArr = word.splice(1,0,&apos;hello&apos;);  
-console.log(word);      //[&quot;c&quot;, &quot;hello&quot;, &quot;d&quot;]  
-console.log(newArr);    //[]  
-
-//替换  
-var newArr = word.splice(1,1,&apos;world&apos;);  
-console.log(word);      //[&quot;c&quot;, &quot;world&quot;, &quot;d&quot;]  
-console.log(newArr);    //[&quot;hello&quot;] 
-</code></pre></li>
-</ul>
-<h2 id="不会改变原数组"><a href="#不会改变原数组" class="headerlink" title="不会改变原数组"></a>不会改变原数组</h2><h3 id="合并两个或多个数组-concat"><a href="#合并两个或多个数组-concat" class="headerlink" title="合并两个或多个数组.concat()"></a>合并两个或多个数组.concat()</h3><ul>
-<li><p>返回新数组</p>
-<pre><code>let word = [&apos;a&apos;, &apos;b&apos;, &apos;c&apos;, &apos;d&apos;];  
-let word2 = [&apos;hello&apos;,&apos;world&apos;];  
-let newArr = word.concat(word2);  
-console.log(word);      //[&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;]  
-console.log(newArr);    //[&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;, &quot;hello&quot;, &quot;world&quot;] 
-</code></pre></li>
-</ul>
-<h3 id="将数组所有元素连接成一个字符串-join"><a href="#将数组所有元素连接成一个字符串-join" class="headerlink" title="将数组所有元素连接成一个字符串.join()"></a>将数组所有元素连接成一个字符串.join()</h3><ul>
-<li><p>返回连接后的字符串</p>
-<pre><code> let word = [&apos;a&apos;, &apos;b&apos;, &apos;c&apos;, &apos;d&apos;];  
-let newArr = word.join(&apos;---&apos;);  
-console.log(word);      //[&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;]  
-console.log(newArr);    //a---b---c---d  
-</code></pre></li>
-</ul>
-<h3 id="截取数组元素到新数组中-slice"><a href="#截取数组元素到新数组中-slice" class="headerlink" title="截取数组元素到新数组中.slice()"></a>截取数组元素到新数组中.slice()</h3><ul>
-<li><p>返回新数组</p>
-<pre><code>let word = [&apos;a&apos;, &apos;b&apos;, &apos;c&apos;, &apos;d&apos;];  
-//原数组索引为1开始截取后面所有元素  
-let newArr = word.slice(1);  
-console.log(word);      //[&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;]  
-console.log(newArr);    //[&quot;b&quot;, &quot;c&quot;, &quot;d&quot;]  
-
-//截取原数组索引为1到3之间的元素，前闭后开  
-let newArr2 = word.slice(1,3);  
-console.log(word);      //[&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;]  
-console.log(newArr2);    //[&quot;b&quot;, &quot;c&quot;]  
-
-//截取原数组倒数第三个元素与倒数第一个元素之间的元素，前闭后开  
-let newArr3 = word.slice(-3,-1);  
-console.log(word);      //[&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;]  
-console.log(newArr3);    //[[&quot;b&quot;, &quot;c&quot;]  
-</code></pre></li>
-</ul>
-<h3 id="获取查询元素第一次出现的索引-indexOf"><a href="#获取查询元素第一次出现的索引-indexOf" class="headerlink" title="获取查询元素第一次出现的索引.indexOf()"></a>获取查询元素第一次出现的索引.indexOf()</h3><ul>
-<li><p>找不到查询元素,则返回-1</p>
-<pre><code>let word = [&apos;a&apos;, &apos;b&apos;, &apos;b&apos;, &apos;c&apos;, &apos;d&apos;];  
-let index = word.indexOf(&apos;b&apos;);      //1,第一次出现b的索引值  
-let index2 = word.indexOf(&apos;hello&apos;); //-1  
-console.log(index);  
-console.log(index2);  
-</code></pre></li>
-</ul>
-<h3 id="获取查询元素最后一次出现的索引-lastIndexOf"><a href="#获取查询元素最后一次出现的索引-lastIndexOf" class="headerlink" title="获取查询元素最后一次出现的索引.lastIndexOf()"></a>获取查询元素最后一次出现的索引.lastIndexOf()</h3><ul>
-<li><p>找不到查询元素,则返回-1</p>
-<pre><code>let word = [&apos;a&apos;, &apos;b&apos;, &apos;b&apos;, &apos;c&apos;, &apos;d&apos;];  
-let index = word.lastIndexOf(&apos;b&apos;);      //2,最后一个b的索引值为2  
-let index2 = word.lastIndexOf(&apos;hello&apos;); //-1  
-console.log(index);  
-console.log(index2);  
-</code></pre></li>
-</ul>
-<h3 id="toString-返回由数组每个元素的字符串形式拼接而成的以逗号分隔的字符串"><a href="#toString-返回由数组每个元素的字符串形式拼接而成的以逗号分隔的字符串" class="headerlink" title=".toString()返回由数组每个元素的字符串形式拼接而成的以逗号分隔的字符串"></a>.toString()返回由数组每个元素的字符串形式拼接而成的以逗号分隔的字符串</h3><pre><code>let word = [&apos;a&apos;, &apos;b&apos;, &apos;b&apos;, &apos;c&apos;, &apos;d&apos;];  
-let str = word.toString();      //a,b,b,c,d  
-console.log(str);  
-</code></pre><h2 id="迭代方法"><a href="#迭代方法" class="headerlink" title="迭代方法"></a>迭代方法</h2><p>每个方法接受含有三个参数的函数，三个参数为：数组中的项，元素索引，数组本身</p>
-<pre><code>1.every()，数组所有元素都满足要求则返回true，否则返回false
-2.some()，只要有满足要求的就返回true
-3.filter()，返回过滤后的结果数组
-4.map()，返回在函数中处理过的数组
-5.forEach()，遍历整个数组
-</code></pre><h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><pre><code>var number = [1,2,3,4,5,6,7,8];  
-var res = number.every(function(item, index, array) {  
-    return (item &gt; 2);  
-})  
-console.log(res);   //false  
-
-var res = number.some(function(item, index, array) {  
-    return (item &gt; 2);  
-})  
-console.log(res);   //true  
-
-var res = number.filter(function(item, index, array) {  
-    return (item &gt; 2);  
-})  
-console.log(res);   //[3, 4, 5, 6, 7, 8]  
-
-var res = number.map(function(item, index, array) {  
-    return (item * 2);  
-})  
-console.log(res);   //[2, 4, 6, 8, 10, 12, 14, 16]  
-
-var res = number.forEach(function(item, index, array) {  
-    //执行某些操作 
-})  
-</code></pre><h2 id="归并方法"><a href="#归并方法" class="headerlink" title="归并方法"></a>归并方法</h2><p>迭代数组所有项，构建最终返回值，每个方法接受两个参数：调用的函数和作为归并基础的初始值。函数接受4个参数：前一个值，当前值，项索引，数组本身。函数返回的值都会作为第一个参数自动传给下一项，第一次迭代从数组第二项开始，当前值为数组第二项</p>
-<pre><code>1.reduce()，从数组第一项开始遍历到最后
-2.reduceRight()，从数组最后一项开始遍历到第一项
-</code></pre><h3 id="示例-1"><a href="#示例-1" class="headerlink" title="示例"></a>示例</h3><pre><code> /* 
-    开始执行回调函数cur为2，prev为1， 
-    第二次执行回调函数，在之前的基础上加1 
-    函数返回的值都会作为一个参数传给下一项， 
-    最后执行函数时就是28+8 
-*/  
-var number = [1,2,3,4,5,6,7,8];  
-var res = number.reduce(function(prev, cur, index, array) {  
-    return prev + cur;  
-})  
-console.log(res);   //1+2+3+4+5+6+7+8=36  
-
-var res = number.reduceRight(function(prev, cur, index, array) {  
-    return prev + cur;  
-})  
-console.log(res);   //8+7+6+5+4+3+2+1=36 
-</code></pre><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>更多数组内容可以访问MDN地址:</p>
-<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/map" target="_blank" rel="noopener">https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/map</a> </p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-    
-
-    
-    <div>
-      
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/05/ES6数据方法/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="厚朴酚">
-      <meta itemprop="description" content="学习笔记">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="厚朴酚">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/05/ES6数据方法/" itemprop="url">
-                  ES6数据方法
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-11-05 10:42:07 / 修改时间：10:55:46" itemprop="dateCreated datePublished" datetime="2018-11-05T10:42:07+08:00">2018-11-05</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="ES6常用数据方法总结"><a href="#ES6常用数据方法总结" class="headerlink" title="ES6常用数据方法总结"></a>ES6常用数据方法总结</h3><p>参数  index, array可以忽略</p>
-<h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><pre><code>map():返回一个新的Array，每个元素为调用func的结果 
-filter():返回一个符合func条件的元素数组 
-some():返回一个boolean，判断是否有元素是否符合func条件 
-every():返回一个boolean，判断每个元素是否符合func条件 
-forEach():没有返回值，只是针对每个元素调用func 
-reduce():有返回值，重点是计算数组，返回一个值
-
-1、map速度比forEach快 
-2、map会返回一个新数组，不对原数组产生影响,foreach不会产生新数组， 
-3、map因为返回数组所以可以链式操作，forEach不能
-</code></pre><h4 id="forEach"><a href="#forEach" class="headerlink" title="forEach()"></a>forEach()</h4><pre><code>let array = [1,2,3,4];
-array.forEach((item, index, array) =&gt; {
-　　console.log(item);
-}); //1,2,3,4
-</code></pre><p>备注:forEach会遍历数组, 没有返回值, 不允许在循环体内写return, 不会改变原来数组的内容.</p>
-<p>备注:map 遍历数组, 会返回一个新数组, 不会改变原来数组里的内容</p>
-<h4 id="map"><a href="#map" class="headerlink" title="map()"></a>map()</h4><pre><code>let array = [1, 2, 3, 4];
-let temp = array.map((item, index, array) =&gt; {
-    return item * 10;
-});
-console.log(temp);　　//  [10, 20, 30, 40];
-console.log(array);　　// [1, 2, 3, 4]
-</code></pre><h4 id="filter"><a href="#filter" class="headerlink" title="filter()"></a>filter()</h4><pre><code>let array = [1, 2, 3, 4];
-let temp = array.filter((item, index, array) =&gt; {
-　　return item &gt;  3;
-});
-console.log(temp);　　// [4]
-console.log(array);　　// [1, 2, 3, 4]
-</code></pre><p>备注: filter 会过滤掉数组中不满足条件的元素, 把满足条件的元素放到一个新数组中, 不改变原数组</p>
-<h4 id="reduce"><a href="#reduce" class="headerlink" title="reduce()"></a>reduce()</h4><pre><code>let array = [1, 2, 3, 4];
-let temp = array.reduce((x, y) =&gt; {
-　　console.log(&quot;x&quot;: x);
-　　console.log(&quot;y&quot;: y);
-　　return x + y;
-});
-console.log(temp);　　// 10
-console.log(array);　　// [1, 2, 3, 4]
-</code></pre><p>备注:x 是上一次计算过的值, 第一次循环的时候是数组中的第1个元素<br>y 是数组中的每个元素, 第一次循环的时候是数组的第2个元素</p>
-<h4 id="every"><a href="#every" class="headerlink" title="every()"></a>every()</h4><pre><code>let array = [1, 2, 3, 4];
-let bo = array.every((item, index, array) =&gt; {
-　　return item &gt; 2;
-});
-console.log(bo);　　　　// false;
-</code></pre><p>备注: every遍历数组, 每一项都是true, 则返回true,只要有一个是false,就返回false</p>
-<h4 id="some"><a href="#some" class="headerlink" title="some()"></a>some()</h4><p>let array = [1, 2, 3, 4];<br>let tmep = array.some((item, index, array) =&gt; {<br>　　return item &gt; 1;<br>});<br>console.log(temp);　　// true</p>
-<p>备注:遍历数组的每一项, 有一个返回true, 就停止循环</p>
-<h4 id="values"><a href="#values" class="headerlink" title="values()"></a>values()</h4><pre><code>let arr=[1,2,234,&apos;sdf&apos;,-2];
-for(let a of arr.values()){
-    console.log(a) //结果：1,2,234,sdf,-2 遍历了数组arr的值
-}
-</code></pre><p>备注:values，对数组项的遍历</p>
-<h4 id="keys"><a href="#keys" class="headerlink" title="keys()"></a>keys()</h4><p>let arr=[1,2,234,’sdf’,-2];<br>for(let a of arr.keys()){<br>    console.log(a) //结果：0,1,2,3,4  遍历了数组arr的索引<br>}</p>
-<p>备注: keys，对数组索引的遍历</p>
-<h4 id="entries"><a href="#entries" class="headerlink" title="entries()"></a>entries()</h4><pre><code>let arr=[&apos;w&apos;,&apos;b&apos;];
-for(let a of arr.entries()){
-    console.log(a) //结果：[0,w],[1,b]
-}
-for(let [i,v] of arr.entries()){
-    console.log(i,v) //结果：0 w,1 b
-}
-</code></pre><p>备注:entries，对数组键值对的遍历。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-    
-
-    
-    <div>
-      
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -3532,7 +3201,7 @@ for(let [i,v] of arr.entries()){
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">49</span>
+                    <span class="site-state-item-count">52</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
