@@ -314,3 +314,16 @@ Console：(4) ["123", "321", "4", "1"]
 	var re = /a+/g;
 	str = str.replace(re, "b");
 	console.log(str); // b
+
+##### example
+	var str = "{'   retmsg':'success   ',\n'  trans_date':'   20170906'}";
+	
+	//去掉空格（两种方法都可以）
+	str = str.replace(/\ +/g,"");
+	str = str.replace(/[ ]/g,"")
+	
+	//去掉回车换行        
+	str = str.replace(/[\r\n]/g,"");
+	
+	//去掉 ‘-’
+	str = str.replace(/-/g, "");
