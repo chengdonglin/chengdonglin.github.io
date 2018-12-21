@@ -300,6 +300,178 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/21/img标签由字节buffer转base64显示图片/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="厚朴酚">
+      <meta itemprop="description" content="学习笔记">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="厚朴酚">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/21/img标签由字节buffer转base64显示图片/" itemprop="url">
+                  img标签由字节buffer转base64显示图片
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-12-21 16:50:10 / 修改时间：16:52:09" itemprop="dateCreated datePublished" datetime="2018-12-21T16:50:10+08:00">2018-12-21</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/electron/" itemprop="url" rel="index"><span itemprop="name">electron</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="img标签由字节buffer转base64显示图片"><a href="#img标签由字节buffer转base64显示图片" class="headerlink" title="img标签由字节buffer转base64显示图片"></a>img标签由字节buffer转base64显示图片</h3><pre><code>/**
+ *  buffer类型转base64变成dataUrl显示在img标签
+ *
+ * @param {Buffer} buffer     图片buffer
+ * @return {Base64} base64   
+ */
+export const bufferTodataUrl=(buffer)=&gt;{
+    const base64Str = buffer.toString(&apos;base64&apos;)
+    return &apos;data:image/jpeg;base64,&apos; + base64Str;
+}
+</code></pre><p>然后img标签的src绑定处理过得得到的base64</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+    
+
+    
+    <div>
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/20/javascript对象查重/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -2451,200 +2623,6 @@ exclude：字符串或正则表达式。任何匹配的组件都不会被缓存�
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/30/electron实现下载进度条/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="厚朴酚">
-      <meta itemprop="description" content="学习笔记">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="厚朴酚">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/30/electron实现下载进度条/" itemprop="url">
-                  electron实现下载进度条
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-11-30 14:07:54 / 修改时间：14:10:34" itemprop="dateCreated datePublished" datetime="2018-11-30T14:07:54+08:00">2018-11-30</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/electron/" itemprop="url" rel="index"><span itemprop="name">electron</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="electron下载进度条"><a href="#electron下载进度条" class="headerlink" title="electron下载进度条"></a>electron下载进度条</h3><pre><code>通过 Electron 中 will-download 事件
-
-mainWindow.webContents.session.on(&apos;will-download&apos;, (e, item) =&gt; {
-    //获取文件的总大小
-   const totalBytes = item.getTotalBytes();
-
-    //设置文件的保存路径，此时默认弹出的 save dialog 将被覆盖
-   const filePath = path.join(app.getPath(&apos;downloads&apos;), item.getFilename());
-   item.setSavePath(filePath);
-
-    //监听下载过程，计算并设置进度条进度
-   item.on(&apos;updated&apos;, () =&gt; {
-       mainWindow.setProgressBar(item.getReceivedBytes() / totalBytes);
-   });
-
-    //监听下载结束事件
-   item.on(&apos;done&apos;, (e, state) =&gt; {
-           //如果窗口还在的话，去掉进度条
-       if (!mainWindow.isDestroyed()) {
-           mainWindow.setProgressBar(-1);
-       }
-
-        //下载被取消或中断了
-       if (state === &apos;interrupted&apos;) {
-           electron.dialog.showErrorBox(&apos;下载失败&apos;, `文件 ${item.getFilename()} 因为某些原因被中断下载`);
-       }
-
-        //下载完成，让 dock 上的下载目录Q弹一下下
-       if (state === &apos;completed&apos;) {
-           app.dock.downloadFinished(filePath);
-       }
-   });
-});
-</code></pre>
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-    
-
-    
-    <div>
-      
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2694,7 +2672,7 @@ mainWindow.webContents.session.on(&apos;will-download&apos;, (e, item) =&gt; {
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">52</span>
+                    <span class="site-state-item-count">53</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
