@@ -108,25 +108,25 @@
 
 
 
-  <meta name="description" content="node.js读取电脑分区const fs = require(&amp;apos;fs&amp;apos;) const path = require(&amp;apos;path&amp;apos;) var exec = require(&amp;apos;child_process&amp;apos;).exec; function showLetter(callback) {     exec(&amp;apos;wmic logicaldi">
-<meta name="keywords" content="导航 - node.js">
+  <meta name="description" content="如何把涉及到回调函数的一个异步过程变成同步过程js中涉及到回调的基本采用了异步的过程,那么如何把一个异步的过程变成同步的过程呢,下面用了一个自执行函数来实现一下:(function test(i)){    if(i==files.length){&amp;lt;br&amp;gt;      console.log(files);//执行完成后打印最终的值       return;    }    fs.st">
+<meta name="keywords" content="导航 - javascript">
 <meta property="og:type" content="article">
-<meta property="og:title" content="node.js读取电脑分区">
-<meta property="og:url" content="http://yoursite.com/2018/12/20/node-js读取电脑分区/index.html">
+<meta property="og:title" content="回调函数异步变同步">
+<meta property="og:url" content="http://yoursite.com/2018/12/29/回调函数异步变同步/index.html">
 <meta property="og:site_name" content="厚朴酚">
-<meta property="og:description" content="node.js读取电脑分区const fs = require(&amp;apos;fs&amp;apos;) const path = require(&amp;apos;path&amp;apos;) var exec = require(&amp;apos;child_process&amp;apos;).exec; function showLetter(callback) {     exec(&amp;apos;wmic logicaldi">
+<meta property="og:description" content="如何把涉及到回调函数的一个异步过程变成同步过程js中涉及到回调的基本采用了异步的过程,那么如何把一个异步的过程变成同步的过程呢,下面用了一个自执行函数来实现一下:(function test(i)){    if(i==files.length){&amp;lt;br&amp;gt;      console.log(files);//执行完成后打印最终的值       return;    }    fs.st">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-12-20T07:42:11.894Z">
+<meta property="og:updated_time" content="2018-12-29T07:02:30.270Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="node.js读取电脑分区">
-<meta name="twitter:description" content="node.js读取电脑分区const fs = require(&amp;apos;fs&amp;apos;) const path = require(&amp;apos;path&amp;apos;) var exec = require(&amp;apos;child_process&amp;apos;).exec; function showLetter(callback) {     exec(&amp;apos;wmic logicaldi">
+<meta name="twitter:title" content="回调函数异步变同步">
+<meta name="twitter:description" content="如何把涉及到回调函数的一个异步过程变成同步过程js中涉及到回调的基本采用了异步的过程,那么如何把一个异步的过程变成同步的过程呢,下面用了一个自执行函数来实现一下:(function test(i)){    if(i==files.length){&amp;lt;br&amp;gt;      console.log(files);//执行完成后打印最终的值       return;    }    fs.st">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/12/20/node-js读取电脑分区/">
+  <link rel="canonical" href="http://yoursite.com/2018/12/29/回调函数异步变同步/">
 
 
 
@@ -136,7 +136,7 @@
   };
 </script>
 
-  <title>node.js读取电脑分区 | 厚朴酚</title>
+  <title>回调函数异步变同步 | 厚朴酚</title>
   
 
 
@@ -301,7 +301,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/20/node-js读取电脑分区/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/29/回调函数异步变同步/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="厚朴酚">
@@ -318,7 +318,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">node.js读取电脑分区
+          <h1 class="post-title" itemprop="name headline">回调函数异步变同步
               
             
           </h1>
@@ -343,7 +343,7 @@
                 
               
 
-              <time title="创建时间：2018-12-20 15:39:43 / 修改时间：15:42:11" itemprop="dateCreated datePublished" datetime="2018-12-20T15:39:43+08:00">2018-12-20</time>
+              <time title="创建时间：2018-12-29 13:58:46 / 修改时间：15:02:30" itemprop="dateCreated datePublished" datetime="2018-12-29T13:58:46+08:00">2018-12-29</time>
             
 
             
@@ -365,7 +365,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/node-js/" itemprop="url" rel="index"><span itemprop="name">node.js</span></a></span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a></span>
 
                 
                 
@@ -399,37 +399,84 @@
       
 
       
-        <h3 id="node-js读取电脑分区"><a href="#node-js读取电脑分区" class="headerlink" title="node.js读取电脑分区"></a>node.js读取电脑分区</h3><pre><code>const fs = require(&apos;fs&apos;)
-const path = require(&apos;path&apos;)
-var exec = require(&apos;child_process&apos;).exec;
-function showLetter(callback) {
-    exec(&apos;wmic logicaldisk get caption&apos;, function(err, stdout, stderr) {
-        if(err || stderr) {
-            console.log(&quot;root path open failed&quot; + err + stderr);
-            return;
-        }
-        callback(stdout);
-    }
-)}
-export const  getCaption =()=&gt;{
+        <h3 id="如何把涉及到回调函数的一个异步过程变成同步过程"><a href="#如何把涉及到回调函数的一个异步过程变成同步过程" class="headerlink" title="如何把涉及到回调函数的一个异步过程变成同步过程"></a>如何把涉及到回调函数的一个异步过程变成同步过程</h3><h4 id="js中涉及到回调的基本采用了异步的过程-那么如何把一个异步的过程变成同步的过程呢-下面用了一个自执行函数来实现一下"><a href="#js中涉及到回调的基本采用了异步的过程-那么如何把一个异步的过程变成同步的过程呢-下面用了一个自执行函数来实现一下" class="headerlink" title="js中涉及到回调的基本采用了异步的过程,那么如何把一个异步的过程变成同步的过程呢,下面用了一个自执行函数来实现一下:"></a>js中涉及到回调的基本采用了异步的过程,那么如何把一个异步的过程变成同步的过程呢,下面用了一个自执行函数来实现一下:</h4><pre><code>(function test(i)){
+   if(i==files.length){&lt;br&gt;      console.log(files);//执行完成后打印最终的值
+      return;
+   }
+   fs.stat(&quot;./XXX&quot;,function(err,stats){
+           if(stats.isDirectory()){
+                //do somethings&lt;br&gt;                 files.push(XXX);
+           }   
+           test(i+1);//执行完了i=0 再执行i++ 这样就把一个回调异步变成了同步的过程
+    })
+}(0);//一上来 传一个0给参数i 第一次执行
+</code></pre><h4 id="重新封装一层promise"><a href="#重新封装一层promise" class="headerlink" title="重新封装一层promise"></a>重新封装一层promise</h4><ul>
+<li><p>fs.readdir是一个异步回调的方法,为了解决其变成同步,重新封装一层peomise,然后async/await中使用</p>
+<pre><code>function getfile(dirpath) {
     return new Promise((resolve,reject)=&gt;{
-        showLetter(data=&gt;{
-            const result =data.replace(/\ +/g,&quot;&quot;).replace(/[ ]/g,&quot;&quot;).replace(/[\r\n]/g,&quot;&quot;).replace(/:/g,&quot;&quot;)
-            const caption = (result.split(&quot;&quot;).slice(7))
-            let captionResult = []
-            caption.map(item =&gt;{
-                let Obj = {}
-                Obj.title = `${item}://`
-                Obj.expand = false,
-                Obj.type = &apos;folder&apos;
-                Obj.path = `${item}://`
-                captionResult.push(Obj)
-            })
-            resolve(captionResult)
+        fs.readdir(dirpath,(err,files)=&gt;{
+            res = files.length
+            resolve(res)
         })
-    })   
+    })
 }
-</code></pre>
+async function main(){
+    const result = await getfile(&quot;E:\\&quot;)
+    console.log(result)//26
+}
+main()
+</code></pre></li>
+</ul>
+<p>这样子输出result的话就不会是undefined了,而是26</p>
+<ul>
+<li><p>一层回调封装一层</p>
+<pre><code>function getfile(dirpath) {
+    return new Promise((resolve,reject)=&gt;{
+        fs.readdir(dirpath,(err,files)=&gt;{
+            res = files.length
+            const Paths = files.map(file =&gt;{
+                return path.resolve(dirpath,file)                    
+            })
+            resolve(Paths)
+        })
+    })
+}
+function describeFile(path){
+    return new Promise((resolve,reject)=&gt;{
+       fs.stat(path,(err,stat)=&gt;{
+        let obj = {}
+        if(err){
+            reject(err)
+        } else {
+            if(stat.isFile()){
+                obj.type = &apos;file&apos;
+            }
+            if(stat.isDirectory()){
+                obj.type = &apos;folder&apos;
+            }
+        }
+        resolve(obj)
+    })
+    })
+}
+async function main(){
+    const first = await getfile(&quot;E:\\&quot;)
+    let three =[]
+    for(let i=0;i&lt;first.length;i++){
+        try {
+            let obj = await describeFile(first[i])
+            three.push(obj)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    console.log(three)
+}
+main()
+</code></pre></li>
+</ul>
+<p>通过这种方式完美解决无法函数外部无法访问函数内部的变量</p>
+
       
     </div>
 
@@ -490,7 +537,7 @@ export const  getCaption =()=&gt;{
       
         <div class="post-tags">
           
-            <a href="/tags/导航-node-js/" rel="tag"># 导航 - node.js</a>
+            <a href="/tags/导航-javascript/" rel="tag"># 导航 - javascript</a>
           
         </div>
       
@@ -503,8 +550,8 @@ export const  getCaption =()=&gt;{
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/12/17/发布并更新npm包/" rel="next" title="发布并更新npm包">
-                <i class="fa fa-chevron-left"></i> 发布并更新npm包
+              <a href="/2018/12/24/git的使用/" rel="next" title="git的使用">
+                <i class="fa fa-chevron-left"></i> git的使用
               </a>
             
           </div>
@@ -512,10 +559,6 @@ export const  getCaption =()=&gt;{
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/12/20/fs模块判断文件属性/" rel="prev" title="fs模块操作文件封装">
-                fs模块操作文件封装 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -731,7 +774,7 @@ export const  getCaption =()=&gt;{
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#node-js读取电脑分区"><span class="nav-number">1.</span> <span class="nav-text">node.js读取电脑分区</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#如何把涉及到回调函数的一个异步过程变成同步过程"><span class="nav-number">1.</span> <span class="nav-text">如何把涉及到回调函数的一个异步过程变成同步过程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#js中涉及到回调的基本采用了异步的过程-那么如何把一个异步的过程变成同步的过程呢-下面用了一个自执行函数来实现一下"><span class="nav-number">1.1.</span> <span class="nav-text">js中涉及到回调的基本采用了异步的过程,那么如何把一个异步的过程变成同步的过程呢,下面用了一个自执行函数来实现一下:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#重新封装一层promise"><span class="nav-number">1.2.</span> <span class="nav-text">重新封装一层promise</span></a></li></ol></li></ol></div>
             
 
           </div>

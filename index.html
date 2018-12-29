@@ -300,6 +300,244 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/29/回调函数异步变同步/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="厚朴酚">
+      <meta itemprop="description" content="学习笔记">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="厚朴酚">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/29/回调函数异步变同步/" itemprop="url">
+                  回调函数异步变同步
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-12-29 13:58:46 / 修改时间：15:02:30" itemprop="dateCreated datePublished" datetime="2018-12-29T13:58:46+08:00">2018-12-29</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="如何把涉及到回调函数的一个异步过程变成同步过程"><a href="#如何把涉及到回调函数的一个异步过程变成同步过程" class="headerlink" title="如何把涉及到回调函数的一个异步过程变成同步过程"></a>如何把涉及到回调函数的一个异步过程变成同步过程</h3><h4 id="js中涉及到回调的基本采用了异步的过程-那么如何把一个异步的过程变成同步的过程呢-下面用了一个自执行函数来实现一下"><a href="#js中涉及到回调的基本采用了异步的过程-那么如何把一个异步的过程变成同步的过程呢-下面用了一个自执行函数来实现一下" class="headerlink" title="js中涉及到回调的基本采用了异步的过程,那么如何把一个异步的过程变成同步的过程呢,下面用了一个自执行函数来实现一下:"></a>js中涉及到回调的基本采用了异步的过程,那么如何把一个异步的过程变成同步的过程呢,下面用了一个自执行函数来实现一下:</h4><pre><code>(function test(i)){
+   if(i==files.length){&lt;br&gt;      console.log(files);//执行完成后打印最终的值
+      return;
+   }
+   fs.stat(&quot;./XXX&quot;,function(err,stats){
+           if(stats.isDirectory()){
+                //do somethings&lt;br&gt;                 files.push(XXX);
+           }   
+           test(i+1);//执行完了i=0 再执行i++ 这样就把一个回调异步变成了同步的过程
+    })
+}(0);//一上来 传一个0给参数i 第一次执行
+</code></pre><h4 id="重新封装一层promise"><a href="#重新封装一层promise" class="headerlink" title="重新封装一层promise"></a>重新封装一层promise</h4><ul>
+<li><p>fs.readdir是一个异步回调的方法,为了解决其变成同步,重新封装一层peomise,然后async/await中使用</p>
+<pre><code>function getfile(dirpath) {
+    return new Promise((resolve,reject)=&gt;{
+        fs.readdir(dirpath,(err,files)=&gt;{
+            res = files.length
+            resolve(res)
+        })
+    })
+}
+async function main(){
+    const result = await getfile(&quot;E:\\&quot;)
+    console.log(result)//26
+}
+main()
+</code></pre></li>
+</ul>
+<p>这样子输出result的话就不会是undefined了,而是26</p>
+<ul>
+<li><p>一层回调封装一层</p>
+<pre><code>function getfile(dirpath) {
+    return new Promise((resolve,reject)=&gt;{
+        fs.readdir(dirpath,(err,files)=&gt;{
+            res = files.length
+            const Paths = files.map(file =&gt;{
+                return path.resolve(dirpath,file)                    
+            })
+            resolve(Paths)
+        })
+    })
+}
+function describeFile(path){
+    return new Promise((resolve,reject)=&gt;{
+       fs.stat(path,(err,stat)=&gt;{
+        let obj = {}
+        if(err){
+            reject(err)
+        } else {
+            if(stat.isFile()){
+                obj.type = &apos;file&apos;
+            }
+            if(stat.isDirectory()){
+                obj.type = &apos;folder&apos;
+            }
+        }
+        resolve(obj)
+    })
+    })
+}
+async function main(){
+    const first = await getfile(&quot;E:\\&quot;)
+    let three =[]
+    for(let i=0;i&lt;first.length;i++){
+        try {
+            let obj = await describeFile(first[i])
+            three.push(obj)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    console.log(three)
+}
+main()
+</code></pre></li>
+</ul>
+<p>通过这种方式完美解决无法函数外部无法访问函数内部的变量</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+    
+
+    
+    <div>
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/24/git的使用/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -3079,204 +3317,6 @@ writeFile(&quot;tree.js&quot;,str);
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/05/vue中keep-alive组件的作用/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="厚朴酚">
-      <meta itemprop="description" content="学习笔记">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="厚朴酚">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/05/vue中keep-alive组件的作用/" itemprop="url">
-                  vue中keep-alive组件的作用
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-12-05 15:12:34 / 修改时间：15:18:37" itemprop="dateCreated datePublished" datetime="2018-12-05T15:12:34+08:00">2018-12-05</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/vue/" itemprop="url" rel="index"><span itemprop="name">vue</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="vue中keep-alive组件的作用"><a href="#vue中keep-alive组件的作用" class="headerlink" title="vue中keep-alive组件的作用"></a>vue中keep-alive组件的作用</h3><p>内容来源: <a href="https://www.kancloud.cn/hanxuming/vue-iq/" target="_blank" rel="noopener">https://www.kancloud.cn/hanxuming/vue-iq/</a></p>
-<p>keep-alive:主要用于保存组件状态或避免重新渲染<br>比如: 有一个列表页面和一个 详情页面，那么用户就会经常执行打开详情=&gt;返回列表=&gt;打开详情这样的话 列表 和 详情 都是一个频率很高的页面，那么就可以对列表组件使用<keep-alive></keep-alive>进行缓存，这样用户每次返回列表的时候，都能从缓存中快速渲染，而不是重新渲染。</p>
-<h4 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h4><pre><code>include:字符串或正则表达式。只有匹配的组件会被缓存。
-
-exclude：字符串或正则表达式。任何匹配的组件都不会被缓存。
-</code></pre><h4 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h4><pre><code>&lt;!-- 基本 --&gt;
-&lt;keep-alive&gt;
-  &lt;component :is=&quot;view&quot;&gt;&lt;/component&gt;
-&lt;/keep-alive&gt;
-
-&lt;!-- 多个条件判断的子组件 --&gt;
-&lt;keep-alive&gt;
-  &lt;comp-a v-if=&quot;a &gt; 1&quot;&gt;&lt;/comp-a&gt;
-  &lt;comp-b v-else&gt;&lt;/comp-b&gt;
-&lt;/keep-alive&gt;
-
-&lt;!-- 和 `&lt;transition&gt;` 一起使用 --&gt;
-&lt;transition&gt;
-  &lt;keep-alive&gt;
-    &lt;component :is=&quot;view&quot;&gt;&lt;/component&gt;
-  &lt;/keep-alive&gt;
-&lt;/transition&gt;
-</code></pre><h4 id="include和exclude属性的使用"><a href="#include和exclude属性的使用" class="headerlink" title="include和exclude属性的使用"></a>include和exclude属性的使用</h4><p>include 和 exclude 属性允许组件有条件地缓存。二者都可以用逗号分隔字符串、正则表达式或一个数组来表示：</p>
-<pre><code>&lt;!-- 逗号分隔字符串 --&gt;
-&lt;keep-alive include=&quot;a,b&quot;&gt;
-  &lt;component :is=&quot;view&quot;&gt;&lt;/component&gt;
-&lt;/keep-alive&gt;
-
-&lt;!-- 正则表达式 (使用 `v-bind`) --&gt;
-&lt;keep-alive :include=&quot;/a|b/&quot;&gt;
-  &lt;component :is=&quot;view&quot;&gt;&lt;/component&gt;
-&lt;/keep-alive&gt;
-
-&lt;!-- 数组 (使用 `v-bind`) --&gt;
-&lt;keep-alive :include=&quot;[&apos;a&apos;, &apos;b&apos;]&quot;&gt;
-  &lt;component :is=&quot;view&quot;&gt;&lt;/component&gt;
-&lt;/keep-alive&gt;
-</code></pre>
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-    
-
-    
-    <div>
-      
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -3326,7 +3366,7 @@ exclude：字符串或正则表达式。任何匹配的组件都不会被缓存�
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">54</span>
+                    <span class="site-state-item-count">55</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>

@@ -300,6 +300,204 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/05/vue中keep-alive组件的作用/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="厚朴酚">
+      <meta itemprop="description" content="学习笔记">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="厚朴酚">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/05/vue中keep-alive组件的作用/" itemprop="url">
+                  vue中keep-alive组件的作用
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-12-05 15:12:34 / 修改时间：15:18:37" itemprop="dateCreated datePublished" datetime="2018-12-05T15:12:34+08:00">2018-12-05</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/vue/" itemprop="url" rel="index"><span itemprop="name">vue</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="vue中keep-alive组件的作用"><a href="#vue中keep-alive组件的作用" class="headerlink" title="vue中keep-alive组件的作用"></a>vue中keep-alive组件的作用</h3><p>内容来源: <a href="https://www.kancloud.cn/hanxuming/vue-iq/" target="_blank" rel="noopener">https://www.kancloud.cn/hanxuming/vue-iq/</a></p>
+<p>keep-alive:主要用于保存组件状态或避免重新渲染<br>比如: 有一个列表页面和一个 详情页面，那么用户就会经常执行打开详情=&gt;返回列表=&gt;打开详情这样的话 列表 和 详情 都是一个频率很高的页面，那么就可以对列表组件使用<keep-alive></keep-alive>进行缓存，这样用户每次返回列表的时候，都能从缓存中快速渲染，而不是重新渲染。</p>
+<h4 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h4><pre><code>include:字符串或正则表达式。只有匹配的组件会被缓存。
+
+exclude：字符串或正则表达式。任何匹配的组件都不会被缓存。
+</code></pre><h4 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h4><pre><code>&lt;!-- 基本 --&gt;
+&lt;keep-alive&gt;
+  &lt;component :is=&quot;view&quot;&gt;&lt;/component&gt;
+&lt;/keep-alive&gt;
+
+&lt;!-- 多个条件判断的子组件 --&gt;
+&lt;keep-alive&gt;
+  &lt;comp-a v-if=&quot;a &gt; 1&quot;&gt;&lt;/comp-a&gt;
+  &lt;comp-b v-else&gt;&lt;/comp-b&gt;
+&lt;/keep-alive&gt;
+
+&lt;!-- 和 `&lt;transition&gt;` 一起使用 --&gt;
+&lt;transition&gt;
+  &lt;keep-alive&gt;
+    &lt;component :is=&quot;view&quot;&gt;&lt;/component&gt;
+  &lt;/keep-alive&gt;
+&lt;/transition&gt;
+</code></pre><h4 id="include和exclude属性的使用"><a href="#include和exclude属性的使用" class="headerlink" title="include和exclude属性的使用"></a>include和exclude属性的使用</h4><p>include 和 exclude 属性允许组件有条件地缓存。二者都可以用逗号分隔字符串、正则表达式或一个数组来表示：</p>
+<pre><code>&lt;!-- 逗号分隔字符串 --&gt;
+&lt;keep-alive include=&quot;a,b&quot;&gt;
+  &lt;component :is=&quot;view&quot;&gt;&lt;/component&gt;
+&lt;/keep-alive&gt;
+
+&lt;!-- 正则表达式 (使用 `v-bind`) --&gt;
+&lt;keep-alive :include=&quot;/a|b/&quot;&gt;
+  &lt;component :is=&quot;view&quot;&gt;&lt;/component&gt;
+&lt;/keep-alive&gt;
+
+&lt;!-- 数组 (使用 `v-bind`) --&gt;
+&lt;keep-alive :include=&quot;[&apos;a&apos;, &apos;b&apos;]&quot;&gt;
+  &lt;component :is=&quot;view&quot;&gt;&lt;/component&gt;
+&lt;/keep-alive&gt;
+</code></pre>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+    
+
+    
+    <div>
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/04/前端性能优化/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -3222,182 +3420,6 @@ export default function initMenu() {
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/20/Table自定义序号/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="厚朴酚">
-      <meta itemprop="description" content="学习笔记">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="厚朴酚">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/20/Table自定义序号/" itemprop="url">
-                  Table自定义序号
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-11-20 17:12:15 / 修改时间：17:17:25" itemprop="dateCreated datePublished" datetime="2018-11-20T17:12:15+08:00">2018-11-20</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/vue/" itemprop="url" rel="index"><span itemprop="name">vue</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="Table自定义序号"><a href="#Table自定义序号" class="headerlink" title="Table自定义序号"></a>Table自定义序号</h3><pre><code>columns: [
-         {
-         type: &apos;index&apos;,
-         width: 60,
-         align: &apos;center&apos;,
-         indexMethod: (row) =&gt; {
-         return (row._index + 1) + (this.size * this.current) - this.size;
-        //this.size是当前table显示的页数, current是当前处在的页数
-         }
-         },
-         {
-         title: &apos;姓名&apos;,
-         key: &apos;name&apos;
-         }
-         ],
-</code></pre>
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-    
-
-    
-    <div>
-      
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -3447,7 +3469,7 @@ export default function initMenu() {
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">54</span>
+                    <span class="site-state-item-count">55</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
