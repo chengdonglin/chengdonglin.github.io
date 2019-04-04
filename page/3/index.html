@@ -300,6 +300,231 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/21/electron-vue主进程分离/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="厚朴酚">
+      <meta itemprop="description" content="学习笔记">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="厚朴酚">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/21/electron-vue主进程分离/" itemprop="url">
+                  electron-vue主进程分离
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-11-21 16:59:52 / 修改时间：17:05:25" itemprop="dateCreated datePublished" datetime="2018-11-21T16:59:52+08:00">2018-11-21</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/electron/" itemprop="url" rel="index"><span itemprop="name">electron</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="electron-vue主进程分离"><a href="#electron-vue主进程分离" class="headerlink" title="electron-vue主进程分离"></a>electron-vue主进程分离</h3><ul>
+<li>假设有一个菜单menu文件</li>
+</ul>
+<pre><code>import { Menu, globalShortcut, app } from &apos;electron&apos;
+
+const template = [
+    {
+        label: &apos;Music&apos;,
+        submenu: [
+            {
+                label: &apos;打开控制台&apos;,
+                click() {
+                    global.mainWindow.webContents.openDevTools({ mode: &apos;detach&apos; })
+                }
+            },
+            {
+                label: &apos;关于&apos;,
+                click() {
+                    require(&apos;electron&apos;).shell.openExternal(&apos;https://github.com/sunzongzheng/music&apos;)
+                }
+            },
+            {
+                label: &apos;退出音乐湖&apos;,
+                accelerator: &apos;CommandOrControl+Q&apos;,
+                click: () =&gt; {
+                    global.mainWindow = null
+                    app.exit()
+                }
+            }
+        ]
+    },
+    {
+        label: &apos;编辑&apos;,
+        submenu: [
+            {role: &apos;undo&apos;, label: &apos;撤销&apos;},
+            {role: &apos;redo&apos;, label: &apos;重做&apos;},
+            {type: &apos;separator&apos;},
+            {role: &apos;cut&apos;, label: &apos;剪贴&apos;},
+            {role: &apos;copy&apos;, label: &apos;拷贝&apos;},
+            {role: &apos;paste&apos;, label: &apos;粘贴&apos;},
+            {role: &apos;delete&apos;, label: &apos;删除&apos;},
+            {role: &apos;selectall&apos;, label: &apos;全选&apos;}
+        ]
+    }
+]
+export default function initMenu() {
+    const menu = Menu.buildFromTemplate(template)
+    Menu.setApplicationMenu(menu)
+    // 设置一个复杂的组合键打开控制台 方便调试
+    const res = globalShortcut.register(&apos;Control+Q+W+E+R&apos;, () =&gt; {
+        global.mainWindow.webContents.openDevTools({ mode: &apos;detach&apos; })
+    })
+    if (res) {
+        console.log(`控制台组合键注册成功`)
+    } else {
+        console.log(`控制台组合键注册失败`)
+    }
+}
+</code></pre><ul>
+<li>主进程引入</li>
+</ul>
+<pre><code>import initMenu from &apos;./menu&apos;
+</code></pre><p>并且在创建窗体的时候进行实例化</p>
+<pre><code>initMenu()
+</code></pre>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+    
+
+    
+    <div>
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/21/electron文件上传以及断点下载/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -2814,334 +3039,6 @@ ls
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/12/express-mongoose模块化/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="厚朴酚">
-      <meta itemprop="description" content="学习笔记">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="厚朴酚">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/12/express-mongoose模块化/" itemprop="url">
-                  express-mongoose模块化
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-11-12 18:24:59 / 修改时间：18:26:25" itemprop="dateCreated datePublished" datetime="2018-11-12T18:24:59+08:00">2018-11-12</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/node-js/" itemprop="url" rel="index"><span itemprop="name">node.js</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Express与MongoDB"><a href="#Express与MongoDB" class="headerlink" title="Express与MongoDB"></a>Express与MongoDB</h1><h2 id="前奏"><a href="#前奏" class="headerlink" title="前奏"></a>前奏</h2><h3 id="Express-是什么？"><a href="#Express-是什么？" class="headerlink" title="Express 是什么？"></a>Express 是什么？</h3><p>Express 是一个基于 Node.js 平台的极简、灵活的 web 应用开发框架，它提供一系列强大的特性，帮助你创建各种 Web 和移动设备应用。</p>
-<h2 id="一-连接MongoDB-抽象出模型"><a href="#一-连接MongoDB-抽象出模型" class="headerlink" title="一  连接MongoDB 抽象出模型"></a>一  连接MongoDB 抽象出模型</h2><h3 id="在项目根目录下新建-lib-mongo-js"><a href="#在项目根目录下新建-lib-mongo-js" class="headerlink" title="在项目根目录下新建/lib/mongo.js"></a>在项目根目录下新建/lib/mongo.js</h3><pre><code>var mongoose = require(&quot;mongoose&quot;);
-var db = mongoose.connect(&apos;mongodb://localhost:27017/myblog&apos;,function(){});
-module.exports = db
-</code></pre><p><strong>要连接的数据库为myblog</strong></p>
-<h3 id="二-Schema"><a href="#二-Schema" class="headerlink" title="二 Schema"></a>二 Schema</h3><p>一种以文件形式存储的数据库模型骨架，无法直接通往数据库端，不具备对数据库的操作能力，仅仅只是数据库模型在程序片段中的一种表现，可以说是数据属性模型(传统意义的表结构)，又或着是“集合”的模型骨架.</p>
-<h4 id="在项目根目录下新建-model-user-js"><a href="#在项目根目录下新建-model-user-js" class="headerlink" title="在项目根目录下新建/model/user.js"></a>在项目根目录下新建/model/user.js</h4><pre><code>var mongoose = require(&quot;mongoose&quot;);
-var db = require(&apos;../lib/mongo&apos;);
-//一个用户模型
-var UserSchema = new mongoose.Schema({
-    username: { type:String },
-    password: {type: String},
-    avatar  : {type: String},
-    age : { type:Number, default:0 },
-    description : { type: String},
-    email   : { type: String },
-    github  : { type: String },
-    time: { type:Date, default:Date.now }
-});
-//创建Model
-var UserModel = db.model(&quot;user&quot;, UserSchema );
-module.exports = UserModel
-</code></pre><p><strong>user：数据库中的集合名称,当我们对其添加数据时如果user已经存在，则会保存到其目录下，如果不存在，则会创建user集合，然后在保存数据。<br>拥有了Model，我们也就拥有了操作数据库的金钥匙，就可以使用Model来进行增删改查的具体操作。</strong></p>
-<h2 id="Entity"><a href="#Entity" class="headerlink" title="Entity"></a>Entity</h2><p>Entity–由Model创建的实体，使用save方法保存数据，Model和Entity都有能影响数据库的操作，但Model比Entity更具操作性。所以此项目主要用的Model。</p>
-<pre><code>var UserEntity = new UserModel({
-    name : &quot;hzzly&quot;,
-    age  : 21,
-    email: &quot;hjingren@aliyun.com&quot;,
-    github: &apos;https://github.com/hzzly&apos;
-});
-UserEntity.save(function(error,doc){
-    if(error){
-        console.log(&quot;error :&quot; + error);
-    }else{
-        console.log(doc);
-    }
-});
-</code></pre><h2 id="三、封装数据库的CURD"><a href="#三、封装数据库的CURD" class="headerlink" title="三、封装数据库的CURD"></a>三、封装数据库的CURD</h2><p><strong>在lib文件下新建api.js<br>采用Promise封装对数据库的操作，避免回调地狱，使得代码能够更好的被读懂和维护</strong></p>
-<pre><code>var UserModel = require(&apos;../models/users&apos;);
-module.exports = {
-    /**
-     * 添加数据
-     * @param  {[type]} data 需要保存的数据对象
-     */
-    save(data) {
-        return new Promise((resolve, reject) =&gt; {
-            //model.create(保存的对象,callback)
-            UserModel.create(data, (error, doc) =&gt; {
-                if(error){
-                    reject(error)
-                }else{
-                    resolve(doc)
-                }
-            })
-        })
-    },
-    find(data={}, fields=null, options={}) {
-        return new Promise((resolve, reject) =&gt; {
-            //model.find(需要查找的对象(如果为空，则查找到所有数据), 属性过滤对象[可选参数], options[可选参数], callback)
-            UserModel.find(data, fields, options, (error, doc) =&gt; {
-                if(error){
-                    reject(error)
-                }else{
-                    resolve(doc)
-                }
-            })
-        })
-    },
-    findOne(data) {
-        return new Promise((resolve, reject) =&gt; {
-            //model.findOne(需要查找的对象,callback)
-            UserModel.findOne(data, (error, doc) =&gt; {
-                if(error){
-                    reject(error)
-                }else{
-                    resolve(doc)
-                }
-            })
-        })
-    },
-    findById(data) {
-        return new Promise((resolve, reject) =&gt; {
-            //model.findById(需要查找的id对象 ,callback)
-            UserModel.findById(data, (error, doc) =&gt; {
-                if(error){
-                    reject(error)
-                }else{
-                    resolve(doc)
-                }
-            })
-        })
-    },
-    update(conditions, update) {
-        return new Promise((resolve, reject) =&gt; {
-            //model.update(查询条件,更新对象,callback)
-            UserModel.update(conditions, update, (error, doc) =&gt; {
-                if(error){
-                    reject(error)
-                }else{
-                    resolve(doc)
-                }
-            })
-        })
-    },
-    remove(conditions) {
-        return new Promise((resolve, reject) =&gt; {
-            //model.update(查询条件,callback)
-            UserModel.remove(conditions, (error, doc) =&gt; {
-                if(error){
-                    reject(error)
-                }else{
-                    resolve(doc)
-                }
-            })
-        })
-    }
-}
-</code></pre><h2 id="四、使用"><a href="#四、使用" class="headerlink" title="四、使用"></a>四、使用</h2><p><strong>在/routers/index.js中使用</strong></p>
-<pre><code>var api = require(&apos;../lib/api&apos;);
-router.post(&apos;/login&apos;, function(req, res, next) {
-    var user = {
-        username : req.body.username,
-        password: req.body.password
-    };
-    api.findOne(user)
-        .then(result =&gt; {
-            console.log(result)
-        })
-})
-router.post(&apos;/sign_up&apos;, function(req, res, next) {
-    var user = {
-        username : req.body.username,
-        password: req.body.password,
-        email: req.body.email
-    };
-    api.save(user)
-        .then(result =&gt; {
-            console.log(result)            
-        })
-})
-router.get(&apos;/user_list&apos;, function(req, res, next) {
-    //返回所有用户
-    api.find({})
-        .then(result =&gt; {
-            console.log(result)            
-        })
-    //返回只包含一个键值name、age的所有记录
-    api.find({},{name:1, age:1, _id:0})
-        .then(result =&gt; {
-            console.log(result)            
-        })
-    //返回所有age大于18的数据
-    api.find({&quot;age&quot;:{&quot;$gt&quot;:18}})
-        .then(result =&gt; {
-            console.log(result)            
-        })
-    //返回20条数据
-    api.find({},null,{limit:20})
-        .then(result =&gt; {
-            console.log(result)            
-        })
-    //查询所有数据，并按照age降序顺序返回数据
-    api.find({},null,{sort:{age:-1}}) //1是升序，-1是降序
-        .then(result =&gt; {
-            console.log(result)            
-        })
-})
-</code></pre>
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-    
-
-    
-    <div>
-      
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -3191,7 +3088,7 @@ router.get(&apos;/user_list&apos;, function(req, res, next) {
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">56</span>
+                    <span class="site-state-item-count">57</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -3303,7 +3200,9 @@ router.get(&apos;/user_list&apos;, function(req, res, next) {
                     
                       
                     
-                    <span class="site-state-item-count">29</span>
+                      
+                    
+                    <span class="site-state-item-count">30</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

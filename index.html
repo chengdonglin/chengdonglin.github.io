@@ -300,6 +300,288 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/04/libcurl的基础应用/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="厚朴酚">
+      <meta itemprop="description" content="学习笔记">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="厚朴酚">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/04/libcurl的基础应用/" itemprop="url">
+                  libcurl的基础应用
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-04-04 16:54:51 / 修改时间：16:55:54" itemprop="dateCreated datePublished" datetime="2019-04-04T16:54:51+08:00">2019-04-04</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/c/" itemprop="url" rel="index"><span itemprop="name">c++</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="libcurl应用笔记"><a href="#libcurl应用笔记" class="headerlink" title="libcurl应用笔记"></a>libcurl应用笔记</h3><h4 id="常规字段post"><a href="#常规字段post" class="headerlink" title="常规字段post"></a>常规字段post</h4><p>特别注意:</p>
+<pre><code>libcurl发送的url类型必须是const char* 类型,否则会出错.如果是string的类型,会出现无法解析host name.
+</code></pre><h5 id="封装案例的方法"><a href="#封装案例的方法" class="headerlink" title="封装案例的方法:"></a>封装案例的方法:</h5><pre><code>    bool clientPostNormal(const char* url, add_slice &amp;s) {
+        CURL *curl;
+        CURLcode res;
+        /* In windows, this will init the winsock stuff */
+        curl_global_init(CURL_GLOBAL_ALL);
+        /*get a curl handle*/
+        curl = curl_easy_init();
+        if (curl) {
+            /* First set the URL that is about to receive our POST. This URL can
+            just as well be a https:// URL if that is what should receive the
+            data. */
+            curl_easy_setopt(curl, CURLOPT_URL, url);
+            string postData = &quot;bussinessId=&quot; + s.bussinessId + &quot;&amp;&quot;+&quot;localSlideId=&quot;+s.localSlideId+&quot;&amp;&quot;+&quot;localSlideName=&quot;+s.localSlideName+&quot;&amp;&quot;\
+                &quot;localSlideCode=&quot;+s.localSlideCode+&quot;&amp;&quot;+&quot;width=&quot;+std::to_string(s.width)+&quot;&amp;&quot; + &quot;height=&quot;+std::to_string(s.height)+&quot;&amp;&quot;+&quot;scale=&quot;+std::to_string(s.scale)+&quot;&amp;&quot;\
+                &quot;slideType=&quot;+s.slideType+&quot;&amp;&quot;+&quot;ihcItem=&quot;+s.ihcItem;
+            /* Perform the request, res will get the return code */
+            //cout &lt;&lt; url &lt;&lt; endl;
+            //cout &lt;&lt; postData &lt;&lt; endl;
+            curl_easy_setopt(curl, CURLOPT_POSTFIELDS, postData);
+            res = curl_easy_perform(curl);
+            /*Check for errors*/
+            if (res != CURLE_OK) {
+                fprintf(stderr, &quot;curl_easy_perform() failed: %s\n&quot;,
+                    curl_easy_strerror(res));
+                /* always cleanup */
+                curl_easy_cleanup(curl);
+                return false;
+            }
+            curl_global_cleanup();
+            return true;
+        }
+    }
+
+方法的使用:
+    addSlice as;
+    as.bussinessId = &quot;we34&quot;;
+    as.height = 40000;
+    as.ihcItem = &quot;ryt4&quot;;
+    as.localSlideCode = &quot;ighirbn&quot;;
+    as.localSlideId = &quot;ebgjkbgj&quot;;
+    as.scale = 40;
+    as.slideType = &quot;hpc&quot;;
+    as.width = 44444444;
+    const char* url = &quot;http://111.200.54.118:8080/slide/addSlide&quot;;
+    bool res = clientPostNormal(url, as);
+    cout &lt;&lt; 1 &lt;&lt; endl;
+    cout &lt;&lt; res &lt;&lt; endl;
+</code></pre><h4 id="form-data上传"><a href="#form-data上传" class="headerlink" title="form-data上传"></a>form-data上传</h4><blockquote>
+<p>特别要注意,在使用curl_formadd的时候,字段的值必须为char*类型.</p>
+</blockquote>
+<h5 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h5><pre><code>int clientPostTile3(tile_form t,const char* pc, long length) {
+    CURL* easy_handle;
+    CURLcode res;
+    curl_slist* http_headers = NULL;
+    CURLcode code;
+    code = curl_global_init(CURL_GLOBAL_ALL);
+    if (CURLE_OK != code)
+    {
+        std::cerr &lt;&lt; &quot;init libcurl failed: &quot; &lt;&lt; code &lt;&lt; std::endl;
+        return -1;
+    }
+    /*http_headers = curl_slist_append(http_headers, &quot;Content-Type:multipart/form-data&quot;);
+    http_headers = curl_slist_append(http_headers, &quot;Connection:keep-alive&quot;);
+    http_headers = curl_slist_append(http_headers, &quot;Charset:UTF-8&quot;);*/
+    curl_httppost *formpost = NULL;
+    curl_httppost *lastptr = NULL;
+    curl_formadd(&amp;formpost, &amp;lastptr, 
+        CURLFORM_COPYNAME, &quot;localSliceId&quot;, 
+        CURLFORM_COPYCONTENTS,t.localSliceId.c_str() , CURLFORM_END);
+    curl_formadd(&amp;formpost, &amp;lastptr,
+        CURLFORM_COPYNAME, &quot;x&quot;,
+        CURLFORM_COPYCONTENTS, std::to_string(t.x).c_str(), CURLFORM_END);
+    curl_formadd(&amp;formpost, &amp;lastptr,
+        CURLFORM_COPYNAME, &quot;y&quot;,
+        CURLFORM_COPYCONTENTS, std::to_string(t.y).c_str(), CURLFORM_END);
+    curl_formadd(&amp;formpost, &amp;lastptr,
+        CURLFORM_COPYNAME, &quot;xPos&quot;,
+        CURLFORM_COPYCONTENTS, std::to_string(t.xPos).c_str(), CURLFORM_END);
+    curl_formadd(&amp;formpost, &amp;lastptr,
+        CURLFORM_COPYNAME, &quot;yPos&quot;,
+        CURLFORM_COPYCONTENTS, std::to_string(t.yPos).c_str(), CURLFORM_END);
+    curl_formadd(&amp;formpost, &amp;lastptr,
+        CURLFORM_COPYNAME, &quot;width&quot;,
+        CURLFORM_COPYCONTENTS, &quot;0&quot;, CURLFORM_END);
+    curl_formadd(&amp;formpost, &amp;lastptr,
+        CURLFORM_COPYNAME, &quot;height&quot;,
+        CURLFORM_COPYCONTENTS, &quot;0&quot;, CURLFORM_END);
+    //上传buffer数据
+    curl_formadd(&amp;formpost, &amp;lastptr,
+        CURLFORM_COPYNAME, &quot;tileData&quot;,//上传的字段
+        CURLFORM_BUFFER, &quot;tileData&quot;,//服务端字段
+        CURLFORM_BUFFERPTR, pc,//内存中binary数据
+        CURLFORM_BUFFERLENGTH, length,//pc数据长度
+        CURLFORM_END);
+    easy_handle = curl_easy_init();
+    curl_easy_setopt(easy_handle, CURLOPT_URL, t.url.c_str());
+    curl_easy_setopt(easy_handle, CURLOPT_POST, 1);
+    curl_easy_setopt(easy_handle, CURLOPT_VERBOSE, 0);          //是否输出通信数据，如果是http，请求头/响应头信息也会输出
+    curl_easy_setopt(easy_handle, CURLOPT_HEADER, 0);
+    curl_easy_setopt(easy_handle, CURLOPT_HTTPHEADER, http_headers);
+    curl_easy_setopt(easy_handle, CURLOPT_HTTPPOST, formpost);
+    res = curl_easy_perform(easy_handle);
+    curl_slist_free_all(http_headers);
+    curl_formfree(formpost);
+    curl_easy_cleanup(easy_handle);
+    curl_global_cleanup();
+    if (res != CURLE_OK)
+    {
+        std::cerr &lt;&lt; &quot;curl_easy_perform failed:&quot; &lt;&lt; res &lt;&lt; std::endl;
+        return -1;
+    }
+    else {
+        return 0;
+    }
+}
+</code></pre><h4 id="多线程问题"><a href="#多线程问题" class="headerlink" title="多线程问题"></a>多线程问题</h4><blockquote>
+<p><code>CURLcode code = curl_global_init(CURL_GLOBAL_ALL);</code><br><code>curl_global_cleanup();</code></p>
+</blockquote>
+<p>这两两个函数的初始化工作提升至主线程操作</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+    
+
+    
+    <div>
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/04/c++类型转换/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -2917,460 +3199,6 @@ return t;
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/07/扫描文件价生成指定格式/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="厚朴酚">
-      <meta itemprop="description" content="学习笔记">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="厚朴酚">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/07/扫描文件价生成指定格式/" itemprop="url">
-                  扫描文件夹生成指定格式
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-12-07 17:10:50 / 修改时间：17:21:26" itemprop="dateCreated datePublished" datetime="2018-12-07T17:10:50+08:00">2018-12-07</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/electron/" itemprop="url" rel="index"><span itemprop="name">electron</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="扫描文件夹生成指定格式"><a href="#扫描文件夹生成指定格式" class="headerlink" title="扫描文件夹生成指定格式"></a>扫描文件夹生成指定格式</h3><p>最近在做本地系统,需要对本地文件夹进行扫描生成树的格式看到一个插件非常不错</p>
-<p>github地址:<a href="https://github.com/Lemonreds/folder2some" target="_blank" rel="noopener">https://github.com/Lemonreds/folder2some</a></p>
-<pre><code>#### 源码
-
-/**
- * 2018-4-3
- */
-const fs = require(&apos;fs&apos;),
-    path = require(&apos;path&apos;)
-
-
-const defaults = {
-    ignore: [],
-    generateFile: false
-}
-class Folder2some {
-
-    constructor(dir, options) {
-        this.dir = dir
-        this.options = Object.assign(defaults, options)
-        this.files = null
-    }
-
-    toTree() {
-
-        let tree = &apos;&apos;
-        let read = (dir, space = &apos; &apos;) =&gt; {
-
-            let files = fs.readdirSync(dir),
-                len = files.length
-
-            files.sort((a, b) =&gt; {
-                let s = fs.statSync(path.resolve(dir, a))
-                if (s.isDirectory()) {
-                    return -1
-                }
-                return 1
-            })
-
-            files.forEach((file, idx) =&gt; {
-
-                if (this._isIgnore(file)) {
-                    return
-                }
-
-                let stat, sign
-                idx === len - 1 ? sign = &apos;└─&apos; : sign = &apos;├─&apos;
-
-                tree = tree + space.replace(&apos;|&apos;, &apos;&apos;) + sign + file + &apos;\n&apos;
-
-
-                stat = fs.statSync(path.resolve(dir, file))
-
-                if (stat.isDirectory()) {
-                    read(path.resolve(dir, file), space + &apos;│&apos; + &apos; &apos;)
-                }
-            })
-        }
-
-        read(this.dir)
-        this._makeFile(tree, &apos;_tree.txt&apos;)
-        return tree
-    }
-
-    toJSON() {
-
-        let read = (dir, container) =&gt; {
-
-            let files = fs.readdirSync(dir),
-                stat
-
-            files.forEach(file =&gt; {
-
-                if (this._isIgnore(file)) {
-                    return
-                }
-
-                stat = fs.statSync(path.resolve(dir, file))
-
-                if (stat.isFile()) {
-                    container.push(file)
-                } else {
-
-                    let directory = {
-                        [file]: []
-                    }
-                    container.push(directory)
-                    read(path.resolve(dir, file), directory[file])
-                }
-            })
-        }
-
-        let ft = []
-        read(this.dir, ft)
-        this._makeFile(ft, &apos;_json.txt&apos;, true)
-        return JSON.stringify(ft, null, 2)
-    }
-
-    toAnalysis() {
-
-        let datas = this._toData(this.dir),
-            totalSize = 0,
-            totalCount = 0,
-            extPercent = []
-
-        for (let i = 0; i &lt; datas.length; i++) {
-            totalSize += datas[i].size
-            totalCount += datas[i].count
-        }
-
-        for (let j = 0; j &lt; datas.length; j++) {
-
-            extPercent.push({
-                ext: datas[j].ext,
-                percent: ((datas[j].size / totalSize) * 100).toFixed(2),
-                count: datas[j].count
-            })
-        }
-
-        let analysis = JSON.stringify({
-            path: this.dir,
-            totalSize: (totalSize / 1024).toFixed(2) + &apos;KB&apos;, //B =&gt; KB
-            totalCount: totalCount,
-            extPercent: extPercent
-        }, null, 2);
-
-        this._makeFile(analysis, &apos;_analysis.txt&apos;)
-        return analysis
-
-    }
-    _toData() {
-
-        let datas = []
-        let read = dir =&gt; {
-
-            let files = fs.readdirSync(dir),
-                stat
-
-            files.forEach(file =&gt; {
-
-                if (this._isIgnore(file)) {
-                    return
-                }
-
-                stat = fs.statSync(path.resolve(dir, file))
-                if (stat.isFile()) {
-
-                    let i = 0,
-                        isExist = false,
-                        ext = file.substring(file.lastIndexOf(&apos;.&apos;), file.length),
-                        size = stat.size
-
-
-                    for (; i &lt; datas.length; i++) {
-
-                        if (datas[i].ext === ext) {
-                            datas[i].size += size
-                            datas[i].count++
-                                isExist = true
-                            break
-                        }
-                    }
-
-                    if (!isExist) {
-                        datas.push({
-                            ext: ext,
-                            size: size,
-                            count: 1
-                        })
-                    }
-
-
-                } else {
-                    read(path.resolve(dir, file))
-                }
-            })
-        }
-        read(this.dir)
-        return datas
-    }
-
-
-
-    _makeFile(data, filename, toJson = false) {
-
-        if (this.options.generateFile) {
-            fs.writeFileSync(filename,
-                toJson ? JSON.stringify(data, null, 2) : data)
-        }
-    }
-
-    _isIgnore(file) {
-        for (let ig of this.options.ignore) {
-            if (typeof file === &apos;string&apos; &amp;&amp; file.toLowerCase() === ig.toLowerCase()) {
-                return true
-            }
-        }
-        return false
-    }
-}
-
-
-module.exports = Folder2some
-</code></pre><h4 id="使用方式"><a href="#使用方式" class="headerlink" title="使用方式:"></a>使用方式:</h4><pre><code>let FT = require(&apos;./index&apos;),
-    dir = &apos;./&apos;;
-
-let ft = new FT(dir,{ 
-    ignore: [&apos;node_modules&apos;,&apos;.git&apos;],
-    generateFile: true
-})
-
-console.log(ft.toTree())
-console.log(ft.toJSON())
-console.log(ft.toAnalysis())
-</code></pre><h4 id="另外一种"><a href="#另外一种" class="headerlink" title="另外一种"></a>另外一种</h4><pre><code>var fs = require(&apos;fs&apos;)
-
-
-//遍历文件夹，获取所有文件夹里面的文件信息
-/*
- * @param path 路径
- *
- */
-
-function geFileList(path)
-{
-   var filesList = [];
-   var targetObj = {};
-   readFile(path,filesList,targetObj);
-   return filesList;
-}
-
-//遍历读取文件
-function readFile(path,filesList,targetObj)
-{
-   files = fs.readdirSync(path);//需要用到同步读取
-   files.forEach(walk);
-   function walk(file)
-   {  
-        states = fs.statSync(path+&apos;/&apos;+file);         
-        if(states.isDirectory())
-        {
-            var item ;
-            if(targetObj[&quot;children&quot;])
-            {
-                item = {name:file,children:[]};
-                targetObj[&quot;children&quot;].push(item);
-            }
-            else
-            {
-               item = {name:file,children:[]};
-               filesList.push(item);
-            }
-
-            readFile(path+&apos;/&apos;+file,filesList,item);
-        }
-        else
-        {   
-            //创建一个对象保存信息
-            var obj = new Object();
-            obj.size = states.size;//文件大小，以字节为单位
-            obj.name = file;//文件名
-            obj.path = path+&apos;/&apos;+file; //文件绝对路径
-
-            if(targetObj[&quot;children&quot;])
-            {
-               var item = {name:file,value:obj.path}
-               targetObj[&quot;children&quot;].push(item);
-            }
-            else
-            {
-                var item = {name:file,value:obj.path};
-                filesList.push(item);
-            }
-        }     
-    }
-}
-
-//写入文件utf-8格式
-function writeFile(fileName,data)
-{  
-  fs.writeFile(fileName,data,&apos;utf-8&apos;,complete);
-  function complete()
-  {
-     console.log(&quot;文件生成成功&quot;);
-  } 
-}
-
-
-var filesList = geFileList(&quot;D:/Program Files/Egret/EgretEngine/win/egret/src&quot;);
-var str = JSON.stringify(filesList);
-str = &quot;var data ={name:&apos;Egret&apos;,children:#1}&quot;.replace(&quot;#1&quot;,str);
-writeFile(&quot;tree.js&quot;,str);
-</code></pre><p>原文：<a href="https://blog.csdn.net/hero82748274/article/" target="_blank" rel="noopener">https://blog.csdn.net/hero82748274/article/</a></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-    
-
-    
-    <div>
-      
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -3420,7 +3248,7 @@ writeFile(&quot;tree.js&quot;,str);
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">56</span>
+                    <span class="site-state-item-count">57</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -3532,7 +3360,9 @@ writeFile(&quot;tree.js&quot;,str);
                     
                       
                     
-                    <span class="site-state-item-count">29</span>
+                      
+                    
+                    <span class="site-state-item-count">30</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

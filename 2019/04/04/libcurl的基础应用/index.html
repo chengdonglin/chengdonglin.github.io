@@ -108,25 +108,25 @@
 
 
 
-  <meta name="description" content="解析Vuex来源: https://github.com/ljianshu/Blog/issues/36 Vuex实现了一个单向数据流，在全局拥有一个State存放数据，当组件要更改State中的数据时，必须通过Mutation进行，Mutation同时提供了订阅者模式供外部插件调用获取State数据的更新。而当所有异步操作(常见于调用后端接口异步获取更新数据)或批量的同步操作需要走Action，">
-<meta name="keywords" content="导航 - vuex">
+  <meta name="description" content="libcurl应用笔记常规字段post特别注意: libcurl发送的url类型必须是const char* 类型,否则会出错.如果是string的类型,会出现无法解析host name. 封装案例的方法:    bool clientPostNormal(const char* url, add_slice &amp;amp;s) {         CURL *curl;         CURLco">
+<meta name="keywords" content="导航,c++">
 <meta property="og:type" content="article">
-<meta property="og:title" content="解析Vuex">
-<meta property="og:url" content="http://yoursite.com/2018/11/20/解析Vuex/index.html">
+<meta property="og:title" content="libcurl的基础应用">
+<meta property="og:url" content="http://yoursite.com/2019/04/04/libcurl的基础应用/index.html">
 <meta property="og:site_name" content="厚朴酚">
-<meta property="og:description" content="解析Vuex来源: https://github.com/ljianshu/Blog/issues/36 Vuex实现了一个单向数据流，在全局拥有一个State存放数据，当组件要更改State中的数据时，必须通过Mutation进行，Mutation同时提供了订阅者模式供外部插件调用获取State数据的更新。而当所有异步操作(常见于调用后端接口异步获取更新数据)或批量的同步操作需要走Action，">
+<meta property="og:description" content="libcurl应用笔记常规字段post特别注意: libcurl发送的url类型必须是const char* 类型,否则会出错.如果是string的类型,会出现无法解析host name. 封装案例的方法:    bool clientPostNormal(const char* url, add_slice &amp;amp;s) {         CURL *curl;         CURLco">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-11-20T03:06:35.839Z">
+<meta property="og:updated_time" content="2019-04-04T08:55:54.010Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="解析Vuex">
-<meta name="twitter:description" content="解析Vuex来源: https://github.com/ljianshu/Blog/issues/36 Vuex实现了一个单向数据流，在全局拥有一个State存放数据，当组件要更改State中的数据时，必须通过Mutation进行，Mutation同时提供了订阅者模式供外部插件调用获取State数据的更新。而当所有异步操作(常见于调用后端接口异步获取更新数据)或批量的同步操作需要走Action，">
+<meta name="twitter:title" content="libcurl的基础应用">
+<meta name="twitter:description" content="libcurl应用笔记常规字段post特别注意: libcurl发送的url类型必须是const char* 类型,否则会出错.如果是string的类型,会出现无法解析host name. 封装案例的方法:    bool clientPostNormal(const char* url, add_slice &amp;amp;s) {         CURL *curl;         CURLco">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/11/20/解析Vuex/">
+  <link rel="canonical" href="http://yoursite.com/2019/04/04/libcurl的基础应用/">
 
 
 
@@ -136,7 +136,7 @@
   };
 </script>
 
-  <title>解析Vuex | 厚朴酚</title>
+  <title>libcurl的基础应用 | 厚朴酚</title>
   
 
 
@@ -301,7 +301,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/20/解析Vuex/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/04/libcurl的基础应用/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="厚朴酚">
@@ -318,7 +318,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">解析Vuex
+          <h1 class="post-title" itemprop="name headline">libcurl的基础应用
               
             
           </h1>
@@ -343,7 +343,7 @@
                 
               
 
-              <time title="创建时间：2018-11-20 10:51:09 / 修改时间：11:06:35" itemprop="dateCreated datePublished" datetime="2018-11-20T10:51:09+08:00">2018-11-20</time>
+              <time title="创建时间：2019-04-04 16:54:51 / 修改时间：16:55:54" itemprop="dateCreated datePublished" datetime="2019-04-04T16:54:51+08:00">2019-04-04</time>
             
 
             
@@ -365,7 +365,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/vue/" itemprop="url" rel="index"><span itemprop="name">vue</span></a></span>
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/c/" itemprop="url" rel="index"><span itemprop="name">c++</span></a></span>
 
                 
                 
@@ -399,31 +399,127 @@
       
 
       
-        <h3 id="解析Vuex"><a href="#解析Vuex" class="headerlink" title="解析Vuex"></a>解析Vuex</h3><p>来源: <a href="https://github.com/ljianshu/Blog/issues/36" target="_blank" rel="noopener">https://github.com/ljianshu/Blog/issues/36</a></p>
-<p>Vuex实现了一个单向数据流，在全局拥有一个State存放数据，当组件要更改State中的数据时，必须通过Mutation进行，Mutation同时提供了订阅者模式供外部插件调用获取State数据的更新。而当所有异步操作(常见于调用后端接口异步获取更新数据)或批量的同步操作需要走Action，但Action也是无法直接修改State的，还是需要通过Mutation来修改State的数据。最后，根据State的变化，渲染到视图上。</p>
-<h4 id="简要介绍各模块在流程中的主要功能："><a href="#简要介绍各模块在流程中的主要功能：" class="headerlink" title="简要介绍各模块在流程中的主要功能："></a>简要介绍各模块在流程中的主要功能：</h4><ul>
-<li><p>Vue Components：</p>
-<p>  Vue组件。HTML页面上，负责接收用户操作等交互行为，执行dispatch方法触发对应action进行回应。</p>
-</li>
-<li><p>dispatch：</p>
-<p>  操作行为触发方法，是唯一能执行action的方法。</p>
-</li>
-<li><p>actions：</p>
-<p>  操作行为处理模块,由组件中的$store.dispatch(‘action 名称’, data1)来触发。然后由commit()来触发mutation的调用 , 间接更新 state。负责处理Vue Components接收到的所有交互行为。包含同步/异步操作，支持多个同名方法，按照注册的顺序依次触发。向后台API请求的操作就在这个模块中进行，包括触发其他action以及提交mutation的操作。该模块提供了Promise的封装，以支持action的链式触发。</p>
-</li>
-<li><p>commit：<br>  状态改变提交操作方法。对mutation进行提交，是唯一能执行mutation的方法。</p>
-</li>
-<li><p>mutations：<br>  状态改变操作方法，由actions中的commit(‘mutation 名称’)来触发。是Vuex修改state的唯一推荐方法。该方法只能进行同步操作，且方法名只能全局唯一。操作之中会有一些hook暴露出来，以进行state的监控等。</p>
-</li>
-<li><p>state：</p>
-<p>  页面状态管理容器对象。集中存储Vue components中data对象的零散数据，全局唯一，以进行统一的状态管理。页面显示所需的数据从该对象中进行读取，利用Vue的细粒度数据响应机制来进行高效的状态更新。</p>
-</li>
-<li><p>getters：</p>
-<p>  state对象读取方法。图中没有单独列出该模块，应该被包含在了render中，Vue Components通过该方法读取全局state对象。</p>
-</li>
-</ul>
-<h4 id="actions和mutations区别"><a href="#actions和mutations区别" class="headerlink" title="actions和mutations区别"></a>actions和mutations区别</h4><p>actions和上面的Mutations功能基本一样，不同点是，actions是异步的改变state状态，而Mutations是同步改变状态。</p>
-<p>同步的意义在于这样每一个 mutation 执行完成后都可以对应到一个新的状态（和 reducer 一样），这样 devtools 就可以打个 snapshot 存下来，然后就可以随便 time-travel 了。如果你开着 devtool 调用一个异步的 action，你可以清楚地看到它所调用的 mutation 是何时被记录下来的，并且可以立刻查看它们对应的状态—-尤雨溪</p>
+        <h3 id="libcurl应用笔记"><a href="#libcurl应用笔记" class="headerlink" title="libcurl应用笔记"></a>libcurl应用笔记</h3><h4 id="常规字段post"><a href="#常规字段post" class="headerlink" title="常规字段post"></a>常规字段post</h4><p>特别注意:</p>
+<pre><code>libcurl发送的url类型必须是const char* 类型,否则会出错.如果是string的类型,会出现无法解析host name.
+</code></pre><h5 id="封装案例的方法"><a href="#封装案例的方法" class="headerlink" title="封装案例的方法:"></a>封装案例的方法:</h5><pre><code>    bool clientPostNormal(const char* url, add_slice &amp;s) {
+        CURL *curl;
+        CURLcode res;
+        /* In windows, this will init the winsock stuff */
+        curl_global_init(CURL_GLOBAL_ALL);
+        /*get a curl handle*/
+        curl = curl_easy_init();
+        if (curl) {
+            /* First set the URL that is about to receive our POST. This URL can
+            just as well be a https:// URL if that is what should receive the
+            data. */
+            curl_easy_setopt(curl, CURLOPT_URL, url);
+            string postData = &quot;bussinessId=&quot; + s.bussinessId + &quot;&amp;&quot;+&quot;localSlideId=&quot;+s.localSlideId+&quot;&amp;&quot;+&quot;localSlideName=&quot;+s.localSlideName+&quot;&amp;&quot;\
+                &quot;localSlideCode=&quot;+s.localSlideCode+&quot;&amp;&quot;+&quot;width=&quot;+std::to_string(s.width)+&quot;&amp;&quot; + &quot;height=&quot;+std::to_string(s.height)+&quot;&amp;&quot;+&quot;scale=&quot;+std::to_string(s.scale)+&quot;&amp;&quot;\
+                &quot;slideType=&quot;+s.slideType+&quot;&amp;&quot;+&quot;ihcItem=&quot;+s.ihcItem;
+            /* Perform the request, res will get the return code */
+            //cout &lt;&lt; url &lt;&lt; endl;
+            //cout &lt;&lt; postData &lt;&lt; endl;
+            curl_easy_setopt(curl, CURLOPT_POSTFIELDS, postData);
+            res = curl_easy_perform(curl);
+            /*Check for errors*/
+            if (res != CURLE_OK) {
+                fprintf(stderr, &quot;curl_easy_perform() failed: %s\n&quot;,
+                    curl_easy_strerror(res));
+                /* always cleanup */
+                curl_easy_cleanup(curl);
+                return false;
+            }
+            curl_global_cleanup();
+            return true;
+        }
+    }
+
+方法的使用:
+    addSlice as;
+    as.bussinessId = &quot;we34&quot;;
+    as.height = 40000;
+    as.ihcItem = &quot;ryt4&quot;;
+    as.localSlideCode = &quot;ighirbn&quot;;
+    as.localSlideId = &quot;ebgjkbgj&quot;;
+    as.scale = 40;
+    as.slideType = &quot;hpc&quot;;
+    as.width = 44444444;
+    const char* url = &quot;http://111.200.54.118:8080/slide/addSlide&quot;;
+    bool res = clientPostNormal(url, as);
+    cout &lt;&lt; 1 &lt;&lt; endl;
+    cout &lt;&lt; res &lt;&lt; endl;
+</code></pre><h4 id="form-data上传"><a href="#form-data上传" class="headerlink" title="form-data上传"></a>form-data上传</h4><blockquote>
+<p>特别要注意,在使用curl_formadd的时候,字段的值必须为char*类型.</p>
+</blockquote>
+<h5 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h5><pre><code>int clientPostTile3(tile_form t,const char* pc, long length) {
+    CURL* easy_handle;
+    CURLcode res;
+    curl_slist* http_headers = NULL;
+    CURLcode code;
+    code = curl_global_init(CURL_GLOBAL_ALL);
+    if (CURLE_OK != code)
+    {
+        std::cerr &lt;&lt; &quot;init libcurl failed: &quot; &lt;&lt; code &lt;&lt; std::endl;
+        return -1;
+    }
+    /*http_headers = curl_slist_append(http_headers, &quot;Content-Type:multipart/form-data&quot;);
+    http_headers = curl_slist_append(http_headers, &quot;Connection:keep-alive&quot;);
+    http_headers = curl_slist_append(http_headers, &quot;Charset:UTF-8&quot;);*/
+    curl_httppost *formpost = NULL;
+    curl_httppost *lastptr = NULL;
+    curl_formadd(&amp;formpost, &amp;lastptr, 
+        CURLFORM_COPYNAME, &quot;localSliceId&quot;, 
+        CURLFORM_COPYCONTENTS,t.localSliceId.c_str() , CURLFORM_END);
+    curl_formadd(&amp;formpost, &amp;lastptr,
+        CURLFORM_COPYNAME, &quot;x&quot;,
+        CURLFORM_COPYCONTENTS, std::to_string(t.x).c_str(), CURLFORM_END);
+    curl_formadd(&amp;formpost, &amp;lastptr,
+        CURLFORM_COPYNAME, &quot;y&quot;,
+        CURLFORM_COPYCONTENTS, std::to_string(t.y).c_str(), CURLFORM_END);
+    curl_formadd(&amp;formpost, &amp;lastptr,
+        CURLFORM_COPYNAME, &quot;xPos&quot;,
+        CURLFORM_COPYCONTENTS, std::to_string(t.xPos).c_str(), CURLFORM_END);
+    curl_formadd(&amp;formpost, &amp;lastptr,
+        CURLFORM_COPYNAME, &quot;yPos&quot;,
+        CURLFORM_COPYCONTENTS, std::to_string(t.yPos).c_str(), CURLFORM_END);
+    curl_formadd(&amp;formpost, &amp;lastptr,
+        CURLFORM_COPYNAME, &quot;width&quot;,
+        CURLFORM_COPYCONTENTS, &quot;0&quot;, CURLFORM_END);
+    curl_formadd(&amp;formpost, &amp;lastptr,
+        CURLFORM_COPYNAME, &quot;height&quot;,
+        CURLFORM_COPYCONTENTS, &quot;0&quot;, CURLFORM_END);
+    //上传buffer数据
+    curl_formadd(&amp;formpost, &amp;lastptr,
+        CURLFORM_COPYNAME, &quot;tileData&quot;,//上传的字段
+        CURLFORM_BUFFER, &quot;tileData&quot;,//服务端字段
+        CURLFORM_BUFFERPTR, pc,//内存中binary数据
+        CURLFORM_BUFFERLENGTH, length,//pc数据长度
+        CURLFORM_END);
+    easy_handle = curl_easy_init();
+    curl_easy_setopt(easy_handle, CURLOPT_URL, t.url.c_str());
+    curl_easy_setopt(easy_handle, CURLOPT_POST, 1);
+    curl_easy_setopt(easy_handle, CURLOPT_VERBOSE, 0);          //是否输出通信数据，如果是http，请求头/响应头信息也会输出
+    curl_easy_setopt(easy_handle, CURLOPT_HEADER, 0);
+    curl_easy_setopt(easy_handle, CURLOPT_HTTPHEADER, http_headers);
+    curl_easy_setopt(easy_handle, CURLOPT_HTTPPOST, formpost);
+    res = curl_easy_perform(easy_handle);
+    curl_slist_free_all(http_headers);
+    curl_formfree(formpost);
+    curl_easy_cleanup(easy_handle);
+    curl_global_cleanup();
+    if (res != CURLE_OK)
+    {
+        std::cerr &lt;&lt; &quot;curl_easy_perform failed:&quot; &lt;&lt; res &lt;&lt; std::endl;
+        return -1;
+    }
+    else {
+        return 0;
+    }
+}
+</code></pre><h4 id="多线程问题"><a href="#多线程问题" class="headerlink" title="多线程问题"></a>多线程问题</h4><blockquote>
+<p><code>CURLcode code = curl_global_init(CURL_GLOBAL_ALL);</code><br><code>curl_global_cleanup();</code></p>
+</blockquote>
+<p>这两两个函数的初始化工作提升至主线程操作</p>
 
       
     </div>
@@ -485,7 +581,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/导航-vuex/" rel="tag"># 导航 - vuex</a>
+            <a href="/tags/导航/" rel="tag"># 导航</a>
+          
+            <a href="/tags/c/" rel="tag"># c++</a>
           
         </div>
       
@@ -498,8 +596,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/11/20/JavaScript正则表达式/" rel="next" title="JavaScript正则表达式">
-                <i class="fa fa-chevron-left"></i> JavaScript正则表达式
+              <a href="/2019/04/04/c++类型转换/" rel="next" title="c+++l类型转换">
+                <i class="fa fa-chevron-left"></i> c+++l类型转换
               </a>
             
           </div>
@@ -507,10 +605,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/11/20/iview之Table组件的服务端分页/" rel="prev" title="iview之Table组件的服务端分页">
-                iview之Table组件的服务端分页 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -732,7 +826,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#解析Vuex"><span class="nav-number">1.</span> <span class="nav-text">解析Vuex</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#简要介绍各模块在流程中的主要功能："><span class="nav-number">1.1.</span> <span class="nav-text">简要介绍各模块在流程中的主要功能：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#actions和mutations区别"><span class="nav-number">1.2.</span> <span class="nav-text">actions和mutations区别</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#libcurl应用笔记"><span class="nav-number">1.</span> <span class="nav-text">libcurl应用笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#常规字段post"><span class="nav-number">1.1.</span> <span class="nav-text">常规字段post</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#封装案例的方法"><span class="nav-number">1.1.1.</span> <span class="nav-text">封装案例的方法:</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#form-data上传"><span class="nav-number">1.2.</span> <span class="nav-text">form-data上传</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#代码"><span class="nav-number">1.2.1.</span> <span class="nav-text">代码</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#多线程问题"><span class="nav-number">1.3.</span> <span class="nav-text">多线程问题</span></a></li></ol></li></ol></div>
             
 
           </div>
