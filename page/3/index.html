@@ -300,6 +300,211 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/22/centos7安装golang以及配置vscode编辑器/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="厚朴酚">
+      <meta itemprop="description" content="学习笔记">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="厚朴酚">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/22/centos7安装golang以及配置vscode编辑器/" itemprop="url">
+                  centos7安装golang以及配置vscode编辑器
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-11-22 08:50:28 / 修改时间：09:06:22" itemprop="dateCreated datePublished" datetime="2018-11-22T08:50:28+08:00">2018-11-22</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/golang/" itemprop="url" rel="index"><span itemprop="name">golang</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="centos7安装golang以及配置vscode编辑器"><a href="#centos7安装golang以及配置vscode编辑器" class="headerlink" title="centos7安装golang以及配置vscode编辑器"></a>centos7安装golang以及配置vscode编辑器</h3><h4 id="centos7安装golang"><a href="#centos7安装golang" class="headerlink" title="centos7安装golang"></a>centos7安装golang</h4><ul>
+<li>下载tar包</li>
+</ul>
+<p>链接地址  <a href="https://studygolang.com/dl" target="_blank" rel="noopener">https://studygolang.com/dl</a></p>
+<ul>
+<li>解压至指定文件夹</li>
+</ul>
+<p>tar -zxvf &lt;包名&gt;</p>
+<ul>
+<li><p>解压完毕后在 /usr/local 目录下会有一个go文件夹</p>
+</li>
+<li><p>建立工作目录workspace,新项目将建立在src文件夹下</p>
+<pre><code>mkdir -p /usr/local/goproject
+cd /usr/local/goproject
+mkdir src pkg bin
+</code></pre></li>
+<li><p>设置环境变量</p>
+<pre><code>在跟目录   ls -a  找到.bashrc文件
+</code></pre></li>
+<li><p>在文件最后加入如下代码，不要有空行, 保存退出</p>
+<pre><code>export GOROOT=/usr/local/go
+export PATH=$GOROOT/bin:$PATH
+export GOPATH=/usr/local/goproject
+</code></pre></li>
+<li><p>刷新系统配置</p>
+<pre><code>source .bashrc
+</code></pre></li>
+<li><p>输入go就可以查看是否安装成功</p>
+</li>
+</ul>
+<h4 id="配置vscode编辑器"><a href="#配置vscode编辑器" class="headerlink" title="配置vscode编辑器"></a>配置vscode编辑器</h4><p>主要根据官网:<a href="https://code.visualstudio.com/docs/setup/linux" target="_blank" rel="noopener">https://code.visualstudio.com/docs/setup/linux</a></p>
+<ul>
+<li><p>注册源</p>
+<pre><code>sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
+sudo sh -c &apos;echo -e &quot;[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc&quot; &gt; /etc/yum.repos.d/vscode.repo&apos;
+</code></pre></li>
+</ul>
+<ul>
+<li><p>更新源并安装</p>
+<pre><code>yum check-update
+sudo yum install code
+</code></pre></li>
+</ul>
+<p>然后 在终端输入 code就可以启动了,然后可以安装各种插件助你提高开发效率.</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+    
+
+    
+    <div>
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/21/electron-vue主进程分离/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -2773,272 +2978,6 @@ coffee.init();
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/15/学习Nginx/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="厚朴酚">
-      <meta itemprop="description" content="学习笔记">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="厚朴酚">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/15/学习Nginx/" itemprop="url">
-                  学习Nginx
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-11-15 21:53:39 / 修改时间：22:28:00" itemprop="dateCreated datePublished" datetime="2018-11-15T21:53:39+08:00">2018-11-15</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/nginx/" itemprop="url" rel="index"><span itemprop="name">nginx</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="学习Nginx"><a href="#学习Nginx" class="headerlink" title="学习Nginx"></a>学习Nginx</h3><p>来源自技术胖,<a href="http://jspang.com/post/nginx.html" target="_blank" rel="noopener">http://jspang.com/post/nginx.html</a></p>
-<h4 id="安装环境搭建"><a href="#安装环境搭建" class="headerlink" title="安装环境搭建"></a>安装环境搭建</h4><ul>
-<li>yum -y install gcc gcc-c++ autoconf pcre-devel make automake</li>
-<li>yum -y install wget httpd-tools vim</li>
-</ul>
-<h4 id="Nginx源配置安装"><a href="#Nginx源配置安装" class="headerlink" title="Nginx源配置安装"></a>Nginx源配置安装</h4><ul>
-<li><p>查看是否有Nginx源</p>
-<pre><code>yum list | grep nginx
-</code></pre></li>
-<li><p>配置最新源</p>
-</li>
-</ul>
-<p>到官网找稳定版</p>
-<p>第一步:到yum文件</p>
-<pre><code>vim /etc/yum.repos.d/nginx.repo
-</code></pre><p>第二步:</p>
-<pre><code>[nginx]
-name=nginx repo
-baseurl=http://nginx.org/packages/OS/OSRELEASE/$basearch/
-gpgcheck=0
-enabled=1
-</code></pre><p>第三步:<br>赋值完成后，你需要修改一下对应的操作系统和版本号，因为我的是centos和7的版本</p>
-<pre><code>baseurl=http://nginx.org/packages/centos/7/$basearch/
-</code></pre><p>第四步: 安装</p>
-<pre><code>yum install nginx
-</code></pre><p>第五步: 查看是否成功</p>
-<pre><code>nginx -v
-</code></pre><h4 id="Nginx基本配置文件"><a href="#Nginx基本配置文件" class="headerlink" title="Nginx基本配置文件"></a>Nginx基本配置文件</h4><p>-查看目录位置</p>
-<pre><code>rpm -ql nginx
-</code></pre><p>rpm 是linux的rpm包管理工具，-q 代表询问模式，-l 代表返回列表，这样我们就可以找到nginx的所有安装位置</p>
-<h5 id="nginx-conf文件解读"><a href="#nginx-conf文件解读" class="headerlink" title="nginx.conf文件解读"></a>nginx.conf文件解读</h5><pre><code>cd /etc/nginx
-vim nginx.conf
-</code></pre><p>文件注释</p>
-<pre><code>#运行用户，默认即是nginx，可以不进行设置
-user  nginx;
-#Nginx进程，一般设置为和CPU核数一样
-worker_processes  1;   
-#错误日志存放目录
-error_log  /var/log/nginx/error.log warn;
-#进程pid存放位置
-pid        /var/run/nginx.pid;
-events {
-    worker_connections  1024; # 单个后台进程的最大并发数
-}
-http {
-    include       /etc/nginx/mime.types;   #文件扩展名与类型映射表
-    default_type  application/octet-stream;  #默认文件类型
-    #设置日志模式
-    log_format  main  &apos;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &apos;
-                      &apos;$status $body_bytes_sent &quot;$http_referer&quot; &apos;
-                      &apos;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&apos;;
-    access_log  /var/log/nginx/access.log  main;   #nginx访问日志存放位置
-    sendfile        on;   #开启高效传输模式
-    #tcp_nopush     on;    #减少网络报文段的数量
-    keepalive_timeout  65;  #保持连接的时间，也叫超时时间
-    #gzip  on;  #开启gzip压缩
-    include /etc/nginx/conf.d/*.conf; #包含的子配置项位置和文件
-</code></pre><p>default.conf 配置项讲解 我们看到最后有一个子文件的配置项，那我们打开这个include子文件配置项看一下里边都有些什么内容。</p>
-<p>进入conf.d目录，然后使用vim default.conf进行查看。</p>
-<pre><code>server {
-    listen       80;   #配置监听端口
-    server_name  localhost;  //配置域名
-    #charset koi8-r;     
-    #access_log  /var/log/nginx/host.access.log  main;
-    location / {
-        root   /usr/share/nginx/html;     #服务默认启动目录
-        index  index.html index.htm;    #默认访问文件
-    }
-    #error_page  404              /404.html;   # 配置404页面
-    # redirect server error pages to the static page /50x.html
-    #
-    error_page   500 502 503 504  /50x.html;   #错误状态码的显示页面，配置后需要重启
-    location = /50x.html {
-        root   /usr/share/nginx/html;
-    }
-    # proxy the PHP scripts to Apache listening on 127.0.0.1:80
-    #
-    #location ~ \.php$ {
-    #    proxy_pass   http://127.0.0.1;
-    #}
-    # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
-    #
-    #location ~ \.php$ {
-    #    root           html;
-    #    fastcgi_pass   127.0.0.1:9000;
-    #    fastcgi_index  index.php;
-    #    fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;
-    #    include        fastcgi_params;
-    #}
-    # deny access to .htaccess files, if Apache&apos;s document root
-    # concurs with nginx&apos;s one
-    #
-    #location ~ /\.ht {
-    #    deny  all;
-    #}
-}
-</code></pre><p>明白了这些配置项，我们知道我们的服务目录放在了/usr/share/nginx/html下，可以使用命令进入看一下目录下的文件。</p>
-<pre><code>cd /usr/share/nginx/html
-ls 
-</code></pre><ul>
-<li><p>启动  sudo nginx</p>
-</li>
-<li><p>访问 127.0.0.1:80 就可以看到index.html的内容了</p>
-</li>
-</ul>
-<h4 id="Nginx常用的操作"><a href="#Nginx常用的操作" class="headerlink" title="Nginx常用的操作"></a>Nginx常用的操作</h4>
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-    
-
-    
-    <div>
-      
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -3088,7 +3027,7 @@ ls
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">57</span>
+                    <span class="site-state-item-count">58</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
