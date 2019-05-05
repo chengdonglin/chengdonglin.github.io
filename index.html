@@ -300,6 +300,179 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/05/node-js跨域问题/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="厚朴酚">
+      <meta itemprop="description" content="学习笔记">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="厚朴酚">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/05/05/node-js跨域问题/" itemprop="url">
+                  node.js跨域问题
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-05-05 09:00:41 / 修改时间：09:03:37" itemprop="dateCreated datePublished" datetime="2019-05-05T09:00:41+08:00">2019-05-05</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/node-js/" itemprop="url" rel="index"><span itemprop="name">node.js</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="跨域"><a href="#跨域" class="headerlink" title="跨域"></a>跨域</h2><p>有时候后端与前端vue.js之间进行联调的时候,会出现安全性的问题以及include方面的问题的时候</p>
+<pre><code>app.all(&apos;*&apos;, function(req, res, next) {
+        if(JSON.stringify(req.headers.origin)){
+            const origin = JSON.parse(JSON.stringify(req.headers.origin));
+            res.header(&quot;Access-Control-Allow-Origin&quot;,origin);
+        } 
+        res.header(&quot;Access-Control-Allow-Headers&quot;, &quot;X-Requested-With&quot;);
+        res.header(&quot;Access-Control-Allow-Credentials&quot;, &quot;true&quot;);
+        res.header(&quot;Access-Control-Allow-Methods&quot;, &quot;PUT,POST,GET,DELETE,OPTIONS&quot;);
+        res.header(&quot;Content-Type&quot;, &quot;application/json;charset=utf-8&quot;);
+        next();
+    });
+</code></pre>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+    
+
+    
+    <div>
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/15/spdlog日志库/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -2227,192 +2400,6 @@ export const  getCaption =()=&gt;{
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/17/发布并更新npm包/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="厚朴酚">
-      <meta itemprop="description" content="学习笔记">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="厚朴酚">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/17/发布并更新npm包/" itemprop="url">
-                  发布并更新npm包
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-12-17 13:52:58 / 修改时间：14:00:49" itemprop="dateCreated datePublished" datetime="2018-12-17T13:52:58+08:00">2018-12-17</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/node-js/" itemprop="url" rel="index"><span itemprop="name">node.js</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="发布并更新npm包"><a href="#发布并更新npm包" class="headerlink" title="发布并更新npm包"></a>发布并更新npm包</h3><h4 id="发布包"><a href="#发布包" class="headerlink" title="发布包"></a>发布包</h4><ol>
-<li>新建一个文件夹 </li>
-<li>文件夹下新建一个lib文件夹</li>
-<li>创建package.json,并初始化字节的信息</li>
-<li>创建readme.md文件</li>
-<li>在lib文件夹写你的方法</li>
-<li>根文件夹下创建一个index.js主入口文件,并把lib下的方法暴露</li>
-<li>开始上传npm包<ol>
-<li>npm adduser</li>
-<li>npm publish</li>
-</ol>
-</li>
-</ol>
-<h4 id="更新包"><a href="#更新包" class="headerlink" title="更新包"></a>更新包</h4><ol>
-<li>进行你的代码修改</li>
-<li><p>用命令：npm version &lt;update_type&gt;进行修改,update_type 有三个参数</p>
-<ol>
-<li>第一个是patch, 补丁</li>
-<li>第二个是minor, 小修小改</li>
-<li>第三个是 major，大改</li>
-</ol>
-</li>
-<li><p>再次npm publish既可</p>
-</li>
-</ol>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-    
-
-    
-    <div>
-      
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2462,7 +2449,7 @@ export const  getCaption =()=&gt;{
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">58</span>
+                    <span class="site-state-item-count">59</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>

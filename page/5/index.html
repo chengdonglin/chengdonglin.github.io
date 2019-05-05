@@ -300,6 +300,351 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/09/HTML5的Blob对象/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="厚朴酚">
+      <meta itemprop="description" content="学习笔记">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="厚朴酚">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/09/HTML5的Blob对象/" itemprop="url">
+                  HTML5的Blob对象
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-11-09 13:31:53" itemprop="dateCreated datePublished" datetime="2018-11-09T13:31:53+08:00">2018-11-09</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-11-21 16:23:06" itemprop="dateModified" datetime="2018-11-21T16:23:06+08:00">2018-11-21</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/HTML5/" itemprop="url" rel="index"><span itemprop="name">HTML5</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="HTML的Blob对象"><a href="#HTML的Blob对象" class="headerlink" title="HTML的Blob对象"></a>HTML的Blob对象</h3><p>####前言<br>一直以来，JS都没有比较好的可以直接处理二进制的方法。而Blob的存在，允许我们可以通过JS直接操作二进制数据。</p>
+<h4 id="Blob对象"><a href="#Blob对象" class="headerlink" title="Blob对象"></a>Blob对象</h4><p>一个Blob对象就是一个包含有只读原始数据的类文件对象。Blob对象中的数据并不一定得是JavaScript中的原生形式。File接口基于Blob，继承了Blob的功能,并且扩展支持了用户计算机上的本地文件。</p>
+<p>Blob对象可以看做是存放二进制数据的容器，此外还可以通过Blob设置二进制数据的MIME类型.</p>
+<h4 id="创建Blob"><a href="#创建Blob" class="headerlink" title="创建Blob"></a>创建Blob</h4><pre><code>var blob = new Blob(dataArr:Array&lt;any&gt;, opt:{type:string});
+</code></pre><ul>
+<li>dataArray：数组，包含了要添加到Blob对象中的数据，数据可以是任意多个ArrayBuffer，ArrayBufferView， Blob，或者 DOMString对象。</li>
+<li><p>opt：对象，用于设置Blob对象的属性（如：MIME类型）</p>
+</li>
+<li><p>创建一个装填DOMString对象的Blog对象</p>
+<p>  var s = “ <div>hello world!!</div> “</p>
+<p>  var blob = new Blob([s],{type:”text/xml”})</p>
+<p>  blob</p>
+<p>  Blob(24) {size: 24, type: “text/xml”}</p>
+</li>
+<li><p>创建一个装填ArrayBuffer对象的Blob对象</p>
+<pre><code>var abf = new ArrayBuffer(8)
+var blob = new Blob([abf],{type:&quot;text/plain&quot;})
+blob
+Blob{size:8,type:&quot;text/plain&quot;}
+</code></pre></li>
+<li><p>创建一个装填ArrayBufferView对象的Blob对象(ArrayBufferView可基于ArrayBuffer创建,返回值是一个类数组),如下:创建一个8字节的ArrayBuffer,在其上创建一个每个数组元素为2字节的视图</p>
+<pre><code>var abf = new ArrayBuffer(8)
+var abv = new Int16Array(abf)
+var blob = new Blob(abv,{type:&quot;text/plain&quot;})
+blob
+Blob{size:4,type:&quot;text/plain&quot;}
+</code></pre></li>
+<li><p>通过Blob.slice()</p>
+</li>
+</ul>
+<p>此方法返回一个新的BLob对象,包含了原对象指定范围内的数据</p>
+<pre><code>Blob.slice(start:number,end:number,contentType:string)
+</code></pre><ul>
+<li>start: 开始索引,默认为0</li>
+<li>end: 截取结束索引(不包括end)</li>
+<li><p>contentType:新的Blob的MIME类型,默认为空字符串</p>
+<pre><code>var b = new Blob([&quot;zxxxffggggff&quot;],{type:&quot;text/plain&quot;})
+var b2 = b.slice(0,5,&quot;text/plain&quot;)
+b2
+Blob{size:5,type:&quot;text/plain&quot;}
+</code></pre></li>
+<li><p>通过canvas.toBlob()</p>
+<pre><code>var canvas = document.getElementById(&quot;canvas&quot;);
+canvas.toBlob(function(blob){
+    console.log(blob);
+});
+</code></pre></li>
+</ul>
+<h4 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h4><p>前面提到，File接口基于Blob，继承了Blob的功能并进行了扩展，故我们可以像使用Blob一样使用File对象。</p>
+<ul>
+<li>分片上传</li>
+</ul>
+<p>通过Blob.slice方法，可以将大文件分片，轮循向后台提交各文件片段，即可实现文件的分片上传。</p>
+<p>分片上传逻辑如下：</p>
+<ul>
+<li>获取要上传文件的File对象，根据chunk（每片大小）对文件进行分片</li>
+<li>通过post方法轮循上传每片文件，其中url中拼接querystring用于描述当前上传的文件信息；</li>
+<li>post body中存放本次要上传的二进制数据片段</li>
+<li>接口每次返回offset，用于执行下次上传</li>
+</ul>
+<p>下面是分片上传的简单实现：</p>
+<pre><code>initUpload();
+
+//初始化上传
+function initUpload() {
+    var chunk = 100 * 1024;   //每片大小
+    var input = document.getElementById(&quot;file&quot;);    //input file
+    input.onchange = function (e) {
+        var file = this.files[0];
+        var query = {};
+        var chunks = [];
+        if (!!file) {
+            var start = 0;
+            //文件分片
+            for (var i = 0; i &lt; Math.ceil(file.size / chunk); i++) {
+                var end = start + chunk;
+                chunks[i] = file.slice(start , end);
+                start = end;
+            }
+
+            // 采用post方法上传文件
+            // url query上拼接以下参数，用于记录上传偏移
+            // post body中存放本次要上传的二进制数据
+            query = {
+                fileSize: file.size,
+                dataSize: chunk,
+                nextOffset: 0
+            }
+
+            upload(chunks, query, successPerUpload);
+        }
+    }
+}
+
+// 执行上传
+    function upload(chunks, query, cb) {
+        var queryStr = Object.getOwnPropertyNames(query).map(key =&gt; {
+            return key + &quot;=&quot; + query[key];
+        }).join(&quot;&amp;&quot;);
+        var xhr = new XMLHttpRequest();
+        xhr.open(&quot;POST&quot;, &quot;http://xxxx/opload?&quot; + queryStr);
+        xhr.overrideMimeType(&quot;application/octet-stream&quot;);
+
+        //获取post body中二进制数据
+        var index = Math.floor(query.nextOffset / query.dataSize);
+        getFileBinary(chunks[index], function (binary) {
+            if (xhr.sendAsBinary) {
+                xhr.sendAsBinary(binary);
+            } else {
+                xhr.send(binary);
+            }
+
+        });
+
+        xhr.onreadystatechange = function (e) {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    var resp = JSON.parse(xhr.responseText);
+                    // 接口返回nextoffset
+                    // resp = {
+                    //     isFinish:false,
+                    //     offset:100*1024
+                    // }
+                    if (typeof cb === &quot;function&quot;) {
+                        cb.call(this, resp, chunks, query)
+                    }
+                }
+            }
+        }
+    }
+
+    // 每片上传成功后执行
+    function successPerUpload(resp, chunks, query) {
+        if (resp.isFinish === true) {
+            alert(&quot;上传成功&quot;);
+        } else {
+            //未上传完毕
+            query.offset = resp.offset;
+            upload(chunks, query, successPerUpload);
+        }
+    }
+
+    // 获取文件二进制数据
+    function getFileBinary(file, cb) {
+        var reader = new FileReader();
+        reader.readAsArrayBuffer(file);
+        reader.onload = function (e) {
+            if (typeof cb === &quot;function&quot;) {
+                cb.call(this, this.result);
+            }
+        }
+    }
+</code></pre><p>以上是文件分片上传前端的简单实现，当然，此功能还可以更加完善，如后台需要对合并后的文件大小进行校验；或者前端加密文件，全部上传完毕后后端解密校验等.</p>
+<ul>
+<li>通过url下载文件</li>
+</ul>
+<p>window.URL对象可以为Blob对象生成一个网络地址，结合a标签的download属性，可以实现点击url下载文件.</p>
+<pre><code>createDownload(&quot;download.txt&quot;,&quot;download file&quot;);
+
+function createDownload(fileName, content){
+    var blob = new Blob([content]);
+    var link = document.createElement(&quot;a&quot;);
+    link.innerHTML = fileName;
+    link.download = fileName;
+    link.href = URL.createObjectURL(blob);
+    document.getElementsByTagName(&quot;body&quot;)[0].appendChild(link);
+}
+</code></pre><ul>
+<li>通过url显示图片</li>
+</ul>
+<p>我们知道，img的src属性及background的url属性，都可以通过接收图片的网络地址或base64来显示图片，同样的，我们也可以把图片转化为Blob对象，生成URL（URL.createObjectURL(blob)），来显示图片。</p>
+<p>Blob对象作为一个装填二进制数据的基本对象，其作用也仅仅是一个容器，而真正的业务功能则需要通过FileReader、URL、Canvas等对象实现</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+    
+
+    
+    <div>
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/09/html5的FileReader对象/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -3138,358 +3483,6 @@ for(let [i,v] of arr.entries()){
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/05/ES6在条件语句的优雅应用/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="厚朴酚">
-      <meta itemprop="description" content="学习笔记">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="厚朴酚">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/05/ES6在条件语句的优雅应用/" itemprop="url">
-                  ES6在条件语句的优雅应用
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-11-05 09:55:44 / 修改时间：10:36:17" itemprop="dateCreated datePublished" datetime="2018-11-05T09:55:44+08:00">2018-11-05</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="ES6在条件语句的优雅应用"><a href="#ES6在条件语句的优雅应用" class="headerlink" title="ES6在条件语句的优雅应用"></a>ES6在条件语句的优雅应用</h3><p>在用 JavaScript 工作时，我们经常和条件语句打交道，这里有5条让你写出更好/干净的条件语句的建议。</p>
-<ol>
-<li>多重判断时使用 Array.includes</li>
-<li>更少的嵌套，尽早 return</li>
-<li>使用默认参数和解构</li>
-<li>倾向于遍历对象而不是 Switch 语句</li>
-<li>对所有/部分 判断使用 Array.every &amp; Array.some</li>
-</ol>
-<h4 id="多重判断时使用-Array-includes"><a href="#多重判断时使用-Array-includes" class="headerlink" title="多重判断时使用 Array.includes"></a>多重判断时使用 Array.includes</h4><p>案例:</p>
-<pre><code>// condition
-function test(fruit) {
-  if (fruit == &apos;apple&apos; || fruit == &apos;strawberry&apos;) {
-    console.log(&apos;red&apos;);
-  }
-}
-</code></pre><p>如果我们有更多名字叫 cherry 和 cranberries 的红色水果呢？</p>
-<p>可以用 Array.includes (Array.includes)重写条件语句。</p>
-<pre><code>function test(fruit) {
-  const redFruits = [&apos;apple&apos;, &apos;strawberry&apos;, &apos;cherry&apos;, &apos;cranberries&apos;];
-
-  if (redFruits.includes(fruit)) {
-    console.log(&apos;red&apos;);
-  }
-}
-</code></pre><p>判断条件提取到一个数组。这样一来，代码看起来更整洁。</p>
-<h4 id="更少的嵌套，尽早-Return"><a href="#更少的嵌套，尽早-Return" class="headerlink" title="更少的嵌套，尽早 Return"></a>更少的嵌套，尽早 Return</h4><p>扩展上一个例子让它包含两个条件</p>
-<ol>
-<li>如果没有传入参数,抛出错误</li>
-<li><p>接受quantily参数,在quantily大于10 的时候打印出来</p>
-<p> function test(fruit, quantity) {<br>   const redFruits = [‘apple’, ‘strawberry’, ‘cherry’, ‘cranberries’];</p>
-<p>   // 条件 1: fruit 必须有值<br>   if (fruit) {</p>
-<pre><code>// 条件 2: 必须是red的
-if (redFruits.includes(fruit)) {
-  console.log(&apos;red&apos;);
-
-  // 条件 3: quantity大于10
-  if (quantity &gt; 10) {
-    console.log(&apos;big quantity&apos;);
-  }
-}
-</code></pre><p>   } else {</p>
-<pre><code>throw new Error(&apos;No fruit!&apos;);
-</code></pre><p>   }<br> }</p>
-<p> // 测试结果<br> test(null); // error: No fruits<br> test(‘apple’); // print: red<br> test(‘apple’, 20); // print: red, big quantity</p>
-</li>
-</ol>
-<p>在上面的代码, 我们有:</p>
-<ol>
-<li>1个 if/else 语句筛选出无效的语句</li>
-<li>层if嵌套语句 (条件 1, 2 &amp; 3)</li>
-</ol>
-<p>/_ 当发现无效语句时，尽早Return _/</p>
-<pre><code>function test(fruit, quantity) {
-  const redFruits = [&apos;apple&apos;, &apos;strawberry&apos;, &apos;cherry&apos;, &apos;cranberries&apos;];
-
-  // 条件 1: 尽早抛出错误
-  if (!fruit) throw new Error(&apos;No fruit!&apos;);
-
-  // 条件 2: 必须是红色的
-  if (redFruits.includes(fruit)) {
-    console.log(&apos;red&apos;);
-
-    // 条件 3: 必须是大质量的
-    if (quantity &gt; 10) {
-      console.log(&apos;big quantity&apos;);
-    }
-  }
-}
-</code></pre><p>我们可以通过 倒置判断条件 &amp; 尽早return 进一步减少if嵌套。看下面我们是怎么处理判断 条件2 的:</p>
-<pre><code>/_ 当发现无效语句时，尽早Return _/
-
-function test(fruit, quantity) {
-  const redFruits = [&apos;apple&apos;, &apos;strawberry&apos;, &apos;cherry&apos;, &apos;cranberries&apos;];
-
-  // 条件 1: 尽早抛出错误
-  if (!fruit) throw new Error(&apos;No fruit!&apos;);
-  // 条件 2: 当水果不是红色时停止继续执行
-  if (!redFruits.includes(fruit)) return; 
-
-  console.log(&apos;red&apos;);
-
-  // 条件 3: 必须是大质量的
-  if (quantity &gt; 10) {
-    console.log(&apos;big quantity&apos;);
-  }
-}
-</code></pre><h4 id="使用默认参数和解构"><a href="#使用默认参数和解构" class="headerlink" title="使用默认参数和解构"></a>使用默认参数和解构</h4><pre><code>function test(fruit, quantity) {
-  if (!fruit) return;
-  // 如果 quantity 参数没有传入，设置默认值为 1
-  const q = quantity || 1; 
-
-  console.log(`We have ${q} ${fruit}!`);
-}
-
-//test results
-test(&apos;banana&apos;); // We have 1 banana!
-test(&apos;apple&apos;, 2); // We have 2 apple!
-</code></pre><p>实际上，我们可以通过声明 默认函数参数 来消除变量 q。</p>
-<pre><code>function test(fruit, quantity = 1) {
-  // 如果 quantity 参数没有传入，设置默认值为 1
-  if (!fruit) return;
-  console.log(`We have ${quantity} ${fruit}!`);
-}
-
-//test results
-test(&apos;banana&apos;); // We have 1 banana!
-test(&apos;apple&apos;, 2); // We have 2 apple!
-</code></pre><p>如果fruit是一个object会怎么样？我们能分配一个默认参数吗?</p>
-<pre><code>function test(fruit) { 
-  // 当值存在时打印 fruit 的值
-  if (fruit &amp;&amp; fruit.name)  {
-    console.log (fruit.name);
-  } else {
-    console.log(&apos;unknown&apos;);
-  }
-}
-
-//test results
-test(undefined); // unknown
-test({ }); // unknown
-test({ name: &apos;apple&apos;, color: &apos;red&apos; }); // apple
-</code></pre><p>看上面这个例子，我们想打印 fruit 对象中可能存在的 name 属性。否则我们将打印unknown。我们可以通过默认参数以及解构从而避免判断条件 fruit &amp;&amp; fruit.name</p>
-<p>// 解构 - 仅仅获取 name 属性<br>// 为其赋默认值为空对象<br>function test({name} = {}) {<br>  console.log (name || ‘unknown’);<br>}</p>
-<p>// test results<br>test(undefined); // unknown<br>test({ }); // unknown<br>test({ name: ‘apple’, color: ‘red’ }); // apple</p>
-<p>由于我们只需要 name 属性，我们可以用 {name} 解构出参数，然后我们就能使用变量 name 代替 fruit.name。</p>
-<p>我们也需要声明空对象 {} 作为默认值。如果我们不这么做，当执行 test(undefined) 时，你将得到一个无法对 undefined 或 null 解构的的错误。因为在 undefined 中没有 name 属性。</p>
-<h4 id="倾向于对象遍历而不是Switch语句"><a href="#倾向于对象遍历而不是Switch语句" class="headerlink" title="倾向于对象遍历而不是Switch语句"></a>倾向于对象遍历而不是Switch语句</h4><p>让我们看下面这个例子，我们想根据 color 打印出水果:</p>
-<pre><code>function test(color) {
-  // 使用条件语句来寻找对应颜色的水果
-  switch (color) {
-    case &apos;red&apos;:
-      return [&apos;apple&apos;, &apos;strawberry&apos;];
-    case &apos;yellow&apos;:
-      return [&apos;banana&apos;, &apos;pineapple&apos;];
-    case &apos;purple&apos;:
-      return [&apos;grape&apos;, &apos;plum&apos;];
-    default:
-      return [];
-  }
-}
-
-// test results
-test(null); // []
-test(&apos;yellow&apos;); // [&apos;banana&apos;, &apos;pineapple&apos;]
-</code></pre><p>上面的代码看起来没有错误，但是我找到了一些累赘。用对象遍历实现相同的结果，语法看起来更简洁:</p>
-<pre><code>const fruitColor = {
-  red: [&apos;apple&apos;, &apos;strawberry&apos;],
-  yellow: [&apos;banana&apos;, &apos;pineapple&apos;],
-  purple: [&apos;grape&apos;, &apos;plum&apos;]
-};
-
-function test(color) {
-  return fruitColor[color] || [];
-}
-</code></pre><p>或者你也可以使用 Map实现相同的结果:</p>
-<pre><code> const fruitColor = new Map()
-    .set(&apos;red&apos;, [&apos;apple&apos;, &apos;strawberry&apos;])
-    .set(&apos;yellow&apos;, [&apos;banana&apos;, &apos;pineapple&apos;])
-    .set(&apos;purple&apos;, [&apos;grape&apos;, &apos;plum&apos;]);
-
-function test(color) {
-  return fruitColor.get(color) || [];
-}
-</code></pre><p>Map是一种在 ES2015 规范之后实现的对象类型，允许你存储 key 和 value 的值。</p>
-<h4 id="重构语法"><a href="#重构语法" class="headerlink" title="重构语法"></a>重构语法</h4><p>在上面的例子，我们能够用Array.filter 重构我们的代码，实现相同的效果。</p>
-<pre><code>const fruits = [
-    { name: &apos;apple&apos;, color: &apos;red&apos; }, 
-    { name: &apos;strawberry&apos;, color: &apos;red&apos; }, 
-    { name: &apos;banana&apos;, color: &apos;yellow&apos; }, 
-    { name: &apos;pineapple&apos;, color: &apos;yellow&apos; }, 
-    { name: &apos;grape&apos;, color: &apos;purple&apos; }, 
-    { name: &apos;plum&apos;, color: &apos;purple&apos; }
-];
-
-function test(color) {
-  return fruits.filter(f =&gt; f.color == color);
-}
-</code></pre><h4 id="对所有-部分-判断使用Array-every-amp-Array-some"><a href="#对所有-部分-判断使用Array-every-amp-Array-some" class="headerlink" title="对所有/部分 判断使用Array.every &amp; Array.some"></a>对所有/部分 判断使用Array.every &amp; Array.some</h4><p>这最后一个建议更多是关于利用 JavaScript Array 的内置方法来减少代码行数。看下面的代码，我们想要检查是否所有水果都是红色:</p>
-<p>const fruits = [<br>    { name: ‘apple’, color: ‘red’ },<br>    { name: ‘banana’, color: ‘yellow’ },<br>    { name: ‘grape’, color: ‘purple’ }<br>  ];</p>
-<p>function test() {<br>  let isAllRed = true;</p>
-<p>  // 条件：所有水果都是红色<br>  for (let f of fruits) {<br>    if (!isAllRed) break;<br>    isAllRed = (f.color == ‘red’);<br>  }</p>
-<p>  console.log(isAllRed); // false<br>}</p>
-<p>代码那么长！我们可以通过 Array.every减少代码行数:</p>
-<p>const fruits = [<br>    { name: ‘apple’, color: ‘red’ },<br>    { name: ‘banana’, color: ‘yellow’ },<br>    { name: ‘grape’, color: ‘purple’ }<br>  ];</p>
-<p>function test() {<br>  const isAllRed = fruits.every(f =&gt; f.color == ‘red’);</p>
-<p>  console.log(isAllRed); // false<br>}</p>
-<p>现在更简洁了，不是吗？相同的方式，如果我们想测试是否存在红色的水果，我们可以使用 Array.some 一行代码实现。</p>
-<p>const fruits = [<br>    { name: ‘apple’, color: ‘red’ },<br>    { name: ‘banana’, color: ‘yellow’ },<br>    { name: ‘grape’, color: ‘purple’ }<br>];</p>
-<p>function test() {<br>  // 条件：任何一个水果是红色<br>  const isAnyRed = fruits.some(f =&gt; f.color == ‘red’);</p>
-<p>  console.log(isAnyRed); // true<br>}</p>
-<h4 id="本文链接地址"><a href="#本文链接地址" class="headerlink" title="本文链接地址:"></a>本文链接地址:</h4><p><a href="https://juejin.im/post/5bdef288e51d450d810a89c6" target="_blank" rel="noopener">https://juejin.im/post/5bdef288e51d450d810a89c6</a></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-    
-
-    
-    <div>
-      
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -3539,7 +3532,7 @@ function test(color) {
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">58</span>
+                    <span class="site-state-item-count">59</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
