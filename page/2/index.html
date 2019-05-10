@@ -300,6 +300,197 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/20/node-js读取电脑分区/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="厚朴酚">
+      <meta itemprop="description" content="学习笔记">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="厚朴酚">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/20/node-js读取电脑分区/" itemprop="url">
+                  node.js读取电脑分区
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-12-20 15:39:43 / 修改时间：15:42:11" itemprop="dateCreated datePublished" datetime="2018-12-20T15:39:43+08:00">2018-12-20</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/node-js/" itemprop="url" rel="index"><span itemprop="name">node.js</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="node-js读取电脑分区"><a href="#node-js读取电脑分区" class="headerlink" title="node.js读取电脑分区"></a>node.js读取电脑分区</h3><pre><code>const fs = require(&apos;fs&apos;)
+const path = require(&apos;path&apos;)
+var exec = require(&apos;child_process&apos;).exec;
+function showLetter(callback) {
+    exec(&apos;wmic logicaldisk get caption&apos;, function(err, stdout, stderr) {
+        if(err || stderr) {
+            console.log(&quot;root path open failed&quot; + err + stderr);
+            return;
+        }
+        callback(stdout);
+    }
+)}
+export const  getCaption =()=&gt;{
+    return new Promise((resolve,reject)=&gt;{
+        showLetter(data=&gt;{
+            const result =data.replace(/\ +/g,&quot;&quot;).replace(/[ ]/g,&quot;&quot;).replace(/[\r\n]/g,&quot;&quot;).replace(/:/g,&quot;&quot;)
+            const caption = (result.split(&quot;&quot;).slice(7))
+            let captionResult = []
+            caption.map(item =&gt;{
+                let Obj = {}
+                Obj.title = `${item}://`
+                Obj.expand = false,
+                Obj.type = &apos;folder&apos;
+                Obj.path = `${item}://`
+                captionResult.push(Obj)
+            })
+            resolve(captionResult)
+        })
+    })   
+}
+</code></pre>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+    
+
+    
+    <div>
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/17/发布并更新npm包/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -4052,289 +4243,6 @@ pepperFlashSystemPlugin Pepper Flash 插件的系统版本的完成路径。
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/26/Nedb数据库的使用/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="厚朴酚">
-      <meta itemprop="description" content="学习笔记">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="厚朴酚">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/26/Nedb数据库的使用/" itemprop="url">
-                  Nedb数据库的使用
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-11-26 14:20:52 / 修改时间：14:22:37" itemprop="dateCreated datePublished" datetime="2018-11-26T14:20:52+08:00">2018-11-26</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="nedb数据库"><a href="#nedb数据库" class="headerlink" title="nedb数据库"></a>nedb数据库</h3><h4 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h4><pre><code>const Datastore = require(&apos;nedb&apos;);
-
-function DB(database) {
-    let options = {
-        filename: database,
-        autoload: true,
-    };
-    this.db = new Datastore(options);
-}
-
-DB.prototype.limit = function(offset, limit) {
-    this.offset = offset || 0;
-    this.limit = limit || 15;
-    return this;
-}
-
-DB.prototype.sort = function(orderby) {
-    this.orderby = orderby;
-    return this;
-}
-/**
- * query: Object类型  查询条件 支持使用比较运算符($lt, $lte, $gt, $gte, $in, $nin, $ne), 逻辑运算符
- * offset: 偏移量 忽略多少条  用于分页
- * limit: 返回条数  用于分页
- * 返回: docs 数组  返回查询到的数据
- * * */
-DB.prototype.find = function(query, select) {
-    return new Promise((resolve, reject) =&gt; {
-        let stmt = this.db.find(query || {});
-        if (this.orderby !== undefined) {
-            stmt.sort(this.orderby);
-        }
-        if (this.offset !== undefined) {
-            stmt.skip(this.offset).limit(this.limit);
-        }
-        if (select != undefined) {
-            stmt.projection(select || {});
-        }
-        stmt.exec((err, docs) =&gt; {
-            if (err) {
-                return reject(err);
-            }
-            resolve(docs);
-        })
-    })
-};
-/**
- * query: object  查询条件
- * 查找一条
- * 返回: 查到数据
- * * */
-DB.prototype.findOne = function(query, select) {
-    return new Promise((resolve, reject) =&gt; {
-        let stmt = this.db.findOne(query || {});
-        if (this.sort !== undefined) {
-            stmt.sort(this.sort);
-        }
-        if (select != undefined) {
-            stmt.projection(select || {});
-        }
-        stmt.exec((err, doc) =&gt; {
-            if (err) {
-                return reject(err);
-            }
-            resolve(doc);
-        })
-    })
-}
-
-/**
- * 插入数据
- * value: 插入的数据  
- * 使用array，实现批量插入。一旦其中一个操作失败，所有改变将会回滚。
- * * */
-DB.prototype.insert = function(values) {
-    return new Promise((resolve, reject) =&gt; {
-        this.db.insert(values, (err, newDoc) =&gt; {
-            if (err) {
-                return reject(err);
-            }
-            resolve(newDoc);
-        })
-    })
-}
-
-/**
- * 更新数据
- * query: object  查询的数据
- * values: 更新的数据
- * options : object  muti(默认false)，是否允许修改多条文档；upsert(默认为false)
- * * */
-DB.prototype.update = function(query, values, options) {
-    return new Promise((resolve, reject) =&gt; {
-        this.db.update(query || {}, values || {}, options || {}, (err, numAffected) =&gt; {
-            if (err) {
-                return reject(err);
-            }
-            resolve(numAffected);
-        })
-    });
-}
-
-/**
- * 根据options配置删除所有query匹配到的文档集。
- * query: 与find和findOne中query参数的用法一致
- * options: 只有一个可用。muti(默认false)，允许删除多个文档
- * * */
-DB.prototype.remove = function(query, options) {
-    return new Promise((resolve, reject) =&gt; {
-        this.db.remove(query || {}, options || {}, (err, numAffected) =&gt; {
-            if (err) {
-                return reject(err);
-            }
-            resolve(numAffected);
-        })
-    });
-}
-
-
- module.exports = (database) =&gt; {
-     return new DB(database);
- }
-</code></pre><h4 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h4><pre><code>const db = require(&apos;./nedb&apos;)(&apos;testdb&apos;);
-
-//第一种用法:async  await
-//  (async function(){
-//     await db.insert({number: 12,age:14});
-//     await db.insert({number: 11,age:14});
-//     await db.insert({number: 13,age:14});
-//     let res = await db.sort({number: -1}).limit(0, 2).find();
-//     console.log(res);
-
-// })();
-
-//第二种用法: then() catch()
-db.insert({name:&apos;深圳&apos;,age:35,address:&quot;广东&quot;}).then(res=&gt;{
-    console.log(res)
-}).catch(err=&gt;{
-    console.log(err)
-})
-</code></pre>
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-    
-
-    
-    <div>
-      
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -4384,7 +4292,7 @@ db.insert({name:&apos;深圳&apos;,age:35,address:&quot;广东&quot;}).then(res=
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">59</span>
+                    <span class="site-state-item-count">60</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
