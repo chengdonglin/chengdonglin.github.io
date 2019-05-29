@@ -300,6 +300,219 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/20/fs模块判断文件属性/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="厚朴酚">
+      <meta itemprop="description" content="学习笔记">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="厚朴酚">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/20/fs模块判断文件属性/" itemprop="url">
+                  fs模块操作文件封装
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-12-20 15:43:42 / 修改时间：15:46:11" itemprop="dateCreated datePublished" datetime="2018-12-20T15:43:42+08:00">2018-12-20</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/node-js/" itemprop="url" rel="index"><span itemprop="name">node.js</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="fs模块判断文件属性"><a href="#fs模块判断文件属性" class="headerlink" title="fs模块判断文件属性"></a>fs模块判断文件属性</h3><pre><code>/**
+ *  检查每一项是文件还是文件夹
+ *
+ * @param {Array}  result文件path
+ * @param {*}        
+ * @returns     数组对象
+ */
+export const inspectDescribeFiles=(result)=&gt;{
+    let childrenResult =[]
+    for (let i=0;i&lt;result.length;i++){
+        fs.stat(result[i],(err,stat)=&gt;{
+            let pathObj = {
+                title:path.basename(result[i]),
+                path:result[i],
+                type:&apos;&apos;,
+                expand:false
+            }
+            if (err){
+                console.log(err)
+            } else {
+                if (stat.isFile()){
+                    pathObj.type = &apos;file&apos;
+                    const ext = path.parse(result[i]).ext
+                    if(ext == &apos;.TMAP&apos;){
+                        childrenResult.push(pathObj)
+                    }
+                }
+                if (stat.isDirectory()){
+                    pathObj.type = &apos;folder&apos;
+                    childrenResult.push(pathObj)
+                }
+
+            }
+        })
+    } 
+    return childrenResult
+}
+</code></pre><h3 id="fs模块绝对路径封装"><a href="#fs模块绝对路径封装" class="headerlink" title="fs模块绝对路径封装"></a>fs模块绝对路径封装</h3><pre><code>/**
+ *  返回绝对路径的方法
+ *
+ * @param {*} folderPath  传入盘符的路径  C:\\  D:\\
+ * @param {*} files       files就是文件名
+ * @returns      返回每个files的绝对路径
+ */
+function resolvePath(folderPath,files){
+    const resolvePathResult = []
+    for (let i = 0; i &lt;files.length;i++){
+        const resolvePath= path.resolve(folderPath,files[i])
+        resolvePathResult.push(resolvePath)
+    }
+    return resolvePathResult
+}
+</code></pre>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+    
+
+    
+    <div>
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/20/node-js读取电脑分区/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -3999,255 +4212,11 @@ func swap(arr []int, i, j int) {
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/27/electron-vue学习/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="厚朴酚">
-      <meta itemprop="description" content="学习笔记">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="厚朴酚">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/27/electron-vue学习/" itemprop="url">
-                  electron-vue学习
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-11-27 15:22:45" itemprop="dateCreated datePublished" datetime="2018-11-27T15:22:45+08:00">2018-11-27</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-12-05 13:02:31" itemprop="dateModified" datetime="2018-12-05T13:02:31+08:00">2018-12-05</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/electron/" itemprop="url" rel="index"><span itemprop="name">electron</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="electron-vue学习"><a href="#electron-vue学习" class="headerlink" title="electron-vue学习"></a>electron-vue学习</h3><h4 id="隐藏顶部菜单"><a href="#隐藏顶部菜单" class="headerlink" title="隐藏顶部菜单"></a>隐藏顶部菜单</h4><p>在创建窗体完成的时候的时候设置</p>
-<pre><code>mainWindow.setMenu(null)
-</code></pre><p>去掉顶部导航 去掉关闭按钮 最大化最小化按钮</p>
-<pre><code>在创建BrowserWindow的时候设置frame的属性未false
-</code></pre><h4 id="electron中使用nedb数据库"><a href="#electron中使用nedb数据库" class="headerlink" title="electron中使用nedb数据库"></a>electron中使用nedb数据库</h4><p>使用 electron 的一大好处是可以访问用户的文件系统。这使你可以读取和写入本地系统上的文件。为了避免 Chromium 的限制以及对应用程序内部文件的改写，请确保使用 electron 的 API，特别是 app.getPath(name) 函数。这个帮助函数可以使你获得指向系统目录的文件路径，如用户的桌面、系统临时文件等等.</p>
-<h5 id="使用案例"><a href="#使用案例" class="headerlink" title="使用案例"></a>使用案例</h5><pre><code>yarn add nedb # 或 npm install nedb --save
-</code></pre><p>src/renderer/datastore.js</p>
-<p>我们设置 NeDB 并将其指向我们的 userData 目录。这个空间专门为我们的应用程序所保留，所以，我们可以确信，其他程序 或 与其他用户的交互不应该篡改这个文件空间。至此，我们可以在 renderer 进程中导入 datastore.js 并使用它。</p>
-<pre><code>import Datastore from &apos;nedb&apos;
-import path from &apos;path&apos;
-import { remote } from &apos;electron&apos;
-
-export default new Datastore({
-  autoload: true,
-  filename: path.join(remote.app.getPath(&apos;userData&apos;), &apos;/data.db&apos;)
-})
-</code></pre><p>app.getPath你可以通过名称请求以下的路径:</p>
-<pre><code>home 用户的 home 文件夹（主目录）
-appData 当前用户的应用数据文件夹，默认对应：
-
-%APPDATA% Windows 中
-$XDG_CONFIG_HOME or ~/.config Linux 中
-~/Library/Application Support macOS 中
-userData 储存你应用程序设置文件的文件夹，默认是 appData 文件夹附加应用的名称
-temp 临时文件夹
-exe当前的可执行文件
-module The libchromiumcontent 库
-desktop 当前用户的桌面文件夹
-documents 用户文档目录的路径
-downloads 用户下载目录的路径
-music 用户音乐目录的路径
-pictures 用户图片目录的路径
-videos 用户视频目录的路径
-logs应用程序的日志文件夹
-pepperFlashSystemPlugin Pepper Flash 插件的系统版本的完成路径。
-</code></pre><p>src/renderer/main.js</p>
-<p>为了更进一步，我们可以将数据存储导入到 src/renderer/main.js 里，并将其附加到 Vue 的 原型 (prototype) 上。通过在所有组件文件中使用 this.$db，我们现在可以访问数据存储的 API。</p>
-<pre><code>import db from &apos;./datastore&apos;
-</code></pre><p>/<em> 其它代码 </em>/</p>
-<pre><code>Vue.prototype.$db = db
-</code></pre><h5 id="jsx"><a href="#jsx" class="headerlink" title="jsx"></a>jsx</h5><pre><code>npm install babel-plugin-syntax-jsx babel-plugin-transform-vue-jsx babel-helper-vue-jsx-merge-props babel-preset-env --save-dev
-
-&quot;renderer&quot;: {
-      &quot;presets&quot;: [
-        [&quot;env&quot;, {
-          &quot;modules&quot;: false
-        }],
-        &quot;stage-0&quot;
-      ],
-      &quot;plugins&quot;: [&quot;transform-vue-jsx&quot;]
-    },
-</code></pre><h5 id="弹出框"><a href="#弹出框" class="headerlink" title="弹出框"></a>弹出框</h5><p>在electron-vue项目中由于使用组件UI的弹出框会有警告,所以采用原生的dialog的API来实现</p>
-<pre><code>this.$electron.remote.dialog.showMessageBox({
-                            type:&apos;info&apos;,
-                            title:&apos;删除节点操作&apos;,
-                            message:`您确认要删除节点${data.title}吗?`,
-                            buttons:[&apos;ok&apos;,&apos;cancel&apos;]
-                        },(index)=&gt;{
-                            if (index == 0){
-                                this.remove(root,node,data)
-                                this.$Message.success({
-                                     content: &apos;删除成功&apos;,
-                                     duration: 3
-                                })
-                            } else {
-                                this.$Message.error({
-                                     content: &apos;删除失败&apos;,
-                                     duration: 3
-                                })
-                            }
-                        })
-</code></pre>
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-    
-
-    
-    <div>
-      
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -4292,7 +4261,7 @@ pepperFlashSystemPlugin Pepper Flash 插件的系统版本的完成路径。
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">60</span>
+                    <span class="site-state-item-count">61</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
