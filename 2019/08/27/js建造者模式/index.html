@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.4.2" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.2">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.4.2">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.4.2">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.2" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.4.2',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="建造者模式1 什么是建造者模式?建造者模式(Builder)是将一个复杂对象的构建层与其表示层相互分离，同样的构建过程可采用不同的表示。 建造者模式的特点是分步构建一个复杂的对象，可以用不同组合或顺序建造出不同意义的对象，通常使用者并不需要知道建造的细节，通常使用链式调用来进行建造过程，最后调用build方法来生成最终对象。 同样作为创建型的设计模式，需要注意和工厂模式的区别，工厂虽然也是创建对象">
+<meta name="keywords" content="导航,javascript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="js建造者模式">
+<meta property="og:url" content="http://yoursite.com/2019/08/27/js建造者模式/index.html">
+<meta property="og:site_name" content="厚朴酚">
+<meta property="og:description" content="建造者模式1 什么是建造者模式?建造者模式(Builder)是将一个复杂对象的构建层与其表示层相互分离，同样的构建过程可采用不同的表示。 建造者模式的特点是分步构建一个复杂的对象，可以用不同组合或顺序建造出不同意义的对象，通常使用者并不需要知道建造的细节，通常使用链式调用来进行建造过程，最后调用build方法来生成最终对象。 同样作为创建型的设计模式，需要注意和工厂模式的区别，工厂虽然也是创建对象">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-08-27T05:04:31.097Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="js建造者模式">
+<meta name="twitter:description" content="建造者模式1 什么是建造者模式?建造者模式(Builder)是将一个复杂对象的构建层与其表示层相互分离，同样的构建过程可采用不同的表示。 建造者模式的特点是分步构建一个复杂的对象，可以用不同组合或顺序建造出不同意义的对象，通常使用者并不需要知道建造的细节，通常使用链式调用来进行建造过程，最后调用build方法来生成最终对象。 同样作为创建型的设计模式，需要注意和工厂模式的区别，工厂虽然也是创建对象">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/08/27/js建造者模式/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>js建造者模式 | 厚朴酚</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">厚朴酚</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">打磨技术!</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/27/js建造者模式/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="厚朴酚">
+      <meta itemprop="description" content="学习笔记">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="厚朴酚">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">js建造者模式
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-08-27 13:03:42 / 修改时间：13:04:31" itemprop="dateCreated datePublished" datetime="2019-08-27T13:03:42+08:00">2019-08-27</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="建造者模式"><a href="#建造者模式" class="headerlink" title="建造者模式"></a>建造者模式</h1><h2 id="1-什么是建造者模式"><a href="#1-什么是建造者模式" class="headerlink" title="1 什么是建造者模式?"></a>1 什么是建造者模式?</h2><p>建造者模式(Builder)是将一个复杂对象的构建层与其表示层相互分离，同样的构建过程可采用不同的表示。</p>
+<p>建造者模式的特点是分步构建一个复杂的对象，可以用不同组合或顺序建造出不同意义的对象，通常使用者并不需要知道建造的细节，通常使用链式调用来进行建造过程，最后调用build方法来生成最终对象。</p>
+<p>同样作为创建型的设计模式，需要注意和工厂模式的区别，工厂虽然也是创建对象，但怎样创建无所谓，工厂模式关注的是创建的结果；而建造者模式不仅得到了结果，同时也参与了创建的具体过程，适合用来创建一个复杂的复合对象。</p>
+<h2 id="2-ES6中的建造者模式"><a href="#2-ES6中的建造者模式" class="headerlink" title="2 ES6中的建造者模式"></a>2 ES6中的建造者模式</h2><p>下面我们来假设一个出版社的书籍后台录入系统的业务场景，书籍有四个必填信息，分别是：书名，作者，价格，分类；我们希望创建一个书籍对象返回给后端。下面我们来一步一步深入使用ES6的语法结合建造者模式创建对象。</p>
+<pre><code>//书籍建造者类
+class BookBuilder {
+  constructor() {
+this.name = &apos;&apos;;
+this.author = &apos;&apos;;
+this.price = 0;
+this.category = &apos;&apos;;
+  }
+
+  withName(name) {
+this.name = name;
+return this;
+  }
+
+  withAuthor(author) {
+this.author = author;
+return this;
+  }
+
+  withPrice(price) {
+this.price = price;
+return this;
+  }
+
+  withCategory(category) {
+this.category = category;
+return  this;
+  }
+
+  build() {
+return {
+  name: this.name,
+  author: this.author,
+  prices: this.price,
+  category: this.category
+}
+  }
+}
+
+//调用建造者类
+const book = new BookBuilder()
+  .withName(&quot;高效能人士的七个习惯&quot;)
+  .withAuthor(&apos;史蒂芬·柯维&apos;)
+  .withPrice(51)
+  .withCategory(&apos;励志&apos;)
+  .build();
+</code></pre><p>上面就通过我BookBuilder这个创建者类的写法和调用方法，但是仅仅是一个4个属性的对象，我们使用了如此多的代码去创建，这远比直接在constructor传递参数创建对象要复杂得多。这是由于在创建的过程中，我们有太多的withxxxx方法。我们其实可以自动创建这类withxxxx方法以简化代码。</p>
+<p>//书籍建造者类<br>class BookBuilder {<br>  constructor() {<br>    this.name = ‘’;<br>    this.author = ‘’;<br>    this.price = 0;<br>    this.category = ‘’;</p>
+<pre><code>Object.keys(this).forEach(key =&gt; {
+  const withName = `with${key.substring(0, 1).toUpperCase()}${key.substring(1)}`;
+  this[withName] = value =&gt; {
+    this[key] = value;
+    return this;
+  }
+})
+</code></pre><p>  }</p>
+<p>  //调用建造者<br>  build() {<br>    const keysNoWithers = Object.keys(this).filter(key =&gt; typeof this[key] !== ‘function’);</p>
+<pre><code>return keysNoWithers.reduce((returnValue, key) =&gt; {
+  return {
+    ...returnValue,
+    [key]: this[key]
+  }
+}, {})
+</code></pre><p>  }<br>}</p>
+<p>const book = new BookBuilder()<br>  .withName(“高效能人士的七个习惯”)<br>  .withAuthor(‘史蒂芬·柯维’)<br>  .withPrice(51)<br>  .withCategory(‘励志’)<br>  .build();</p>
+<p>上面的BookBuilder这个类和第一个例子的效果一样，但是长度确减少不少，在有更多属性的时候，减少的代码量会更为明显。我们将所有的建造方法withxxxx在constructor调用时自动被创建，这里我们使用了一些ES6的新语法：Object.keys获取对象属性数组，…的合并对象的语法。</p>
+<p>虽然该写法在阅读起来会比第一个方法难以理解，但是这样写法的真正作用在于，当我们需要许多的建造者类时，我们可以将上面自动创建withxxx和build的代码提取为一个父类。在创建其他建造者类时继承该父类，这使得在创建多个建造者类时变得十分容易。</p>
+<pre><code>//父类
+class BaseBuilder {
+  init() {
+Object.keys(this).forEach(key =&gt; {
+  const withName = `with${key.substring(0, 1).toUpperCase()}${key.substring(1)}`;
+  this[withName] = value =&gt; {
+this[key] = value;
+return this;
+  }
+})
+  }
+
+  build() {
+const keysNoWithers = Object.keys(this).filter(key =&gt; typeof this[key] !== &apos;function&apos;);
+
+return keysNoWithers.reduce((returnValue, key) =&gt; {
+  return {
+...returnValue,
+[key]: this[key]
+  }
+}, {})
+  }
+}
+
+//子类1: 书籍建造者类
+class BookBuilder extends BaseBuilder {
+  constructor() {
+super();
+
+this.name = &apos;&apos;;
+this.author = &apos;&apos;;
+this.price = 0;
+this.category = &apos;&apos;;
+
+super.init();
+  }
+}
+
+//子类2: 印刷厂建造者类
+class printHouseBuilder extends BaseBuilder {
+  constructor() {
+super();
+
+this.name = &apos;&apos;;
+this.location = &apos;&apos;;
+this.quality = &apos;&apos;;
+
+super.init();
+  }
+}
+
+//调用书籍建造者类
+const book = new BookBuilder()
+  .withName(&quot;高效能人士的七个习惯&quot;)
+  .withAuthor(&apos;史蒂芬·柯维&apos;)
+  .withPrice(51)
+  .withCategory(&apos;励志&apos;)
+  .build();
+
+
+//调用印刷厂建造类
+const printHouse = new printHouseBuilder()
+  .withName(&apos;新华印刷厂&apos;)
+  .withLocation(&apos;北京海淀区&apos;)
+  .withQuality(&apos;A&apos;)
+  .build();
+</code></pre><p>总结</p>
+<p>在之前提到的几种工厂模式中，他们都有一个共同特点，就是对象的创建过程不得而知，我们在调用一个函数后返回了最终的结果对象。但是在创建者模式中我们关心的是对象的创建过程，我们通常将创建复杂对象的各个类模块化，在ES6中，我们采用import和export的语法可以很灵活的引用和导出这些模块进行我们的建造模式最终生成一个结果对象。</p>
+<p>可以看出，建造者模式的使用有且只适合创建极为复杂的对象。在前端的实际业务中，在没有这类极为复杂的对象的创建时，还是应该直接使用对象字面或工厂模式等方式创建对象。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+    
+
+    
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-heart"></i>感谢阅读-------------</div>
+    
+</div>
+
+
+      
+    </div>
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>希望您也有收获,我们一起成长!</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="厚朴酚 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="厚朴酚 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/导航/" rel="tag"># 导航</a>
+          
+            <a href="/tags/javascript/" rel="tag"># javascript</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/27/js设计模式之代理模式/" rel="next" title="js设计模式之代理模式">
+                <i class="fa fa-chevron-left"></i> js设计模式之代理模式
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/08/27/sharp图片拼接/" rel="prev" title="sharp图片拼接">
+                sharp图片拼接 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="厚朴酚">
+            
+              <p class="site-author-name" itemprop="name">厚朴酚</p>
+              <p class="site-description motion-element" itemprop="description">学习笔记</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">70</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">31</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#建造者模式"><span class="nav-number">1.</span> <span class="nav-text">建造者模式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-什么是建造者模式"><span class="nav-number">1.1.</span> <span class="nav-text">1 什么是建造者模式?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-ES6中的建造者模式"><span class="nav-number">1.2.</span> <span class="nav-text">2 ES6中的建造者模式</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">厚朴酚</span>
+
+  
+
+  
+</div>
+
+
+
+<!--
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Gemini</a> v6.4.2</div>
+ -->
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.4.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.4.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

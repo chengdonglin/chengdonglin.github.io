@@ -300,6 +300,3089 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/19/javaScript设计模式之模板方法/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="厚朴酚">
+      <meta itemprop="description" content="学习笔记">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="厚朴酚">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/19/javaScript设计模式之模板方法/" itemprop="url">
+                  javaScript设计模式之模板方法
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-11-19 14:32:18 / 修改时间：16:09:27" itemprop="dateCreated datePublished" datetime="2018-11-19T14:32:18+08:00">2018-11-19</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/设计模式/" itemprop="url" rel="index"><span itemprop="name">设计模式</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="javaScript设计模式之模板方法"><a href="#javaScript设计模式之模板方法" class="headerlink" title="javaScript设计模式之模板方法"></a>javaScript设计模式之模板方法</h3><p>基于继承的设计模式</p>
+<h4 id="定义和组成"><a href="#定义和组成" class="headerlink" title="定义和组成"></a>定义和组成</h4><p>模板方法模式由两部分结构组成，第一部分是抽象父类，第二部分是具体的实现子类。通常在抽象父类中封装了子类的算法框架，包括实现一些公共方法以及封装子类中所有方法的执行顺序。子类通过继承这个抽象类，也继承了整个算法结构，并且可以选择重写父类的方法。<br>如果相同和不同的行为都混合在各个子类的实现中，说明这些相同的行为会在各个子类中重复出现。但实际上，相同的行为可以被搬移到另外一个单一的地方，模板方法模式就是为解决这个问题而生的。</p>
+<h4 id="例子-coffer-or-tea"><a href="#例子-coffer-or-tea" class="headerlink" title="例子 coffer or  tea"></a>例子 coffer or  tea</h4><pre><code>//泡coffer的过程
+var Coffee = function(){};
+Coffee.prototype.boilWater = function(){
+ console.log( &apos;把水煮沸&apos; );
+};
+Coffee.prototype.brewCoffeeGriends = function(){
+ console.log( &apos;用沸水冲泡咖啡&apos; );
+};
+Coffee.prototype.pourInCup = function(){
+ console.log( &apos;把咖啡倒进杯子&apos; );
+};
+Coffee.prototype.addSugarAndMilk = function(){
+ console.log( &apos;加糖和牛奶&apos; );
+};
+Coffee.prototype.init = function(){
+ this.boilWater();
+ this.brewCoffeeGriends();
+this.pourInCup();
+ this.addSugarAndMilk();
+};
+var coffee = new Coffee();
+coffee.init(); 
+
+
+
+//泡茶的过程
+
+var Tea = function(){};
+Tea.prototype.boilWater = function(){
+ console.log( &apos;把水煮沸&apos; );
+};
+Tea.prototype.steepTeaBag = function(){
+ console.log( &apos;用沸水浸泡茶叶&apos; );
+};
+Tea.prototype.pourInCup = function(){
+ console.log( &apos;把茶水倒进杯子&apos; );
+};
+Tea.prototype.addLemon = function(){
+ console.log( &apos;加柠檬&apos; );
+};
+Tea.prototype.init = function(){
+ this.boilWater();
+ this.steepTeaBag();
+ this.pourInCup();
+ this.addLemon();
+};
+var tea = new Tea()
+tea.init()
+</code></pre><p>这两个过程拥有许多共同点:进行模板化</p>
+<pre><code>var Beverage = function(){};
+Beverage.prototype.boilWater = function(){
+ console.log( &apos;把水煮沸&apos; );
+};
+Beverage.prototype.brew = function(){}; // 空方法，应该由子类重写
+Beverage.prototype.pourInCup = function(){}; // 空方法，应该由子类重写
+Beverage.prototype.addCondiments = function(){}; // 空方法，应该由子类重写
+Beverage.prototype.init = function(){
+ this.boilWater();
+ this.brew();
+ this.pourInCup();
+ this.addCondiments();
+}; 
+</code></pre><p>创建 Coffee 子类和 Tea 子类</p>
+<pre><code>var Coffee = function(){};
+Coffee.prototype = new Beverage(); 
+Coffee.prototype.brew = function(){
+ console.log( &apos;用沸水冲泡咖啡&apos; );
+};
+Coffee.prototype.pourInCup = function(){
+ console.log( &apos;把咖啡倒进杯子&apos; ); 
+};
+Coffee.prototype.addCondiments = function(){
+ console.log( &apos;加糖和牛奶&apos; );
+};
+var Coffee = new Coffee();
+Coffee.init();
+</code></pre><p>至此我们的 Coffee 类已经完成了，当调用 coffee 对象的 init 方法时，由于 coffee 对象和Coffee 构造器的原型 prototype 上都没有对应的 init 方法，所以该请求会顺着原型链，被委托给Coffee 的“父类”Beverage 原型上的 init 方法。</p>
+<ul>
+<li><p>茶类</p>
+<pre><code>var Tea = function(){};
+Tea.prototype = new Beverage();
+Tea.prototype.brew = function(){
+ console.log( &apos;用沸水浸泡茶叶&apos; );
+};
+Tea.prototype.pourInCup = function(){
+ console.log( &apos;把茶倒进杯子&apos; );
+};
+Tea.prototype.addCondiments = function(){
+ console.log( &apos;加柠檬&apos; );
+};
+var tea = new Tea();
+tea.init(); 
+</code></pre></li>
+</ul>
+<p>Beverage.prototype.init 被称为模板方法的原因是，该方法中封装了子类的算法框架，它作为一个算法的模板，指导子类以何种顺序去执行哪些方法。在 Beverage.prototype.init 方法中，算法内的每一个步骤都清楚地展示在我们眼前。</p>
+<h4 id="JavaScript-没有抽象类的缺点和解决方案"><a href="#JavaScript-没有抽象类的缺点和解决方案" class="headerlink" title="JavaScript 没有抽象类的缺点和解决方案"></a>JavaScript 没有抽象类的缺点和解决方案</h4><p>当我们在 JavaScript 中使用原型继承来模拟传统的类式继承时，并没有编译器帮助我们进行任何形式的检查，我们也没有办法保证子类会重写父类中的“抽象方法”。我们知道，Beverage.prototype.init 方法作为模板方法，已经规定了子类的算法框架，代码如下：</p>
+<pre><code>Beverage.prototype.init = function(){
+ this.boilWater();
+ this.brew();
+ this.pourInCup();
+ this.addCondiments();
+}; 
+</code></pre><p>下面提供两种变通的解决方案。<br> 第 1 种方案是用鸭子类型来模拟接口检查，以便确保子类中确实重写了父类的方法。但模拟接口检查会带来不必要的复杂性，而且要求程序员主动进行这些接口检查，这就要求我们在业务代码中添加一些跟业务逻辑无关的代码。<br> 第 2 种方案是让 Beverage.prototype.brew 等方法直接抛出一个异常，如果因为粗心忘记编写 Coffee.prototype.brew 方法，那么至少我们会在程序运行时得到一个错误：</p>
+<pre><code>Beverage.prototype.brew = function(){
+ throw new Error( &apos;子类必须重写 brew 方法&apos; );
+};
+Beverage.prototype.pourInCup = function(){
+ throw new Error( &apos;子类必须重写 pourInCup 方法&apos; );
+};
+Beverage.prototype.addCondiments = function(){
+ throw new Error( &apos;子类必须重写 addCondiments 方法&apos; );
+};
+</code></pre><h3 id="钩子方法"><a href="#钩子方法" class="headerlink" title="钩子方法"></a>钩子方法</h3><p>通过模板方法模式，我们在父类中封装了子类的算法框架。这些算法框架在正常状态下是适用于大多数子类的，但如果有一些特别“个性”的子类呢？</p>
+<p>在这个例子里，我们把挂钩的名字定为 customerWantsCondiments，接下来将挂钩放入 Beverage类，看看我们如何得到一杯不需要糖和牛奶的咖啡，代码如下：</p>
+<pre><code>var Beverage = function(){};
+Beverage.prototype.boilWater = function(){
+ console.log( &apos;把水煮沸&apos; );
+};
+Beverage.prototype.brew = function(){
+ throw new Error( &apos;子类必须重写 brew 方法&apos; );
+};
+Beverage.prototype.pourInCup = function(){
+ throw new Error( &apos;子类必须重写 pourInCup 方法&apos; );
+};
+Beverage.prototype.addCondiments = function(){
+ throw new Error( &apos;子类必须重写 addCondiments 方法&apos; );
+};
+Beverage.prototype.customerWantsCondiments = function(){
+ return true; // 默认需要调料
+};
+Beverage.prototype.init = function(){
+ this.boilWater();
+ this.brew();
+ this.pourInCup();
+ if ( this.customerWantsCondiments() ){ // 如果挂钩返回 true，则需要调料
+ this.addCondiments();
+ } 
+};
+var CoffeeWithHook = function(){};
+CoffeeWithHook.prototype = new Beverage();
+CoffeeWithHook.prototype.brew = function(){
+ console.log( &apos;用沸水冲泡咖啡&apos; );
+};
+CoffeeWithHook.prototype.pourInCup = function(){
+ console.log( &apos;把咖啡倒进杯子&apos; );
+};
+CoffeeWithHook.prototype.addCondiments = function(){
+ console.log( &apos;加糖和牛奶&apos; );
+};
+CoffeeWithHook.prototype.customerWantsCondiments = function(){ return window.confirm( &apos;请问需要调料吗？&apos; );
+};
+var coffeeWithHook = new CoffeeWithHook();
+coffeeWithHook.init(); 
+</code></pre><h4 id="好莱坞原则"><a href="#好莱坞原则" class="headerlink" title="好莱坞原则"></a>好莱坞原则</h4><p>模板方法模式是好莱坞原则的一个典型使用场景，它与好莱坞原则的联系非常明显，当我们用模板方法模式编写一个程序时，就意味着子类放弃了对自己的控制权，而是改为父类通知子类，哪些方法应该在什么时候被调用。作为子类，只负责提供一些设计上的细节。<br>除此之外，好莱坞原则还常常应用于其他模式和场景，例如发布订阅模式和回调函数</p>
+<pre><code>var Beverage = function( param ){
+ var boilWater = function(){
+ console.log( &apos;把水煮沸&apos; );
+ };
+ var brew = param.brew || function(){
+ throw new Error( &apos;必须传递 brew 方法&apos; );
+ };
+ var pourInCup = param.pourInCup || function(){
+ throw new Error( &apos;必须传递 pourInCup 方法&apos; );
+ };
+ var addCondiments = param.addCondiments || function(){
+ throw new Error( &apos;必须传递 addCondiments 方法&apos; );
+ };
+ var F = function(){};
+ F.prototype.init = function(){
+ boilWater();
+ brew();
+ pourInCup();
+ addCondiments();
+ }; 
+return F;
+};
+var Coffee = Beverage({
+ brew: function(){
+ console.log( &apos;用沸水冲泡咖啡&apos; );
+ },
+ pourInCup: function(){
+ console.log( &apos;把咖啡倒进杯子&apos; );
+ },
+ addCondiments: function(){
+ console.log( &apos;加糖和牛奶&apos; );
+ }
+}); 
+var Tea = Beverage({
+ brew: function(){
+ console.log( &apos;用沸水浸泡茶叶&apos; );
+ },
+ pourInCup: function(){
+ console.log( &apos;把茶倒进杯子&apos; );
+ },
+ addCondiments: function(){
+ console.log( &apos;加柠檬&apos; );
+ }
+});
+var coffee = new Coffee();
+coffee.init();
+var tea = new Tea();
+tea.init(); 
+</code></pre><p>在这段代码中，我们把 brew、pourInCup、addCondiments 这些方法依次传入 Beverage 函数，<br>Beverage 函数被调用之后返回构造器 F。F 类中包含了“模板方法”F.prototype.init。跟继承得<br>到的效果一样，该“模板方法”里依然封装了饮料子类的算法框架。</p>
+<h3 id="ES6的实现"><a href="#ES6的实现" class="headerlink" title="ES6的实现"></a>ES6的实现</h3><pre><code>/父类咖啡
+class Beverage {
+    constructor(name) {
+        //单独调用会报错，所以写constructor里面绑定this，this指向父类
+        this.init = () =&gt; {
+            this.boilWater();
+            this.brew();
+            this.pourInCup();
+            if (this.customerWantsCondiments()) { // 如果挂钩返回 true，则需要调料
+                this.addCondiments();
+            }
+        };
+        console.log(&apos;构造函数的&apos;+name)
+    };
+    //共用boilWater，子类不会修改它
+    boilWater() {
+        console.log(&apos;把水煮沸&apos;);
+    };
+    brew() {
+        throw new Error(&apos;子类必须重写 brew 方法&apos;);
+    };
+    pourInCup() {
+        throw new Error(&apos;子类必须重写 pourInCup 方法&apos;);
+    };
+    addCondiments() {
+        throw new Error(&apos;子类必须重写 addCondiments 方法&apos;);
+    };
+    customerWantsCondiments() {
+        return true; // 默认需要调料
+    };
+    //init也可以写在这里，解构之后单独调用时，在es5 ,this会指向window，在es6,this不会指向window，会报错
+    // init() {
+    //     console.log(this);
+    //     this.boilWater();
+    //     this.brew();
+    //     this.pourInCup();
+    //     if (this.customerWantsCondiments()) { // 如果挂钩返回 true，则需要调料
+    //         this.addCondiments();
+    //     }
+    // };
+
+
+}
+//子类咖啡，继承父类饮料
+class CoffeeWithHook extends Beverage {
+    constructor(name) {
+        //调用父类的构造函数,演示一下super怎么用，下面传了‘名字’字符串
+        super(name);
+    }
+    brew() {
+        console.log(&apos;用沸水冲泡咖啡&apos;);
+    };
+    pourInCup() {
+        console.log(&apos;把咖啡倒进杯子&apos;);
+    };
+    addCondiments() {
+        console.log(&apos;加糖和牛奶&apos;);
+    };
+    customerWantsCondiments() {
+        return window.confirm(&apos;请问需要调料吗？&apos;);
+    };
+
+};
+
+let coffeeWithHook = new CoffeeWithHook(&apos;名字&apos;);
+//如果不把init写在constructor里面的，下面的解构会报错。在es5 ,this会指向window，在es6,this不会指向window，会报错
+let {init} = coffeeWithHook;//var init = coffeeWithHook.init
+init();
+</code></pre><h3 id="ES5实现完整"><a href="#ES5实现完整" class="headerlink" title="ES5实现完整"></a>ES5实现完整</h3><pre><code>var Beverage = function (param) {
+    var boilWater = function () {
+        console.log(&apos;把水煮沸&apos;);
+    };
+    var brew = param.brew || function () {
+        throw new Error(&apos;必须传递 brew 方法&apos;);
+    };
+    var pourInCup = param.pourInCup || function () {
+        throw new Error(&apos;必须传递 pourInCup 方法&apos;);
+    };
+    var addCondiments = param.addCondiments || function () {
+        throw new Error(&apos;必须传递 addCondiments 方法&apos;);
+    };
+    var F = function () { };
+    F.prototype.init = function () {
+        boilWater();
+        brew();
+        pourInCup();
+        addCondiments();
+    };
+    return F;
+};
+var Coffee = Beverage({
+    brew: function () {
+        console.log(&apos;用沸水冲泡咖啡&apos;);
+    },
+    pourInCup: function () {
+        console.log(&apos;把咖啡倒进杯子&apos;);
+    },
+    addCondiments: function () {
+        console.log(&apos;加糖和牛奶&apos;);
+    }
+});
+
+var coffee = new Coffee();
+coffee.init();
+</code></pre>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+    
+
+    
+    <div>
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/19/Table中render以及renderHeader的应用/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="厚朴酚">
+      <meta itemprop="description" content="学习笔记">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="厚朴酚">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/19/Table中render以及renderHeader的应用/" itemprop="url">
+                  Table中render以及renderHeader的应用
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-11-19 14:13:59" itemprop="dateCreated datePublished" datetime="2018-11-19T14:13:59+08:00">2018-11-19</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-11-20 09:55:51" itemprop="dateModified" datetime="2018-11-20T09:55:51+08:00">2018-11-20</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/vue/" itemprop="url" rel="index"><span itemprop="name">vue</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="title-Table中render以及renderHeader的应用"><a href="#title-Table中render以及renderHeader的应用" class="headerlink" title="title: Table中render以及renderHeader的应用"></a>title: Table中render以及renderHeader的应用</h3><p>通常在table中,我们要控制表格的显示,那么render函数将其非常重要</p>
+<p>例子: 表格某一列的下拉控制</p>
+<pre><code>{
+            title: &quot;意向产品&quot;,
+            key: &quot;fkaCrmProductClassName&quot;,
+            align: &quot;center&quot;,
+            render:(h,params) =&gt;{
+                var that = this
+                return h(&apos;div&apos;,[
+                    h(&apos;Select&apos;,{
+                        props:{
+                            value: that.ConnectTableData.datas[params.index].fkaCrmProductClassName,
+                            &apos;label-in-value&apos;:true
+                        },
+                        on:{
+                            &apos;on-change&apos;:(value)=&gt;{
+                               params.row.fkaCrmProductClassName = value.label
+                               that.ConnectTableData.datas[params.index] = params.row 
+                            }
+                        }
+                    },[
+                        h(&apos;Option&apos;,{
+                            props:{
+                                value:&quot;software&quot;
+                            }
+                        },&apos;软件&apos;),
+                        h(&apos;Option&apos;,{
+                            props:{
+                                value:&quot;hardware&quot;
+                            }
+                        },&apos;硬件&apos;),
+                        h(&apos;Option&apos;,{
+                            props:{
+                                value:&quot;service&quot;
+                            }
+                        },&apos;服务&apos;),
+                    ])
+                ])
+            }
+          },
+</code></pre><p>另外,在表头我们要进行一些控制,比如添加一行,并可编辑,要采用renderHeader</p>
+<pre><code>{
+           title: &quot;添加&quot;,
+           key: &quot;action&quot;,
+           align: &quot;center&quot;,
+           renderHeader:(h,colObj) =&gt; {
+               var that = this
+               return h(&apos;div&apos;,[
+                   h(&apos;Button&apos;,{
+                       props:{
+                           icon:&apos;md-add&apos;,
+                           size:&apos;small&apos;
+                       },
+                       on:{
+                           click:()=&gt;{
+                               var obj = {
+                                   crmCustomName:&quot;&quot;,
+                                   crmCustomCode:&quot;&quot;,
+                                   cityName:&quot;&quot;,
+                                   customType:&quot;&quot;,
+                                   customOrigin:&quot;&quot;,
+                                   customType:&quot;&quot;,
+                                   fkaCrmProductClassName:&quot;&quot;,
+                                   lastConnectTime:&quot;&quot;,
+                                   fkaSysUserName:&quot;&quot;,
+                                   timeCreate:&quot;&quot;,
+                               }
+                               that.ConnectTableData.datas.push(obj) //表格行
+                           }
+                       }
+                   },&quot;添加&quot;)
+               ])
+           },
+           render: (h, params) =&gt; {
+               var that = this
+             return h(&apos;div&apos;, [
+               h(&apos;Icon&apos;, {
+                 props: {
+                   type: &quot;md-nutrition&quot;,
+                   size: &quot;20&quot;,
+                   color: &apos;blue&apos;
+                 },
+                 style: {
+                   marginRight: &apos;5px&apos;
+                 },
+                 on: {
+                   click: () =&gt; {
+                     that.handleEdit(params.row)
+                   }
+                 }
+               }),
+               h(&apos;Icon&apos;, {
+                 props: {
+                   type: &quot;ios-trash&quot;,
+                   size: &quot;20&quot;,
+                   color: &apos;red&apos;
+                 },
+                 on: {
+                   click: () =&gt; {
+                     that.handleDelete(params.row)
+                   }
+                 }
+               })
+             ])
+           }
+         }
+</code></pre><ul>
+<li><p>通常select的下拉框有很多项,所以需要采用更加简洁的方式</p>
+<pre><code>{
+            title: &quot;所在城市&quot;,
+            key: &quot;cityName&quot;,
+            align: &quot;center&quot;,
+            render: (h, params) =&gt; {
+              return h(&apos;div&apos;, [
+                h(&apos;Select&apos;, {
+                  props: {
+                    value: this.ConnectTableData.datas[params.index].cityName,
+                    &apos;label-in-value&apos;: true
+                  },
+                  on: {
+                    &apos;on-change&apos;: (value) =&gt; {
+                      params.row.cityName = value.label
+                      this.ConnectTableData.datas[params.index] = params.row
+                    }
+                  }
+                }, [
+                  this.cityNames.map((type)=&gt;{
+                    return h(&apos;Option&apos;,{
+                      props:{value:type.value}
+                    },type.label)
+                  })
+                  // h(&apos;Option&apos;, {
+                  //   props: {
+                  //     value: &quot;beijing&quot;
+                  //   }
+                  // }, &apos;北京&apos;),
+                  // h(&apos;Option&apos;, {
+                  //   props: {
+                  //     value: &quot;shanghai&quot;
+                  //   }
+                  // }, &apos;上海&apos;),
+                  // h(&apos;Option&apos;, {
+                  //   props: {
+                  //     value: &quot;shenzhen&quot;
+                  //   }
+                  // }, &apos;深圳&apos;),
+                ])
+              ])
+            }
+          },
+</code></pre></li>
+</ul>
+<p>数据格式:</p>
+<pre><code>cityNames:[{
+          value:&apos;beijing&apos;,
+          label:&apos;北京&apos;
+        },{
+          value:&apos;shanghai&apos;,
+          label:&apos;上海&apos;
+        },{
+          value:&apos;shenzhen&apos;,
+          label:&apos;深圳&apos;
+        }],
+</code></pre>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+    
+
+    
+    <div>
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/15/学习Nginx/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="厚朴酚">
+      <meta itemprop="description" content="学习笔记">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="厚朴酚">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/15/学习Nginx/" itemprop="url">
+                  学习Nginx
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-11-15 21:53:39 / 修改时间：22:28:00" itemprop="dateCreated datePublished" datetime="2018-11-15T21:53:39+08:00">2018-11-15</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/nginx/" itemprop="url" rel="index"><span itemprop="name">nginx</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="学习Nginx"><a href="#学习Nginx" class="headerlink" title="学习Nginx"></a>学习Nginx</h3><p>来源自技术胖,<a href="http://jspang.com/post/nginx.html" target="_blank" rel="noopener">http://jspang.com/post/nginx.html</a></p>
+<h4 id="安装环境搭建"><a href="#安装环境搭建" class="headerlink" title="安装环境搭建"></a>安装环境搭建</h4><ul>
+<li>yum -y install gcc gcc-c++ autoconf pcre-devel make automake</li>
+<li>yum -y install wget httpd-tools vim</li>
+</ul>
+<h4 id="Nginx源配置安装"><a href="#Nginx源配置安装" class="headerlink" title="Nginx源配置安装"></a>Nginx源配置安装</h4><ul>
+<li><p>查看是否有Nginx源</p>
+<pre><code>yum list | grep nginx
+</code></pre></li>
+<li><p>配置最新源</p>
+</li>
+</ul>
+<p>到官网找稳定版</p>
+<p>第一步:到yum文件</p>
+<pre><code>vim /etc/yum.repos.d/nginx.repo
+</code></pre><p>第二步:</p>
+<pre><code>[nginx]
+name=nginx repo
+baseurl=http://nginx.org/packages/OS/OSRELEASE/$basearch/
+gpgcheck=0
+enabled=1
+</code></pre><p>第三步:<br>赋值完成后，你需要修改一下对应的操作系统和版本号，因为我的是centos和7的版本</p>
+<pre><code>baseurl=http://nginx.org/packages/centos/7/$basearch/
+</code></pre><p>第四步: 安装</p>
+<pre><code>yum install nginx
+</code></pre><p>第五步: 查看是否成功</p>
+<pre><code>nginx -v
+</code></pre><h4 id="Nginx基本配置文件"><a href="#Nginx基本配置文件" class="headerlink" title="Nginx基本配置文件"></a>Nginx基本配置文件</h4><p>-查看目录位置</p>
+<pre><code>rpm -ql nginx
+</code></pre><p>rpm 是linux的rpm包管理工具，-q 代表询问模式，-l 代表返回列表，这样我们就可以找到nginx的所有安装位置</p>
+<h5 id="nginx-conf文件解读"><a href="#nginx-conf文件解读" class="headerlink" title="nginx.conf文件解读"></a>nginx.conf文件解读</h5><pre><code>cd /etc/nginx
+vim nginx.conf
+</code></pre><p>文件注释</p>
+<pre><code>#运行用户，默认即是nginx，可以不进行设置
+user  nginx;
+#Nginx进程，一般设置为和CPU核数一样
+worker_processes  1;   
+#错误日志存放目录
+error_log  /var/log/nginx/error.log warn;
+#进程pid存放位置
+pid        /var/run/nginx.pid;
+events {
+    worker_connections  1024; # 单个后台进程的最大并发数
+}
+http {
+    include       /etc/nginx/mime.types;   #文件扩展名与类型映射表
+    default_type  application/octet-stream;  #默认文件类型
+    #设置日志模式
+    log_format  main  &apos;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &apos;
+                      &apos;$status $body_bytes_sent &quot;$http_referer&quot; &apos;
+                      &apos;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&apos;;
+    access_log  /var/log/nginx/access.log  main;   #nginx访问日志存放位置
+    sendfile        on;   #开启高效传输模式
+    #tcp_nopush     on;    #减少网络报文段的数量
+    keepalive_timeout  65;  #保持连接的时间，也叫超时时间
+    #gzip  on;  #开启gzip压缩
+    include /etc/nginx/conf.d/*.conf; #包含的子配置项位置和文件
+</code></pre><p>default.conf 配置项讲解 我们看到最后有一个子文件的配置项，那我们打开这个include子文件配置项看一下里边都有些什么内容。</p>
+<p>进入conf.d目录，然后使用vim default.conf进行查看。</p>
+<pre><code>server {
+    listen       80;   #配置监听端口
+    server_name  localhost;  //配置域名
+    #charset koi8-r;     
+    #access_log  /var/log/nginx/host.access.log  main;
+    location / {
+        root   /usr/share/nginx/html;     #服务默认启动目录
+        index  index.html index.htm;    #默认访问文件
+    }
+    #error_page  404              /404.html;   # 配置404页面
+    # redirect server error pages to the static page /50x.html
+    #
+    error_page   500 502 503 504  /50x.html;   #错误状态码的显示页面，配置后需要重启
+    location = /50x.html {
+        root   /usr/share/nginx/html;
+    }
+    # proxy the PHP scripts to Apache listening on 127.0.0.1:80
+    #
+    #location ~ \.php$ {
+    #    proxy_pass   http://127.0.0.1;
+    #}
+    # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+    #
+    #location ~ \.php$ {
+    #    root           html;
+    #    fastcgi_pass   127.0.0.1:9000;
+    #    fastcgi_index  index.php;
+    #    fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;
+    #    include        fastcgi_params;
+    #}
+    # deny access to .htaccess files, if Apache&apos;s document root
+    # concurs with nginx&apos;s one
+    #
+    #location ~ /\.ht {
+    #    deny  all;
+    #}
+}
+</code></pre><p>明白了这些配置项，我们知道我们的服务目录放在了/usr/share/nginx/html下，可以使用命令进入看一下目录下的文件。</p>
+<pre><code>cd /usr/share/nginx/html
+ls 
+</code></pre><ul>
+<li><p>启动  sudo nginx</p>
+</li>
+<li><p>访问 127.0.0.1:80 就可以看到index.html的内容了</p>
+</li>
+</ul>
+<h4 id="Nginx常用的操作"><a href="#Nginx常用的操作" class="headerlink" title="Nginx常用的操作"></a>Nginx常用的操作</h4>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+    
+
+    
+    <div>
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/12/express-mongoose模块化/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="厚朴酚">
+      <meta itemprop="description" content="学习笔记">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="厚朴酚">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/12/express-mongoose模块化/" itemprop="url">
+                  express-mongoose模块化
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-11-12 18:24:59 / 修改时间：18:26:25" itemprop="dateCreated datePublished" datetime="2018-11-12T18:24:59+08:00">2018-11-12</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/node-js/" itemprop="url" rel="index"><span itemprop="name">node.js</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Express与MongoDB"><a href="#Express与MongoDB" class="headerlink" title="Express与MongoDB"></a>Express与MongoDB</h1><h2 id="前奏"><a href="#前奏" class="headerlink" title="前奏"></a>前奏</h2><h3 id="Express-是什么？"><a href="#Express-是什么？" class="headerlink" title="Express 是什么？"></a>Express 是什么？</h3><p>Express 是一个基于 Node.js 平台的极简、灵活的 web 应用开发框架，它提供一系列强大的特性，帮助你创建各种 Web 和移动设备应用。</p>
+<h2 id="一-连接MongoDB-抽象出模型"><a href="#一-连接MongoDB-抽象出模型" class="headerlink" title="一  连接MongoDB 抽象出模型"></a>一  连接MongoDB 抽象出模型</h2><h3 id="在项目根目录下新建-lib-mongo-js"><a href="#在项目根目录下新建-lib-mongo-js" class="headerlink" title="在项目根目录下新建/lib/mongo.js"></a>在项目根目录下新建/lib/mongo.js</h3><pre><code>var mongoose = require(&quot;mongoose&quot;);
+var db = mongoose.connect(&apos;mongodb://localhost:27017/myblog&apos;,function(){});
+module.exports = db
+</code></pre><p><strong>要连接的数据库为myblog</strong></p>
+<h3 id="二-Schema"><a href="#二-Schema" class="headerlink" title="二 Schema"></a>二 Schema</h3><p>一种以文件形式存储的数据库模型骨架，无法直接通往数据库端，不具备对数据库的操作能力，仅仅只是数据库模型在程序片段中的一种表现，可以说是数据属性模型(传统意义的表结构)，又或着是“集合”的模型骨架.</p>
+<h4 id="在项目根目录下新建-model-user-js"><a href="#在项目根目录下新建-model-user-js" class="headerlink" title="在项目根目录下新建/model/user.js"></a>在项目根目录下新建/model/user.js</h4><pre><code>var mongoose = require(&quot;mongoose&quot;);
+var db = require(&apos;../lib/mongo&apos;);
+//一个用户模型
+var UserSchema = new mongoose.Schema({
+    username: { type:String },
+    password: {type: String},
+    avatar  : {type: String},
+    age : { type:Number, default:0 },
+    description : { type: String},
+    email   : { type: String },
+    github  : { type: String },
+    time: { type:Date, default:Date.now }
+});
+//创建Model
+var UserModel = db.model(&quot;user&quot;, UserSchema );
+module.exports = UserModel
+</code></pre><p><strong>user：数据库中的集合名称,当我们对其添加数据时如果user已经存在，则会保存到其目录下，如果不存在，则会创建user集合，然后在保存数据。<br>拥有了Model，我们也就拥有了操作数据库的金钥匙，就可以使用Model来进行增删改查的具体操作。</strong></p>
+<h2 id="Entity"><a href="#Entity" class="headerlink" title="Entity"></a>Entity</h2><p>Entity–由Model创建的实体，使用save方法保存数据，Model和Entity都有能影响数据库的操作，但Model比Entity更具操作性。所以此项目主要用的Model。</p>
+<pre><code>var UserEntity = new UserModel({
+    name : &quot;hzzly&quot;,
+    age  : 21,
+    email: &quot;hjingren@aliyun.com&quot;,
+    github: &apos;https://github.com/hzzly&apos;
+});
+UserEntity.save(function(error,doc){
+    if(error){
+        console.log(&quot;error :&quot; + error);
+    }else{
+        console.log(doc);
+    }
+});
+</code></pre><h2 id="三、封装数据库的CURD"><a href="#三、封装数据库的CURD" class="headerlink" title="三、封装数据库的CURD"></a>三、封装数据库的CURD</h2><p><strong>在lib文件下新建api.js<br>采用Promise封装对数据库的操作，避免回调地狱，使得代码能够更好的被读懂和维护</strong></p>
+<pre><code>var UserModel = require(&apos;../models/users&apos;);
+module.exports = {
+    /**
+     * 添加数据
+     * @param  {[type]} data 需要保存的数据对象
+     */
+    save(data) {
+        return new Promise((resolve, reject) =&gt; {
+            //model.create(保存的对象,callback)
+            UserModel.create(data, (error, doc) =&gt; {
+                if(error){
+                    reject(error)
+                }else{
+                    resolve(doc)
+                }
+            })
+        })
+    },
+    find(data={}, fields=null, options={}) {
+        return new Promise((resolve, reject) =&gt; {
+            //model.find(需要查找的对象(如果为空，则查找到所有数据), 属性过滤对象[可选参数], options[可选参数], callback)
+            UserModel.find(data, fields, options, (error, doc) =&gt; {
+                if(error){
+                    reject(error)
+                }else{
+                    resolve(doc)
+                }
+            })
+        })
+    },
+    findOne(data) {
+        return new Promise((resolve, reject) =&gt; {
+            //model.findOne(需要查找的对象,callback)
+            UserModel.findOne(data, (error, doc) =&gt; {
+                if(error){
+                    reject(error)
+                }else{
+                    resolve(doc)
+                }
+            })
+        })
+    },
+    findById(data) {
+        return new Promise((resolve, reject) =&gt; {
+            //model.findById(需要查找的id对象 ,callback)
+            UserModel.findById(data, (error, doc) =&gt; {
+                if(error){
+                    reject(error)
+                }else{
+                    resolve(doc)
+                }
+            })
+        })
+    },
+    update(conditions, update) {
+        return new Promise((resolve, reject) =&gt; {
+            //model.update(查询条件,更新对象,callback)
+            UserModel.update(conditions, update, (error, doc) =&gt; {
+                if(error){
+                    reject(error)
+                }else{
+                    resolve(doc)
+                }
+            })
+        })
+    },
+    remove(conditions) {
+        return new Promise((resolve, reject) =&gt; {
+            //model.update(查询条件,callback)
+            UserModel.remove(conditions, (error, doc) =&gt; {
+                if(error){
+                    reject(error)
+                }else{
+                    resolve(doc)
+                }
+            })
+        })
+    }
+}
+</code></pre><h2 id="四、使用"><a href="#四、使用" class="headerlink" title="四、使用"></a>四、使用</h2><p><strong>在/routers/index.js中使用</strong></p>
+<pre><code>var api = require(&apos;../lib/api&apos;);
+router.post(&apos;/login&apos;, function(req, res, next) {
+    var user = {
+        username : req.body.username,
+        password: req.body.password
+    };
+    api.findOne(user)
+        .then(result =&gt; {
+            console.log(result)
+        })
+})
+router.post(&apos;/sign_up&apos;, function(req, res, next) {
+    var user = {
+        username : req.body.username,
+        password: req.body.password,
+        email: req.body.email
+    };
+    api.save(user)
+        .then(result =&gt; {
+            console.log(result)            
+        })
+})
+router.get(&apos;/user_list&apos;, function(req, res, next) {
+    //返回所有用户
+    api.find({})
+        .then(result =&gt; {
+            console.log(result)            
+        })
+    //返回只包含一个键值name、age的所有记录
+    api.find({},{name:1, age:1, _id:0})
+        .then(result =&gt; {
+            console.log(result)            
+        })
+    //返回所有age大于18的数据
+    api.find({&quot;age&quot;:{&quot;$gt&quot;:18}})
+        .then(result =&gt; {
+            console.log(result)            
+        })
+    //返回20条数据
+    api.find({},null,{limit:20})
+        .then(result =&gt; {
+            console.log(result)            
+        })
+    //查询所有数据，并按照age降序顺序返回数据
+    api.find({},null,{sort:{age:-1}}) //1是升序，-1是降序
+        .then(result =&gt; {
+            console.log(result)            
+        })
+})
+</code></pre>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+    
+
+    
+    <div>
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/12/koa基于mongoose模块化实现/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="厚朴酚">
+      <meta itemprop="description" content="学习笔记">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="厚朴酚">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/12/koa基于mongoose模块化实现/" itemprop="url">
+                  在koa中应用mongoose模块化实现
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-11-12 17:25:32 / 修改时间：18:14:23" itemprop="dateCreated datePublished" datetime="2018-11-12T17:25:32+08:00">2018-11-12</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/koa/" itemprop="url" rel="index"><span itemprop="name">koa</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="在koa中应用mongoose模块化实现"><a href="#在koa中应用mongoose模块化实现" class="headerlink" title="在koa中应用mongoose模块化实现"></a>在koa中应用mongoose模块化实现</h3><pre><code>为了让项目拥有更好的可读性以及可管理性,那么
+</code></pre><ul>
+<li>数据库连接</li>
+</ul>
+<pre><code>//init.js
+
+const mongoose = require(&apos;mongoose&apos;)
+const db = &quot;mongodb://localhost/smile-vue&quot;
+const glob = require(&apos;glob&apos;)
+const {resolve} = require(&apos;path&apos;)
+
+//一次性全部导入模型
+exports.initSchemas = ()=&gt;{
+    glob.sync(resolve(__dirname,&apos;./schema&apos;,&apos;**/*.js&apos;)).forEach(require)
+}
+exports.connect = ()=&gt;{
+    //连接数据库
+    mongoose.connect(db)
+    let  maxConnectTimes = 0
+    return new Promise((resolve,reject)=&gt;{
+         //增加数据库监听事件
+        mongoose.connection.on(&apos;disconnected&apos;,()=&gt;{
+            console.log(&apos;***********数据库断开***********&apos;)
+            if(maxConnectTimes&lt;=3){
+                maxConnectTimes++
+                mongoose.connect(db)
+            }else{
+                reject()
+                throw new Error(&apos;数据库出现问题&apos;)
+            }      
+        })
+        mongoose.connection.on(&apos;error&apos;,(err)=&gt;{
+            console.log(&apos;***********数据库错误&apos;)
+            if(maxConnectTimes&lt;=3){
+                maxConnectTimes++
+                mongoose.connect(db)
+            }else{
+                reject(err)
+                throw new Error(&apos;数据库出现问题&apos;)
+            }
+        })
+        //链接打开的时
+        mongoose.connection.once(&apos;open&apos;,()=&gt;{
+            console.log(&apos;MongoDB connected successfully&apos;)           
+            resolve()
+        })
+    })
+}
+</code></pre><ul>
+<li><p>shema文件夹创建模型</p>
+<pre><code>//User.js
+const mongoose = require(&apos;mongoose&apos;)
+const Schema = mongoose.Schema
+let ObjectId = Schema.Types.ObjectId
+const bcrypt = require(&apos;bcrypt&apos;)
+const SALT_WORK_FACTOR = 10
+
+//创建UserShema
+const userSchema = new Schema({
+    UserId :{type:ObjectId},
+    userName : {unique:true,type:String},
+    password : String,
+    createAt:{type:Date, default:Date.now()},
+    lastLoginAt:{type:Date, default:Date.now()}
+},{
+  collection:&apos;user&apos;  
+}) 
+userSchema.pre(&apos;save&apos;, function(next){
+    bcrypt.genSalt(SALT_WORK_FACTOR,(err,salt)=&gt;{
+        if(err) return next(err)
+        bcrypt.hash(this.password,salt,(err,hash)=&gt;{
+            if(err) return next(err)
+            this.password = hash
+            next()
+        })
+    })
+})
+
+userSchema.methods={
+    comparePassword:(_password,password)=&gt;{
+        return new Promise((resolve,reject)=&gt;{
+            bcrypt.compare(_password,password,(err,isMatch)=&gt;{
+                if(!err) resolve(isMatch)
+                else reject(err)
+            })
+        })
+    }
+}
+</code></pre></li>
+</ul>
+<pre><code>//发布模型
+mongoose.model(&apos;User&apos;,userSchema)
+</code></pre><ul>
+<li>服务器连接开启数据库并导入模型</li>
+</ul>
+<pre><code>const Koa = require(&apos;koa&apos;)
+const app = new Koa()
+const { connect , initSchemas } = require(&apos;./database/init.js&apos;)
+const mongoose = require(&apos;mongoose&apos;)
+const bodyParser = require(&apos;koa-bodyparser&apos;)
+const cors = require(&apos;koa2-cors&apos;)
+const Router = require(&apos;koa-router&apos;)
+app.use(bodyParser())
+app.use(cors())
+let user = require(&apos;./appApi/user.js&apos;)
+let home = require(&apos;./appApi/home.js&apos;)
+let goods = require(&apos;./appApi/goods.js&apos;)
+
+//装载所有子路由
+let router = new Router()
+router.use(&apos;/user&apos;,user.routes())
+router.use(&apos;/home&apos;,home.routes())
+router.use(&apos;/goods&apos;,goods.routes())
+//egg.js
+
+//加载路由中间件
+app.use(router.routes())
+app.use(router.allowedMethods())
+//这个函数说明立即执行,创建数据库连接导入模型
+;(async ()=&gt;{
+    await connect()
+    initSchemas()
+})()
+app.use(async(ctx)=&gt;{
+    ctx.body=&apos;&lt;h1&gt;Hello Koa2&lt;/h1&gt;&apos;
+})
+app.listen(3000,()=&gt;{
+    console.log(&apos;[Server] starting at port 3000&apos;)
+})
+</code></pre><ul>
+<li><p>在路由中使用</p>
+<pre><code>const Router = require(&apos;koa-router&apos;)
+const mongoose = require(&apos;mongoose&apos;)
+
+let router = new Router()
+router.get(&apos;/&apos;,async(ctx)=&gt;{
+    ctx.body=&quot;这是用户操作首页&quot;
+})
+
+router.post(&apos;/register&apos;,async(ctx)=&gt;{
+    const User = mongoose.model(&apos;User&apos;)
+    let newUser = new User(ctx.request.body)
+    await newUser.save().then(()=&gt;{
+        ctx.body={
+            code:200,
+            message:&apos;注册成功&apos;
+        }
+    }).catch(error=&gt;{
+        ctx.body={
+            code:500,
+            message:error
+        }
+    })
+})
+router.post(&apos;/login&apos;,async(ctx)=&gt;{
+    let loginUser = ctx.request.body
+    console.log(loginUser)
+    let userName = loginUser.userName
+    let password = loginUser.password
+    //引入User的model
+    const User = mongoose.model(&apos;User&apos;)
+    await User.findOne({userName:userName}).exec().then(async(result)=&gt;{
+        console.log(result)
+        if(result){
+            let newUser = new User()
+            await newUser.comparePassword(password,result.password)
+            .then(isMatch=&gt;{
+                ctx.body={code:200,message:isMatch}
+            })
+            .catch(error=&gt;{
+                console.log(error)
+                ctx.body={code:500,message:error}
+            })
+        }else{
+            ctx.body={code:200,message:&apos;用户名不存在&apos;}
+        }
+    }).catch(error=&gt;{
+        console.log(error)
+        ctx.body={code:500,message:error}
+    })
+})
+
+module.exports =router
+</code></pre></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+    
+
+    
+    <div>
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/12/js-xlsx前置知识点/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="厚朴酚">
+      <meta itemprop="description" content="学习笔记">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="厚朴酚">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/12/js-xlsx前置知识点/" itemprop="url">
+                  js-xlsx前置知识点
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-11-12 10:12:35 / 修改时间：10:46:52" itemprop="dateCreated datePublished" datetime="2018-11-12T10:12:35+08:00">2018-11-12</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/node-js/" itemprop="url" rel="index"><span itemprop="name">node.js</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="js-xlsx"><a href="#js-xlsx" class="headerlink" title="js-xlsx"></a>js-xlsx</h3><ul>
+<li><p>安装</p>
+<pre><code>npm install xlsx
+</code></pre></li>
+</ul>
+<h4 id="一些概念"><a href="#一些概念" class="headerlink" title="一些概念"></a>一些概念</h4><ul>
+<li>workbook</li>
+</ul>
+<p>指的是整份Excel文档</p>
+<ul>
+<li>worksheet</li>
+</ul>
+<p>指Excel文档的表,一份Excel文档包含多张表,每一章表对应的就是worksheet对象</p>
+<ul>
+<li>cell对象</li>
+</ul>
+<p>指worksheet的单元格</p>
+<ul>
+<li><p>具体如下</p>
+<pre><code>// workbook
+{
+    SheetNames: [&apos;sheet1&apos;, &apos;sheet2&apos;],
+    Sheets: {
+        // worksheet
+        &apos;sheet1&apos;: {
+            // cell
+            &apos;A1&apos;: { ... },
+            // cell
+            &apos;A2&apos;: { ... },
+            ...
+        },
+        // worksheet
+        &apos;sheet2&apos;: {
+            // cell
+            &apos;A1&apos;: { ... },
+            // cell
+            &apos;A2&apos;: { ... },
+            ...
+        }
+    }
+}
+</code></pre></li>
+</ul>
+<h4 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h4><ol>
+<li>用 XLSX.read 读取获取到的 Excel 数据，返回 workbook</li>
+<li>用 XLSX.readFile 打开 Excel 文件，返回 workbook</li>
+<li>用 workbook.SheetNames 获取表名</li>
+<li>用 workbook.Sheets[xxx] 通过表名获取表格</li>
+<li>用 worksheet[address]操作单元格</li>
+<li>用XLSX.utils.sheet_to_json针对单个表获取表格数据转换为json格式</li>
+<li>用XLSX.writeFile(wb, ‘output.xlsx’)生成新的 Excel 文件</li>
+</ol>
+<h4 id="具体用法"><a href="#具体用法" class="headerlink" title="具体用法"></a>具体用法</h4><ul>
+<li><p>读取Excel文件</p>
+<pre><code>workbook ＝ XLSX.read(excelData, {type: &apos;base64&apos;});
+workbook ＝ XLSX.writeFile(&apos;someExcel.xlsx&apos;, opts);
+</code></pre></li>
+<li><p>获取Excel文件的表</p>
+<pre><code>// 获取 Excel 中所有表名
+var sheetNames = workbook.SheetNames; // 返回 [&apos;sheet1&apos;, &apos;sheet2&apos;,……]
+// 根据表名获取对应某张表
+var worksheet = workbook.Sheets[sheetNames[0]];
+</code></pre></li>
+<li><p>worksheet[address]操作表格,以!开头的key是特殊的字段</p>
+<pre><code>// 获取 A1 单元格对象
+let a1 = worksheet[&apos;A1&apos;]; // 返回 { v: &apos;hello&apos;, t: &apos;s&apos;, ... }
+// 获取 A1 中的值
+a1.v // 返回 &apos;hello&apos;
+// 获取表的有效范围
+worksheet[&apos;!ref&apos;] // 返回 &apos;A1:B20&apos;
+worksheet[&apos;!range&apos;] // 返回 range 对象，{ s: { r: 0, c: 0}, e: { r: 100, c: 2 } }
+// 获取合并过的单元格
+worksheet[&apos;!merges&apos;] // 返回一个包含 range 对象的列表，[ {s: { r: 0, c: 0 }, c: { r: 2, c: 1 } } ]
+</code></pre></li>
+<li><p>获取Excel 文件的表转换为json数据</p>
+</li>
+</ul>
+<pre><code>XLSX.utils.sheet_to_json(worksheet)  //针对单个表，返回序列化json数据
+</code></pre><ul>
+<li><p>生成新的Excel文件</p>
+<pre><code>//服务端通过XLSX.writeFile
+XLSX = require(&quot;xlsx&quot;);
+XLSX.writeFile(wb, &apos;output.xlsx&apos;)   
+//客服端，只能通过XLSX.write(wb, write_opts) 写入 表格数据，借助FileSaver生成，且只支持在高版本浏览器。
+var wopts = { bookType:&apos;xlsx&apos;, bookSST:false, type:&apos;binary&apos; };
+var wbout = XLSX.write(wb,wopts);
+function s2ab(s) {
+  var buf = new ArrayBuffer(s.length);
+  var view = new Uint8Array(buf);
+  for (var i=0; i!=s.length; ++i) view[i] = s.charCodeAt(i) &amp; 0xFF;
+  return buf;
+}
+/* the saveAs call downloads a file on the local machine */
+saveAs(new Blob([s2ab(wbout)],{type:&quot;&quot;}), &quot;test.xlsx&quot;)
+</code></pre></li>
+</ul>
+<h4 id="js-xlsx实战"><a href="#js-xlsx实战" class="headerlink" title="js-xlsx实战"></a>js-xlsx实战</h4><ul>
+<li><p>解析Excel生成JSON</p>
+<pre><code>function to_json(workbook) {
+    var result = {};
+    // 获取 Excel 中所有表名
+    var sheetNames = workbook.SheetNames; // 返回 [&apos;sheet1&apos;, &apos;sheet2&apos;]
+    workbook.SheetNames.forEach(function(sheetName) {
+        var worksheet = workbook.Sheets[sheetName];
+        result[sheetName] = XLSX.utils.sheet_to_json(worksheet);
+    });    
+    console.log(&quot;打印表信息&quot;,JSON.stringify(result, 2, 2));  //显示格式{&quot;表1&quot;:[],&quot;表2&quot;:[]}
+    return result;
+}
+</code></pre></li>
+<li><p>导出表格</p>
+</li>
+<li></li>
+</ul>
+<ol>
+<li><p>构建特定的数据结构,通过new Blob</p>
+<pre><code>// workbook
+{
+    SheetNames: [&apos;mySheet&apos;],
+    Sheets: {
+        &apos;mySheet&apos;: {
+            &apos;!ref&apos;: &apos;A1:E4&apos;, // 必须要有这个范围才能输出，否则导出的 excel 会是一个空表
+            A1: { v: &apos;id&apos; },
+            ...
+        }
+    }
+}
+</code></pre></li>
+<li><p>调用XLSX.write,借助FIleSaver中的new Blob生成</p>
+<pre><code>var _headers = [&apos;id&apos;, &apos;name&apos;, &apos;age&apos;, &apos;country&apos;, &apos;remark&apos;]
+var _data = [ { id: &apos;1&apos;,
+                name: &apos;test1&apos;,
+                age: &apos;30&apos;,
+                country: &apos;China&apos;,
+                remark: &apos;hello&apos; },
+              { id: &apos;2&apos;,
+                name: &apos;test2&apos;,
+                age: &apos;20&apos;,
+                country: &apos;America&apos;,
+                remark: &apos;world&apos; },
+              { id: &apos;3&apos;,
+                name: &apos;test3&apos;,
+                age: &apos;18&apos;,
+                country: &apos;Unkonw&apos;,
+                remark: &apos;???&apos; } ];
+var headers = _headers
+                // 为 _headers 添加对应的单元格位置
+                // [ { v: &apos;id&apos;, position: &apos;A1&apos; },
+                //   { v: &apos;name&apos;, position: &apos;B1&apos; },
+                //   { v: &apos;age&apos;, position: &apos;C1&apos; },
+                //   { v: &apos;country&apos;, position: &apos;D1&apos; },
+                //   { v: &apos;remark&apos;, position: &apos;E1&apos; } ]
+                .map((v, i) =&gt; Object.assign({}, {v: v, position: String.fromCharCode(65+i) + 1 }))
+                // 转换成 worksheet 需要的结构
+                // { A1: { v: &apos;id&apos; },
+                //   B1: { v: &apos;name&apos; },
+                //   C1: { v: &apos;age&apos; },
+                //   D1: { v: &apos;country&apos; },
+                //   E1: { v: &apos;remark&apos; } }
+                .reduce((prev, next) =&gt; Object.assign({}, prev, {[next.position]: {v: next.v}}), {});
+var data = _data
+              // 匹配 headers 的位置，生成对应的单元格数据
+              // [ [ { v: &apos;1&apos;, position: &apos;A2&apos; },
+              //     { v: &apos;test1&apos;, position: &apos;B2&apos; },
+              //     { v: &apos;30&apos;, position: &apos;C2&apos; },
+              //     { v: &apos;China&apos;, position: &apos;D2&apos; },
+              //     { v: &apos;hello&apos;, position: &apos;E2&apos; } ],
+              //   [ { v: &apos;2&apos;, position: &apos;A3&apos; },
+              //     { v: &apos;test2&apos;, position: &apos;B3&apos; },
+              //     { v: &apos;20&apos;, position: &apos;C3&apos; },
+              //     { v: &apos;America&apos;, position: &apos;D3&apos; },
+              //     { v: &apos;world&apos;, position: &apos;E3&apos; } ],
+              //   [ { v: &apos;3&apos;, position: &apos;A4&apos; },
+              //     { v: &apos;test3&apos;, position: &apos;B4&apos; },
+              //     { v: &apos;18&apos;, position: &apos;C4&apos; },
+              //     { v: &apos;Unkonw&apos;, position: &apos;D4&apos; },
+              //     { v: &apos;???&apos;, position: &apos;E4&apos; } ] ]
+              .map((v, i) =&gt; _headers.map((k, j) =&gt; Object.assign({}, { v: v[k], position: String.fromCharCode(65+j) + (i+2) })))
+              // 对刚才的结果进行降维处理（二维数组变成一维数组）
+              // [ { v: &apos;1&apos;, position: &apos;A2&apos; },
+              //   { v: &apos;test1&apos;, position: &apos;B2&apos; },
+              //   { v: &apos;30&apos;, position: &apos;C2&apos; },
+              //   { v: &apos;China&apos;, position: &apos;D2&apos; },
+              //   { v: &apos;hello&apos;, position: &apos;E2&apos; },
+              //   { v: &apos;2&apos;, position: &apos;A3&apos; },
+              //   { v: &apos;test2&apos;, position: &apos;B3&apos; },
+              //   { v: &apos;20&apos;, position: &apos;C3&apos; },
+              //   { v: &apos;America&apos;, position: &apos;D3&apos; },
+              //   { v: &apos;world&apos;, position: &apos;E3&apos; },
+              //   { v: &apos;3&apos;, position: &apos;A4&apos; },
+              //   { v: &apos;test3&apos;, position: &apos;B4&apos; },
+              //   { v: &apos;18&apos;, position: &apos;C4&apos; },
+              //   { v: &apos;Unkonw&apos;, position: &apos;D4&apos; },
+              //   { v: &apos;???&apos;, position: &apos;E4&apos; } ]
+              .reduce((prev, next) =&gt; prev.concat(next))
+              // 转换成 worksheet 需要的结构
+              //   { A2: { v: &apos;1&apos; },
+              //     B2: { v: &apos;test1&apos; },
+              //     C2: { v: &apos;30&apos; },
+              //     D2: { v: &apos;China&apos; },
+              //     E2: { v: &apos;hello&apos; },
+              //     A3: { v: &apos;2&apos; },
+              //     B3: { v: &apos;test2&apos; },
+              //     C3: { v: &apos;20&apos; },
+              //     D3: { v: &apos;America&apos; },
+              //     E3: { v: &apos;world&apos; },
+              //     A4: { v: &apos;3&apos; },
+              //     B4: { v: &apos;test3&apos; },
+              //     C4: { v: &apos;18&apos; },
+              //     D4: { v: &apos;Unkonw&apos; },
+              //     E4: { v: &apos;???&apos; } }
+              .reduce((prev, next) =&gt; Object.assign({}, prev, {[next.position]: {v: next.v}}), {});
+// 合并 headers 和 data
+var output = Object.assign({}, headers, data);
+// 获取所有单元格的位置
+var outputPos = Object.keys(output);
+// 计算出范围
+var ref = outputPos[0] + &apos;:&apos; + outputPos[outputPos.length - 1];
+// 构建 workbook 对象
+var wb = {
+    SheetNames: [&apos;mySheet&apos;],
+    Sheets: {
+        &apos;mySheet&apos;: Object.assign({}, output, { &apos;!ref&apos;: ref })
+    }
+};
+// 导出 Excel
+//XLSX.writeFile(wb, &apos;output.xlsx&apos;);
+var wopts = { bookType:&apos;xlsx&apos;, bookSST:false, type:&apos;binary&apos; };
+var wbout = XLSX.write(wb,wopts);
+function s2ab(s) {
+  var buf = new ArrayBuffer(s.length);
+  var view = new Uint8Array(buf);
+  for (var i=0; i!=s.length; ++i) view[i] = s.charCodeAt(i) &amp; 0xFF;
+  return buf;
+}
+/* the saveAs call downloads a file on the local machine */
+saveAs(new Blob([s2ab(wbout)],{type:&quot;&quot;}), &quot;test.xlsx&quot;)
+</code></pre></li>
+</ol>
+<ul>
+<li>利用Excel-export生成Excel文件</li>
+<li><pre><code>var express = require(&apos;express&apos;);
+var nodeExcel = require(&apos;excel-export&apos;);
+var app = express();
+app.get(&apos;/Excel&apos;, function(req, res){
+    var conf ={};
+    conf.stylesXmlFile = &quot;styles.xml&quot;;
+    conf.name = &quot;mysheet&quot;;
+    conf.cols = [{
+        caption:&apos;string&apos;,
+        type:&apos;string&apos;,
+        beforeCellWrite:function(row, cellData){
+             return cellData.toUpperCase();
+        },
+        width:28.7109375
+    },{
+        caption:&apos;date&apos;,
+        type:&apos;date&apos;,
+        beforeCellWrite:function(){
+            var originDate = new Date(Date.UTC(1899,11,30));
+            return function(row, cellData, eOpt){
+                if (eOpt.rowNum%2){
+                    eOpt.styleIndex = 1;
+                }  
+                else{
+                    eOpt.styleIndex = 2;
+                }
+                if (cellData === null){
+                  eOpt.cellType = &apos;string&apos;;
+                  return &apos;N/A&apos;;
+                } else
+                  return (cellData - originDate) / (24 * 60 * 60 * 1000);
+            } 
+        }()
+    },{
+        caption:&apos;bool&apos;,
+        type:&apos;bool&apos;
+    },{
+        caption:&apos;number&apos;,
+         type:&apos;number&apos;              
+    }];
+    conf.rows = [
+        [&apos;pi&apos;, new Date(Date.UTC(2013, 4, 1)), true, 3.14],
+        [&quot;e&quot;, new Date(2012, 4, 1), false, 2.7182],
+        [&quot;M&amp;M&lt;&gt;&apos;&quot;, new Date(Date.UTC(2013, 6, 9)), false, 1.61803],
+        [&quot;null date&quot;, null, true, 1.414]  
+    ];
+    var result = nodeExcel.execute(conf);
+    res.setHeader(&apos;Content-Type&apos;, &apos;application/vnd.openxmlformats&apos;);
+    res.setHeader(&quot;Content-Disposition&quot;, &quot;attachment; filename=&quot; + &quot;Report.xlsx&quot;);
+    res.end(result, &apos;binary&apos;);
+});
+app.listen(3000);
+console.log(&apos;Listening on port 3000&apos;);
+</code></pre></li>
+</ul>
+<p>分析生成excel流程：</p>
+<ol>
+<li>配置excel文件名conf.name</li>
+<li>设置表caption，每列单元格数据类型，宽度</li>
+<li>填充表中每行数据conf.rows，nodeExcel.execute生成数据结构，设置头部，拼接生成表</li>
+</ol>
+<p>来源: 凹凸实验室（<a href="https://aotu.io/notes/2016/04/07/node-excel/）" target="_blank" rel="noopener">https://aotu.io/notes/2016/04/07/node-excel/）</a></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+    
+
+    
+    <div>
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/11/mongoose模块化/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="厚朴酚">
+      <meta itemprop="description" content="学习笔记">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="厚朴酚">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/11/mongoose模块化/" itemprop="url">
+                  mongoose模块化
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-11-11 21:25:12 / 修改时间：22:04:31" itemprop="dateCreated datePublished" datetime="2018-11-11T21:25:12+08:00">2018-11-11</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/node-js-mongodb/" itemprop="url" rel="index"><span itemprop="name">node.js mongodb</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="mongoose模块化"><a href="#mongoose模块化" class="headerlink" title="mongoose模块化"></a>mongoose模块化</h3><p>为了便于管理,代码复用的原则</p>
+<p>connect连接的时候mongodb4.x版本会有deprecationwaring警告,为了消除这个,可以在第二个参数传入{userNewParser:true},同时为了监听连接的情况,可以写个回调.</p>
+<ul>
+<li><p>mongoose连接的代码</p>
+<pre><code>var mongoose = require(&apos;mongoose&apos;)
+
+mongoose.connect(&apos;mongodb数据库地址&apos;,{userNewParser:true},function{
+    if (err) {
+    console.log(&quot;数据库连接失败&quot;)
+    } else {
+    console.log(&quot;数据库连接成功&quot;)
+    }
+})
+</code></pre></li>
+</ul>
+<h4 id="mongoose-默认参数"><a href="#mongoose-默认参数" class="headerlink" title="mongoose 默认参数"></a>mongoose 默认参数</h4><p>增加数据的时候,如果不传入数据会使用默认配置的数据</p>
+<ul>
+<li><p>定义数据表映射  : 字段必须和数据库保持一致</p>
+<p>  var UserSchema = mongoose.Schema({</p>
+<pre><code>name:String,
+age:Number,
+status:{
+    type:Number,
+    default:1 //这就是默认参数
+}    
+</code></pre><p>})</p>
+</li>
+</ul>
+<p>var UserModel = mongoose.model(“User”,UserSchema,’user’)</p>
+<h4 id="模块化"><a href="#模块化" class="headerlink" title="模块化"></a>模块化</h4><ul>
+<li>数据库连接模块</li>
+</ul>
+<p>//连接数据库</p>
+<pre><code>var mongoose=require(&apos;mongoose&apos;);
+
+//useNewUrlParser这个属性会在url里识别验证用户所需的db,未升级前是不需要指定的,升级到一定要指定。
+
+mongoose.connect(&apos;mongodb://127.0.0.1:27017/xxx&apos;,{ useNewUrlParser: true },function(err){
+        if(err){
+
+            console.log(err);
+            return;
+        }
+        console.log(&apos;数据库连接成功&apos;)
+});
+
+module.exports=mongoose;
+</code></pre><ul>
+<li><p>模型定义</p>
+<pre><code>var mongoose=require(&apos;./db.js&apos;);
+</code></pre></li>
+</ul>
+<pre><code>var UserSchema=mongoose.Schema({
+    name:String,
+    age:Number,
+    status:{
+        type:Number,
+        default:1   
+    }
+})
+
+module.exports=mongoose.model(&apos;User&apos;,UserSchema,&apos;user&apos;)
+</code></pre><ul>
+<li><p>表的使用</p>
+<p>  var UserModel=require(‘./model/user.js’);<br>  var user=new UserModel({</p>
+<pre><code>name:&quot;李四666&quot;,
+age:40
+</code></pre><p>  })<br>  user.save(function(err){</p>
+<pre><code>if(err){
+    console.log(err);
+    return;
+}
+
+//获取user表的数据
+UserModel.find({},function(err,docs){
+    if(err){ 
+        console.log(err);
+        return;
+    }
+    console.log(docs);
+})
+</code></pre><p>  })</p>
+</li>
+<li><p>性能测试</p>
+<pre><code>console.time(&apos;user&apos;);
+var UserModel=require(&apos;./model/user.js&apos;);
+console.timeEnd(&apos;user&apos;);
+console.time(&apos;news&apos;);
+var NewsModel=require(&apos;./model/news.js&apos;);
+console.timeEnd(&apos;news&apos;);
+</code></pre></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+    
+
+    
+    <div>
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/11/async-await的应用/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="厚朴酚">
+      <meta itemprop="description" content="学习笔记">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="厚朴酚">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/11/async-await的应用/" itemprop="url">
+                  async/await的应用
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-11-11 14:01:55 / 修改时间：15:22:41" itemprop="dateCreated datePublished" datetime="2018-11-11T14:01:55+08:00">2018-11-11</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="异步策略解决方式-async-await"><a href="#异步策略解决方式-async-await" class="headerlink" title="异步策略解决方式-async/await"></a>异步策略解决方式-async/await</h3><p> ES2017 中的 async/await 特性编写出相比于 promise chain 和 callback hell 更容易阅读理解的代码。await 关键字接收一个 promise，终止代码的执行，直到 promise 状态变为 resolved 或者 rejected，这种特性能让我们的异步代码阅读起来更像是同步代码。</p>
+<ul>
+<li><p>初始代码</p>
+<pre><code>const fetch = require(&apos;node-fetch&apos;)
+
+function getZhihuColumn(id) {
+    const url = `https://zhuanlan.zhihu.com/api/columns/${id}`
+    fetch(url)
+        .then(response =&gt; response.json())
+        .then(column =&gt; {
+            console.log(`NAME:${column.name}`)
+            console.log(`INTRO:${column.info}`)
+        })
+}
+
+getZhihuColumn(&apos;feweekly&apos;)
+</code></pre></li>
+</ul>
+<p>如何把这个代码改的更加扁平呢?</p>
+<h4 id="async-await-函数"><a href="#async-await-函数" class="headerlink" title="async/await 函数"></a>async/await 函数</h4><pre><code>const fetch = require(&apos;node-fetch&apos;)
+
+async function getZhihuColumn(id) {
+    const url = `https://zhuanlan.zhihu.com/api/columns/${id}`
+    const response = await fetch(url)
+    const column = await response.json()
+    console.log(`NAME:${column.name}`)
+    console.log(`INTRO:${column.info}`)
+}
+
+getZhihuColumn(&apos;feweekly&apos;)
+</code></pre><p>定义函数的时候前缀改为async,在函数体内使用await等待数据完成</p>
+<h4 id="将async函数用在promise-Chain"><a href="#将async函数用在promise-Chain" class="headerlink" title="将async函数用在promise Chain***"></a>将async函数用在promise Chain***</h4><pre><code>const fetch = require(&apos;node-fetch&apos;)
+
+async function getZhihuColumn(id) {
+    const url = `https://zhuanlan.zhihu.com/api/columns/${id}`
+    const response = await fetch(url)
+    const column = await response.json()
+    return column
+    //上面两行可以直接写成
+    //return await response.json()
+}
+
+getZhihuColumn(&apos;feweekly&apos;)
+    .then(column =&gt; {
+        console.log(`NAME:${column.name}`)
+    console.log(`INTRO:${column.info}`)
+    })
+</code></pre><h4 id="将任意类型的函数转为async风格"><a href="#将任意类型的函数转为async风格" class="headerlink" title="将任意类型的函数转为async风格"></a>将任意类型的函数转为async风格</h4><pre><code>const fetch = require(&apos;node-fetch&apos;)
+
+const getZhihuColumn= async (id) =&gt; {
+    const url = `https://zhuanlan.zhihu.com/api/columns/${id}`
+    const response = await fetch(url)
+    const column = await response.json()
+    return column
+}
+
+//立即执行
+(async()=&gt;{
+    const column = await getZhihuColumn(&apos;feweekly&apos;)
+    console.log(`NAME:${column.name}`)
+    console.log(`INTRO:${column.info}`)
+})()
+</code></pre><h4 id="在class类中使用async风格"><a href="#在class类中使用async风格" class="headerlink" title="在class类中使用async风格"></a>在class类中使用async风格</h4><pre><code>class APIClient {
+    async getColumn(id) {
+        const url = `https://zhuanlan.zhihu.com/api/columns/${id}`
+        const response = await fetch(url)
+        const column = await response.json()
+        return column
+    }
+}
+
+//立即执行
+(async()=&gt;{
+    const client = new APIClient()
+    const column = await client.getColumn(&apos;feweekly&apos;)
+    console.log(`NAME:${column.name}`)
+    console.log(`INTRO:${column.info}`)
+})()
+</code></pre><h4 id="处理-async-函数中的错误"><a href="#处理-async-函数中的错误" class="headerlink" title="处理 async 函数中的错误"></a>处理 async 函数中的错误</h4><pre><code>const fetch = require(&apos;node-fetch&apos;)
+
+async function getZhihuColumn(id) {
+    const url = `https://zhuanlan.zhihu.com/api/columns/${id}`
+    const response = await fetch(url)
+    if (response.status !== 200) {
+        throw new Error(response.status)
+    }
+    return await response.json()
+}
+
+//方式一
+getZhihuColumn(&apos;feweekly&apos;)
+    .then(column =&gt; {
+       console.log(`NAME:${column.name}`)
+       console.log(`INTRO:${column.info}`)
+   }).catch(err=&gt;{
+       console.log(err)
+   })
+
+   //方式二
+
+   const showColumnsInfo = async(id) =&gt; {
+      try {
+        const column = await getZhihuColumn(id)
+        console.log(`NAME:${column.name}`)
+        console.log(`INTRO:${column.info}`)
+      } catch (error) {
+          console.log(error)
+      }
+   }
+   showColumnsInfo(&apos;feweek123&apos;)
+</code></pre><h4 id="正确处理多个await操作的并行串行"><a href="#正确处理多个await操作的并行串行" class="headerlink" title="正确处理多个await操作的并行串行"></a>正确处理多个await操作的并行串行</h4><pre><code>const fetch = require(&apos;node-fetch&apos;)
+
+    async function getZhihuColumn(id) {
+        const url = `https://zhuanlan.zhihu.com/api/columns/${id}`
+        const response = await fetch(url)
+        return await response.json()
+    }
+
+//串行
+   const showColumnsInfo = async() =&gt; {
+        const column = await getZhihuColumn(&apos;feweely&apos;)
+        const toolingtips = await getZhihuColumn(&apos;toolingtips&apos;)
+        console.log(`NAME:${column.name}`)
+        console.log(`INTRO:${column.info}`)
+        console.log(`NAME:${toolingtips.name}`)
+        console.log(`INTRO:${toolingtips.info}`)
+   }
+showColumnsInfo()
+
+//并行
+const showColumnsInfo = async() =&gt; {
+    const columnPromise = getZhihuColumn(&apos;feweely&apos;)
+    const toolingtipsPromise = getZhihuColumn(&apos;toolingtips&apos;)
+    const feweekly = await columnPromise
+    const toolingtips = await toolingtipsPromise
+    console.log(`NAME:${feweekly.name}`)
+    console.log(`INTRO:${feweekly.info}`)
+    console.log(`NAME:${toolingtips.name}`)
+    console.log(`INTRO:${toolingtips.info}`)
+}
+</code></pre><h4 id="使用Promise-all-让多个await-操作并行"><a href="#使用Promise-all-让多个await-操作并行" class="headerlink" title="使用Promise.all()让多个await 操作并行"></a>使用Promise.all()让多个await 操作并行</h4><pre><code>const fetch = require(&apos;node-fetch&apos;)
+
+    async function getZhihuColumn(id) {
+        const url = `https://zhuanlan.zhihu.com/api/columns/${id}`
+        const response = await fetch(url)
+        return await response.json()
+    }
+
+
+const showColumnsInfo = async() =&gt; {
+        const [feweekly,toolingtips] = await Promise.all([//展开操作符
+            getZhihuColumn(&apos;feweekly&apos;),
+            getZhihuColumn(&apos;toolingtips&apos;)
+        ])
+        console.log(`$name:${feweekly.name}`)
+        console.log(`$name:${feweekly.info}`)
+        console.log(`$name:${toolingtips.name}`)
+        console.log(`$name:${toolingtips.info}`)
+   }
+showColumnsInfo()
+</code></pre><h4 id="在for循环中正确的使用await"><a href="#在for循环中正确的使用await" class="headerlink" title="在for循环中正确的使用await"></a>在for循环中正确的使用await</h4><pre><code>const fetch = require(&apos;node-fetch&apos;)    
+    async function getZhihuColumn(id) {
+        const url = `https://zhuanlan.zhihu.com/api/columns/${id}`
+        const response = await fetch(url)
+        return await response.json()
+    }
+    /**
+     * 串行
+     */
+const showColumnsInfo = async() =&gt; {
+    const names = [&apos;feweekly&apos;,&apos;toolingtips&apos;]
+    for (const name of names) {
+        const column = await getZhihuColumn(name)
+        console.log(`NAME:${column.name}`)
+        console.log(`NAME:${column.intro}`)
+    }
+   }
+   /*
+   * 并行
+   **/
+  const showColumnsInfo = async() =&gt; {
+    const names = [&apos;feweekly&apos;,&apos;toolingtips&apos;]
+    const promise = names.map(x =&gt; getZhihuColumn(x))
+    for (const name of promise) {
+        const column = await getZhihuColumn(name)
+        console.log(`NAME:${column.name}`)
+        console.log(`NAME:${column.intro}`)
+    }
+   }  
+
+
+showColumnsInfo()
+</code></pre><h4 id="来源"><a href="#来源" class="headerlink" title="来源"></a>来源</h4><p>微信公众号: 前端周刊</p>
+<p>作者:王仕军</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+    
+
+    
+    <div>
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/10/mongoose操作mongondb数据库入门/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="厚朴酚">
+      <meta itemprop="description" content="学习笔记">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="厚朴酚">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/10/mongoose操作mongondb数据库入门/" itemprop="url">
+                  mongoose操作mongondb数据库入门
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-11-10 20:34:17" itemprop="dateCreated datePublished" datetime="2018-11-10T20:34:17+08:00">2018-11-10</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-11-11 21:38:00" itemprop="dateModified" datetime="2018-11-11T21:38:00+08:00">2018-11-11</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/node-js-mongodb/" itemprop="url" rel="index"><span itemprop="name">node.js mongodb</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="mongoose操作mongodb数据库入门"><a href="#mongoose操作mongodb数据库入门" class="headerlink" title="mongoose操作mongodb数据库入门"></a>mongoose操作mongodb数据库入门</h3><h4 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h4><p>Mongoose是在node.js异步环境下对mongodb进行的对象模型工具.</p>
+<p>特点:</p>
+<ul>
+<li>通过关系型数据库的思想来设计非关系型数据库</li>
+<li>基于mongodb驱动,简化操作</li>
+</ul>
+<h4 id="mongoose的安装以及使用"><a href="#mongoose的安装以及使用" class="headerlink" title="mongoose的安装以及使用"></a>mongoose的安装以及使用</h4><ol>
+<li><p>安装</p>
+<pre><code>npm install mongoose --save
+</code></pre></li>
+<li><p>引入mongoose并连接数据库</p>
+<pre><code>const mongoose = require(&apos;&apos;mongoose)
+
+mongoose.connect(&quot;mongodb://127.0.0.1:27017/数据库名&quot;)
+</code></pre></li>
+<li><p>定义Schema</p>
+</li>
+</ol>
+<p>数据库中的Schema,为数据库对象的集合.schema是mongoose里会用到的一种数据模式,可以理解为表结构的定义;每个schema会映射到mongodb中的一个collection,不具备操作数据库的能力.</p>
+<pre><code>var UserSchema = mongoose.Schema({
+    name:String,
+    age:Number,
+    status:&apos;number&apos; //这种方式也可以
+})
+</code></pre><ol start="4">
+<li>创建数据模型</li>
+</ol>
+<p>定义好了Schema,接下来就是生成Model.model是由schema生成的模型,可以对数据库进行操作</p>
+<ul>
+<li><p>备注:mongoose.model里面可以传入两个参数,也可以传入三个参数</p>
+<pre><code>mongoose.model(参数1:模型名称(首字母大写),参数2:Schema)
+mongoose.model(参数1:模型名称(首字母大写),参数2:Schema,参数3:数据库集合名称)
+</code></pre></li>
+</ul>
+<p>如果传入2个参数:这个模型会模型名称相同的复数的数据库建立连接:如通过下面方法创建模型,那么这个模型将会操作users这个集合</p>
+<p>如果传入三个参数的话,模型默认操作第三个参数定义的集合名称</p>
+<pre><code>var User = mongoose.model(&quot;User&quot;,UserSchema)
+</code></pre><ul>
+<li><p>. 查找数据</p>
+<pre><code>User.find({},function(err,docs){
+    if (err) {
+    console.log(err)
+    return
+    }
+    console.log(docs)
+})
+</code></pre></li>
+<li><p>. 增加数据</p>
+<pre><code>var u = new User({//实例化模型,传入增加的数据
+    name:&quot;wt&quot;,
+    age:&quot;20&quot;,
+    status:true    
+})
+
+u.save()
+</code></pre></li>
+</ul>
+<ul>
+<li>. 修改数据</li>
+</ul>
+<p>User.updateOne({name:”wt”},{name:”lcd”},function(err,res){<br>    if (err) {<br>    console.log(err)<br>    return<br>}<br>    console.log(“修改数据成功”)<br>})</p>
+<ul>
+<li><p>. 删除数据</p>
+<pre><code>User.deleteOne({_id:&quot;127f77hjk45&quot;},function(err){
+    if(err){//只会删除一条数据
+    console.log(err)
+    return
+}
+    console.log(&quot;删除数据成功&quot;)
+})
+</code></pre></li>
+<li><p>.保存成功查找</p>
+</li>
+</ul>
+<pre><code>var u = new User({
+    name:&quot;lks&quot;,
+    age:20,
+    status:true
+})  
+u.save(function(err,docs){
+    if (err){
+    console.log(err)
+    return
+}
+    User.find({},function(err,docs){
+    if (err) {
+      //
+    }
+    //
+})
+})
+</code></pre><p>通过上述我们可以看到可以和你容易操作mongodb数据库,但是这种方式在应用过程会很麻烦,后面我们会采取模块化进行来管理.</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+    
+
+    
+    <div>
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/09/javascript私有变量/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -466,2846 +3549,6 @@ console.log(a.getName())
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/09/js-xlsx的一些操作封装/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="厚朴酚">
-      <meta itemprop="description" content="学习笔记">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="厚朴酚">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/09/js-xlsx的一些操作封装/" itemprop="url">
-                  js-xlsx的一些操作封装
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-11-09 15:55:13 / 修改时间：16:51:22" itemprop="dateCreated datePublished" datetime="2018-11-09T15:55:13+08:00">2018-11-09</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/node-js/" itemprop="url" rel="index"><span itemprop="name">node.js</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="js-xlsx的一些常用封装"><a href="#js-xlsx的一些常用封装" class="headerlink" title="js-xlsx的一些常用封装"></a>js-xlsx的一些常用封装</h3><ul>
-<li><p>从excel文件中获取头，返回数组</p>
-<pre><code>// get head from excel file,return array
-// 从excel文件中获取头，返回数组
-function get_header_row(sheet) {
-    const headers = []
-        /*
-         sheet1[&apos;!ref&apos;]　获取工作薄的有效范围　&apos;A1:C20&apos;
-         XLSX.utils.decode_range 将有效范围转为　range对象
-         range: {s: {r:0, c:0}, e: {r:10, 3}}
-         */
-    const range = XLSX.utils.decode_range(sheet[&apos;!ref&apos;]) 
-    // worksheet[&apos;!ref&apos;] 是工作表的有效范围
-    let C
-    /* 获取单元格值 start in the first row */
-    const R = range.s.r //行 //C 列
-    for (C = range.s.c; C &lt;= range.e.c; ++C) { /* walk every column in the range */
-        //{c:C,r:R} 单元格地址
-        var cell = sheet[XLSX.utils.encode_cell({ c: C, r: R })] /* 根据地址得到单元格的值find the cell in the first row */
-        var hdr = &apos;UNKNOWN &apos; + C // &lt;-- 替换为您想要的默认值replace with your desired default
-        //XLSX.utils.format_cell 生成单元格文本值
-        if (cell &amp;&amp; cell.t) hdr = XLSX.utils.format_cell(cell)
-        headers.push(hdr)
-    }
-    return headers
-}
-</code></pre></li>
-<li><p>读取excel的表头和表数据</p>
-<pre><code>/*
-* 读取excel的表头和表数据
- */
-export const read = (data, type) =&gt; {
-    /* if type == &apos;base64&apos; must fix data first */
-    // const fixedData = fixdata(data)
-    // const workbook = XLSX.read(btoa(fixedData), { type: &apos;base64&apos; })
-    const workbook = XLSX.read(data, { type: type });//解析数据
-    const firstSheetName = workbook.SheetNames[0];//获取Sheets中第一个Sheet的名字
-    const worksheet = workbook.Sheets[firstSheetName];//获取第一个Sheet的数据
-    const header = get_header_row(worksheet);//获取表的第一行为表头
-    const results = XLSX.utils.sheet_to_json(worksheet); //表格对象变为json数据
-    return {header, results};
-}
-</code></pre></li>
-<li><p>针对base64的数据提前处理</p>
-<pre><code>// fix data,return string
-function fixdata(data) {
-    let o = &apos;&apos;
-    let l = 0
-    const w = 10240
-    for (; l &lt; data.byteLength / w; ++l) o += String.fromCharCode.apply(null, new Uint8Array(data.slice(l * w, l * w + w)))
-    o += String.fromCharCode.apply(null, new Uint8Array(data.slice(l * w)))
-    return o
-}
-</code></pre></li>
-<li><p>表格转excle</p>
-<p>  export const export_table_to_excel= (id, filename) =&gt; {</p>
-<pre><code>const table = document.getElementById(id);
-const wb = XLSX.utils.table_to_book(table);
-XLSX.writeFile(wb, filename);
-
-/* the second way */
-// const table = document.getElementById(id);
-// const wb = XLSX.utils.book_new();
-// const ws = XLSX.utils.table_to_sheet(table);
-// XLSX.utils.book_append_sheet(wb, ws, filename);
-// XLSX.writeFile(wb, filename);
-</code></pre><p>  }</p>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-    
-
-    
-    <div>
-      
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/09/HTML5的Blob对象/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="厚朴酚">
-      <meta itemprop="description" content="学习笔记">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="厚朴酚">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/09/HTML5的Blob对象/" itemprop="url">
-                  HTML5的Blob对象
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-11-09 13:31:53" itemprop="dateCreated datePublished" datetime="2018-11-09T13:31:53+08:00">2018-11-09</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-11-21 16:23:06" itemprop="dateModified" datetime="2018-11-21T16:23:06+08:00">2018-11-21</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/HTML5/" itemprop="url" rel="index"><span itemprop="name">HTML5</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="HTML的Blob对象"><a href="#HTML的Blob对象" class="headerlink" title="HTML的Blob对象"></a>HTML的Blob对象</h3><p>####前言<br>一直以来，JS都没有比较好的可以直接处理二进制的方法。而Blob的存在，允许我们可以通过JS直接操作二进制数据。</p>
-<h4 id="Blob对象"><a href="#Blob对象" class="headerlink" title="Blob对象"></a>Blob对象</h4><p>一个Blob对象就是一个包含有只读原始数据的类文件对象。Blob对象中的数据并不一定得是JavaScript中的原生形式。File接口基于Blob，继承了Blob的功能,并且扩展支持了用户计算机上的本地文件。</p>
-<p>Blob对象可以看做是存放二进制数据的容器，此外还可以通过Blob设置二进制数据的MIME类型.</p>
-<h4 id="创建Blob"><a href="#创建Blob" class="headerlink" title="创建Blob"></a>创建Blob</h4><pre><code>var blob = new Blob(dataArr:Array&lt;any&gt;, opt:{type:string});
-</code></pre><ul>
-<li>dataArray：数组，包含了要添加到Blob对象中的数据，数据可以是任意多个ArrayBuffer，ArrayBufferView， Blob，或者 DOMString对象。</li>
-<li><p>opt：对象，用于设置Blob对象的属性（如：MIME类型）</p>
-</li>
-<li><p>创建一个装填DOMString对象的Blog对象</p>
-<p>  var s = “ <div>hello world!!</div> “</p>
-<p>  var blob = new Blob([s],{type:”text/xml”})</p>
-<p>  blob</p>
-<p>  Blob(24) {size: 24, type: “text/xml”}</p>
-</li>
-<li><p>创建一个装填ArrayBuffer对象的Blob对象</p>
-<pre><code>var abf = new ArrayBuffer(8)
-var blob = new Blob([abf],{type:&quot;text/plain&quot;})
-blob
-Blob{size:8,type:&quot;text/plain&quot;}
-</code></pre></li>
-<li><p>创建一个装填ArrayBufferView对象的Blob对象(ArrayBufferView可基于ArrayBuffer创建,返回值是一个类数组),如下:创建一个8字节的ArrayBuffer,在其上创建一个每个数组元素为2字节的视图</p>
-<pre><code>var abf = new ArrayBuffer(8)
-var abv = new Int16Array(abf)
-var blob = new Blob(abv,{type:&quot;text/plain&quot;})
-blob
-Blob{size:4,type:&quot;text/plain&quot;}
-</code></pre></li>
-<li><p>通过Blob.slice()</p>
-</li>
-</ul>
-<p>此方法返回一个新的BLob对象,包含了原对象指定范围内的数据</p>
-<pre><code>Blob.slice(start:number,end:number,contentType:string)
-</code></pre><ul>
-<li>start: 开始索引,默认为0</li>
-<li>end: 截取结束索引(不包括end)</li>
-<li><p>contentType:新的Blob的MIME类型,默认为空字符串</p>
-<pre><code>var b = new Blob([&quot;zxxxffggggff&quot;],{type:&quot;text/plain&quot;})
-var b2 = b.slice(0,5,&quot;text/plain&quot;)
-b2
-Blob{size:5,type:&quot;text/plain&quot;}
-</code></pre></li>
-<li><p>通过canvas.toBlob()</p>
-<pre><code>var canvas = document.getElementById(&quot;canvas&quot;);
-canvas.toBlob(function(blob){
-    console.log(blob);
-});
-</code></pre></li>
-</ul>
-<h4 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h4><p>前面提到，File接口基于Blob，继承了Blob的功能并进行了扩展，故我们可以像使用Blob一样使用File对象。</p>
-<ul>
-<li>分片上传</li>
-</ul>
-<p>通过Blob.slice方法，可以将大文件分片，轮循向后台提交各文件片段，即可实现文件的分片上传。</p>
-<p>分片上传逻辑如下：</p>
-<ul>
-<li>获取要上传文件的File对象，根据chunk（每片大小）对文件进行分片</li>
-<li>通过post方法轮循上传每片文件，其中url中拼接querystring用于描述当前上传的文件信息；</li>
-<li>post body中存放本次要上传的二进制数据片段</li>
-<li>接口每次返回offset，用于执行下次上传</li>
-</ul>
-<p>下面是分片上传的简单实现：</p>
-<pre><code>initUpload();
-
-//初始化上传
-function initUpload() {
-    var chunk = 100 * 1024;   //每片大小
-    var input = document.getElementById(&quot;file&quot;);    //input file
-    input.onchange = function (e) {
-        var file = this.files[0];
-        var query = {};
-        var chunks = [];
-        if (!!file) {
-            var start = 0;
-            //文件分片
-            for (var i = 0; i &lt; Math.ceil(file.size / chunk); i++) {
-                var end = start + chunk;
-                chunks[i] = file.slice(start , end);
-                start = end;
-            }
-
-            // 采用post方法上传文件
-            // url query上拼接以下参数，用于记录上传偏移
-            // post body中存放本次要上传的二进制数据
-            query = {
-                fileSize: file.size,
-                dataSize: chunk,
-                nextOffset: 0
-            }
-
-            upload(chunks, query, successPerUpload);
-        }
-    }
-}
-
-// 执行上传
-    function upload(chunks, query, cb) {
-        var queryStr = Object.getOwnPropertyNames(query).map(key =&gt; {
-            return key + &quot;=&quot; + query[key];
-        }).join(&quot;&amp;&quot;);
-        var xhr = new XMLHttpRequest();
-        xhr.open(&quot;POST&quot;, &quot;http://xxxx/opload?&quot; + queryStr);
-        xhr.overrideMimeType(&quot;application/octet-stream&quot;);
-
-        //获取post body中二进制数据
-        var index = Math.floor(query.nextOffset / query.dataSize);
-        getFileBinary(chunks[index], function (binary) {
-            if (xhr.sendAsBinary) {
-                xhr.sendAsBinary(binary);
-            } else {
-                xhr.send(binary);
-            }
-
-        });
-
-        xhr.onreadystatechange = function (e) {
-            if (xhr.readyState === 4) {
-                if (xhr.status === 200) {
-                    var resp = JSON.parse(xhr.responseText);
-                    // 接口返回nextoffset
-                    // resp = {
-                    //     isFinish:false,
-                    //     offset:100*1024
-                    // }
-                    if (typeof cb === &quot;function&quot;) {
-                        cb.call(this, resp, chunks, query)
-                    }
-                }
-            }
-        }
-    }
-
-    // 每片上传成功后执行
-    function successPerUpload(resp, chunks, query) {
-        if (resp.isFinish === true) {
-            alert(&quot;上传成功&quot;);
-        } else {
-            //未上传完毕
-            query.offset = resp.offset;
-            upload(chunks, query, successPerUpload);
-        }
-    }
-
-    // 获取文件二进制数据
-    function getFileBinary(file, cb) {
-        var reader = new FileReader();
-        reader.readAsArrayBuffer(file);
-        reader.onload = function (e) {
-            if (typeof cb === &quot;function&quot;) {
-                cb.call(this, this.result);
-            }
-        }
-    }
-</code></pre><p>以上是文件分片上传前端的简单实现，当然，此功能还可以更加完善，如后台需要对合并后的文件大小进行校验；或者前端加密文件，全部上传完毕后后端解密校验等.</p>
-<ul>
-<li>通过url下载文件</li>
-</ul>
-<p>window.URL对象可以为Blob对象生成一个网络地址，结合a标签的download属性，可以实现点击url下载文件.</p>
-<pre><code>createDownload(&quot;download.txt&quot;,&quot;download file&quot;);
-
-function createDownload(fileName, content){
-    var blob = new Blob([content]);
-    var link = document.createElement(&quot;a&quot;);
-    link.innerHTML = fileName;
-    link.download = fileName;
-    link.href = URL.createObjectURL(blob);
-    document.getElementsByTagName(&quot;body&quot;)[0].appendChild(link);
-}
-</code></pre><ul>
-<li>通过url显示图片</li>
-</ul>
-<p>我们知道，img的src属性及background的url属性，都可以通过接收图片的网络地址或base64来显示图片，同样的，我们也可以把图片转化为Blob对象，生成URL（URL.createObjectURL(blob)），来显示图片。</p>
-<p>Blob对象作为一个装填二进制数据的基本对象，其作用也仅仅是一个容器，而真正的业务功能则需要通过FileReader、URL、Canvas等对象实现</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-    
-
-    
-    <div>
-      
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/09/html5的FileReader对象/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="厚朴酚">
-      <meta itemprop="description" content="学习笔记">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="厚朴酚">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/09/html5的FileReader对象/" itemprop="url">
-                  html5的FileReader对象
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-11-09 13:16:39 / 修改时间：13:31:15" itemprop="dateCreated datePublished" datetime="2018-11-09T13:16:39+08:00">2018-11-09</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/HTML5/" itemprop="url" rel="index"><span itemprop="name">HTML5</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="HTML5的FileReader对象"><a href="#HTML5的FileReader对象" class="headerlink" title="HTML5的FileReader对象"></a>HTML5的FileReader对象</h3><h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>FileReader主要用于将文件内容读入内存，通过一系列异步接口，可以在主线程中访问本地文件。</p>
-<p>使用FileReader对象，web应用程序可以异步的读取存储在用户计算机上的文件(或者原始数据缓冲)内容，可以使用File对象或者Blob对象来指定所要处理的文件或数据。</p>
-<h4 id="创建对象"><a href="#创建对象" class="headerlink" title="创建对象"></a>创建对象</h4><pre><code>var reader = new FileReader();
-</code></pre><h4 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h4><pre><code>方法定义                               描述
-abort():void                     终止文件读取操作
-readAsArrayBuffer(file):void     异步按字节读取文件内容，结果用ArrayBuffer对象表示
-readAsBinaryString(file):void    异步按字节读取文件内容，结果为文件的二进制串
-readAsDataURL(file):void         异步读取文件内容，结果用data:url的字符串形式表示
-readAsText(file,encoding):void   异步按字符读取文件内容，结果用字符串形式表示
-</code></pre><h4 id="事件"><a href="#事件" class="headerlink" title="事件"></a>事件</h4><pre><code>事件名称                         描述
-onabort               当读取操作被中止时调用
-onerror               当读取操作发生错误时调用
-onload                当读取操作成功完成时调用
-onloadend              当读取操作完成时调用,不管是成功还是失败
-onloadstart              当读取操作将要开始之前调用    
-onprogress              在读取数据过程中周期性调用
-</code></pre><h4 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h4><p>FileReader通过异步的方式读取文件内容，结果均是通过事件回调获取，下面是一个读取本地txt文件内容的例子：</p>
-<pre><code>var input  = document.getElementById(&quot;file&quot;); //input file
-input.onchange = function(){
-    var file = this.files[0];
-    if(!!file){
-        //读取本地文件，以gbk编码方式输出
-        var reader = new FileReader();
-        reader.readAsText(file,&quot;gbk&quot;);
-        reader.onload = function(){
-            //读取完毕后输出结果
-            console.log(this.result);
-        }
-    }
-}
-</code></pre><h4 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h4><ul>
-<li>在线预览本地文件</li>
-</ul>
-<p>img的src属性或background的url属性，可以通过被赋值为图片网络地址或base64的方式显示图片。<br>在文件上传中，我们一般会先将本地文件上传到服务器，上传成功后，由后台返回图片的网络地址再在前端显示。<br>通过FileReader的readAsDataURL方法，我们可以不经过后台，直接将本地图片显示在页面上。这样做可以减少前后端频繁的交互过程，减少服务器端无用的图片资源，代码如下：</p>
-<pre><code>var input  = document.getElementById(&quot;file&quot;);   // input file
-input.onchange = function(){
-    var file = this.files[0];
-        if(!!file){
-            var reader = new FileReader();
-            // 图片文件转换为base64
-            reader.readAsDataURL(file);
-            reader.onload = function(){
-                // 显示图片
-                document.getElementById(&quot;file_img&quot;).src = this.result;
-        }
-    }
-}
-</code></pre><p>对于图片上传，我们也可以先将图片转换为base64进行传输，此时由于传输的图片内容就是一段字符串，故上传接口可以当做普通post接口处理，当图片传输到后台后，可以在转换为文件实体存储。<br>当然，考虑到base64转换效率及其本身的大小，本方法还是适合于上传内容简单或所占内存较小的文件。</p>
-<ul>
-<li>二进制数据上传</li>
-</ul>
-<p>我们可以直接上传或下载二进制内容，无需像以往一样通过form标签由后端拉取二进制内容。<br>简单整理下上传逻辑：<br>1、通过input[type=”file”]标签获取本地文件File对象<br>2、通过FileReader的readAsArrayBuffer方法将File对象转换为ArrayBuffer<br>3、创建xhr对象，配置请求信息<br>4、通过xhr.sendAsBinary直接将文件的ArrayBuffer内容装填至post body后发送</p>
-<pre><code>var input  = document.getElementById(&quot;file&quot;);   // input file
-input.onchange = function(){
-    var file = this.files[0];
-        if(!!file){
-            var reader = new FileReader();
-            reader.readAsArrayBuffer(file);
-            reader.onload = function(){
-                var binary = this.result;
-                upload(binary);
-        }
-    }
-}
-
-//文件上传
-function upload(binary){
-    var xhr = new XMLHttpRequest();
-    xhr.open(&quot;POST&quot;, &quot;http://xxxx/opload&quot;);
-    xhr.overrideMimeType(&quot;application/octet-stream&quot;);
-    //直接发送二进制数据
-    if(xhr.sendAsBinary){
-        xhr.sendAsBinary(binary);
-    }else{
-        xhr.send(binary);
-    }
-
-    // 监听变化
-    xhr.onreadystatechange = function(e){
-        if(xhr.readyState===4){
-            if(xhr.status===200){
-                // 响应成功       
-            }
-        }
-    }
-}
-</code></pre>
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-    
-
-    
-    <div>
-      
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/09/vue的一些工具方法/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="厚朴酚">
-      <meta itemprop="description" content="学习笔记">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="厚朴酚">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/09/vue的一些工具方法/" itemprop="url">
-                  vue的一些工具方法
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-11-09 10:17:33 / 修改时间：17:02:47" itemprop="dateCreated datePublished" datetime="2018-11-09T10:17:33+08:00">2018-11-09</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/vue/" itemprop="url" rel="index"><span itemprop="name">vue</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="常常应用的到的一些方法"><a href="#常常应用的到的一些方法" class="headerlink" title="常常应用的到的一些方法"></a>常常应用的到的一些方法</h3><pre><code>  /**
- * 判断两个对象是否相等
- * @param {*} obj1 
- * @param {*} obj2 
- */
-export const objEqual = (obj1, obj2) =&gt; {
-    const keysArr1 = Object.keys(obj1) //获取属性名
-    const keysArr2 = Object.keys(obj2)
-    if (keysArr1.length !== keysArr2.length) return false
-    else if (keysArr1.length === 0 &amp;&amp; keysArr2.length === 0) return true
-    else return !keysArr1.some(key =&gt; obj1[key] !== obj2[key])// some有一条相同返回true,取反为false
-  }
-
-
-/**
- * 根据路由的params生成对象
- * * */
-  export const getRouteById = id =&gt; {
-    let res = {}
-    if (id.includes(&apos;&amp;&apos;)) {
-      res.query = getObjBySplitStr(id, &apos;&amp;&apos;)
-      id = id.split(&apos;&amp;&apos;)[0]
-    }
-    if (id.includes(&apos;:&apos;)) {
-      res.params = getObjBySplitStr(id, &apos;:&apos;)
-      id = id.split(&apos;:&apos;)[0]
-    }
-    res.name = id
-    return res
-  }
-
-
- export const routeEqual = (route1, route2) =&gt; {
-    const params1 = route1.params || {} //逻辑或,route1.params不为空的话就返回他,或者返回{}空对象
-    const params2 = route2.params || {}
-    const query1 = route1.query || {} //因为路由传参有两种方式,所以要使用两种方式获取参数
-    const query2 = route2.query || {}
-    return route1.name === route2.name &amp;&amp; objEqual(params1, params2) &amp;&amp; objEqual(query1, query2)
-  }
-</code></pre><ul>
-<li>点击上传Csv文件</li>
-</ul>
-<pre><code>/**
- * @param {Object} file 从上传组件得到的文件对象
- * @returns {Promise} resolve参数是解析后的二维数组
- * @description 从Csv文件中解析出表格，解析成二维数组
- */
-export const getArrayFromFile = (file) =&gt; {
-    let nameSplit = file.name.split(&apos;.&apos;) //按照指定符号.切割文件
-    let format = nameSplit[nameSplit.length - 1] //[-1]得到文件名
-    return new Promise((resolve, reject) =&gt; {//返回promise可以用then来获取
-      let reader = new FileReader() //h5创建读取文件
-      reader.readAsText(file) // 以文本格式读取
-      let arr = []
-      reader.onload = function (evt) {//event事件里面有各种属性
-        let data = evt.target.result // 读到的数据
-        let pasteData = data.trim() 
-        //正则:[]指匹配里面任何一个都可以 \n 匹配一个换行符, \u0085匹配下一行 \u2028行分割 \u2029分段符号
-        // \r 回车符 \n?匹配换行0此或者一次 /g代表全局匹配  \t匹配水平制表符
-        arr = pasteData.split((/[\n\u0085\u2028\u2029]|\r\n?/g)).map(row =&gt; {
-          return row.split(&apos;\t&apos;)
-        }).map(item =&gt; {
-          return item[0].split(&apos;,&apos;)
-        })
-        if (format === &apos;csv&apos;) resolve(arr)
-        else reject(new Error(&apos;[Format Error]:你上传的不是Csv文件&apos;))
-      }
-    })
-  }
-
-/**
- * @param {Array} array 表格数据二维数组
- * @returns {Object} { columns, tableData }
- * @description 从二维数组中获取表头和表格数据，将第一行作为表头，用于在iView的表格中展示数据
- */
-export const getTableDataFromArray = (array) =&gt; {
-  let columns = []
-  let tableData = []
-  if (array.length &gt; 1) {
-    let titles = array.shift() //删除数组中的第一个元素（red），并返回被删除元素的值
-    columns = titles.map(item =&gt; {
-      return {
-        title: item,
-        key: item
-      }
-    })
-    tableData = array.map(item =&gt; {
-      let res = {}
-      item.forEach((col, i) =&gt; {
-        res[titles[i]] = col
-      })
-      return res
-    })
-  }
-  return {
-    columns,
-    tableData
-  }
-}
-
-iview Upload组件的beforeUpload应用
-
-beforeUpload (file) {//beforeUpload得到文件对象
-      getArrayFromFile(file).then(data =&gt; {
-        let {columns, tableData} = getTableDataFromArray(data)
-        this.columns = columns
-        this.tableData = tableData
-      }).catch(() =&gt; {
-        this.$Notice.warning({
-          title: &apos;只能上传Csv文件&apos;,
-          desc: &apos;只能上传Csv文件，请重新上传&apos;
-        })
-      })
-      return false
-    }
-</code></pre><ul>
-<li><p>数组的交集</p>
-<pre><code>/**
- * @param {Array} arr1
- * @param {Array} arr2
- * @description 得到两个数组的交集, 两个数组的元素为数值或字符串
- */
-export const getIntersection = (arr1, arr2) =&gt; {
-  let len = Math.min(arr1.length, arr2.length)
-  let i = -1
-  let res = []
-  while (++i &lt; len) {
-    const item = arr2[i]
-    if (arr1.indexOf(item) &gt; -1) res.push(item)
-  }
-  return res
-}
-</code></pre></li>
-<li><p>数组的并集</p>
-<pre><code>/**
- * @param {Array} arr1
- * @param {Array} arr2
- * @description 得到两个数组的并集, 两个数组的元素为数值或字符串
- */
-export const getUnion = (arr1, arr2) =&gt; {
-  return Array.from(new Set([...arr1, ...arr2]))
-}
-</code></pre></li>
-</ul>
-<ul>
-<li>判断数组</li>
-</ul>
-<pre><code>/**
- * @param {Array} target 目标数组
- * @param {Array} arr 需要查询的数组
- * @description 判断要查询的数组是否至少有一个元素包含在目标数组中
- */
-export const hasOneOf = (target, arr) =&gt; {
-  return target.some(_ =&gt; arr.indexOf(_) &gt; -1)
-}
-</code></pre><ul>
-<li><p>验证</p>
-<pre><code>/**
- * @param {String|Number} value 要验证的字符串或数值
- * @param {*} validList 用来验证的列表
- */
-export function oneOf (value, validList) {
-  for (let i = 0; i &lt; validList.length; i++) {
-    if (value === validList[i]) {
-      return true
-    }
-  }
-  return false
-}
-</code></pre></li>
-</ul>
-<pre><code>/**
- * 判断一个对象是否存在key，如果传入第二个参数key，则是判断这个obj对象是否存在key这个属性
- * 如果没有传入key这个参数，则判断obj对象是否有键值对
- */
-export const hasKey = (obj, key) =&gt; {
-  if (key) return key in obj
-  else {
-    let keysArr = Object.keys(obj)
-    return keysArr.length
-  }
-}
-</code></pre>
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-    
-
-    
-    <div>
-      
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/09/node-js模块定义模式/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="厚朴酚">
-      <meta itemprop="description" content="学习笔记">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="厚朴酚">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/09/node-js模块定义模式/" itemprop="url">
-                  node.js模块定义模式
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-11-09 08:52:42 / 修改时间：09:42:02" itemprop="dateCreated datePublished" datetime="2018-11-09T08:52:42+08:00">2018-11-09</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/node-js/" itemprop="url" rel="index"><span itemprop="name">node.js</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="模块定义模式"><a href="#模块定义模式" class="headerlink" title="模块定义模式"></a>模块定义模式</h3><p>模块除了用于加载依赖关系的机制之外,还用于定义API工具,最大限度地隐藏信息和API可用性,可扩展性和代码复用.</p>
-<h4 id="命名导出"><a href="#命名导出" class="headerlink" title="命名导出"></a>命名导出</h4><p>最基本的方法,把要公开的值赋给由exports(或者module.exports)引用对象的属性.生成导出对象为一组相关功能的容器或命名空间.</p>
-<h5 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h5><ul>
-<li>定义模块</li>
-</ul>
-<pre><code>//file  logger.js
-exports.info = (message) =&gt; {
-    console.log(&apos;info:&apos;+message)
-}
-
-exports.verbose = (message) =&gt; {
-    console.log(&apos;verbose&apos; + message)
-}
-</code></pre><ul>
-<li>引用模块</li>
-</ul>
-<pre><code>const logger = require(&apos;./logger&apos;)
-
-logger.info(&apos;this is info&apos;)
-
-logger.verbose(&apos;this is a verbose&apos;)
-</code></pre><h4 id="导出函数-–substack模式"><a href="#导出函数-–substack模式" class="headerlink" title="导出函数 –substack模式"></a>导出函数 –substack模式</h4><p>最流行的一种模块定义模式是将整个module.exports变量重新分配给一个函数,主要优点只暴露一个单一的功能,提供明确的入口点,遵守小接触面的原则,也称为substack模式</p>
-<h5 id="案例-1"><a href="#案例-1" class="headerlink" title="案例"></a>案例</h5><ul>
-<li><p>定义导出函数模块</p>
-<pre><code>//logger.js
-module.exports = (message) =&gt; {//默认导出的
-    console.log(`info:${message}`)
-}
-
-module.exports.verbose = (message) =&gt; {
-    console.log(`verbose:${message}`)
-}
-</code></pre></li>
-<li><p>引用模块</p>
-<pre><code>//file main.js
-
-const logger = require(&apos;./module&apos;)
-
-logger(&apos;this is info default function&apos;)
-
-logger.verbose(&apos;this is verbose function&apos;)
-</code></pre></li>
-</ul>
-<p>虽然只输出一个函数看上去是一种限制,实际上它是一种完美的方式,把重心放在一个模块最重要的单一功能,减低内部的可见性同时,导出函数本身的属性,node.js的模块快极大鼓励采用单一责任原则,每个模块应该对单个功能负责,该责任完全由模块封装.</p>
-<h4 id="导出构造函数"><a href="#导出构造函数" class="headerlink" title="导出构造函数"></a>导出构造函数</h4><p>导出构造函数的模块是导出函数模块的特别化, 区别在于:使用该模式,允许用户使用构造函数创建新实例,还可以扩展其原型并创建新类</p>
-<ul>
-<li><p>定义构造函数模块</p>
-<pre><code>//logger.js
-function Logger(name) {
-    this.name = name
-}
-
-Logger.prototype.log = function(message){
-    console.log(`[${this.name}] ${message}`)
-}
-
-Logger.prototype.verbose = function(message) {
-    this.log(`info:${message}`)
-}
-
-Logger.prototype.info = function(message) {
-    this.log(`info:${message}`)
-}
-
-module.exports = Logger
-</code></pre></li>
-<li><p>引用构造函数</p>
-</li>
-</ul>
-<pre><code>const Logger = require(&apos;./module&apos;)
-const dblog = new Logger(&apos;db&apos;)
-
-dblog.info(&apos;this info fun&apos;)
-
-const accessLogger = new Logger(&apos;adcb&apos;)
-accessLogger.verbose(&apos;this is verbose fun&apos;)
-</code></pre><ul>
-<li><p>ES6方式</p>
-<pre><code>class Logger {
-    constructor(name) {
-        this.name = name
-    }
-    log(message) {
-        console.log(`[${this.name}] [${message}]`)
-    }
-    info(message) {
-        this.log(`info:${message}`)
-    }
-    verbose(message) {
-        this.log(`verbose:${message}`)
-    }
-}
-
-module.exports = Logger;
-</code></pre></li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-    
-
-    
-    <div>
-      
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/08/javascript闭包/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="厚朴酚">
-      <meta itemprop="description" content="学习笔记">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="厚朴酚">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/08/javascript闭包/" itemprop="url">
-                  javascript闭包
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-11-08 14:48:42 / 修改时间：15:17:06" itemprop="dateCreated datePublished" datetime="2018-11-08T14:48:42+08:00">2018-11-08</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="学习javascript闭包"><a href="#学习javascript闭包" class="headerlink" title="学习javascript闭包"></a>学习javascript闭包</h3><h4 id="变量的作用域"><a href="#变量的作用域" class="headerlink" title="变量的作用域"></a>变量的作用域</h4><p>变量的作用域无非就两种:全局变量和局部变量</p>
-<ul>
-<li><p>函数内部可以直接读取全局变量</p>
-<pre><code>var n =1;
-function f1(){
-    alert(n)
-}
-f1();//1
-</code></pre></li>
-<li><p>函数外部无法读取函数内的局部变量</p>
-<pre><code>function f1(){
-var n =1
-}
-alert(n) //n is not defined
-</code></pre></li>
-</ul>
-<h4 id="外部如何读取局部变量"><a href="#外部如何读取局部变量" class="headerlink" title="外部如何读取局部变量"></a>外部如何读取局部变量</h4><ul>
-<li><p>那就是在函数的内部，再定义一个函数。</p>
-<pre><code>function f1(){
-　　var n=999;
-　　function f2(){
-　　alert(n); 
-　　}
-　　return f2;
-　　}
-var result=f1();
-result();//999
-</code></pre></li>
-</ul>
-<p>在上面的代码中，函数f2就被包括在函数f1内部，这时f1内部的所有局部变量，对f2都是可见的。但是反过来就不行，f2内部的局部变量，对f1就是不可见的。这就是Javascript语言特有的”链式作用域”结构（chain scope），子对象会一级一级地向上寻找所有父对象的变量。所以，父对象的所有变量，对子对象都是可见的，反之则不成立。</p>
-<p>既然f2可以读取f1中的局部变量，那么只要把f2作为返回值，就可以在f1外部读取它的内部变量了吗！</p>
-<h3 id="闭包的概念"><a href="#闭包的概念" class="headerlink" title="闭包的概念"></a>闭包的概念</h3><p>闭包就是能够读取其他函数内部变量的函数。<br>由于在Javascript语言中，只有函数内部的子函数才能读取局部变量，因此可以把闭包简单理解成”定义在一个函数内部的函数”。<br>所以，在本质上，闭包就是将函数内部和函数外部连接起来的一座桥梁。</p>
-<h3 id="闭包的用途"><a href="#闭包的用途" class="headerlink" title="闭包的用途"></a>闭包的用途</h3><ul>
-<li>一个是前面提到的可以读取函数内部的变量</li>
-<li><p>另一个就是让这些变量的值始终保持在内存中。</p>
-<pre><code>function f1(){
-
-　　　　var n=999;
-
-　　　　nAdd=function(){n+=1}
-
-　　　　function f2(){
-　　　　　　alert(n);
-　　　　}
-
-　　　　return f2;
-
-　　}
-
-　　var result=f1();
-
-　　result(); // 999
-
-　　nAdd();
-
-　　result(); // 1000
-</code></pre></li>
-</ul>
-<p>result实际上就是闭包f2函数。它一共运行了两次，第一次的值是999，第二次的值是1000。这证明了，函数f1中的局部变量n一直保存在内存中，并没有在f1调用后被自动清除。</p>
-<p>原因就在于f1是f2的父函数，而f2被赋给了一个全局变量，这导致f2始终在内存中，而f2的存在依赖于f1，因此f1也始终在内存中，不会在调用结束后，被垃圾回收机制（garbage collection）回收。</p>
-<h3 id="使用闭包的注意点"><a href="#使用闭包的注意点" class="headerlink" title="使用闭包的注意点"></a>使用闭包的注意点</h3><p>1）由于闭包会使得函数中的变量都被保存在内存中，内存消耗很大，所以不能滥用闭包，否则会造成网页的性能问题，在IE中可能导致内存泄露。解决方法是，在退出函数之前，将不使用的局部变量全部删除。</p>
-<p>2）闭包会在父函数外部，改变父函数内部变量的值。所以，如果你把父函数当作对象（object）使用，把闭包当作它的公用方法（Public Method），把内部变量当作它的私有属性（private value），这时一定要小心，不要随便改变父函数内部变量的值。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-    
-
-    
-    <div>
-      
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/08/javaScript的异步编程解决方案-Promise/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="厚朴酚">
-      <meta itemprop="description" content="学习笔记">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="厚朴酚">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/08/javaScript的异步编程解决方案-Promise/" itemprop="url">
-                  javaScript的异步编程解决方案-Promise
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-11-08 13:27:18 / 修改时间：14:45:20" itemprop="dateCreated datePublished" datetime="2018-11-08T13:27:18+08:00">2018-11-08</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="javascript异步编程解决方案-promise"><a href="#javascript异步编程解决方案-promise" class="headerlink" title="javascript异步编程解决方案-promise"></a>javascript异步编程解决方案-promise</h2><p>主要内容根据阮一峰的书籍ES6第三版</p>
-<h3 id="Promise的含义"><a href="#Promise的含义" class="headerlink" title="Promise的含义"></a>Promise的含义</h3><p>所谓Promise，简单说就是一个容器，里面保存着某个未来才会结束的事件（通常是一个异步操作）的结果。从语法上说，Promise 是一个对象，从它可以获取异步操作的消息。</p>
-<h3 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h3><p>ES6规定: Promise对象是一个构造函数,用来生成Promise示例</p>
-<pre><code>const promise = new Promise(function(resolve,reject){
-            //...some code
-            let a = 3 + 5
-            if (a) {//异步操作成功,保存结果值
-                resolve(a)
-            } else {
-                reject(error)
-            }
-        })
-        promise.then() //Promise {&lt;pending&gt;}
-        console.log(promise.then((value)=&gt;{
-            console.log(value) //8
-        }))
-</code></pre><p>Promise构造函数接收一个函数为参数,该函数的两个参数分别是resolve和reject.(分别是两个函数)</p>
-<ul>
-<li><p>resolve函数的作用: 将Promise对象的状态从”未完成”变为”成功”,既从pending变为resolved,在异步操作成功调用,并将异步操作的结果,作为参数传递出去.</p>
-</li>
-<li><p>reject函数的作用:将Promise对象的状态从”未完成”变为失败,既从pending变为reject,在异步操作失败的时候调用,并将异步操作报出的错误作为参数传递出去.</p>
-</li>
-</ul>
-<p>Promise实例生成以后,可以用then方法分别指定resolved状态和rejected状态的回调函数.</p>
-<pre><code>promise.then(function(value) {
-  // success
-}, function(error) {
-  // failure
-});
-</code></pre><ul>
-<li>then方法可以接受两个回调函数作为参数, 第一个回调函数是Promise对象的状态变为resolved时调用, 第二回调函数是promise对象变为reject时候调用,其中,第二个函数是可选的,不一定要提供,这两个函数都接收Promise对象传出的值作为参数.</li>
-</ul>
-<h4 id="一个简单例子"><a href="#一个简单例子" class="headerlink" title="一个简单例子"></a>一个简单例子</h4><pre><code>function timeout(ms) {
-            return new Promise((resolve,reject)=&gt;{
-                setTimeout(resolve,ms,&apos;done&apos;)
-            })
-        }
-
-        timeout(100).then((value)=&gt;{
-            console.log(value) //输出done
-        })
-</code></pre><p>解析: timeout方法返回一个Promise实例,表示一段时间以后才会发送的结果,过了指定参数ms以后,Promise实例的状态变为resolved,就会触发then方法绑定的回调函数.</p>
-<h4 id="一个promise知识点-Promise新建后会立即执行"><a href="#一个promise知识点-Promise新建后会立即执行" class="headerlink" title="一个promise知识点:Promise新建后会立即执行"></a>一个promise知识点:Promise新建后会立即执行</h4><h5 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h5><pre><code>let test = new Promise(function(resolve,reject){
-        console.log(&apos;Promise&apos;)
-        resolve()
-    })
-    test.then(function(){
-        console.log(&apos;resolved&apos;)
-    })
-    console.log(&apos;hello promise&apos;)
-    //输出的顺序
-    //  Promise
-    //  hello promise
-    //  resolved
-</code></pre><p>解析: Promise新建之后立即执行,所以首先输出的是Promise,然后then方法指定的回调韩素华,将在当前脚本所有同步任务执行完才会执行,所有resolved最后输出.</p>
-<h5 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h5><pre><code>function loadImageAsync(url){
-        return new Promise(function(resolve,reject){
-            const image = new Image()
-            image.onload = function(){
-                resolve(image)
-            }
-            image.onerror = function(){
-                reject(new Error(&apos;could not load image at&apos; + url))
-            }
-            image.src = url
-        })
-    }
-</code></pre><p>没给参数调用的结果</p>
-<pre><code>loadImageAsync().then(function(value){
-    console.log(value)
-},function(error){
-    console.log(error)
-})
-</code></pre><p>Error: could not load image atundefined<br>    at Image.image.onerror (promise.html:54)</p>
-<h5 id="用Promise对象实现的-Ajax-操作的例子。"><a href="#用Promise对象实现的-Ajax-操作的例子。" class="headerlink" title="用Promise对象实现的 Ajax 操作的例子。"></a>用Promise对象实现的 Ajax 操作的例子。</h5><pre><code>const getJSON = function(url){
-    const promise = new Promise(function (resolve,reject) {
-        const handler = function(){
-            if (this.readyState !== 4){
-                return
-            }
-            if (this.status === 200) {
-                resolve(this.response)
-            } else {
-                reject(new Error(this.statusText))
-            }
-        }
-        const client = new XMLHttpRequest()
-        client.open(&quot;GET&quot;,url)
-        client.onreadystatechange = handler
-        client.responseType = &quot;json&quot;
-        client.setRequestHeader(&quot;Accept&quot;,&quot;application/json&quot;)
-        client.send()
-      })
-      return promise
-}
-    getJSON(&quot;/post.json&quot;).then(function(json){
-        console.log(&apos;Contents:&apos; + json)
-    },function(error){
-        console.error(&apos;c出错了&apos;, error)
-    })
-</code></pre><p>上面代码中，getJSON是对 XMLHttpRequest 对象的封装，用于发出一个针对 JSON 数据的 HTTP 请求，并且返回一个Promise对象。需要注意的是，在getJSON内部，resolve函数和reject函数调用时，都带有参数。</p>
-<p>如果调用resolve函数和reject函数时带有参数，那么它们的参数会被传递给回调函数。reject函数的参数通常是Error对象的实例，表示抛出的错误；resolve函数的参数除了正常的值以外，还可能是另一个 Promise 实例，比如像下面这样。</p>
-<pre><code>const p1 = new Promise(function (resolve, reject) {
-  // ...
-});
-
-const p2 = new Promise(function (resolve, reject) {
-  // ...
-  resolve(p1);
-})
-</code></pre><p>注意，这时p1的状态就会传递给p2，也就是说，p1的状态决定了p2的状态。如果p1的状态是pending，那么p2的回调函数就会等待p1的状态改变；如果p1的状态已经是resolved或者rejected，那么p2的回调函数将会立刻执行。</p>
-<pre><code>const p1 = new Promise(function (resolve, reject) {
-  setTimeout(() =&gt; reject(new Error(&apos;fail&apos;)), 3000)
-})
-
-const p2 = new Promise(function (resolve, reject) {
-  setTimeout(() =&gt; resolve(p1), 1000)
-})
-
-p2
-  .then(result =&gt; console.log(result))
-  .catch(error =&gt; console.log(error))
-// Error: fail
-</code></pre><p>上面代码中，p1是一个 Promise，3 秒之后变为rejected。p2的状态在 1 秒之后改变，resolve方法返回的是p1。由于p2返回的是另一个 Promise，导致p2自己的状态无效了，由p1的状态决定p2的状态。所以，后面的then语句都变成针对后者（p1）。又过了 2 秒，p1变为rejected，导致触发catch方法指定的回调函数。</p>
-<p>注意，调用resolve或reject并不会终结 Promise 的参数函数的执行。</p>
-<pre><code>new Promise((resolve, reject) =&gt; {
-  resolve(1);
-  console.log(2);
-}).then(r =&gt; {
-  console.log(r);
-});
-// 2
-// 1
-</code></pre><p>上面代码中，调用resolve(1)以后，后面的console.log(2)还是会执行，并且会首先打印出来。这是因为立即 resolved 的 Promise 是在本轮事件循环的末尾执行，总是晚于本轮循环的同步任务。</p>
-<p>一般来说，调用resolve或reject以后，Promise 的使命就完成了，后继操作应该放到then方法里面，而不应该直接写在resolve或reject的后面。所以，最好在它们前面加上return语句，这样就不会有意外。</p>
-<pre><code>new Promise((resolve, reject) =&gt; {
-  return resolve(1);
-  // 后面的语句不会执行
-  console.log(2);
-})
-</code></pre><h3 id="Promise-prototype-then"><a href="#Promise-prototype-then" class="headerlink" title="Promise.prototype.then()"></a>Promise.prototype.then()</h3><p>Promise 实例具有then方法，也就是说，then方法是定义在原型对象Promise.prototype上的。它的作用是为 Promise 实例添加状态改变时的回调函数。前面说过，then方法的第一个参数是resolved状态的回调函数，第二个参数（可选）是rejected状态的回调函数。</p>
-<p>then方法返回的是一个新的Promise实例（注意，不是原来那个Promise实例）。因此可以采用链式写法，即then方法后面再调用另一个then方法。</p>
-<pre><code>getJSON(&quot;/posts.json&quot;).then(function(json) {
-  return json.post;
-}).then(function(post) {
-  // ...
-});
-</code></pre><p>上面的代码使用then方法，依次指定了两个回调函数。第一个回调函数完成以后，会将返回结果作为参数，传入第二个回调函数。</p>
-<p>采用链式的then，可以指定一组按照次序调用的回调函数。这时，前一个回调函数，有可能返回的还是一个Promise对象（即有异步操作），这时后一个回调函数，就会等待该Promise对象的状态发生变化，才会被调用。</p>
-<pre><code>getJSON(&quot;/post/1.json&quot;).then(function(post) {
-  return getJSON(post.commentURL);
-}).then(function funcA(comments) {
-  console.log(&quot;resolved: &quot;, comments);
-}, function funcB(err){
-  console.log(&quot;rejected: &quot;, err);
-});
-</code></pre><p>上面代码中，第一个then方法指定的回调函数，返回的是另一个Promise对象。这时，第二个then方法指定的回调函数，就会等待这个新的Promise对象状态发生变化。如果变为resolved，就调用funcA，如果状态变为rejected，就调用funcB。</p>
-<p>如果采用箭头函数，上面的代码可以写得更简洁。</p>
-<pre><code>getJSON(&quot;/post/1.json&quot;).then(
-  post =&gt; getJSON(post.commentURL)
-).then(
-  comments =&gt; console.log(&quot;resolved: &quot;, comments),
-  err =&gt; console.log(&quot;rejected: &quot;, err)
-);
-</code></pre><h3 id="Promise-prototype-catch"><a href="#Promise-prototype-catch" class="headerlink" title="Promise.prototype.catch()"></a>Promise.prototype.catch()</h3><p>Promise.prototype.catch方法是.then(null, rejection)的别名，用于指定发生错误时的回调函数。</p>
-<pre><code>getJSON(&apos;/posts.json&apos;).then(function(posts) {
-  // ...
-}).catch(function(error) {
-  // 处理 getJSON 和 前一个回调函数运行时发生的错误
-  console.log(&apos;发生错误！&apos;, error);
-});
-</code></pre><p>上面代码中，getJSON方法返回一个 Promise 对象，如果该对象状态变为resolved，则会调用then方法指定的回调函数；如果异步操作抛出错误，状态就会变为rejected，就会调用catch方法指定的回调函数，处理这个错误。另外，then方法指定的回调函数，如果运行中抛出错误，也会被catch方法捕获。</p>
-<pre><code>p.then((val) =&gt; console.log(&apos;fulfilled:&apos;, val))
-  .catch((err) =&gt; console.log(&apos;rejected&apos;, err));
-
-// 等同于
-p.then((val) =&gt; console.log(&apos;fulfilled:&apos;, val))
-  .then(null, (err) =&gt; console.log(&quot;rejected:&quot;, err));
-</code></pre><p>Promise 对象的错误具有“冒泡”性质，会一直向后传递，直到被捕获为止。也就是说，错误总是会被下一个catch语句捕获。</p>
-<pre><code>getJSON(&apos;/post/1.json&apos;).then(function(post) {
-  return getJSON(post.commentURL);
-}).then(function(comments) {
-  // some code
-}).catch(function(error) {
-  // 处理前面三个Promise产生的错误
-});
-</code></pre><p>上面代码中，一共有三个 Promise 对象：一个由getJSON产生，两个由then产生。它们之中任何一个抛出的错误，都会被最后一个catch捕获。</p>
-<p>一般来说，不要在then方法里面定义 Reject 状态的回调函数（即then的第二个参数），总是使用catch方法。</p>
-<pre><code>// bad
-promise
-  .then(function(data) {
-    // success
-  }, function(err) {
-    // error
-  });
-
-// good
-promise
-  .then(function(data) { //cb
-    // success
-  })
-  .catch(function(err) {
-    // error
-  });
-</code></pre><p>上面代码中，第二种写法要好于第一种写法，理由是第二种写法可以捕获前面then方法执行中的错误，也更接近同步的写法（try/catch）。因此，建议总是使用catch方法，而不使用then方法的第二个参数。</p>
-<pre><code>Promise.resolve()
-.catch(function(error) {
-  console.log(&apos;oh no&apos;, error);
-})
-.then(function() {
-  console.log(&apos;carry on&apos;);
-});
-// carry on
-</code></pre><p>上面的代码因为没有报错，跳过了catch方法，直接执行后面的then方法。此时，要是then方法里面报错，就与前面的catch无关了。</p>
-<p>一般总是建议，Promise 对象后面要跟catch方法，这样可以处理 Promise 内部发生的错误。catch方法返回的还是一个 Promise 对象，因此后面还可以接着调用then方法。</p>
-<h3 id="Promise-prototype-finally"><a href="#Promise-prototype-finally" class="headerlink" title="Promise.prototype.finally()"></a>Promise.prototype.finally()</h3><p>finally方法用于指定不管 Promise 对象最后状态如何，都会执行的操作。该方法是 ES2018 引入标准的。</p>
-<pre><code>promise
-.then(result =&gt; {···})
-.catch(error =&gt; {···})
-.finally(() =&gt; {···});
-</code></pre><p>上面代码中，不管promise最后的状态，在执行完then或catch指定的回调函数以后，都会执行finally方法指定的回调函数。</p>
-<pre><code>server.listen(port)
-  .then(function () {
-    // ...
-  })
-  .finally(server.stop);
-</code></pre><p>finally方法的回调函数不接受任何参数，这意味着没有办法知道，前面的 Promise 状态到底是fulfilled还是rejected。这表明，finally方法里面的操作，应该是与状态无关的，不依赖于 Promise 的执行结果。</p>
-<p>finally本质上是then方法的特例。</p>
-<pre><code>promise
-.finally(() =&gt; {
-  // 语句
-});
-
-// 等同于
-promise
-.then(
-  result =&gt; {
-    // 语句
-    return result;
-  },
-  error =&gt; {
-    // 语句
-    throw error;
-  }
-);
-</code></pre><p>上面代码中，如果不使用finally方法，同样的语句需要为成功和失败两种情况各写一次。有了finally方法，则只需要写一次。</p>
-<pre><code>Promise.prototype.finally = function (callback) {
-  let P = this.constructor;
-  return this.then(
-    value  =&gt; P.resolve(callback()).then(() =&gt; value),
-    reason =&gt; P.resolve(callback()).then(() =&gt; { throw reason })
-  );
-};
-</code></pre><p>上面代码中，不管前面的 Promise 是fulfilled还是rejected，都会执行回调函数callback。</p>
-<p>从上面的实现还可以看到，finally方法总是会返回原来的值。</p>
-<pre><code>// resolve 的值是 undefined
-Promise.resolve(2).then(() =&gt; {}, () =&gt; {})
-
-// resolve 的值是 2
-Promise.resolve(2).finally(() =&gt; {})
-
-// reject 的值是 undefined
-Promise.reject(3).then(() =&gt; {}, () =&gt; {})
-
-// reject 的值是 3
-Promise.reject(3).finally(() =&gt; {})
-</code></pre><h3 id="Promise-all"><a href="#Promise-all" class="headerlink" title="Promise.all()"></a>Promise.all()</h3><p>Promise.all方法用于将多个 Promise 实例，包装成一个新的 Promise 实例。</p>
-<pre><code>const p = Promise.all([p1, p2, p3]);
-</code></pre><p>上面代码中，Promise.all方法接受一个数组作为参数，p1、p2、p3都是 Promise 实例，如果不是，就会先调用下面讲到的Promise.resolve方法，将参数转为 Promise 实例，再进一步处理。（Promise.all方法的参数可以不是数组，但必须具有 Iterator 接口，且返回的每个成员都是 Promise 实例。）</p>
-<p>p的状态由p1、p2、p3决定，分成两种情况。</p>
-<p>（1）只有p1、p2、p3的状态都变成fulfilled，p的状态才会变成fulfilled，此时p1、p2、p3的返回值组成一个数组，传递给p的回调函数。</p>
-<p>（2）只要p1、p2、p3之中有一个被rejected，p的状态就变成rejected，此时第一个被reject的实例的返回值，会传递给p的回调函数。</p>
-<pre><code>// 生成一个Promise对象的数组
-
-const promises = [2, 3, 5, 7, 11, 13].map(function (id) {
-  return getJSON(&apos;/post/&apos; + id + &quot;.json&quot;);
-});
-
-Promise.all(promises).then(function (posts) {
-  // ...
-}).catch(function(reason){
-  // ...
-});
-</code></pre><p>上面代码中，promises是包含 6 个 Promise 实例的数组，只有这 6 个实例的状态都变成fulfilled，或者其中有一个变为rejected，才会调用Promise.all方法后面的回调函数。</p>
-<pre><code>const databasePromise = connectDatabase();
-
-const booksPromise = databasePromise
-  .then(findAllBooks);
-
-const userPromise = databasePromise
-  .then(getCurrentUser);
-
-Promise.all([
-  booksPromise,
-  userPromise
-])
-.then(([books, user]) =&gt; pickTopRecommentations(books, user));
-</code></pre><p>上面代码中，booksPromise和userPromise是两个异步操作，只有等到它们的结果都返回了，才会触发pickTopRecommentations这个回调函数。</p>
-<p>注意，如果作为参数的 Promise 实例，自己定义了catch方法，那么它一旦被rejected，并不会触发Promise.all()的catch方法。</p>
-<pre><code>const p1 = new Promise((resolve, reject) =&gt; {
-  resolve(&apos;hello&apos;);
-})
-.then(result =&gt; result)
-.catch(e =&gt; e);
-
-const p2 = new Promise((resolve, reject) =&gt; {
-  throw new Error(&apos;报错了&apos;);
-})
-.then(result =&gt; result)
-.catch(e =&gt; e);
-
-Promise.all([p1, p2])
-.then(result =&gt; console.log(result))
-.catch(e =&gt; console.log(e));
-// [&quot;hello&quot;, Error: 报错了]
-</code></pre><p>上面代码中，p1会resolved，p2首先会rejected，但是p2有自己的catch方法，该方法返回的是一个新的 Promise 实例，p2指向的实际上是这个实例。该实例执行完catch方法后，也会变成resolved，导致Promise.all()方法参数里面的两个实例都会resolved，因此会调用then方法指定的回调函数，而不会调用catch方法指定的回调函数。</p>
-<p>如果p2没有自己的catch方法，就会调用Promise.all()的catch方法。</p>
-<pre><code>const p1 = new Promise((resolve, reject) =&gt; {
-  resolve(&apos;hello&apos;);
-})
-.then(result =&gt; result);
-
-const p2 = new Promise((resolve, reject) =&gt; {
-  throw new Error(&apos;报错了&apos;);
-})
-.then(result =&gt; result);
-
-Promise.all([p1, p2])
-.then(result =&gt; console.log(result))
-.catch(e =&gt; console.log(e));
-// Error: 报错了
-</code></pre><h3 id="Promise-race"><a href="#Promise-race" class="headerlink" title="Promise.race()"></a>Promise.race()</h3><p>Promise.race方法同样是将多个 Promise 实例，包装成一个新的 Promise 实例。</p>
-<pre><code>const p = Promise.race([p1, p2, p3]);
-</code></pre><p>上面代码中，只要p1、p2、p3之中有一个实例率先改变状态，p的状态就跟着改变。那个率先改变的 Promise 实例的返回值，就传递给p的回调函数。</p>
-<p>Promise.race方法的参数与Promise.all方法一样，如果不是 Promise 实例，就会先调用下面讲到的Promise.resolve方法，将参数转为 Promise 实例，再进一步处理。</p>
-<p>下面是一个例子，如果指定时间内没有获得结果，就将 Promise 的状态变为reject，否则变为resolve。</p>
-<pre><code>const p = Promise.race([
-  fetch(&apos;/resource-that-may-take-a-while&apos;),
-  new Promise(function (resolve, reject) {
-    setTimeout(() =&gt; reject(new Error(&apos;request timeout&apos;)), 5000)
-  })
-]);
-
-p
-.then(console.log)
-.catch(console.error);
-</code></pre><p>上面代码中，如果 5 秒之内fetch方法无法返回结果，变量p的状态就会变为rejected，从而触发catch方法指定的回调函数。</p>
-<h3 id="Promise-resolve"><a href="#Promise-resolve" class="headerlink" title="Promise.resolve()"></a>Promise.resolve()</h3><p>有时需要将现有对象转为 Promise 对象，Promise.resolve方法就起到这个作用</p>
-<pre><code>const jsPromise = Promise.resolve($.ajax(&apos;/whatever.json&apos;));
-</code></pre><p>上面代码将 jQuery 生成的deferred对象，转为一个新的 Promise 对象。<br>Promise.resolve等价于下面的写法。</p>
-<pre><code>Promise.resolve(&apos;foo&apos;)
-// 等价于
-new Promise(resolve =&gt; resolve(&apos;foo&apos;))
-</code></pre><h3 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h3><h4 id="加载图片"><a href="#加载图片" class="headerlink" title="加载图片"></a>加载图片</h4><p>我们可以将图片的加载写成一个Promise，一旦加载完成，Promise的状态就发生变化。</p>
-<pre><code>const preloadImage = function (path) {
-  return new Promise(function (resolve, reject) {
-    const image = new Image();
-    image.onload  = resolve;
-    image.onerror = reject;
-    image.src = path;
-  });
-};
-</code></pre><h4 id="Generator与Promise的结合"><a href="#Generator与Promise的结合" class="headerlink" title="Generator与Promise的结合"></a>Generator与Promise的结合</h4><p>使用 Generator 函数管理流程，遇到异步操作的时候，通常返回一个Promise对象。</p>
-<pre><code>function getFoo () {
-  return new Promise(function (resolve, reject){
-    resolve(&apos;foo&apos;);
-  });
-}
-
-const g = function* () {
-  try {
-    const foo = yield getFoo();
-    console.log(foo);
-  } catch (e) {
-    console.log(e);
-  }
-};
-
-function run (generator) {
-  const it = generator();
-
-  function go(result) {
-    if (result.done) return result.value;
-
-    return result.value.then(function (value) {
-      return go(it.next(value));
-    }, function (error) {
-      return go(it.throw(error));
-    });
-  }
-
-  go(it.next());
-}
-
-run(g);
-</code></pre>
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-    
-
-    
-    <div>
-      
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/06/vue修饰符/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="厚朴酚">
-      <meta itemprop="description" content="学习笔记">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="厚朴酚">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/06/vue修饰符/" itemprop="url">
-                  vue修饰符
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-11-06 18:14:46 / 修改时间：19:07:55" itemprop="dateCreated datePublished" datetime="2018-11-06T18:14:46+08:00">2018-11-06</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/vue/" itemprop="url" rel="index"><span itemprop="name">vue</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="vue修饰符"><a href="#vue修饰符" class="headerlink" title="vue修饰符"></a>vue修饰符</h2><h3 id="表单修饰符"><a href="#表单修饰符" class="headerlink" title="表单修饰符"></a>表单修饰符</h3><ul>
-<li>.lazy</li>
-</ul>
-<p>这样只有当我们光标离开输入框的时候，它才会更新视图，相当于在onchange事件触发更新</p>
-<ul>
-<li>.trim</li>
-</ul>
-<p>能过滤首尾的空格！首尾，中间的是不会过滤的</p>
-<ul>
-<li>.number</li>
-</ul>
-<p>如果你先输入数字，那它就会限制你输入的只能是数字。</p>
-<p>如果你先输入字符串，那它就相当于没有加.number</p>
-<h3 id="事件修饰符"><a href="#事件修饰符" class="headerlink" title="事件修饰符"></a>事件修饰符</h3><ul>
-<li>.stop</li>
-</ul>
-<p>由于事件冒泡的机制,我们给元素绑定点击事件的时候，也会触发父级的点击事件.</p>
-<p>一键阻止事件冒泡，简直方便得不行。相当于调用了event.stopPropagation()方法。</p>
-<ul>
-<li>.prevent</li>
-</ul>
-<p>用于阻止事件的默认行为，例如，当点击提交按钮时阻止对表单的提交。相当于调用了event.preventDefault()方法。</p>
-<p>注意：修饰符可以同时使用多个,但是可能会因为顺序而有所不同。<br>用 v-on:click.prevent.self 会阻止所有的点击，而 v-on:click.self.prevent 只会阻止对元素自身的点击。<br>也就是从左往右判断.</p>
-<ul>
-<li>.self</li>
-</ul>
-<p>只当事件是从事件绑定的元素本身触发时才触发回调。像下面所示，刚刚我们从.stop时候知道子元素会冒泡到父元素导致触发父元素的点击事件，当我们加了这个.self以后，我们点击button不会触发父元素的点击事件shout，只有当点击到父元素的时候（蓝色背景）才会shout~从这个self的英文翻译过来就是‘自己，本身’可以看出这个修饰符的用法</p>
-<ul>
-<li>.once</li>
-</ul>
-<p>这个修饰符的用法也是和名字一样简单粗暴，只能用一次，绑定了事件以后只能触发一次，第二次就不会触发。</p>
-<ul>
-<li>.capture</li>
-</ul>
-<p>从上面我们知道了事件的冒泡，其实完整的事件机制是：捕获阶段–目标阶段–冒泡阶段。<br>默认的呢，是事件触发是从目标开始往上冒泡。<br>当我们加了这个.capture以后呢，我们就反过来了，事件触发从包含这个元素的顶层开始往下触发。</p>
-<p>从上面这个例子我们点击obj4的时候，就可以清楚地看出区别，obj1，obj2在捕获阶段就触发了事件，因此是先1后2，后面的obj3，obj4是默认的冒泡阶段触发，因此是先4然后冒泡到3~</p>
-<ul>
-<li>.passive</li>
-</ul>
-<p>当我们在监听元素滚动事件的时候，会一直触发onscroll事件，在pc端是没啥问题的，但是在移动端，会让我们的网页变卡，因此我们使用这个修饰符的时候，相当于给onscroll事件整了一个.lazy修饰符</p>
-<ul>
-<li>.native</li>
-</ul>
-<p>必须使用.native来修饰这个click事件（即<my-component @click.native="shout(3)"></my-component>），可以理解为该修饰符的作用就是把一个vue组件转化为一个普通的HTML标签，<br>注意：使用.native修饰符来操作普通HTML标签是会令事件失效的</p>
-<h3 id="键值修饰符"><a href="#键值修饰符" class="headerlink" title="键值修饰符"></a>键值修饰符</h3><pre><code>//普通键
-.enter 
-.tab
-.delete //(捕获“删除”和“退格”键)
-.space
-.esc
-.up
-.down
-.left
-.right
-//系统修饰键
-.ctrl
-.alt
-.meta
-.shift
-</code></pre>
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-    
-
-    
-    <div>
-      
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/06/js复杂判断的优雅写法/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="厚朴酚">
-      <meta itemprop="description" content="学习笔记">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="厚朴酚">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/06/js复杂判断的优雅写法/" itemprop="url">
-                  js复杂判断的优雅写法
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-11-06 13:31:47 / 修改时间：13:52:11" itemprop="dateCreated datePublished" datetime="2018-11-06T13:31:47+08:00">2018-11-06</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="JS复杂判断的优雅写法"><a href="#JS复杂判断的优雅写法" class="headerlink" title="JS复杂判断的优雅写法"></a>JS复杂判断的优雅写法</h2><p>教程来源链接:</p>
-<p><a href="https://juejin.im/post/5bdfef86e51d453bf8051bf8" target="_blank" rel="noopener">https://juejin.im/post/5bdfef86e51d453bf8051bf8</a></p>
-<p>作者:Think</p>
-<p>来源: 掘金</p>
-<h3 id="前提"><a href="#前提" class="headerlink" title="前提:"></a>前提:</h3><p>编写js代码时经常遇到复杂逻辑判的情况，通常大家可以用if/else或者switch来实现多个条件判断，但这样会有个问题，随着逻辑复杂度的增加，代码中的if/else/switch会变得越来越臃肿，越来越看不懂，那么如何更优雅的写判断逻辑。</p>
-<h3 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h3><h4 id="if-else实现"><a href="#if-else实现" class="headerlink" title="if/else实现"></a>if/else实现</h4><pre><code>/**
- * 按钮点击事件
- * @param {number} status 活动状态：1 开团进行中 2 开团失败 3 商品售罄 4 开团成功 5 系统取消
- */
-const onButtonClick1 = (status)=&gt;{
-  if(status == 1){
-    sendLog(&apos;processing&apos;)
-    jumpTo(&apos;IndexPage&apos;)
-  }else if(status == 2){
-    sendLog(&apos;fail&apos;)
-    jumpTo(&apos;FailPage&apos;)
-  }else if(status == 3){
-    sendLog(&apos;fail&apos;)
-    jumpTo(&apos;FailPage&apos;)
-  }else if(status == 4){
-    sendLog(&apos;success&apos;)
-    jumpTo(&apos;SuccessPage&apos;)
-  }else if(status == 5){
-    sendLog(&apos;cancel&apos;)
-    jumpTo(&apos;CancelPage&apos;)
-  }else {
-    sendLog(&apos;other&apos;)
-    jumpTo(&apos;Index&apos;)
-  }
-}
-</code></pre><p>通过代码可以看到这个按钮的点击逻辑：根据不同活动状态做两件事情，发送日志埋点和跳转到对应页面，大家可以很轻易的提出这段代码的改写方案，switch出场：</p>
-<h4 id="switch改进"><a href="#switch改进" class="headerlink" title="switch改进"></a>switch改进</h4><pre><code>/**
- * 按钮点击事件
- * @param {number} status 活动状态：1 开团进行中 2 开团失败 3 商品售罄 4 开团成功 5 系统取消
- */
-const onButtonClick = (status)=&gt;{
-  switch (status){
-    case 1:
-      sendLog(&apos;processing&apos;)
-      jumpTo(&apos;IndexPage&apos;)
-      break
-    case 2:
-    case 3:
-      sendLog(&apos;fail&apos;)
-      jumpTo(&apos;FailPage&apos;)
-      break  
-    case 4:
-      sendLog(&apos;success&apos;)
-      jumpTo(&apos;SuccessPage&apos;)
-      break
-    case 5:
-      sendLog(&apos;cancel&apos;)
-      jumpTo(&apos;CancelPage&apos;)
-      break
-    default:
-      sendLog(&apos;other&apos;)
-      jumpTo(&apos;Index&apos;)
-      break
-  }
-}
-</code></pre><p>这样看起来比if/else清晰多了，细心的同学也发现了小技巧，case 2和case 3逻辑一样的时候，可以省去执行语句和break，则case 2的情况自动执行case 3的逻辑。</p>
-<h4 id="条件作为属性名的实现"><a href="#条件作为属性名的实现" class="headerlink" title="条件作为属性名的实现"></a>条件作为属性名的实现</h4><pre><code>const actions = {
-  &apos;1&apos;: [&apos;processing&apos;,&apos;IndexPage&apos;],
-  &apos;2&apos;: [&apos;fail&apos;,&apos;FailPage&apos;],
-  &apos;3&apos;: [&apos;fail&apos;,&apos;FailPage&apos;],
-  &apos;4&apos;: [&apos;success&apos;,&apos;SuccessPage&apos;],
-  &apos;5&apos;: [&apos;cancel&apos;,&apos;CancelPage&apos;],
-  &apos;default&apos;: [&apos;other&apos;,&apos;Index&apos;],
-}
-/**
- * 按钮点击事件
- * @param {number} status 活动状态：1开团进行中 2开团失败 3 商品售罄 4 开团成功 5 系统取消
- */
-const onButtonClick = (status)=&gt;{
-  let action = actions[status] || actions[&apos;default&apos;],
-      logName = action[0],
-      pageName = action[1]
-  sendLog(logName)
-  jumpTo(pageName)
-}
-</code></pre><p>这种方法的聪明之处在于：将判断条件作为对象的属性名，将处理逻辑作为对象的属性值，在按钮点击的时候，通过对象属性查找的方式来进行逻辑判断，这种写法特别适合一元条件判断的情况。</p>
-<h4 id="再一种方法"><a href="#再一种方法" class="headerlink" title="再一种方法"></a>再一种方法</h4><pre><code>const actions = new Map([
-  [1, [&apos;processing&apos;,&apos;IndexPage&apos;]],
-  [2, [&apos;fail&apos;,&apos;FailPage&apos;]],
-  [3, [&apos;fail&apos;,&apos;FailPage&apos;]],
-  [4, [&apos;success&apos;,&apos;SuccessPage&apos;]],
-  [5, [&apos;cancel&apos;,&apos;CancelPage&apos;]],
-  [&apos;default&apos;, [&apos;other&apos;,&apos;Index&apos;]]
-])
-/**
- * 按钮点击事件
- * @param {number} status 活动状态：1 开团进行中 2 开团失败 3 商品售罄 4 开团成功 5 系统取消
- */
-const onButtonClick = (status)=&gt;{
-  let action = actions.get(status) || actions.get(&apos;default&apos;)
-  sendLog(action[0])
-  jumpTo(action[1])
-}
-</code></pre><p>这样写用到了es6里的Map对象，是不是更爽了？Map对象和Object对象有什么区别呢？</p>
-<ol>
-<li>一个对象通常都有自己的原型，所以一个对象总有一个”prototype”键。</li>
-<li>一个对象的键只能是字符串或者Symbols，但一个Map的键可以是任意值。</li>
-<li>你可以通过size属性很容易地得到一个Map的键值对个数，而对象的键值对个数只能手动确认。</li>
-</ol>
-<p>把问题升级一下，以前按钮点击时候只需要判断status，现在还需要判断用户的身份:</p>
-<pre><code>/**
- * 按钮点击事件
- * @param {number} status 活动状态：1开团进行中 2开团失败 3 开团成功 4 商品售罄 5 有库存未开团
- * @param {string} identity 身份标识：guest客态 master主态
- */
-const onButtonClick = (status,identity)=&gt;{
-  if(identity == &apos;guest&apos;){
-    if(status == 1){
-      //do sth
-    }else if(status == 2){
-      //do sth
-    }else if(status == 3){
-      //do sth
-    }else if(status == 4){
-      //do sth
-    }else if(status == 5){
-      //do sth
-    }else {
-      //do sth
-    }
-  }else if(identity == &apos;master&apos;) {
-    if(status == 1){
-      //do sth
-    }else if(status == 2){
-      //do sth
-    }else if(status == 3){
-      //do sth
-    }else if(status == 4){
-      //do sth
-    }else if(status == 5){
-      //do sth
-    }else {
-      //do sth
-    }
-  }
-}
-</code></pre><p>从上面的例子我们可以看到，当你的逻辑升级为二元判断时，你的判断量会加倍，你的代码量也会加倍，这时怎么写更清爽呢？</p>
-<pre><code>const actions = new Map([
-  [&apos;guest_1&apos;, ()=&gt;{/*do sth*/}],
-  [&apos;guest_2&apos;, ()=&gt;{/*do sth*/}],
-  [&apos;guest_3&apos;, ()=&gt;{/*do sth*/}],
-  [&apos;guest_4&apos;, ()=&gt;{/*do sth*/}],
-  [&apos;guest_5&apos;, ()=&gt;{/*do sth*/}],
-  [&apos;master_1&apos;, ()=&gt;{/*do sth*/}],
-  [&apos;master_2&apos;, ()=&gt;{/*do sth*/}],
-  [&apos;master_3&apos;, ()=&gt;{/*do sth*/}],
-  [&apos;master_4&apos;, ()=&gt;{/*do sth*/}],
-  [&apos;master_5&apos;, ()=&gt;{/*do sth*/}],
-  [&apos;default&apos;, ()=&gt;{/*do sth*/}],
-])
-
-/**
- * 按钮点击事件
- * @param {string} identity 身份标识：guest客态 master主态
- * @param {number} status 活动状态：1 开团进行中 2 开团失败 3 开团成功 4 商品售罄 5 有库存未开团
- */
-const onButtonClick = (identity,status)=&gt;{
-  let action = actions.get(`${identity}_${status}`) || actions.get(&apos;default&apos;)
-  action.call(this)
-}
-</code></pre><p>上述代码核心逻辑是：把两个条件拼接成字符串，并通过以条件拼接字符串作为键，以处理函数作为值的Map对象进行查找并执行，这种写法在多元条件判断时候尤其好用。</p>
-<p>当然上述代码如果用Object对象来实现也是类似的：</p>
-<pre><code>const actions = {
-  &apos;guest_1&apos;:()=&gt;{/*do sth*/},
-  &apos;guest_2&apos;:()=&gt;{/*do sth*/},
-  //....
-}
-
-const onButtonClick = (identity,status)=&gt;{
-  let action = actions[`${identity}_${status}`] || actions[&apos;default&apos;]
-  action.call(this)
-}
-</code></pre><p>如果觉得把查询条件拼成字符串有点别扭，那还有一种方案，就是用Map对象，以Object对象作为key：</p>
-<pre><code>const actions = new Map([
-  [{identity:&apos;guest&apos;,status:1},()=&gt;{/*do sth*/}],
-  [{identity:&apos;guest&apos;,status:2},()=&gt;{/*do sth*/}],
-  //...
-])
-
-const onButtonClick = (identity,status)=&gt;{
-  let action = [...actions].filter(([key,value])=&gt;(key.identity == identity &amp;&amp; key.status == status))
-  action.forEach(([key,value])=&gt;value.call(this))
-}
-</code></pre><p>这里也看出来Map与Object的区别，Map可以用任何类型的数据作为key。</p>
-<p>我们现在再将难度升级一点点，假如guest情况下，status1-4的处理逻辑都一样怎么办，最差的情况是这样：</p>
-<pre><code>const actions = new Map([
-  [{identity:&apos;guest&apos;,status:1},()=&gt;{/* functionA */}],
-  [{identity:&apos;guest&apos;,status:2},()=&gt;{/* functionA */}],
-  [{identity:&apos;guest&apos;,status:3},()=&gt;{/* functionA */}],
-  [{identity:&apos;guest&apos;,status:4},()=&gt;{/* functionA */}],
-  [{identity:&apos;guest&apos;,status:5},()=&gt;{/* functionB */}],
-  //...
-])
-</code></pre><p>好一点的写法是将处理逻辑函数进行缓存：</p>
-<pre><code>const actions = ()=&gt;{
-  const functionA = ()=&gt;{/*do sth*/}
-  const functionB = ()=&gt;{/*do sth*/}
-  return new Map([
-    [{identity:&apos;guest&apos;,status:1},functionA],
-    [{identity:&apos;guest&apos;,status:2},functionA],
-    [{identity:&apos;guest&apos;,status:3},functionA],
-    [{identity:&apos;guest&apos;,status:4},functionA],
-    [{identity:&apos;guest&apos;,status:5},functionB],
-    //...
-  ])
-}
-
-const onButtonClick = (identity,status)=&gt;{
-  let action = [...actions()].filter(([key,value])=&gt;(key.identity == identity &amp;&amp; key.status == status))
-  action.forEach(([key,value])=&gt;value.call(this))
-}
-</code></pre><p>这样写已经能满足日常需求了，但认真一点讲，上面重写了4次functionA还是有点不爽，假如判断条件变得特别复杂，比如identity有3种状态，status有10种状态，那你需要定义30条处理逻辑，而往往这些逻辑里面很多都是相同的，那可以这样实现:</p>
-<pre><code>const actions = ()=&gt;{
-  const functionA = ()=&gt;{/*do sth*/}
-  const functionB = ()=&gt;{/*do sth*/}
-  return new Map([
-    [/^guest_[1-4]$/,functionA],
-    [/^guest_5$/,functionB],
-    //...
-  ])
-}
-
-const onButtonClick = (identity,status)=&gt;{
-  let action = [...actions()].filter(([key,value])=&gt;(key.test(`${identity}_${status}`)))
-  action.forEach(([key,value])=&gt;value.call(this))
-}
-</code></pre><p>这里Map的优势更加凸显，可以用正则类型作为key了，这样就有了无限可能，假如需求变成，凡是guest情况都要发送一个日志埋点，不同status情况也需要单独的逻辑处理，那我们可以这样写:</p>
-<pre><code>const actions = ()=&gt;{
-  const functionA = ()=&gt;{/*do sth*/}
-  const functionB = ()=&gt;{/*do sth*/}
-  const functionC = ()=&gt;{/*send log*/}
-  return new Map([
-    [/^guest_[1-4]$/,functionA],
-    [/^guest_5$/,functionB],
-    [/^guest_.*$/,functionC],
-    //...
-  ])
-}
-
-const onButtonClick = (identity,status)=&gt;{
-  let action = [...actions()].filter(([key,value])=&gt;(key.test(`${identity}_${status}`)))
-  action.forEach(([key,value])=&gt;value.call(this))
-}
-</code></pre><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ol>
-<li>if/else</li>
-<li>switch</li>
-<li>一元判断时：存到Object里</li>
-<li>一元判断时：存到Map里</li>
-<li>多元判断时：将condition拼接成字符串存到Object里</li>
-<li>多元判断时：将condition拼接成字符串存到Map里</li>
-<li>多元判断时：将condition存为Object存到Map里</li>
-<li>多元判断时：将condition写作正则存到Map里</li>
-</ol>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-    
-
-    
-    <div>
-      
-    </div>
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -3355,7 +3598,7 @@ const onButtonClick = (identity,status)=&gt;{
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">61</span>
+                    <span class="site-state-item-count">70</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -3469,7 +3712,9 @@ const onButtonClick = (identity,status)=&gt;{
                     
                       
                     
-                    <span class="site-state-item-count">30</span>
+                      
+                    
+                    <span class="site-state-item-count">31</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

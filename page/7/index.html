@@ -300,6 +300,2052 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/05/ES6数据方法/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="厚朴酚">
+      <meta itemprop="description" content="学习笔记">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="厚朴酚">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/05/ES6数据方法/" itemprop="url">
+                  ES6数据方法
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-11-05 10:42:07 / 修改时间：10:55:46" itemprop="dateCreated datePublished" datetime="2018-11-05T10:42:07+08:00">2018-11-05</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="ES6常用数据方法总结"><a href="#ES6常用数据方法总结" class="headerlink" title="ES6常用数据方法总结"></a>ES6常用数据方法总结</h3><p>参数  index, array可以忽略</p>
+<h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><pre><code>map():返回一个新的Array，每个元素为调用func的结果 
+filter():返回一个符合func条件的元素数组 
+some():返回一个boolean，判断是否有元素是否符合func条件 
+every():返回一个boolean，判断每个元素是否符合func条件 
+forEach():没有返回值，只是针对每个元素调用func 
+reduce():有返回值，重点是计算数组，返回一个值
+
+1、map速度比forEach快 
+2、map会返回一个新数组，不对原数组产生影响,foreach不会产生新数组， 
+3、map因为返回数组所以可以链式操作，forEach不能
+</code></pre><h4 id="forEach"><a href="#forEach" class="headerlink" title="forEach()"></a>forEach()</h4><pre><code>let array = [1,2,3,4];
+array.forEach((item, index, array) =&gt; {
+　　console.log(item);
+}); //1,2,3,4
+</code></pre><p>备注:forEach会遍历数组, 没有返回值, 不允许在循环体内写return, 不会改变原来数组的内容.</p>
+<p>备注:map 遍历数组, 会返回一个新数组, 不会改变原来数组里的内容</p>
+<h4 id="map"><a href="#map" class="headerlink" title="map()"></a>map()</h4><pre><code>let array = [1, 2, 3, 4];
+let temp = array.map((item, index, array) =&gt; {
+    return item * 10;
+});
+console.log(temp);　　//  [10, 20, 30, 40];
+console.log(array);　　// [1, 2, 3, 4]
+</code></pre><h4 id="filter"><a href="#filter" class="headerlink" title="filter()"></a>filter()</h4><pre><code>let array = [1, 2, 3, 4];
+let temp = array.filter((item, index, array) =&gt; {
+　　return item &gt;  3;
+});
+console.log(temp);　　// [4]
+console.log(array);　　// [1, 2, 3, 4]
+</code></pre><p>备注: filter 会过滤掉数组中不满足条件的元素, 把满足条件的元素放到一个新数组中, 不改变原数组</p>
+<h4 id="reduce"><a href="#reduce" class="headerlink" title="reduce()"></a>reduce()</h4><pre><code>let array = [1, 2, 3, 4];
+let temp = array.reduce((x, y) =&gt; {
+　　console.log(&quot;x&quot;: x);
+　　console.log(&quot;y&quot;: y);
+　　return x + y;
+});
+console.log(temp);　　// 10
+console.log(array);　　// [1, 2, 3, 4]
+</code></pre><p>备注:x 是上一次计算过的值, 第一次循环的时候是数组中的第1个元素<br>y 是数组中的每个元素, 第一次循环的时候是数组的第2个元素</p>
+<h4 id="every"><a href="#every" class="headerlink" title="every()"></a>every()</h4><pre><code>let array = [1, 2, 3, 4];
+let bo = array.every((item, index, array) =&gt; {
+　　return item &gt; 2;
+});
+console.log(bo);　　　　// false;
+</code></pre><p>备注: every遍历数组, 每一项都是true, 则返回true,只要有一个是false,就返回false</p>
+<h4 id="some"><a href="#some" class="headerlink" title="some()"></a>some()</h4><p>let array = [1, 2, 3, 4];<br>let tmep = array.some((item, index, array) =&gt; {<br>　　return item &gt; 1;<br>});<br>console.log(temp);　　// true</p>
+<p>备注:遍历数组的每一项, 有一个返回true, 就停止循环</p>
+<h4 id="values"><a href="#values" class="headerlink" title="values()"></a>values()</h4><pre><code>let arr=[1,2,234,&apos;sdf&apos;,-2];
+for(let a of arr.values()){
+    console.log(a) //结果：1,2,234,sdf,-2 遍历了数组arr的值
+}
+</code></pre><p>备注:values，对数组项的遍历</p>
+<h4 id="keys"><a href="#keys" class="headerlink" title="keys()"></a>keys()</h4><p>let arr=[1,2,234,’sdf’,-2];<br>for(let a of arr.keys()){<br>    console.log(a) //结果：0,1,2,3,4  遍历了数组arr的索引<br>}</p>
+<p>备注: keys，对数组索引的遍历</p>
+<h4 id="entries"><a href="#entries" class="headerlink" title="entries()"></a>entries()</h4><pre><code>let arr=[&apos;w&apos;,&apos;b&apos;];
+for(let a of arr.entries()){
+    console.log(a) //结果：[0,w],[1,b]
+}
+for(let [i,v] of arr.entries()){
+    console.log(i,v) //结果：0 w,1 b
+}
+</code></pre><p>备注:entries，对数组键值对的遍历。</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+    
+
+    
+    <div>
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/05/ES6在条件语句的优雅应用/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="厚朴酚">
+      <meta itemprop="description" content="学习笔记">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="厚朴酚">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/05/ES6在条件语句的优雅应用/" itemprop="url">
+                  ES6在条件语句的优雅应用
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-11-05 09:55:44 / 修改时间：10:36:17" itemprop="dateCreated datePublished" datetime="2018-11-05T09:55:44+08:00">2018-11-05</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="ES6在条件语句的优雅应用"><a href="#ES6在条件语句的优雅应用" class="headerlink" title="ES6在条件语句的优雅应用"></a>ES6在条件语句的优雅应用</h3><p>在用 JavaScript 工作时，我们经常和条件语句打交道，这里有5条让你写出更好/干净的条件语句的建议。</p>
+<ol>
+<li>多重判断时使用 Array.includes</li>
+<li>更少的嵌套，尽早 return</li>
+<li>使用默认参数和解构</li>
+<li>倾向于遍历对象而不是 Switch 语句</li>
+<li>对所有/部分 判断使用 Array.every &amp; Array.some</li>
+</ol>
+<h4 id="多重判断时使用-Array-includes"><a href="#多重判断时使用-Array-includes" class="headerlink" title="多重判断时使用 Array.includes"></a>多重判断时使用 Array.includes</h4><p>案例:</p>
+<pre><code>// condition
+function test(fruit) {
+  if (fruit == &apos;apple&apos; || fruit == &apos;strawberry&apos;) {
+    console.log(&apos;red&apos;);
+  }
+}
+</code></pre><p>如果我们有更多名字叫 cherry 和 cranberries 的红色水果呢？</p>
+<p>可以用 Array.includes (Array.includes)重写条件语句。</p>
+<pre><code>function test(fruit) {
+  const redFruits = [&apos;apple&apos;, &apos;strawberry&apos;, &apos;cherry&apos;, &apos;cranberries&apos;];
+
+  if (redFruits.includes(fruit)) {
+    console.log(&apos;red&apos;);
+  }
+}
+</code></pre><p>判断条件提取到一个数组。这样一来，代码看起来更整洁。</p>
+<h4 id="更少的嵌套，尽早-Return"><a href="#更少的嵌套，尽早-Return" class="headerlink" title="更少的嵌套，尽早 Return"></a>更少的嵌套，尽早 Return</h4><p>扩展上一个例子让它包含两个条件</p>
+<ol>
+<li>如果没有传入参数,抛出错误</li>
+<li><p>接受quantily参数,在quantily大于10 的时候打印出来</p>
+<p> function test(fruit, quantity) {<br>   const redFruits = [‘apple’, ‘strawberry’, ‘cherry’, ‘cranberries’];</p>
+<p>   // 条件 1: fruit 必须有值<br>   if (fruit) {</p>
+<pre><code>// 条件 2: 必须是red的
+if (redFruits.includes(fruit)) {
+  console.log(&apos;red&apos;);
+
+  // 条件 3: quantity大于10
+  if (quantity &gt; 10) {
+    console.log(&apos;big quantity&apos;);
+  }
+}
+</code></pre><p>   } else {</p>
+<pre><code>throw new Error(&apos;No fruit!&apos;);
+</code></pre><p>   }<br> }</p>
+<p> // 测试结果<br> test(null); // error: No fruits<br> test(‘apple’); // print: red<br> test(‘apple’, 20); // print: red, big quantity</p>
+</li>
+</ol>
+<p>在上面的代码, 我们有:</p>
+<ol>
+<li>1个 if/else 语句筛选出无效的语句</li>
+<li>层if嵌套语句 (条件 1, 2 &amp; 3)</li>
+</ol>
+<p>/_ 当发现无效语句时，尽早Return _/</p>
+<pre><code>function test(fruit, quantity) {
+  const redFruits = [&apos;apple&apos;, &apos;strawberry&apos;, &apos;cherry&apos;, &apos;cranberries&apos;];
+
+  // 条件 1: 尽早抛出错误
+  if (!fruit) throw new Error(&apos;No fruit!&apos;);
+
+  // 条件 2: 必须是红色的
+  if (redFruits.includes(fruit)) {
+    console.log(&apos;red&apos;);
+
+    // 条件 3: 必须是大质量的
+    if (quantity &gt; 10) {
+      console.log(&apos;big quantity&apos;);
+    }
+  }
+}
+</code></pre><p>我们可以通过 倒置判断条件 &amp; 尽早return 进一步减少if嵌套。看下面我们是怎么处理判断 条件2 的:</p>
+<pre><code>/_ 当发现无效语句时，尽早Return _/
+
+function test(fruit, quantity) {
+  const redFruits = [&apos;apple&apos;, &apos;strawberry&apos;, &apos;cherry&apos;, &apos;cranberries&apos;];
+
+  // 条件 1: 尽早抛出错误
+  if (!fruit) throw new Error(&apos;No fruit!&apos;);
+  // 条件 2: 当水果不是红色时停止继续执行
+  if (!redFruits.includes(fruit)) return; 
+
+  console.log(&apos;red&apos;);
+
+  // 条件 3: 必须是大质量的
+  if (quantity &gt; 10) {
+    console.log(&apos;big quantity&apos;);
+  }
+}
+</code></pre><h4 id="使用默认参数和解构"><a href="#使用默认参数和解构" class="headerlink" title="使用默认参数和解构"></a>使用默认参数和解构</h4><pre><code>function test(fruit, quantity) {
+  if (!fruit) return;
+  // 如果 quantity 参数没有传入，设置默认值为 1
+  const q = quantity || 1; 
+
+  console.log(`We have ${q} ${fruit}!`);
+}
+
+//test results
+test(&apos;banana&apos;); // We have 1 banana!
+test(&apos;apple&apos;, 2); // We have 2 apple!
+</code></pre><p>实际上，我们可以通过声明 默认函数参数 来消除变量 q。</p>
+<pre><code>function test(fruit, quantity = 1) {
+  // 如果 quantity 参数没有传入，设置默认值为 1
+  if (!fruit) return;
+  console.log(`We have ${quantity} ${fruit}!`);
+}
+
+//test results
+test(&apos;banana&apos;); // We have 1 banana!
+test(&apos;apple&apos;, 2); // We have 2 apple!
+</code></pre><p>如果fruit是一个object会怎么样？我们能分配一个默认参数吗?</p>
+<pre><code>function test(fruit) { 
+  // 当值存在时打印 fruit 的值
+  if (fruit &amp;&amp; fruit.name)  {
+    console.log (fruit.name);
+  } else {
+    console.log(&apos;unknown&apos;);
+  }
+}
+
+//test results
+test(undefined); // unknown
+test({ }); // unknown
+test({ name: &apos;apple&apos;, color: &apos;red&apos; }); // apple
+</code></pre><p>看上面这个例子，我们想打印 fruit 对象中可能存在的 name 属性。否则我们将打印unknown。我们可以通过默认参数以及解构从而避免判断条件 fruit &amp;&amp; fruit.name</p>
+<p>// 解构 - 仅仅获取 name 属性<br>// 为其赋默认值为空对象<br>function test({name} = {}) {<br>  console.log (name || ‘unknown’);<br>}</p>
+<p>// test results<br>test(undefined); // unknown<br>test({ }); // unknown<br>test({ name: ‘apple’, color: ‘red’ }); // apple</p>
+<p>由于我们只需要 name 属性，我们可以用 {name} 解构出参数，然后我们就能使用变量 name 代替 fruit.name。</p>
+<p>我们也需要声明空对象 {} 作为默认值。如果我们不这么做，当执行 test(undefined) 时，你将得到一个无法对 undefined 或 null 解构的的错误。因为在 undefined 中没有 name 属性。</p>
+<h4 id="倾向于对象遍历而不是Switch语句"><a href="#倾向于对象遍历而不是Switch语句" class="headerlink" title="倾向于对象遍历而不是Switch语句"></a>倾向于对象遍历而不是Switch语句</h4><p>让我们看下面这个例子，我们想根据 color 打印出水果:</p>
+<pre><code>function test(color) {
+  // 使用条件语句来寻找对应颜色的水果
+  switch (color) {
+    case &apos;red&apos;:
+      return [&apos;apple&apos;, &apos;strawberry&apos;];
+    case &apos;yellow&apos;:
+      return [&apos;banana&apos;, &apos;pineapple&apos;];
+    case &apos;purple&apos;:
+      return [&apos;grape&apos;, &apos;plum&apos;];
+    default:
+      return [];
+  }
+}
+
+// test results
+test(null); // []
+test(&apos;yellow&apos;); // [&apos;banana&apos;, &apos;pineapple&apos;]
+</code></pre><p>上面的代码看起来没有错误，但是我找到了一些累赘。用对象遍历实现相同的结果，语法看起来更简洁:</p>
+<pre><code>const fruitColor = {
+  red: [&apos;apple&apos;, &apos;strawberry&apos;],
+  yellow: [&apos;banana&apos;, &apos;pineapple&apos;],
+  purple: [&apos;grape&apos;, &apos;plum&apos;]
+};
+
+function test(color) {
+  return fruitColor[color] || [];
+}
+</code></pre><p>或者你也可以使用 Map实现相同的结果:</p>
+<pre><code> const fruitColor = new Map()
+    .set(&apos;red&apos;, [&apos;apple&apos;, &apos;strawberry&apos;])
+    .set(&apos;yellow&apos;, [&apos;banana&apos;, &apos;pineapple&apos;])
+    .set(&apos;purple&apos;, [&apos;grape&apos;, &apos;plum&apos;]);
+
+function test(color) {
+  return fruitColor.get(color) || [];
+}
+</code></pre><p>Map是一种在 ES2015 规范之后实现的对象类型，允许你存储 key 和 value 的值。</p>
+<h4 id="重构语法"><a href="#重构语法" class="headerlink" title="重构语法"></a>重构语法</h4><p>在上面的例子，我们能够用Array.filter 重构我们的代码，实现相同的效果。</p>
+<pre><code>const fruits = [
+    { name: &apos;apple&apos;, color: &apos;red&apos; }, 
+    { name: &apos;strawberry&apos;, color: &apos;red&apos; }, 
+    { name: &apos;banana&apos;, color: &apos;yellow&apos; }, 
+    { name: &apos;pineapple&apos;, color: &apos;yellow&apos; }, 
+    { name: &apos;grape&apos;, color: &apos;purple&apos; }, 
+    { name: &apos;plum&apos;, color: &apos;purple&apos; }
+];
+
+function test(color) {
+  return fruits.filter(f =&gt; f.color == color);
+}
+</code></pre><h4 id="对所有-部分-判断使用Array-every-amp-Array-some"><a href="#对所有-部分-判断使用Array-every-amp-Array-some" class="headerlink" title="对所有/部分 判断使用Array.every &amp; Array.some"></a>对所有/部分 判断使用Array.every &amp; Array.some</h4><p>这最后一个建议更多是关于利用 JavaScript Array 的内置方法来减少代码行数。看下面的代码，我们想要检查是否所有水果都是红色:</p>
+<p>const fruits = [<br>    { name: ‘apple’, color: ‘red’ },<br>    { name: ‘banana’, color: ‘yellow’ },<br>    { name: ‘grape’, color: ‘purple’ }<br>  ];</p>
+<p>function test() {<br>  let isAllRed = true;</p>
+<p>  // 条件：所有水果都是红色<br>  for (let f of fruits) {<br>    if (!isAllRed) break;<br>    isAllRed = (f.color == ‘red’);<br>  }</p>
+<p>  console.log(isAllRed); // false<br>}</p>
+<p>代码那么长！我们可以通过 Array.every减少代码行数:</p>
+<p>const fruits = [<br>    { name: ‘apple’, color: ‘red’ },<br>    { name: ‘banana’, color: ‘yellow’ },<br>    { name: ‘grape’, color: ‘purple’ }<br>  ];</p>
+<p>function test() {<br>  const isAllRed = fruits.every(f =&gt; f.color == ‘red’);</p>
+<p>  console.log(isAllRed); // false<br>}</p>
+<p>现在更简洁了，不是吗？相同的方式，如果我们想测试是否存在红色的水果，我们可以使用 Array.some 一行代码实现。</p>
+<p>const fruits = [<br>    { name: ‘apple’, color: ‘red’ },<br>    { name: ‘banana’, color: ‘yellow’ },<br>    { name: ‘grape’, color: ‘purple’ }<br>];</p>
+<p>function test() {<br>  // 条件：任何一个水果是红色<br>  const isAnyRed = fruits.some(f =&gt; f.color == ‘red’);</p>
+<p>  console.log(isAnyRed); // true<br>}</p>
+<h4 id="本文链接地址"><a href="#本文链接地址" class="headerlink" title="本文链接地址:"></a>本文链接地址:</h4><p><a href="https://juejin.im/post/5bdef288e51d450d810a89c6" target="_blank" rel="noopener">https://juejin.im/post/5bdef288e51d450d810a89c6</a></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+    
+
+    
+    <div>
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/04/javascript逻辑运算符/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="厚朴酚">
+      <meta itemprop="description" content="学习笔记">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="厚朴酚">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/04/javascript逻辑运算符/" itemprop="url">
+                  javascript逻辑运算符
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-11-04 15:41:17 / 修改时间：15:49:56" itemprop="dateCreated datePublished" datetime="2018-11-04T15:41:17+08:00">2018-11-04</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="javascript逻辑运算符"><a href="#javascript逻辑运算符" class="headerlink" title="javascript逻辑运算符"></a>javascript逻辑运算符</h3><h4 id="1-逻辑或"><a href="#1-逻辑或" class="headerlink" title="1:逻辑或(||)"></a>1:逻辑或(||)</h4><h5 id="示例代码1"><a href="#示例代码1" class="headerlink" title="示例代码1"></a>示例代码1</h5><pre><code>console.log(0 || &apos;我是string，boolean值为true&apos;);          // 返回字符串
+console.log(NaN || &apos;我是string，boolean值为true&apos;);        // 返回字符串
+console.log(&apos;&apos; || &apos;我是string，boolean值为true&apos;);         // 返回字符串
+console.log(null || &apos;我是string，boolean值为true&apos;);       // 返回字符串
+console.log(undefined || &apos;我是string，boolean值为true&apos;);  // 返回字符串
+</code></pre><p>我们知道 0、NaN、’ ‘、null、undefined转换为boolean值都为flase，若第一个值为false，第二个值为true，则返回第二个值。</p>
+<h5 id="示例代码2"><a href="#示例代码2" class="headerlink" title="示例代码2"></a>示例代码2</h5><pre><code>console.log(0 || &apos;NaN&apos;);           // 返回 NaN
+console.log(NaN || &apos;&apos;);            // 返回 &apos;&apos; 空字符串
+console.log(&apos;&apos; || null);           // 返回 null
+console.log(null || &apos;undefined&apos;);  // 返回 undefined
+console.log(undefined || 0);       // 返回 0
+</code></pre><p>结合上面两个例子我们可以发现，<strong> 只要第一个值的布尔值为false，那么永远返回第二个值，</strong>不管第二个值的布尔值是true还是false。</p>
+<h5 id="示例代码3"><a href="#示例代码3" class="headerlink" title="示例代码3"></a>示例代码3</h5><pre><code>var obj = {};
+console.log(obj || NaN);      // 返回 obj
+console.log(obj || number);   // 返回 obj
+console.log( 0 || number);    // 报错，number未定义
+</code></pre><p>通过这个例子可以发现逻辑或属于短路操作，只要第一个值的布尔值为true，不再操作第二个值，直接返回第一个值，number变量未定义也不会报错。</p>
+<h4 id="2逻辑与-amp-amp"><a href="#2逻辑与-amp-amp" class="headerlink" title="2逻辑与(&amp;&amp;)"></a>2逻辑与(&amp;&amp;)</h4><p>逻辑与 操作符在JavaScript中主要用在条件判断语句中，极少情况下出现在赋值语句中，特性和 逻辑或 很相似。</p>
+<h5 id="示例1"><a href="#示例1" class="headerlink" title="示例1"></a>示例1</h5><pre><code>var obj = {};
+console.log(0 &amp;&amp; obj);               // 返回 0
+console.log(NaN &amp;&amp; obj);             // 返回 NaN
+console.log(&apos;&apos; &amp;&amp; obj);              // 返回 &apos;&apos; 空字符串
+console.log(null &amp;&amp; obj);            // 返回 null
+console.log(undefined &amp;&amp; obj);       // 返回 undefined
+// number 未定义
+console.log(undefined &amp;&amp; number);    // 返回 undefined 不会报错
+</code></pre><p>通过上面的代码发现 逻辑与 与 逻辑或 很近似，逻辑与 也属于短路操作；当第一个值的布尔值为false，它不再操作第二个值，同时直接返回第一个值。</p>
+<h5 id="示例2"><a href="#示例2" class="headerlink" title="示例2"></a>示例2</h5><pre><code>var obj = {};
+var str = &apos;Riny&apos;;
+
+/* 当第一个值的布尔值为true 返回第二个值 */
+console.log(obj &amp;&amp; 0);          // 返回 0
+console.log(obj &amp;&amp; NaN);        // 返回 NaN
+console.log(obj &amp;&amp; &apos;&apos;);         // 返回 &apos;&apos; 空字符串
+console.log(obj &amp;&amp; undefined);  // 返回 undefined
+console.log(obj &amp;&amp; null);       // 返回 null
+
+/* 当第一个值的布尔值为true 返回第二个值 */
+console.log(obj &amp;&amp; str);        // 返回 字符串
+</code></pre><p>通过上面比较可以发现，逻辑与 只要第一个值的布尔值为true，永远返回第二个值。</p>
+<h4 id="3总结"><a href="#3总结" class="headerlink" title="3总结"></a>3总结</h4><h5 id="逻辑或（-）总结："><a href="#逻辑或（-）总结：" class="headerlink" title="逻辑或（||）总结："></a>逻辑或（||）总结：</h5><p>只要第一个值的布尔值为false，那么永远返回第二个值。<br>逻辑或属于短路操作，第一个值为true时，不再操作第二个值，且返回第一个值。</p>
+<h5 id="逻辑与（-amp-amp-）总结："><a href="#逻辑与（-amp-amp-）总结：" class="headerlink" title="逻辑与（&amp;&amp;）总结："></a>逻辑与（&amp;&amp;）总结：</h5><p>只要第一个值的布尔值为true，那么永远返回第二个值。<br>逻辑与属于短路操作，第一个值为false时，不再操作第二个值，且返回第一个值。</p>
+<p>链接：<a href="https://www.jianshu.com/p/07a1cabe6484" target="_blank" rel="noopener">https://www.jianshu.com/p/07a1cabe6484</a></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+    
+
+    
+    <div>
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/02/vuejs路由显示控制/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="厚朴酚">
+      <meta itemprop="description" content="学习笔记">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="厚朴酚">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/02/vuejs路由显示控制/" itemprop="url">
+                  vuejs路由在菜单是否显示控制方法
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-11-02 15:09:45 / 修改时间：15:15:07" itemprop="dateCreated datePublished" datetime="2018-11-02T15:09:45+08:00">2018-11-02</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/vue/" itemprop="url" rel="index"><span itemprop="name">vue</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="路由显示控制"><a href="#路由显示控制" class="headerlink" title="路由显示控制"></a>路由显示控制</h3><h4 id="路由列表"><a href="#路由列表" class="headerlink" title="路由列表"></a>路由列表</h4><p>`</p>
+<pre><code>export const routerMap = [
+    {
+        path: &apos;/&apos;,
+        name: &apos;Main&apos;,
+        component: ()=&gt;import(&apos;@/view/main/main&apos;),
+        meta: {
+          title: &apos;客户管理系统&apos;,
+          icon:&apos;md-apps&apos;
+        },
+        children: [
+          {
+            path: &apos;/sys/enum/list&apos;,
+            name: &apos;sysEnumList&apos;,
+            component: ()=&gt;import(&apos;@/view/sys/enum/list&apos;),
+            meta: {
+              title: &apos;添加客户&apos;,
+              icon:&apos;md-apps&apos;,
+              show:true
+            }
+          },
+          {
+            path: &apos;/sys/enum/edit&apos;,
+            name: &apos;sysEnumEdit&apos;,
+            component: ()=&gt;import(&apos;@/view/sys/enum/edit&apos;),
+            meta: {
+              title: &apos;枚举数据编辑&apos;,
+              icon:&apos;md-apps&apos;,
+              show:true
+            }
+          },
+          {
+            path: &apos;/sys/func/list&apos;,
+            name: &apos;sysFuncList&apos;,
+            component: ()=&gt;import(&apos;@/view/sys/func/list&apos;),
+            meta: {
+              title: &apos;功能管理&apos;,
+              icon:&apos;md-apps&apos;,
+              show:true
+            }
+          }
+        ]
+      },
+      {
+        path:&apos;/menu&apos;,
+        name:&apos;menu&apos;,
+        component:()=&gt;import(&apos;@/view/main/main&apos;),
+        meta:{
+          title:&quot;菜单管理&quot;,
+          icon:&quot;md-apps&quot;,
+        },
+        children:[
+           {
+              path: &apos;list&apos;,
+              name: &apos;list&apos;,
+              component: ()=&gt;import(&apos;@/view/pages/list&apos;),
+              meta: {
+                title: &apos;列表管理&apos;,
+                icon:&apos;md-apps&apos;,
+                show:true
+              }
+           },
+           {
+            path: &apos;add&apos;,
+            name: &apos;add&apos;,
+            component: ()=&gt;import(&apos;@/view/pages/add&apos;),
+            meta: {
+              title: &apos;添加管理&apos;,
+              icon:&apos;md-apps&apos;,
+              show:false
+            }
+         }
+        ]
+      },
+]
+`
+</code></pre><h4 id="配置页面显示控制列表"><a href="#配置页面显示控制列表" class="headerlink" title="配置页面显示控制列表"></a>配置页面显示控制列表</h4><pre><code>const rules = {  
+        Main:true,
+        sysEnumList:true,
+        sysEnumEdit:true,
+        sysFuncList:true,
+        menu:true,
+        list:true,
+        add:false,
+}
+</code></pre><h4 id="路由过滤方法"><a href="#路由过滤方法" class="headerlink" title="路由过滤方法"></a>路由过滤方法</h4><pre><code>export const getAccessRouterList = (route,rule) =&gt; {
+    return route.filter(item =&gt; {
+        if (rule[item.name]) {
+            if (item.children) item.children = getAccessRouterList(item.children, rule)
+            return true
+        } else return false
+    })
+}
+</code></pre>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+    
+
+    
+    <div>
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/31/迭代器模式/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="厚朴酚">
+      <meta itemprop="description" content="学习笔记">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="厚朴酚">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/31/迭代器模式/" itemprop="url">
+                  迭代器模式
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-10-31 18:14:33 / 修改时间：19:58:28" itemprop="dateCreated datePublished" datetime="2018-10-31T18:14:33+08:00">2018-10-31</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/设计模式/" itemprop="url" rel="index"><span itemprop="name">设计模式</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="迭代器模式"><a href="#迭代器模式" class="headerlink" title="迭代器模式"></a>迭代器模式</h2><h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><ol>
+<li>顺序访问一个集合</li>
+<li>使用者无需知道集合的内部结构(封装)</li>
+</ol>
+<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+    
+
+    
+    <div>
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/30/适配器模式/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="厚朴酚">
+      <meta itemprop="description" content="学习笔记">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="厚朴酚">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/30/适配器模式/" itemprop="url">
+                  适配器模式
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-10-30 18:24:01 / 修改时间：19:17:44" itemprop="dateCreated datePublished" datetime="2018-10-30T18:24:01+08:00">2018-10-30</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/设计模式/" itemprop="url" rel="index"><span itemprop="name">设计模式</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="适配器模式"><a href="#适配器模式" class="headerlink" title="适配器模式"></a>适配器模式</h2><h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><ol>
+<li>旧接口格式和使用者不兼容</li>
+<li>中间加一个适配转换接口</li>
+</ol>
+<h3 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h3><pre><code>class Adaptee {
+    specificRequest(){
+        return &apos;德国标准插头&apos;
+    }
+}
+
+class Target {
+    constructor(){
+        this.adaptee = new Adaptee()
+    }
+    request(){
+        let info = this.adaptee.specificRequest()
+        return `${info}-转换器-中国标准插头`
+    }
+}
+
+let target = new Target()
+let res = target.request()
+console.log(res)
+</code></pre><h3 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h3><ol>
+<li><p>封装旧接口</p>
+<pre><code>ajax({
+url:&apos;/getDate&apos;,
+type:&apos;Post&apos;,
+dataTypes:&apos;json&apos;,
+data:{
+id:123
+}
+}).done(function(){})
+
+//但因为历史原因,代码全是:
+// $.ajax({...})
+//做一层适配器
+var  $ = {
+ajax:function(options){
+return ajax(options)
+}
+}
+</code></pre></li>
+<li><p>vue computed</p>
+</li>
+</ol>
+<p>computed:{}就是一种适配器</p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+    
+
+    
+    <div>
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/30/策略模式/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="厚朴酚">
+      <meta itemprop="description" content="学习笔记">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="厚朴酚">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/30/策略模式/" itemprop="url">
+                  策略模式
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-10-30 14:56:47 / 修改时间：15:02:50" itemprop="dateCreated datePublished" datetime="2018-10-30T14:56:47+08:00">2018-10-30</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/设计模式/" itemprop="url" rel="index"><span itemprop="name">设计模式</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="策略模式"><a href="#策略模式" class="headerlink" title="策略模式"></a>策略模式</h2><p>定义的一组算法封装起来,使其相互之间可以替换,不会随客服端的变化而变化</p>
+<h3 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h3><ol>
+<li>jquery的动画</li>
+<li>表单验证</li>
+<li>不同类别的奖金额度等等</li>
+</ol>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><pre><code>let inputStrategy = function(){
+let strategy = {
+notNull: function(value) {
+return /\s+/.test(value) ? &apos;请输入内容&apos; : &apos;&apos;
+},
+number : function(value){
+return /^[0-9]+(\.[0-9]+)?$/.test(value) ? &apos;&apos; : &apos;请输入数字&apos;
+},
+phone:function(value){
+return /^\d{3}\-d{8}$|^\d{4}\-d{7}$/.test(value) ? &apos; &apos; : 请输入正确的电话号码格式,如010-12345678
+}
+}
+return {
+//验证接口type算法value表单值
+check:function(type,value) {
+value = value.replace(/^\s+|\s+$/g,&apos;&apos;)
+return strategy[type] ? strategy[type](value): &apos;没有该类型的检测方法&apos;
+},
+//添加策略
+addStrategy:function(type,fn){
+strategy[type] = fn
+}
+}
+}() //加括号
+
+//算法扩展
+inputStrategy.addStrategy(&apos;nickname&apos;,function(value){
+return /^[a-zA-Z]\w{3,7}$/.test(value) ? &apos;&apos; : &apos;请输入4-8位昵称&apos;
+})
+
+//验证
+const  value = &apos;123给456&apos;
+console.log(inputStrategy.check(&apos;number&apos;,value))
+</code></pre>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+    
+
+    
+    <div>
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/24/javascript设计模式之工厂模式/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="厚朴酚">
+      <meta itemprop="description" content="学习笔记">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="厚朴酚">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/24/javascript设计模式之工厂模式/" itemprop="url">
+                  javascript设计模式之工厂模式
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-10-24 18:14:34" itemprop="dateCreated datePublished" datetime="2018-10-24T18:14:34+08:00">2018-10-24</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-10-30 14:57:49" itemprop="dateModified" datetime="2018-10-30T14:57:49+08:00">2018-10-30</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/设计模式/" itemprop="url" rel="index"><span itemprop="name">设计模式</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>注意:javascript设计模式跟其他强语音类型稍微有点区别.</p>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><ol>
+<li>将new操作单独封装</li>
+<li>我们通常在遇到new的时候,就可以考虑是否需要使用工厂模式了</li>
+</ol>
+<h2 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h2><ol>
+<li>去买汉堡,直接点餐,取餐,不用自己亲手做</li>
+<li>商店要封装做汉堡的工作,做好直接给买者</li>
+</ol>
+<h2 id="UML类图"><a href="#UML类图" class="headerlink" title="UML类图"></a>UML类图</h2><p> <a href="/img/factory.png"></a></p>
+<h2 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h2><p>`</p>
+<pre><code>class Product {
+
+constructor(name){
+    this.name = name
+}
+init(){
+    console.log(&apos;init方法&apos;)
+}
+fun1(){
+    console.log(&apos;fun1方法&apos;)
+}
+</code></pre><p>}</p>
+<pre><code>class Creator(){
+
+create(name){
+    return new Product(name)
+}
+
+
+
+
+let creator = new Creator()
+
+let p = create.create(&apos;p1&apos;)
+
+p.init()
+
+p.fun1()
+</code></pre><h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><ol>
+<li>jquery实际上就是应用了工厂模式</li>
+<li>React.createElement</li>
+<li>vue异步组件</li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+    
+
+    
+    <div>
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/23/hello-world/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="厚朴酚">
+      <meta itemprop="description" content="学习笔记">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="厚朴酚">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/23/hello-world/" itemprop="url">
+                  开篇:ES6环境搭建
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-10-23 15:44:54 / 修改时间：17:08:13" itemprop="dateCreated datePublished" datetime="2018-10-23T15:44:54+08:00">2018-10-23</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/设计模式/" itemprop="url" rel="index"><span itemprop="name">设计模式</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>  为了更好的利用ES6语法来学习Javascript设计模式,我们通过webpack来搭建一个合适ES6运行的环境.</p>
+<h2 id="搭建开发环境"><a href="#搭建开发环境" class="headerlink" title="搭建开发环境"></a>搭建开发环境</h2><h3 id="1-目录结构"><a href="#1-目录结构" class="headerlink" title="1. 目录结构"></a>1. 目录结构</h3><p>–</p>
+<pre><code>dist    //生成的bundle.js文件
+
+node_modules //依赖模块
+
+src //业务代码
+
+index.html //前端页面展示
+
+//...其余配置
+</code></pre><h3 id="2-package-json"><a href="#2-package-json" class="headerlink" title="2. package.json"></a>2. package.json</h3><p>  `</p>
+<pre><code>{    &quot;name&quot;: &quot;design-pattern-test&quot;,
+
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;description&quot;: &quot;&quot;,
+  &quot;main&quot;: &quot;index.js&quot;,
+  &quot;scripts&quot;: {
+&quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;,
+&quot;dev&quot;: &quot;webpack-dev-server --config ./webpack.config.js --mode development&quot;
+  },
+  &quot;keywords&quot;: [],
+  &quot;author&quot;: &quot;&quot;,
+  &quot;license&quot;: &quot;ISC&quot;,
+  &quot;devDependencies&quot;: {
+&quot;babel-core&quot;: &quot;^6.26.0&quot;,
+&quot;babel-loader&quot;: &quot;^7.1.2&quot;,
+&quot;babel-polyfill&quot;: &quot;^6.26.0&quot;,
+&quot;babel-preset-es2015&quot;: &quot;^6.24.1&quot;,
+&quot;babel-preset-latest&quot;: &quot;^6.24.1&quot;,
+&quot;html-webpack-plugin&quot;: &quot;^3.2.0&quot;,
+&quot;webpack&quot;: &quot;^4.20.2&quot;,
+&quot;webpack-cli&quot;: &quot;^3.1.2&quot;,
+&quot;webpack-dev-server&quot;: &quot;^3.1.9&quot;
+</code></pre><p>  }<br>}</p>
+<p>`</p>
+<h3 id="3-webpack-config-js"><a href="#3-webpack-config-js" class="headerlink" title="3 webpack.config.js"></a>3 webpack.config.js</h3><pre><code>const path = require(&apos;path&apos;);
+const HtmlWebpackPlugin = require(&apos;html-webpack-plugin&apos;)
+module.exports = {
+  entry: &apos;./src/index.js&apos;,
+  output: {
+  path: path.resolve(__dirname, &apos;dist&apos;),
+filename: &apos;bundle.js&apos;
+  },
+  module:{
+rules:[{
+test:/\.js?$/,
+exclude:/(node_modules)/,
+loader:&quot;babel-loader&quot;
+}]
+  },
+  plugins:[
+  new HtmlWebpackPlugin({
+  template:&apos;./index.html&apos;
+  })
+  ],
+  devServer:{
+  contentBase:path.join(__dirname,&apos;./dist&apos;),
+  open:true,
+  port:9000
+  }
+};
+</code></pre>
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+    
+
+    
+    <div>
+      
+    </div>
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/23/vue/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -567,7 +2613,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">61</span>
+                    <span class="site-state-item-count">70</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -681,7 +2727,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">30</span>
+                      
+                    
+                    <span class="site-state-item-count">31</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>

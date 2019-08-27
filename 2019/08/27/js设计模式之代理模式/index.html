@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.4.2" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.2">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.4.2">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.4.2">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.2" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.4.2',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="代理模式什么是代理模式为其他对象提供一种代理以控制对这个对象的访问。在某些情况下，一个对象不适合或者不能直接引用另一个对象，而代理对象可以在客户端和目标对象之间起到中介的作用。 在生活中，代理模式的场景是十分常见的，例如我们现在如果有租房、买房的需求，更多的是去找链家等房屋中介机构，而不是直接寻找想卖房或出租房的人谈。此时，链家起到的作用就是代理的作用。链家和他所代理的客户在租房、售房上提供的方法">
+<meta name="keywords" content="导航,javascript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="js设计模式之代理模式">
+<meta property="og:url" content="http://yoursite.com/2019/08/27/js设计模式之代理模式/index.html">
+<meta property="og:site_name" content="厚朴酚">
+<meta property="og:description" content="代理模式什么是代理模式为其他对象提供一种代理以控制对这个对象的访问。在某些情况下，一个对象不适合或者不能直接引用另一个对象，而代理对象可以在客户端和目标对象之间起到中介的作用。 在生活中，代理模式的场景是十分常见的，例如我们现在如果有租房、买房的需求，更多的是去找链家等房屋中介机构，而不是直接寻找想卖房或出租房的人谈。此时，链家起到的作用就是代理的作用。链家和他所代理的客户在租房、售房上提供的方法">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-08-27T05:02:53.371Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="js设计模式之代理模式">
+<meta name="twitter:description" content="代理模式什么是代理模式为其他对象提供一种代理以控制对这个对象的访问。在某些情况下，一个对象不适合或者不能直接引用另一个对象，而代理对象可以在客户端和目标对象之间起到中介的作用。 在生活中，代理模式的场景是十分常见的，例如我们现在如果有租房、买房的需求，更多的是去找链家等房屋中介机构，而不是直接寻找想卖房或出租房的人谈。此时，链家起到的作用就是代理的作用。链家和他所代理的客户在租房、售房上提供的方法">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/08/27/js设计模式之代理模式/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>js设计模式之代理模式 | 厚朴酚</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">厚朴酚</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">打磨技术!</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/27/js设计模式之代理模式/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="厚朴酚">
+      <meta itemprop="description" content="学习笔记">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="厚朴酚">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">js设计模式之代理模式
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-08-27 13:00:46 / 修改时间：13:02:53" itemprop="dateCreated datePublished" datetime="2019-08-27T13:00:46+08:00">2019-08-27</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/javascript/" itemprop="url" rel="index"><span itemprop="name">javascript</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="代理模式"><a href="#代理模式" class="headerlink" title="代理模式"></a>代理模式</h1><h2 id="什么是代理模式"><a href="#什么是代理模式" class="headerlink" title="什么是代理模式"></a>什么是代理模式</h2><p>为其他对象提供一种代理以控制对这个对象的访问。在某些情况下，一个对象不适合或者不能直接引用另一个对象，而代理对象可以在客户端和目标对象之间起到中介的作用。</p>
+<p>在生活中，代理模式的场景是十分常见的，例如我们现在如果有租房、买房的需求，更多的是去找链家等房屋中介机构，而不是直接寻找想卖房或出租房的人谈。此时，链家起到的作用就是代理的作用。链家和他所代理的客户在租房、售房上提供的方法可能都是一致的（收钱，签合同），可是链家作为代理却提供了访问限制，让我们不能直接访问被代理的客户。</p>
+<p>在面向对象的编程中，代理模式的合理使用能够很好的体现下面两条原则:</p>
+<p>单一职责原则: 面向对象设计中鼓励将不同的职责分布到细粒度的对象中，Proxy 在原对象的基础上进行了功能的衍生而又不影响原对象，符合松耦合高内聚的设计理念。<br>开放-封闭原则：代理可以随时从程序中去掉，而不用对其他部分的代码进行修改，在实际场景中，随着版本的迭代可能会有多种原因不再需要代理，那么就可以容易的将代理对象换成原对象的调用</p>
+<h2 id="2-ES6中的代理模式"><a href="#2-ES6中的代理模式" class="headerlink" title="2 ES6中的代理模式"></a>2 ES6中的代理模式</h2><p>ES6所提供Proxy构造函数能够让我们轻松的使用代理模式:</p>
+<pre><code>var proxy = new Proxy(target, handler);
+</code></pre><p>Proxy构造函数传入两个参数，第一个参数target表示所要代理的对象，第二个参数handler也是一个对象用来设置对所代理的对象的行为。如果想知道Proxy的具体使用方法，可参考阮一峰的《 ECMAScript入门 - Proxy 》。</p>
+<p>本文将利用Proxy实现前端中3种代理模式的使用场景，分别是：缓存代理、验证代理、实现私有属性。</p>
+<h3 id="2-1-缓存代理"><a href="#2-1-缓存代理" class="headerlink" title="2.1 缓存代理"></a>2.1 缓存代理</h3><p>缓存代理可以将一些开销很大的方法的运算结果进行缓存，再次调用该函数时，若参数一致，则可以直接返回缓存中的结果，而不用再重新进行运算。例如在采用后端分页的表格时，每次页码改变时需要重新请求后端数据，我们可以将页码和对应结果进行缓存，当请求同一页时就不用在进行ajax请求而是直接返回缓存中的数据。</p>
+<p>下面我们以没有经过任何优化的计算斐波那契数列的函数来假设为开销很大的方法，这种递归调用在计算40以上的斐波那契项时就能明显的感到延迟感。</p>
+<pre><code>const getFib = (number) =&gt; {
+  if (number &lt;= 2) {
+return 1;
+  } else {
+return getFib(number - 1) + getFib(number - 2);
+  }
+}
+</code></pre><p>现在我们来写一个创建缓存代理的工厂函数:</p>
+<pre><code>const getCacheProxy = (fn, cache = new Map()) =&gt; {
+  return new Proxy(fn, {
+apply(target, context, args) {
+  const argsString = args.join(&apos; &apos;);
+  if (cache.has(argsString)) {
+// 如果有缓存,直接返回缓存数据
+console.log(`输出${args}的缓存结果: ${cache.get(argsString)}`);
+
+return cache.get(argsString);
+  }
+  const result = fn(...args);
+  cache.set(argsString, result);
+
+  return result;
+}
+  })
+}
+
+const getFibProxy = getCacheProxy(getFib);
+getFibProxy(40); // 102334155
+getFibProxy(40); // 输出40的缓存结果: 102334155
+</code></pre><p>当我们第二次调用getFibProxy(40)时，getFib函数并没有被调用，而是直接从cache中返回了之前被缓存好的计算结果。通过加入缓存代理的方式，getFib只需要专注于自己计算斐波那契数列的职责，缓存的功能使由Proxy对象实现的。这实现了我们之前提到的单一职责原则。</p>
+<h3 id="2-2-验证代理"><a href="#2-2-验证代理" class="headerlink" title="2.2 验证代理"></a>2.2 验证代理</h3><p>Proxy构造函数第二个参数中的set方法，可以很方便的验证向一个对象的传值。我们以一个传统的登陆表单举例，该表单对象有两个属性,分别是account和password，每个属性值都有一个简单和其属性名对应的验证方法，验证规则如下：</p>
+<pre><code>// 表单对象
+const userForm = {
+  account: &apos;&apos;,
+  password: &apos;&apos;,
+}
+
+// 验证方法
+const validators = {
+  account(value) {
+// account 只允许为中文
+const re = /^[\u4e00-\u9fa5]+$/;
+return {
+  valid: re.test(value),
+  error: &apos;&quot;account&quot; is only allowed to be Chinese&apos;
+}
+  },
+  password(value) {
+// password 的长度应该大于6个字符
+return {
+  valid: value.length &gt;= 6,
+  error: &apos;&quot;password &quot;should more than 6 character&apos;
+}
+  }
+}
+</code></pre><p>下面我们来使用Proxy实现一个通用的表单验证器</p>
+<pre><code>const getValidateProxy = (target, validators) =&gt; {
+  return new Proxy(target, {
+_validators: validators,
+set(target, prop, value) {
+  if (value === &apos;&apos;) {
+console.error(`&quot;${prop}&quot; is not allowed to be empty`);
+return target[prop] = false;
+  }
+  const validResult = this._validators[prop](value);
+  if(validResult.valid) {
+return Reflect.set(target, prop, value);
+  } else {
+console.error(`${validResult.error}`);
+return target[prop] = false;
+  }
+}
+  })
+}
+</code></pre><p>调用方式如下:</p>
+<pre><code>const userFormProxy = getValidateProxy(userForm, validators);
+userFormProxy.account = &apos;123&apos;; // &quot;account&quot; is only allowed to be Chinese
+userFormProxy.password = &apos;he&apos;; // &quot;password &quot;should more than 6 character
+</code></pre><p>我们调用getValidateProxy方法去生成了一个代理对象userFormProxy，该对象在设置属性的时候会根据validators的验证规则对值进行校验。这我们使用的是console.error抛出错误信息，当然我们也可以加入对DOM的事件来实现页面中的校验提示。</p>
+<h3 id="2-3-实现私有属性"><a href="#2-3-实现私有属性" class="headerlink" title="2.3 实现私有属性"></a>2.3 实现私有属性</h3><p>代理模式还有一个很重要的应用是实现访问限制。总所周知，JavaScript是没有私有属性这一个概念的，通常私有属性的实现是通过函数作用域中变量实现的，虽然实现了私有属性，但对于可读性来说并不好。</p>
+<p>私有属性一般是以<em>下划线开头，通过Proxy构造函数中的第二个参数所提供的方法，我们可以很好的去限制以</em>开头的属性的访问。</p>
+<p>下面我来实现getPrivateProps这个函数，该函数的第一个参数obj是所被代理的对象，第二个参数filterFunc是过滤访问属性的函数，目前该函数的作用是用来限制以_开头的属性访问。</p>
+<pre><code>function getPrivateProps(obj, filterFunc) {
+  return new Proxy(obj, {
+get(obj, prop) {
+  if (!filterFunc(prop)) {
+let value = Reflect.get(obj, prop);
+// 如果是方法, 将this指向修改原对象
+if (typeof value === &apos;function&apos;) {
+  value = value.bind(obj);
+}
+return value;
+  }
+},
+set(obj, prop, value) {
+  if (filterFunc(prop)) {
+throw new TypeError(`Can&apos;t set property &quot;${prop}&quot;`);
+  }
+  return Reflect.set(obj, prop, value);
+},
+has(obj, prop) {
+  return filterFunc(prop) ? false : Reflect.has(obj, prop);
+},
+ownKeys(obj) {
+  return Reflect.ownKeys(obj).filter(prop =&gt; !filterFunc(prop));
+},
+getOwnPropertyDescriptor(obj, prop) {
+  return filterFunc(prop) ? undefined : Reflect.getOwnPropertyDescriptor(obj, prop);
+}
+  });
+}
+
+function propFilter(prop) {
+  return prop.indexOf(&apos;_&apos;) === 0;
+}
+</code></pre><p> 在上面的getPrivateProps方法的内部实现中, Proxy的第二个参数中我们使用了提供的get,set,has,ownKeys, getOwnPropertyDescriptor这些方法，这些方法的作用其实本质都是去最大限度的限制私有属性的访问。其中在get方法的内部，我们有个判断，如果访问的是对象方法使将this指向被代理对象，这是在使用Proxy需要十分注意的，如果不这么做方法内部的this会指向Proxy代理。</p>
+<p>下面来看一下getPrivateProps的调用方法，并验证其代理提供的访问控制的能力。</p>
+<pre><code>const myObj = {
+  public: &apos;hello&apos;,
+  _private: &apos;secret&apos;,
+  method: function () {
+console.log(this._private);
+  }
+},
+
+myProxy = getPrivateProps(myObj, propFilter);
+
+console.log(JSON.stringify(myProxy)); // {&quot;public&quot;:&quot;hello&quot;}
+console.log(myProxy._private); // undefined
+console.log(&apos;_private&apos; in myProxy); // false
+console.log(Object.keys(myProxy)); // [&quot;public&quot;, &quot;method&quot;]
+for (let prop in myProxy) { console.log(prop); }// public  method
+myProxy._private = 1; // Uncaught TypeError: Can&apos;t set property &quot;_private&quot;
+</code></pre><p>3 总结<br>ES6提供的Proxy可以让JS开发者很方便的使用代理模式，听说Vue 3.0的也会使用Proxy去大量改写核心代码。虽然代理模式很方便，但是在业务开发时应该注意使用场景，不需要在编写对象时就去预先猜测是否需要使用代理模式，只有当对象的功能变得复杂或者我们需要进行一定的访问限制时，再考虑使用代理。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+    
+
+    
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-heart"></i>感谢阅读-------------</div>
+    
+</div>
+
+
+      
+    </div>
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>希望您也有收获,我们一起成长!</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="厚朴酚 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="厚朴酚 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/导航/" rel="tag"># 导航</a>
+          
+            <a href="/tags/javascript/" rel="tag"># javascript</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/27/std的bind应用/" rel="next" title="std的bind应用">
+                <i class="fa fa-chevron-left"></i> std的bind应用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/08/27/js建造者模式/" rel="prev" title="js建造者模式">
+                js建造者模式 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="厚朴酚">
+            
+              <p class="site-author-name" itemprop="name">厚朴酚</p>
+              <p class="site-description motion-element" itemprop="description">学习笔记</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">70</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">31</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#代理模式"><span class="nav-number">1.</span> <span class="nav-text">代理模式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是代理模式"><span class="nav-number">1.1.</span> <span class="nav-text">什么是代理模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-ES6中的代理模式"><span class="nav-number">1.2.</span> <span class="nav-text">2 ES6中的代理模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-缓存代理"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1 缓存代理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-验证代理"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2 验证代理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-实现私有属性"><span class="nav-number">1.2.3.</span> <span class="nav-text">2.3 实现私有属性</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">厚朴酚</span>
+
+  
+
+  
+</div>
+
+
+
+<!--
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Gemini</a> v6.4.2</div>
+ -->
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.4.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.4.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.2"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
